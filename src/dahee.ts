@@ -1,1 +1,1 @@
-const zwon = 24;
+const sangee = 24;
