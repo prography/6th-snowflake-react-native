@@ -1,1 +1,1 @@
-const dahee = 24;
+const sangee = 24;
