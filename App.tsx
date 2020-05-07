@@ -6,11 +6,12 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import Home from './src/screens/Home';
-import Product from './src/screens/Product';
+import Product from './src/screens/Product/Product';
 import Laboratory from './src/screens/Laboratory';
 import Clinic from './src/screens/Clinic';
 import Setting from './src/screens/Setting';
 import ProductStack from "./src/screens/navigation/ProductStack";
+import Review from "./src/screens/Product/Review";
 
 const Tab = createBottomTabNavigator();
 
@@ -32,6 +33,7 @@ const App = () => {
             ),
           }}
           />
+        <Tab.Screen name="리뷰" component={Review}/>
         <Tab.Screen name="제품" component={ProductStack}/>
         <Tab.Screen name="연구소" component={Laboratory}/>
         <Tab.Screen name="상담소" component={Clinic}/>
