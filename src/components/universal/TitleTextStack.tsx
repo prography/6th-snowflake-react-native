@@ -32,14 +32,24 @@ const ButtonText = styled.Text`
 `;
 interface Props {
   title: string;
+  button?: string;
+  stack: string;
+  navigation: any;
 }
 
-const TitleText = ({ title }: Props) => {
+const TitleTextStack = ({ title, button, stack, navigation }: Props) => {
   return (
     <Container>
       <Title>{title}</Title>
+      <Button
+        onPress={() => {
+          navigation.navigate(stack);
+        }}
+      >
+        <ButtonText>{button}</ButtonText>
+      </Button>
     </Container>
   );
 };
 
-export default TitleText;
+export default withNavigation(TitleTextStack);

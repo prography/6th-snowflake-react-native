@@ -6,6 +6,7 @@ import TopBar from '../../components/universal/TopBar';
 
 import BoxContainer from '../../components/universal/BoxContainer';
 import TitleText from '../../components/universal/TitleText';
+import TitleTextStack from '../../components/universal/TitleTextStack';
 import TopThree from '../../containers/product/TopThree';
 import Margin from '../../components/universal/Margin';
 
@@ -23,7 +24,11 @@ const Product = () => {
           <Margin />
           <BoxContainer />
           <Margin />
-          <TitleText title={'총점 TOP 3'} />
+          <TitleTextStack
+            title={'총점 TOP 3'}
+            button={'더 보기'}
+            stack={'Ranking'}
+          />
           <TopThree />
           <Margin />
           <TitleText title={'콘돔 핵심 트리오'} />
