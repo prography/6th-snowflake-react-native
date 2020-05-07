@@ -49,35 +49,24 @@ const StarContainer = styled.View`
   justify-content: center;
 `;
 
-const ProductBarSmall = () => {
-  const productList = [
-    { rankNum: 1, company: '바른 생각', title: '퍼펙트핏', star: 4 },
-    { rankNum: 2, company: '이브', title: '울트라씬', star: 3 },
-    { rankNum: 3, company: '듀렉스', title: '필 울트라씬', star: 2 },
-  ];
+const ProductBar = (props) => {
   return (
-    <>
-      {productList.map((product) => {
-        return (
-          <Container>
-            <RankNumContainer>
-              <RankNumText>{product.rankNum}위</RankNumText>
-            </RankNumContainer>
-            <ImageContainer>
-              <Image source={require('../../img/condom.png')} />
-            </ImageContainer>
-            <NameContainer>
-              <CompanyText>{product.company}</CompanyText>
-              <TitleText>{product.title}</TitleText>
-            </NameContainer>
-            <StarContainer>
-              <Text>⭐️⭐️⭐️⭐️⭐️ </Text>
-            </StarContainer>
-          </Container>
-        );
-      })}
-    </>
+    <Container>
+      <RankNumContainer>
+        <RankNumText>{props.product.rankNum}위</RankNumText>
+      </RankNumContainer>
+      <ImageContainer>
+        <Image source={require('../../img/condom.png')} />
+      </ImageContainer>
+      <NameContainer>
+        <CompanyText>{props.product.company}</CompanyText>
+        <TitleText>{props.product.title}</TitleText>
+      </NameContainer>
+      <StarContainer>
+        <Text>⭐️⭐️⭐️⭐️⭐️ </Text>
+      </StarContainer>
+    </Container>
   );
 };
 
-export default ProductBarSmall;
+export default ProductBar;
