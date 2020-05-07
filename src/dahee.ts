@@ -1,1 +1,0 @@
-const sangee = 24;
