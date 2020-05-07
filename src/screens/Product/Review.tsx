@@ -24,8 +24,28 @@ const TitleText = styled.Text`
 
 const ImageContainer = styled.View`
     align-items: center;
-    height: ${sHeight/20}px;
+    height: ${sWidth/2}px;
     width: ${sWidth}px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+`;
+
+const ProductInfoContainer = styled.View`
+    align-items: center;
+    height: ${sHeight/5}px;
+    width: ${sWidth}px;
+    background-color: red;
+`;
+
+const BrandName = styled.Text`
+    font-size: 16px;
+    margin-top: 15px;
+`;
+
+const ProductName = styled.Text`
+    font-size: 22px;
+    font-weight: bold;
+    margin-top: 8px;
 `;
 
 export default () => {
@@ -43,8 +63,13 @@ export default () => {
             <ImageContainer>
                 <Image 
                         source={require('../../img/img1.jpeg')}
-                        style={{width: sWidth/2, height: sWidth/2, borderRadius: sWidth/4, margin: 20}}/>
+                        style={{width: sWidth/2, height: sWidth/2, borderRadius: sWidth/4}}/>
             </ImageContainer>
+            <ProductInfoContainer>
+                <BrandName>듀렉스</BrandName>
+                <ProductName>필 울트라씬</ProductName>
+            </ProductInfoContainer>
+            
         </Container>
     
     )
