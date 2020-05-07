@@ -10,6 +10,7 @@ import Product from './src/screens/Product';
 import Laboratory from './src/screens/Laboratory';
 import Clinic from './src/screens/Clinic';
 import Setting from './src/screens/Setting';
+import ProductStack from "./src/screens/navigation/ProductStack";
 
 const Tab = createBottomTabNavigator();
 
@@ -31,7 +32,7 @@ const App = () => {
             ),
           }}
           />
-        <Tab.Screen name="제품" component={Product}/>
+        <Tab.Screen name="제품" component={ProductStack}/>
         <Tab.Screen name="연구소" component={Laboratory}/>
         <Tab.Screen name="상담소" component={Clinic}/>
         <Tab.Screen name="설정" component={Setting}/>
