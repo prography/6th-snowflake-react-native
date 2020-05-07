@@ -6,7 +6,6 @@ import { device, color } from '../../utils/constant';
 const Container = styled.View`
     height: ${device.width / 5}px
     width: ${device.width * 0.9}px
-    padding: 0 ${device.px * 10}px
     flex-direction: row;
 `;
 
@@ -56,25 +55,29 @@ const ProductBarSmall = () => {
     { rankNum: 2, company: '이브', title: '울트라씬', star: 3 },
     { rankNum: 3, company: '듀렉스', title: '필 울트라씬', star: 2 },
   ];
-  return productList.map((product) => {
-    return (
-      <Container>
-        <RankNumContainer>
-          <RankNumText>{product.rankNum}위</RankNumText>
-        </RankNumContainer>
-        <ImageContainer>
-          <Image source={require('../../img/condom.png')} />
-        </ImageContainer>
-        <NameContainer>
-          <CompanyText>{product.company}</CompanyText>
-          <TitleText>{product.title}</TitleText>
-        </NameContainer>
-        <StarContainer>
-          <Text>⭐️⭐️⭐️⭐️⭐️ </Text>
-        </StarContainer>
-      </Container>
-    );
-  });
+  return (
+    <>
+      {productList.map((product) => {
+        return (
+          <Container>
+            <RankNumContainer>
+              <RankNumText>{product.rankNum}위</RankNumText>
+            </RankNumContainer>
+            <ImageContainer>
+              <Image source={require('../../img/condom.png')} />
+            </ImageContainer>
+            <NameContainer>
+              <CompanyText>{product.company}</CompanyText>
+              <TitleText>{product.title}</TitleText>
+            </NameContainer>
+            <StarContainer>
+              <Text>⭐️⭐️⭐️⭐️⭐️ </Text>
+            </StarContainer>
+          </Container>
+        );
+      })}
+    </>
+  );
 };
 
 export default ProductBarSmall;

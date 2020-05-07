@@ -17,7 +17,6 @@ const Container = styled.View`
   shadow-radius: 10
   elevation: 10
   border-radius:${device.width / 10}px
-  margin-bottom:${device.px * 30}px 
 `;
 
 const BoxContainer = () => {
