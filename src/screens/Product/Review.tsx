@@ -92,6 +92,40 @@ const Score = styled.Text`
     margin-top: 7px;
 `;
 
+const ReviewContainer = styled.View`
+    
+`;
+
+const ReviewListTitleContainer = styled.View`
+    flex-direction: row;
+    justify-content: space-between;
+    margin: 20px;
+`;
+
+const ReviewTitle = styled.Text`
+    font-size: 20px;
+    font-weight: bold;
+`;
+
+const ReviewFilter = styled.Text`
+    font-size: 16px;
+`;
+
+const ReviewListContainer = styled.View`
+    align-items: center;
+`;
+
+const ReviewListScrollContainer = styled.ScrollView`
+`;
+
+const ReviewBox = styled.View`
+    height: ${sHeight/5.5}px;
+    width: ${sWidth*0.8}px;
+    margin-bottom: 20px;
+    background-color: red;
+`;
+
+
 export default () => {
     return (
         <Container>
@@ -136,6 +170,29 @@ export default () => {
                     </ScoreContainer>
                 </ProductInfoContainer>
             </ProductContainer>
+
+            <ReviewContainer>
+                <ReviewListTitleContainer>
+                    <ReviewTitle>리뷰</ReviewTitle>
+                    <ReviewFilter>최신등록순</ReviewFilter>
+                </ReviewListTitleContainer>
+                <ReviewListScrollContainer>
+                    <ReviewListContainer>
+                        <ImageShadow>
+                            <ReviewBox></ReviewBox>
+                        </ImageShadow>
+                        <ImageShadow>
+                            <ReviewBox></ReviewBox>
+                        </ImageShadow>
+                        <ImageShadow>
+                            <ReviewBox></ReviewBox>
+                        </ImageShadow>
+                        <ImageShadow>
+                            <ReviewBox></ReviewBox>
+                        </ImageShadow>
+                    </ReviewListContainer>
+                </ReviewListScrollContainer>
+            </ReviewContainer>
             
         </Container>
     
