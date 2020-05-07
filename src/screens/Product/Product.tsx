@@ -8,6 +8,7 @@ import BoxContainer from '../../components/universal/BoxContainer';
 import TitleText from '../../components/universal/TitleText';
 import TitleTextStack from '../../components/universal/TitleTextStack';
 import TopThree from '../../containers/product/TopThree';
+import Trio from '../../containers/product/Trio';
 import Margin from '../../components/universal/Margin';
 
 const Container = styled.View`
@@ -32,6 +33,7 @@ const Product = () => {
           <TopThree />
           <Margin />
           <TitleText title={'콘돔 핵심 트리오'} />
+          <Trio />
         </Container>
       </ScrollView>
     </>
