@@ -9,7 +9,6 @@ export default () => {
   return (
     <Stack.Navigator>
       <Stack.Screen name="Product" component={Product} />
-      <Stack.Screen name="Review" component={Review} />
     </Stack.Navigator>
   );
 };

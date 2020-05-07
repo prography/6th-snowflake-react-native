@@ -1,12 +1,11 @@
 import React from 'react';
-import { SafeAreaView, Text, Image, Dimensions } from 'react-native';
+import { SafeAreaView, Text, Image, Dimensions, ScrollView } from 'react-native';
 import styled from 'styled-components/native';
 
 const sWidth = Dimensions.get('screen').width;
 const sHeight = Dimensions.get('screen').height;
 
 const Container = styled.SafeAreaView`
-    flex: 1;
 `;
 
 const TitleContainer = styled.View`
@@ -111,18 +110,19 @@ const ReviewFilter = styled.Text`
     font-size: 16px;
 `;
 
-const ReviewListContainer = styled.View`
-    align-items: center;
-`;
+// const ReviewListContainer = styled.View`
+//     align-items: center;
+// `;
 
-const ReviewListScrollContainer = styled.ScrollView`
-`;
+// const ReviewListScrollContainer = styled.ScrollView`
+// `;
 
 const ReviewBox = styled.View`
     height: ${sHeight/5.5}px;
-    width: ${sWidth*0.8}px;
+    width: ${sWidth*0.85}px;
     margin-bottom: 20px;
-    background-color: red;
+    border: 3px;
+    border-radius: 30px;
 `;
 
 
@@ -133,13 +133,13 @@ export default () => {
                 <ImageShadow>
                     <Image 
                         source={require('../../img/img1.jpeg')}
-                        style={{width: sWidth/10, height: sHeight/20}}/>
+                        style={{width: sWidth/10, height: sHeight/20, borderRadius: sWidth/20}}/>
                 </ImageShadow>
                 <TitleText>리뷰</TitleText>
                 <ImageShadow>
                     <Image 
                         source={require('../../img/img1.jpeg')}
-                        style={{width: sWidth/10, height: sHeight/20}}/>
+                        style={{width: sWidth/10, height: sHeight/20, borderRadius: sWidth/20}}/>
                 </ImageShadow>
             </TitleContainer>
             <ProductContainer>
@@ -176,8 +176,10 @@ export default () => {
                     <ReviewTitle>리뷰</ReviewTitle>
                     <ReviewFilter>최신등록순</ReviewFilter>
                 </ReviewListTitleContainer>
-                <ReviewListScrollContainer>
-                    <ReviewListContainer>
+                <ScrollView contentContainerStyle={{
+                    alignItems:'center'
+                }}>
+                    
                         <ImageShadow>
                             <ReviewBox></ReviewBox>
                         </ImageShadow>
@@ -190,8 +192,7 @@ export default () => {
                         <ImageShadow>
                             <ReviewBox></ReviewBox>
                         </ImageShadow>
-                    </ReviewListContainer>
-                </ReviewListScrollContainer>
+                </ScrollView>
             </ReviewContainer>
             
         </Container>
