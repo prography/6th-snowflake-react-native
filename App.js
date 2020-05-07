@@ -22,11 +22,19 @@ const App = () => {
           activeTintColor: '#fdbbb3',
         }}
       >
-        <Tab.Screen name="Home" component={Home}/>
-        <Tab.Screen name="Product" component={Product}/>
-        <Tab.Screen name="Laboratory" component={Laboratory}/>
-        <Tab.Screen name="Clinic" component={Clinic}/>
-        <Tab.Screen name="Setting" component={Setting}/>
+        <Tab.Screen 
+          name="홈" 
+          component={Home}
+          options={{
+            tabBarIcon: ({ color, size }) => (
+              <MaterialCommunityIcons name="home" color='blue' size={15} />
+            ),
+          }}
+          />
+        <Tab.Screen name="제품" component={Product}/>
+        <Tab.Screen name="연구소" component={Laboratory}/>
+        <Tab.Screen name="상담소" component={Clinic}/>
+        <Tab.Screen name="설정" component={Setting}/>
       </Tab.Navigator>
     </NavigationContainer>
   );
