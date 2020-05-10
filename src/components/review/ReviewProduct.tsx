@@ -1,8 +1,6 @@
 import React from 'react';
-import { Text } from 'react-native';
 import styled from 'styled-components';
-import {device, color} from '../../utils/constant';
-import Margin from '../universal/Margin';
+import { device, color } from '../../utils/constant';
 
 const Container = styled.View`
     height: ${device.width * 0.8}px
