@@ -9,7 +9,7 @@ const ReviewFilter = () => {
         <>
             <ReviewFilterContainer reviewCnt={reviewCnt} filterStandard={filterStandard}/>
         </>
-    )
-}
+    );
+};
 
 export default ReviewFilter;
