@@ -7,7 +7,7 @@ const ReviewFilter = () => {
 
     return(
         <>
-            <ReviewFilterContainer reviewCnt={reviewCnt}/>
+            <ReviewFilterContainer reviewCnt={reviewCnt} filterStandard={filterStandard}/>
         </>
     )
 }

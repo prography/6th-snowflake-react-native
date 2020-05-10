@@ -11,7 +11,6 @@ const Review = () => {
     return (
         <>
             <ProductInfo/>
-            <Margin/>
             <ReviewFilter/>
         </>
     )
