@@ -25,7 +25,7 @@ const ScoreTitle = styled.Text`
     margin-top: ${device.width * 0.01}px;
     color: ${color.grayDark};
     font-weight: 700;
-    font-size: ${device.px * 15}px;
+    font-size: ${device.px * 13}px;
 `;
 
 const Score = styled.Text`
@@ -47,7 +47,7 @@ const TotalScoreTitle = styled.Text`
     margin-top: ${device.width * 0.01}px;
     color: ${color.grayDark};
     font-weight: 900;
-    font-size: ${device.px * 17}px;
+    font-size: ${device.px * 15}px;
 `;
 
 const TotalScore = styled.Text`
