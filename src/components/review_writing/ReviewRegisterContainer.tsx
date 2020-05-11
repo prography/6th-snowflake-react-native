@@ -1,16 +1,15 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Text } from 'react-native';
+import { ScrollView } from 'react-native';
 import { device, color } from '../../utils/constant';
 
 const Container = styled.View`
-    background-color: ${color.mainLight};
+    background-color: lightgray;
 `;
 
 const ReviewText = styled.Text`
     height: ${device.width * 0.35}px;
     width: ${device.width}px;
-    background-color: lightgray;
     padding: ${device.width * 0.05}px;
     color: ${color.grayDark};
     font-size: ${device.px * 14}px;
@@ -38,7 +37,9 @@ const RegisterText = styled.Text`
 const ReviewRegisterContainer = (props) => {
     return(
         <Container>
-            <ReviewText>{props.reviewText.text}</ReviewText>
+            <ScrollView>
+                <ReviewText>{props.reviewText.text}</ReviewText>
+            </ScrollView>
             <RegisterContainer>
                 <RegisterButton
                     title={'등록하기'}
