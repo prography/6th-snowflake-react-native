@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { Text } from 'react-native';
 import { device, color } from '../../utils/constant';
 
+
 const Container = styled.View`
     height: ${device.width * 0.55}px;
     width: ${device.width}px;
