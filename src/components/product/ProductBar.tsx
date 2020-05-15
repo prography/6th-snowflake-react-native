@@ -4,9 +4,9 @@ import styled from 'styled-components';
 import { device, color } from '../../utils/constant';
 
 const Container = styled.View`
-    height: ${device.width / 5}px
-    width: ${device.width * 0.9}px
-    flex-direction: row;
+  height: ${device.width / 5}px;
+  width: ${device.width * 0.9}px;
+  flex-direction: row;
 `;
 
 const RankNumContainer = styled.View`
@@ -47,6 +47,7 @@ const TitleText = styled.Text`
 const StarContainer = styled.View`
   flex: 3;
   justify-content: center;
+  align-items: flex-end;
 `;
 
 const ProductBar = (props) => {

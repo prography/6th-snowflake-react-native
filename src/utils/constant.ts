@@ -7,7 +7,14 @@ export const device = {
   px: Number(Dimensions.get('window').width) / 380,
 };
 
-export const color = {
+interface Color {
+  grayDark: string;
+  grayLight: string;
+  mainDark: string;
+  mainLight: string;
+}
+
+export const color: Color = {
   grayDark: '#4D4D4D',
   grayLight: '#848484',
   mainDark: '#3ba3c3',
