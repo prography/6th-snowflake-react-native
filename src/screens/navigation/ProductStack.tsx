@@ -11,10 +11,12 @@ export default () => {
   return (
     <Stack.Navigator>
       <Stack.Screen name='리뷰 쓰기' component={ReviewWriting} />
-      <Stack.Screen name='리뷰' component={Review} />
       <Stack.Screen name='Product' component={Product} />
-      <Stack.Screen name='Review' component={Review} />
+
       <Stack.Screen name='Ranking' component={Ranking} />
+      <Stack.Screen name='리뷰' component={Review} />
+
+      <Stack.Screen name='Review' component={Review} />
     </Stack.Navigator>
   );
 };

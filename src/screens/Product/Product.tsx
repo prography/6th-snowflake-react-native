@@ -2,7 +2,6 @@ import React from 'react';
 import { SafeAreaView, Text, ScrollView } from 'react-native';
 import styled from 'styled-components';
 import { device } from '../../utils/constant';
-import TopBar from '../../components/universal/TopBar';
 
 import BoxContainer from '../../components/universal/BoxContainer';
 import TitleText from '../../components/universal/TitleText';
@@ -13,8 +12,8 @@ import Margin from '../../components/universal/Margin';
 
 const Container = styled.View`
   flex-direction: column;
-  align-items: center;
-  padding: 0 ${device.width * 0.05}px;
+  align-items: flex-start;
+  padding: 0 ${device.px * 20}px;
 `;
 
 const Product = () => {
@@ -34,6 +33,8 @@ const Product = () => {
           <Margin />
           <TitleText title={'콘돔 핵심 트리오'} />
           <Trio />
+          <Margin />
+          <Margin />
         </Container>
       </ScrollView>
     </>

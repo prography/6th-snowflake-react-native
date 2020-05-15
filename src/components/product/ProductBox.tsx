@@ -4,14 +4,19 @@ import { device, color } from '../../utils/constant';
 
 const Container = styled.View`
   width: ${device.width / 5}px;
-  height: ${device.width / 3}px
-  background-color: blue
+  height: ${device.width / 2.5}px;
+
+  align-items: center;
 `;
 const TypeText = styled.Text``;
-const BoxContainer = styled.View``;
+const BoxContainer = styled.View`
+  background-color: white;
+  width: ${device.width / 4.5}px;
+  height: ${device.width / 3}px;
+  border-radius: ${device.px * 20}px;
+`;
 const ImageContainer = styled.View`
   flex: 1.5;
-
   justify-content: center;
   align-items: center;
 `;
@@ -21,7 +26,9 @@ const Image = styled.Image`
   
   resize-mode: contain;
 `;
-const NameContainer = styled.View``;
+const NameContainer = styled.View`
+  align-items: center;
+`;
 const CompanyText = styled.Text`
   color: ${color.grayLight};
   font-weight:700
