@@ -1,31 +1,57 @@
-import React from 'react';
-import { ScrollView, View, Text, Animated } from 'react-native';
+import React, { useState } from 'react';
+import { ScrollView, View, Text } from 'react-native';
 import styled from 'styled-components';
 import { device } from '../../utils/constant';
 import ProductInfo from '../../containers/product_review/ProductInfo';
 import ReviewFilter from '../../containers/product_review/ReviewFilter';
 import Reviews from '../../containers/product_review/Reviews';
+import Animated from 'react-native-reanimated';
 
-HEADER_MAX_HEIGHT = device.width * 0.8
+HEADER_MAX_HEIGHT = device.width * 0.92
 HEADER_MIN_HEIGHT = device.width * 0.3
 PROFILE_IMAGE_MAX_HEIGHT = device.width * 0.4
 PROFILE_IMAGE_MIN_HEIGHT = device.width * 0.2
 
+const {Value, Extrapolate} = Animated
 const Review = () => {
+
+    const [scrollY, setScrollY] = useState(new Value(0))
+
+    const headerHeight = scrollY.interpolate({
+        inputRange: [0, HEADER_MAX_HEIGHT - HEADER_MIN_HEIGHT],
+        outputRange: [HEADER_MAX_HEIGHT, HEADER_MIN_HEIGHT],
+        extrapolate: Extrapolate.CLAMP
+    })
+
     return (
         <>
-            <View style={{position:'absolute'}}>
-                <ProductInfo/>
-                <ReviewFilter/>
-            </View>
-            <ScrollView>
-                <View style={{
+            <Animated.View style={{
+                flex:1,
+                position:'absolute',
+                top: 0,
+                left: 0,
+                right: 0,
+                height: headerHeight,
+                backgroundColor: 'blue'
+            }}>
+                {/* <ProductInfo/>
+                <ReviewFilter/> */}
+            </Animated.View>
+            <Animated.ScrollView
+                style={{flex: 1}}
+                scrollEventThrottle={16}
+                onScroll={Animated.event(
+                    [{nativeEvent: {contentOffset: {y:scrollY}}}]
+                )}
+            >
+                <Animated.View style={{
                     overflow:'hidden',
-                    marginTop: device.width * 0.92
+                    marginTop: HEADER_MAX_HEIGHT
                     }}>
                     <Reviews/>
-                </View>
-            </ScrollView>
+                </Animated.View>
+               
+            </Animated.ScrollView>
         </>
     )
 }
