@@ -88,69 +88,67 @@ export default () => {
   };
 
   return (
-    <SafeAreaView style={{ backgroundColor: 'white', flex: 1 }}>
-      <Container>
-        <TopBarWithIcon />
-        <TextContainer>
-          <OneLine>
-            <ContentText>나는 여성은</ContentText>
+    <Container>
+      <TopBarWithIcon />
+      <TextContainer>
+        <OneLine>
+          <ContentText>나는 여성은</ContentText>
 
-            <View
-              style={{
-                width: device.px * 35,
-                height: device.px * 35,
-                marginLeft: device.px * 10,
-                marginRight: device.px * 5,
-                borderRadius: 100,
-                backgroundColor: womanColor === null ? 'white' : womanColor,
-                borderColor: womanColor === null ? color.lightGray : womanColor,
-                borderStyle: womanColor === null ? 'dashed' : 'solid',
-                borderWidth: device.px * 1,
-              }}
-            />
-            <ContentText>색,</ContentText>
-          </OneLine>
-          <OneLine>
-            <ContentText>남성은</ContentText>
-            <View
-              style={{
-                width: device.px * 35,
-                height: device.px * 35,
-                marginLeft: device.px * 10,
-                marginRight: device.px * 5,
-                borderRadius: 100,
-                backgroundColor: manColor === null ? 'white' : manColor,
-                borderColor: manColor === null ? color.lightGray : manColor,
-                borderStyle: manColor === null ? 'dashed' : 'solid',
-                borderWidth: device.px * 1,
-              }}
-            />
-            <ContentText>색으로</ContentText>
-          </OneLine>
-          <ContentText>표현하고 싶어요.</ContentText>
-        </TextContainer>
-        <ColorContainer>
-          <ColorCircles style={{ flexWrap: 'wrap' }}>
-            {circleColors.map((circle) => {
-              return (
-                <TouchableOpacity
-                  onPress={() => {
-                    pickColor(circleColor);
-                  }}
-                  style={{
-                    width: device.px * 40,
-                    height: device.px * 40,
-                    marginRight: device.px * 44,
-                    marginBottom: device.px * 30,
-                    borderRadius: 100,
-                    backgroundColor: circle.circleColor,
-                  }}
-                />
-              );
-            })}
-          </ColorCircles>
-        </ColorContainer>
-      </Container>
-    </SafeAreaView>
+          <View
+            style={{
+              width: device.px * 35,
+              height: device.px * 35,
+              marginLeft: device.px * 10,
+              marginRight: device.px * 5,
+              borderRadius: 100,
+              backgroundColor: womanColor === null ? 'white' : womanColor,
+              borderColor: womanColor === null ? color.lightGray : womanColor,
+              borderStyle: womanColor === null ? 'dashed' : 'solid',
+              borderWidth: device.px * 1,
+            }}
+          />
+          <ContentText>색,</ContentText>
+        </OneLine>
+        <OneLine>
+          <ContentText>남성은</ContentText>
+          <View
+            style={{
+              width: device.px * 35,
+              height: device.px * 35,
+              marginLeft: device.px * 10,
+              marginRight: device.px * 5,
+              borderRadius: 100,
+              backgroundColor: manColor === null ? 'white' : manColor,
+              borderColor: manColor === null ? color.lightGray : manColor,
+              borderStyle: manColor === null ? 'dashed' : 'solid',
+              borderWidth: device.px * 1,
+            }}
+          />
+          <ContentText>색으로</ContentText>
+        </OneLine>
+        <ContentText>표현하고 싶어요.</ContentText>
+      </TextContainer>
+      <ColorContainer>
+        <ColorCircles style={{ flexWrap: 'wrap' }}>
+          {circleColors.map((circle) => {
+            return (
+              <TouchableOpacity
+                onPress={() => {
+                  pickColor(circleColor);
+                }}
+                style={{
+                  width: device.px * 40,
+                  height: device.px * 40,
+                  marginRight: device.px * 44,
+                  marginBottom: device.px * 30,
+                  borderRadius: 100,
+                  backgroundColor: circle.circleColor,
+                }}
+              />
+            );
+          })}
+        </ColorCircles>
+      </ColorContainer>
+    </Container>
   );
 };

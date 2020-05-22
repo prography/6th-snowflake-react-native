@@ -1,12 +1,12 @@
 import * as React from 'react';
 import { View, Text } from 'react-native';
 
-const LabMain = () => {
+const ClinicMain = () => {
   return (
     <View>
-      <Text>실험실 화면</Text>
+      <Text>상담소 화면</Text>
     </View>
   );
 };
 
-export default LabMain;
+export default ClinicMain;
