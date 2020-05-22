@@ -1,5 +1,5 @@
-import React from 'react';
-import ProductBar from '../../components/product/ProductBar';
+import * as React from 'react';
+import ProductBar from '~/components/product/main/ProductBar';
 
 const TopThree = () => {
   const productList = [

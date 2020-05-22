@@ -1,7 +1,7 @@
-import React from 'react';
+import * as React from 'react';
 import { SafeAreaView, Text, ScrollView, View } from 'react-native';
-import styled from 'styled-components';
-import { device, color } from '../../utils/constant';
+import styled from 'styled-components/native';
+import { device, color } from '~/utils/constant';
 
 const Container = styled.View`
   height: ${device.width / 5}px;
@@ -19,14 +19,12 @@ const RankNumText = styled.Text`
 `;
 const ImageContainer = styled.View`
   flex: 1.5;
-
   justify-content: center;
   align-items: center;
 `;
 const Image = styled.Image`
-  width: ${device.width * 0.1}px
-  height: ${device.width / 8}px
-  
+  width: ${device.width * 0.1}px;
+  height: ${device.width / 8}px;
   resize-mode: contain;
 `;
 const NameContainer = styled.View`
@@ -36,7 +34,7 @@ const NameContainer = styled.View`
 `;
 const CompanyText = styled.Text`
   color: ${color.grayLight};
-  font-weight:700
+  font-weight: 700;
   font-size: ${device.px * 11.5}px;
   margin-bottom: ${device.px * 4}px;
 `;
@@ -57,7 +55,7 @@ const ProductBar = (props) => {
         <RankNumText>{props.product.rankNum}위</RankNumText>
       </RankNumContainer>
       <ImageContainer>
-        <Image source={require('../../img/condom.png')} />
+        <Image source={require('~/img/condom.png')} />
       </ImageContainer>
       <NameContainer>
         <CompanyText>{props.product.company}</CompanyText>

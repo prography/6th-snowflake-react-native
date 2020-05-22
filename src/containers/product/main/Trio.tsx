@@ -1,6 +1,6 @@
-import React from 'react';
-import ProductBox from '../../components/product/ProductBox';
-import styled from 'styled-components';
+import * as React from 'react';
+import ProductBox from '~/components/product/main/ProductBox';
+import styled from 'styled-components/native';
 
 const Container = styled.View`
   flex-direction: row;

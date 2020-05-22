@@ -1,6 +1,6 @@
-import React from 'react';
-import styled from 'styled-components';
-import { device, color } from '../../utils/constant';
+import * as React from 'react';
+import styled from 'styled-components/native';
+import { device, color } from '~/utils/constant';
 
 const Container = styled.View`
   width: ${device.width / 5}px;
@@ -21,9 +21,8 @@ const ImageContainer = styled.View`
   align-items: center;
 `;
 const Image = styled.Image`
-  width: ${device.width * 0.1}px
-  height: ${device.width / 8}px
-  
+  width: ${device.width * 0.1}px;
+  height: ${device.width / 8}px;
   resize-mode: contain;
 `;
 const NameContainer = styled.View`
@@ -31,7 +30,7 @@ const NameContainer = styled.View`
 `;
 const CompanyText = styled.Text`
   color: ${color.grayLight};
-  font-weight:700
+  font-weight: 700;
   font-size: ${device.px * 11.5}px;
   margin-bottom: ${device.px * 4}px;
 `;
@@ -46,7 +45,7 @@ const ProductBox = ({ product }) => {
       <TypeText>{product.type}</TypeText>
       <BoxContainer>
         <ImageContainer>
-          <Image source={require('../../img/condom.png')} />
+          <Image source={require('~/img/condom.png')} />
         </ImageContainer>
         <NameContainer>
           <CompanyText>{product.company}</CompanyText>

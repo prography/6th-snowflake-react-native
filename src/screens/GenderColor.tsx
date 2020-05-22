@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import * as React from 'react';
+import { useState } from 'react';
 import { View, SafeAreaView } from 'react-native';
-import styled from 'styled-components';
-import { device, color } from '../utils/constant';
-import TopBarWithIcon from '../components/universal/TopBarWithIcon';
+import styled from 'styled-components/native';
+import { device, color } from '~/utils/constant';
+import TopBarWithIcon from '~/components/universal/TopBarWithIcon';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
 const Container = styled.View`
@@ -14,9 +15,7 @@ const Container = styled.View`
 
 const TextContainer = styled.View`
   width: 100%;
-
   justify-content: space-between;
-
   flex: 1;
 `;
 
@@ -31,11 +30,10 @@ const ContentText = styled.Text`
 `;
 
 const ColorContainer = styled.View`
-  
-  width: 100%
+  width: 100%;
   flex: 3;
   justify-content: center;
-  align-items: center
+  align-items: center;
 `;
 
 const ColorCircles = styled.View`

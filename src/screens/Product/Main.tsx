@@ -1,14 +1,14 @@
-import React from 'react';
+import * as React from 'react';
 import { SafeAreaView, Text, ScrollView } from 'react-native';
-import styled from 'styled-components';
+import styled from 'styled-components/native';
 import { device } from '../../utils/constant';
 
-import BoxContainer from '../../components/universal/BoxContainer';
-import TitleText from '../../components/universal/TitleText';
-import TitleTextStack from '../../components/universal/TitleTextStack';
-import TopThree from '../../containers/product/TopThree';
-import Trio from '../../containers/product/Trio';
-import Margin from '../../components/universal/Margin';
+import BoxContainer from '~/components/universal/BoxContainer';
+import TitleText from '~/components/universal/TitleText';
+import TitleTextStack from '~/components/universal/TitleTextStack';
+import TopThree from '~/containers/product/main/TopThree';
+import Trio from '~/containers/product/main/Trio';
+import Margin from '~/components/universal/Margin';
 
 const Container = styled.View`
   flex-direction: column;
@@ -16,7 +16,7 @@ const Container = styled.View`
   padding: 0 ${device.px * 20}px;
 `;
 
-const Product = () => {
+const Main = () => {
   return (
     <>
       <ScrollView>
@@ -41,4 +41,4 @@ const Product = () => {
   );
 };
 
-export default Product;
+export default Main;
