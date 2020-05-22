@@ -16,7 +16,7 @@ const Container = styled.View`
   padding: 0 ${device.px * 20}px;
 `;
 
-const Main = () => {
+const ProductMain = () => {
   return (
     <>
       <ScrollView>
@@ -41,4 +41,4 @@ const Main = () => {
   );
 };
 
-export default Main;
+export default ProductMain;
