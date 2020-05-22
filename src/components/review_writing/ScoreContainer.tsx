@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { Text } from 'react-native';
 import { device, color } from '../../utils/constant';
+import StarRating from '../universal/StarRating';
 
 const Container = styled.View`
     height: ${device.width * 0.6}px
@@ -65,15 +66,18 @@ const ScoreContainer = (props) => {
             <TrioScoreContainer>
                 <EachScoreContainer>
                     <ScoreTitle>얇기</ScoreTitle>
-                    <Score>{props.score.thinScore}</Score>
+                    {/* <Score>{props.score.thinScore}</Score> */}
+                    <StarRating/>
                 </EachScoreContainer>
                 <EachScoreContainer>
                     <ScoreTitle>내구성</ScoreTitle>
-                    <Score>{props.score.durableScore}</Score>
+                    {/* <Score>{props.score.durableScore}</Score> */}
+                    <StarRating/>
                 </EachScoreContainer>
                 <EachScoreContainer>
                     <ScoreTitle>윤활제</ScoreTitle>
-                    <Score>{props.score.slushScore}</Score>
+                    {/* <Score>{props.score.slushScore}</Score> */}
+                    <StarRating/>
                 </EachScoreContainer>
                 <TotalScoreContainer>
                     <TotalScoreTitle>총점</TotalScoreTitle>
