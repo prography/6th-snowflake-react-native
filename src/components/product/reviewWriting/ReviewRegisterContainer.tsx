@@ -1,7 +1,7 @@
-import React from 'react';
-import styled from 'styled-components';
+import * as React from 'react';
+import styled from 'styled-components/native';
 import { ScrollView } from 'react-native';
-import { device, color } from '../../../utils/constant';
+import { device, color } from '~/utils/constant';
 
 const Container = styled.View`
   background-color: lightgray;

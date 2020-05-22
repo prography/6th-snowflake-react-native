@@ -1,9 +1,9 @@
 import * as React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
-import Main from '../Product/Main';
-import Review from '../Product/Review';
-import ReviewWriting from '../Product/ReviewWriting';
-import Ranking from '../Product/Ranking';
+import Main from '~/screens/Product/Main';
+import Review from '~/screens/Product/Review';
+import ReviewWriting from '~/screens/Product/ReviewWriting';
+import Ranking from '~/screens/Product/Ranking';
 
 const Stack = createStackNavigator();
 

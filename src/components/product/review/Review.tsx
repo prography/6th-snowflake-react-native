@@ -1,5 +1,5 @@
-import React from 'react';
-import styled from 'styled-components';
+import * as React from 'react';
+import styled from 'styled-components/native';
 import { Text } from 'react-native';
 import { device, color } from '~/utils/constant';
 
@@ -75,29 +75,37 @@ const LikeText = styled.Text`
   padding: ${device.px * 12}px;
   font-size: ${device.px * 11}px;
 `;
-
-const Review = (props) => {
+interface Props {
+  uri: string;
+  score: number;
+  age: number;
+  filter: string;
+  text: string;
+  date: number;
+  like: number;
+}
+const Review = ({ uri, score, age, filter, text, date, like }: Props) => {
   return (
     <Container>
       <ReviewInfoContainer>
         <ProfileScoreContainer>
           <ProfileImage
-            source={{ uri: props.review.uri }}
+            source={{ uri: uri }}
             style={{ width: 40, height: 40, borderRadius: 40 / 2 }}
           />
           <ScoreContainer>
-            <ScoreText>{props.review.score}</ScoreText>
+            <ScoreText>{score}</ScoreText>
           </ScoreContainer>
         </ProfileScoreContainer>
         <AgeFilterContainer>
-          <AgeText>{props.review.age}대</AgeText>
-          <Filter>{props.review.filter}</Filter>
+          <AgeText>{age}대</AgeText>
+          <Filter>{filter}</Filter>
         </AgeFilterContainer>
       </ReviewInfoContainer>
-      <ReviewText>{props.review.text}</ReviewText>
+      <ReviewText>{text}</ReviewText>
       <ReviewInfoContainer>
-        <DateText>{props.review.date} 작성됨</DateText>
-        <LikeText>{props.review.like} x ❤️</LikeText>
+        <DateText>{date} 작성됨</DateText>
+        <LikeText>{like} x ❤️</LikeText>
       </ReviewInfoContainer>
     </Container>
   );

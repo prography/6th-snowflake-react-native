@@ -1,12 +1,12 @@
-import React from 'react';
-import styled from 'styled-components';
+import * as React from 'react';
+import styled from 'styled-components/native';
 import { Text } from 'react-native';
 import { device, color } from '../../../utils/constant';
 import StarRating from '../../universal/StarRating';
 
 const Container = styled.View`
-    height: ${device.width * 0.6}px
-    width: ${device.width}px
+  height: ${device.width * 0.6}px;
+  width: ${device.width}px;
 `;
 
 const TrioScoreContainer = styled.View`

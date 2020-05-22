@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { useState } from 'react';
 import { ScrollView, View, Text } from 'react-native';
-import styled from 'styled-components';
+import styled from 'styled-components/native';
 import { device } from '../../utils/constant';
 import ProductInfo from '~/containers/product/review/ProductInfo';
 import ReviewFilter from '~/containers/product/review/ReviewFilter';

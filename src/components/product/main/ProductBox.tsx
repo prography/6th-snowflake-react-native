@@ -38,18 +38,22 @@ const TitleText = styled.Text`
   font-weight: 500;
   font-size: ${device.px * 14}px;
 `;
-
-const ProductBox = ({ product }) => {
+interface Props {
+  type: string;
+  company: string;
+  title: string;
+}
+const ProductBox = ({ type, company, title }: Props) => {
   return (
     <Container>
-      <TypeText>{product.type}</TypeText>
+      <TypeText>{type}</TypeText>
       <BoxContainer>
         <ImageContainer>
           <Image source={require('~/img/condom.png')} />
         </ImageContainer>
         <NameContainer>
-          <CompanyText>{product.company}</CompanyText>
-          <TitleText>{product.title}</TitleText>
+          <CompanyText>{company}</CompanyText>
+          <TitleText>{title}</TitleText>
         </NameContainer>
       </BoxContainer>
     </Container>

@@ -48,18 +48,23 @@ const StarContainer = styled.View`
   align-items: flex-end;
 `;
 
-const ProductBar = (props) => {
+interface Props {
+  company: string;
+  title: string;
+  rankNum: number;
+}
+const ProductBar = ({ company, title, rankNum }: Props) => {
   return (
     <Container>
       <RankNumContainer>
-        <RankNumText>{props.product.rankNum}위</RankNumText>
+        <RankNumText>{rankNum}위</RankNumText>
       </RankNumContainer>
       <ImageContainer>
         <Image source={require('~/img/condom.png')} />
       </ImageContainer>
       <NameContainer>
-        <CompanyText>{props.product.company}</CompanyText>
-        <TitleText>{props.product.title}</TitleText>
+        <CompanyText>{company}</CompanyText>
+        <TitleText>{title}</TitleText>
       </NameContainer>
       <StarContainer>
         <Text>⭐️⭐️⭐️⭐️⭐️ </Text>

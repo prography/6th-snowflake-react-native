@@ -10,7 +10,7 @@ const Container = styled.View`
     shadow-color: "#000";
     shadow-offset: {
         width: 10,
-        height: 10
+        height: 10,
     };
     shadow-opacity: 0.6;
     shadow-radius: 10;

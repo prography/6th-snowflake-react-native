@@ -49,14 +49,18 @@ const NameText = styled.Text`
   font-size: ${device.px * 17}px;
 `;
 
-const Product = (props) => {
+interface Props {
+  brand: string;
+  name: string;
+}
+const Product = ({ brand, name }: Props) => {
   return (
     <Container>
       <ImageContainer>
         <Image source={require('~/img/condom.png')} />
       </ImageContainer>
-      <BrandText>{props.productInfo.brand}</BrandText>
-      <NameText>{props.productInfo.name}</NameText>
+      <BrandText>{brand}</BrandText>
+      <NameText>{name}</NameText>
     </Container>
   );
 };

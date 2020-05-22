@@ -26,7 +26,7 @@ const OneLine = styled.View`
 
 const ContentText = styled.Text`
   font-weight: 500;
-  font-size: ${device.px * 22};
+  font-size: ${device.px * 22}px;
 `;
 
 const ColorContainer = styled.View`
@@ -45,19 +45,6 @@ export default () => {
   const [manColor, setManColor] = useState(null);
   console.log('womanColor', womanColor);
   console.log('manColor', manColor);
-  const pickColor = (circleColor) => {
-    womanColor === null
-      ? setWomanColor(circleColor)
-      : [
-          manColor === null
-            ? [
-                circleColor === womanColor
-                  ? alert('다른 색을 골라주세요')
-                  : setManColor(circleColor),
-              ]
-            : [setWomanColor(circleColor), setManColor(null)],
-        ];
-  };
 
   const circleColors = [
     { circleColor: '#3CB7D3' },
@@ -81,6 +68,24 @@ export default () => {
     { circleColor: '#E0CCCC' },
     { circleColor: '#D3D7DE' },
   ];
+
+  interface circleColor {
+    circleColor: string;
+    pickColor(): circleColor;
+  }
+  const pickColor = ({ circleColor }: circleColor) => {
+    womanColor === null
+      ? setWomanColor(circleColor)
+      : [
+          manColor === null
+            ? [
+                circleColor === womanColor
+                  ? alert('다른 색을 골라주세요')
+                  : setManColor(circleColor),
+              ]
+            : [setWomanColor(circleColor), setManColor(null)],
+        ];
+  };
 
   return (
     <SafeAreaView style={{ backgroundColor: 'white', flex: 1 }}>
@@ -130,7 +135,7 @@ export default () => {
               return (
                 <TouchableOpacity
                   onPress={() => {
-                    pickColor(circle.circleColor);
+                    pickColor(circleColor);
                   }}
                   style={{
                     width: device.px * 40,
