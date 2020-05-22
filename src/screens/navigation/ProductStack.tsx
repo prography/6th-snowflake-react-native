@@ -10,7 +10,7 @@ const Stack = createStackNavigator();
 export default () => {
   return (
     <Stack.Navigator>
-            <Stack.Screen name='리뷰' component={Review} />
+      <Stack.Screen name='리뷰' component={Review} />
 
       <Stack.Screen name='Product' component={Product} />
       <Stack.Screen name='리뷰 쓰기' component={ReviewWriting} />
