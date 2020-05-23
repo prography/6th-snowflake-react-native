@@ -1,12 +1,11 @@
-import React from 'react';
+import * as React from 'react';
 import { SafeAreaView, Text, ScrollView } from 'react-native';
-import styled from 'styled-components';
+import styled from 'styled-components/native';
 import { device } from '../../utils/constant';
 
 const Container = styled.View`
-  height: ${device.height / 12}px
+  height: ${device.height / 12}px;
   width: 100%;
- 
   align-items: flex-end;
   justify-content: center;
 `;

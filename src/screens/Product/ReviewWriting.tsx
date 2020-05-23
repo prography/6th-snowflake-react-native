@@ -1,19 +1,19 @@
-import React from 'react';
-import { Text } from 'react-native'
-import ReviewProduct from '../../containers/product_review_writing/ReviewProduct';
-import Score from '../../containers/product_review_writing/Score';
-import ReviewRegister from '../../containers/product_review_writing/ReviewRegister';
-import Margin from '../../components/universal/Margin';
+import * as React from 'react';
+import { Text } from 'react-native';
+import ReviewProduct from '~/containers/product/reviewWriting/ReviewProduct';
+import Score from '~/containers/product/reviewWriting/Score';
+import ReviewRegister from '~/containers/product/reviewWriting/ReviewRegister';
+import Margin from '~/components/universal/Margin';
 
 const ReviewWriting = () => {
-    return (
-        <>
-            <ReviewProduct/>
-            <Score/>
-            <Margin/>
-            <ReviewRegister/>
-        </>
-    );
+  return (
+    <>
+      <ReviewProduct />
+      <Score />
+      <Margin />
+      <ReviewRegister />
+    </>
+  );
 };
 
 export default ReviewWriting;

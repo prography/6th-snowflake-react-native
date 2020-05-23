@@ -1,15 +1,15 @@
-import React from 'react';
+import * as React from 'react';
 import { SafeAreaView, Text, ScrollView } from 'react-native';
-import styled from 'styled-components';
-import { device, color } from '../../utils/constant';
+import styled from 'styled-components/native';
+import { device, color } from '~/utils/constant';
 import { withNavigation } from '@react-navigation/compat';
 
 const Container = styled.View`
-    height: ${device.width / 10}px
-    width: 100%
-    flex-direction: row
-    align-items:center
-    justify-content: space-between
+  height: ${device.width / 10}px;
+  width: 100%;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
 `;
 
 const Title = styled.Text`
@@ -18,10 +18,9 @@ const Title = styled.Text`
 `;
 
 const Button = styled.TouchableOpacity`
-  
   height: ${device.width / 10}px;
   justify-content: center;
-  align-items: flex-end
+  align-items: flex-end;
   width: ${device.width / 5}px;
 `;
 
