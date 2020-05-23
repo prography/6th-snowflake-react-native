@@ -17,8 +17,7 @@ const Tab = createBottomTabNavigator();
 const App = () => {
   return (
     <SafeAreaView style={{ backgroundColor: 'white', flex: 1 }}>
-      <HomeMain/>
-      {/* <GenderColor /> */}
+      <GenderColor />
     </SafeAreaView>
   );
 };
