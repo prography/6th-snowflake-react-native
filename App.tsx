@@ -10,13 +10,15 @@ import Laboratory from '~/screens/lab/LabMain';
 import Clinic from '~/screens/clinic/ClinicMain';
 import Setting from '~/screens/setting/SettingMain';
 import ProductStack from '~/navigation/ProductStack';
+import HomeMain from './src/screens/Home/HomeMain';
 
 const Tab = createBottomTabNavigator();
 
 const App = () => {
   return (
     <SafeAreaView style={{ backgroundColor: 'white', flex: 1 }}>
-      <GenderColor />
+      <HomeMain/>
+      {/* <GenderColor /> */}
     </SafeAreaView>
   );
 };
