@@ -7,6 +7,7 @@ import ProductInfo from '~/containers/product/review/ProductInfo';
 import ReviewFilter from '~/containers/product/review/ReviewFilter';
 import Reviews from '~/containers/product/review/Reviews';
 import Animated from 'react-native-reanimated';
+import NavBar from '~/screens/NavBar';
 
 HEADER_MAX_HEIGHT = device.width * 0.92;
 HEADER_MIN_HEIGHT = device.width * 0.3;
@@ -25,36 +26,38 @@ const Review = () => {
 
   return (
     <>
-      <Animated.View
-        style={{
-          flex: 1,
-          position: 'absolute',
-          top: 0,
-          left: 0,
-          right: 0,
-          height: headerHeight,
-          backgroundColor: 'blue',
-        }}
-      >
-        {/* <ProductInfo/>
-                <ReviewFilter/> */}
-      </Animated.View>
-      <Animated.ScrollView
-        style={{ flex: 1 }}
-        scrollEventThrottle={16}
-        onScroll={Animated.event([
-          { nativeEvent: { contentOffset: { y: scrollY } } },
-        ])}
-      >
+      <NavBar>
         <Animated.View
           style={{
-            overflow: 'hidden',
-            marginTop: HEADER_MAX_HEIGHT,
+            flex: 1,
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            right: 0,
+            height: headerHeight,
+            backgroundColor: 'blue',
           }}
         >
-          <Reviews />
+          {/* <ProductInfo/>
+                  <ReviewFilter/> */}
         </Animated.View>
-      </Animated.ScrollView>
+        <Animated.ScrollView
+          style={{ flex: 1 }}
+          scrollEventThrottle={16}
+          onScroll={Animated.event([
+            { nativeEvent: { contentOffset: { y: scrollY } } },
+          ])}
+        >
+          <Animated.View
+            style={{
+              overflow: 'hidden',
+              marginTop: HEADER_MAX_HEIGHT,
+            }}
+          >
+            <Reviews />
+          </Animated.View>
+        </Animated.ScrollView>
+      </NavBar>
     </>
   );
 };

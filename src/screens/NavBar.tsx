@@ -16,19 +16,28 @@ interface Props {
 
 const Screen = styled.View`
   flex: 1;
+  background-color: white;
 `;
 
 const Container = styled.View`
   height: ${device.height / 11}px;
   width: ${device.width}px;
+  position: absolute;
+  bottom: 0px;
   flex: 1;
   flex-direction: row;
+  background-color: white;
 `;
 
 const Tab = styled.TouchableOpacity`
   flex: 1;
+  align-items: center;
+  padding-top: ${device.px * 10}px;
 `;
-const Title = styled.Text``;
+const Title = styled.Text`
+  color: ${color.darkGray};
+  font-size: ${device.px * 11}px;
+`;
 
 const NavBar = ({ children, navigation }: Props) => {
   return (
@@ -40,39 +49,46 @@ const NavBar = ({ children, navigation }: Props) => {
             navigation.navigate('HomeStack');
           }}
         >
-          <Title>제목</Title>
+          <Title>홈</Title>
         </Tab>
         <Tab
           onPress={() => {
             navigation.navigate('ProductStack');
           }}
         >
-          <Title>제목</Title>
+          <Title>제품</Title>
         </Tab>
         <Tab
           onPress={() => {
             navigation.navigate('ClinicStack');
           }}
         >
-          <Title>제목</Title>
+          <Title>실험실</Title>
         </Tab>
         <Tab
           onPress={() => {
             navigation.navigate('LabStack');
           }}
         >
-          <Title>제목</Title>
+          <Title>상담소</Title>
         </Tab>
         <Tab
           onPress={() => {
             navigation.navigate('SettingStack');
           }}
         >
-          <Title>제목</Title>
+          <Title>설정</Title>
+        </Tab>
+        <Tab
+          onPress={() => {
+            navigation.navigate('JoinStack');
+          }}
+        >
+          <Title>가입</Title>
         </Tab>
       </Container>
     </Screen>
   );
 };
 
-export default NavBar;
+export default withNavigation(NavBar);

@@ -46,6 +46,11 @@ export default () => {
         component={JoinStack}
         options={{ tabBarVisible: false }}
       />
+      <Tab.Screen
+        name='SettingStack'
+        component={SettingStack}
+        options={{ tabBarVisible: false }}
+      />
     </Tab.Navigator>
   );
 };
