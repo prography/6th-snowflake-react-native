@@ -3,12 +3,14 @@ import Content from '../../containers/home/main/Content';
 import MenuBar from '../../containers/home/main/MenuBar';
 
 
+import NavBar from '~/screens/NavBar';
+
 const HomeMain = () => {
   return (
-    <>
-        <MenuBar/>
-        <Content/>
-    </>
+    <NavBar>
+      <MenuBar/>
+      <Content/>
+    </NavBar>
   );
 };
 
