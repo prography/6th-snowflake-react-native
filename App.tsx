@@ -9,6 +9,7 @@ import Home from '~/screens/home/HomeMain';
 import Laboratory from '~/screens/lab/LabMain';
 import Clinic from '~/screens/clinic/ClinicMain';
 import Setting from '~/screens/setting/SettingMain';
+
 import ProductStack from '~/navigation/tabs/ProductStack';
 
 import RootTabNavigation from '~/navigation/RootTabNavigation';
