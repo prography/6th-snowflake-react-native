@@ -64,6 +64,13 @@
 		<string>Jost-700-Bold.otf</string>
 		<string>Jost-800-Heavy.otf</string>
 		<string>Jost-900-Black.otf</string>
+		<string>Jost-Black.otf</string>
+		<string>Jost-Bold.otf</string>
+		<string>Jost-Book.otf</string>
+		<string>Jost-Heavy.otf</string>
+		<string>Jost-Light.otf</string>
+		<string>Jost-Medium.otf</string>
+		<string>Jost-Semi.otf</string>
 	</array>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>

@@ -14,8 +14,7 @@ const Container = styled.View`
 
 const Title = styled.Text`
   font-size: ${device.px * 20}px;
-  font-family: 'Jost-600-Semi';
-  font-weight: 800;
+  font-family: 'Jost-Heavy';
 `;
 
 const Button = styled.TouchableOpacity`
