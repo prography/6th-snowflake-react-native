@@ -8,15 +8,15 @@ interface Props {
 }
 
 const TextStyle = styled.Text`
-  font-family: 'Jost-Semi';
+  font-family: 'Jost-Bold';
   line-height: ${d.px * 23}px;
   font-size: ${d.px * 15}px;
   text-align: left;
-  color: ${c.black};
+  color: ${c.purple};
 `;
 
 const TextProductScore = ({ score }: Props) => {
-  return <TextStyle>{score}</TextStyle>;
+  return <TextStyle>★ {score}</TextStyle>;
 };
 
 export default TextProductScore;

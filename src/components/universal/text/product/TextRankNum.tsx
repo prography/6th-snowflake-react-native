@@ -8,15 +8,18 @@ interface Props {
 }
 
 const TextStyle = styled.Text`
-  font-family: 'Jost-Semi';
-  line-height: ${d.px * 23}px;
-  font-size: ${d.px * 15}px;
+  font-family: 'Jost-Bold';
+  line-height: ${d.px * 20}px;
+  font-size: ${d.px * 17}px;
   text-align: left;
-  color: ${c.black};
 `;
 
 const TextRankNum = ({ rankNum }: Props) => {
-  return <TextStyle>{rankNum}</TextStyle>;
+  return (
+    <TextStyle style={{ color: rankNum > 3 ? c.lightGray : c.purple }}>
+      {rankNum}
+    </TextStyle>
+  );
 };
 
 export default TextRankNum;

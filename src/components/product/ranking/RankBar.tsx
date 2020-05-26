@@ -26,9 +26,27 @@ const Container = styled.TouchableOpacity`
   flex-direction: row;
 `;
 const ProductImage = styled.Image`
-  margin: ${d.px * 10}px;
-  width: ${d.px * 40}px;
-  height: ${d.px * 65}px;
+  width: ${d.px * 45}px;
+  height: ${d.px * 50}px;
+`;
+const ImageWrapper = styled.View`
+  flex: 0.9;
+  justify-content: center;
+  align-items: center;
+`;
+const RankNumWrapper = styled.View`
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+`;
+const TextWrapper = styled.View`
+  flex: 3;
+  justify-content: center;
+`;
+const ScoreWrapper = styled.View`
+  flex: 1.2;
+  align-items: flex-end;
+  justify-content: center;
 `;
 
 const RankBar = ({
@@ -42,21 +60,32 @@ const RankBar = ({
   const [blind, setBlind] = useState(true);
 
   return (
-    <Container activeOpacity={1} onPress={() => navigation.navigate('Review')}>
-      <ProductImage
-        style={{ resizeMode: 'contain' }}
-        source={
-          blind
-            ? rankNum < 4
-              ? require('~/img/doodle/doodleCdBoxPurple.png')
-              : require('~/img/doodle/doodleCdBoxMintPurpleHeart.png')
-            : { uri: imageUri }
-        }
-      />
-      <TextRankNum rankNum={rankNum} />
-      <TextProductCompany productCompany={productCompany} />
-      <TextProductName productName={productName} />
-      <TextProductScore score={score} />
+    <Container
+      activeOpacity={1}
+      onPress={() => [navigation.navigate('Review'), setBlind(!blind)]}
+    >
+      <ImageWrapper>
+        <ProductImage
+          style={{ resizeMode: 'contain' }}
+          source={
+            blind
+              ? rankNum < 4
+                ? require('~/img/doodle/doodleCdBoxPurple.png')
+                : require('~/img/doodle/doodleCdBoxMintPurpleHeart.png')
+              : { uri: imageUri }
+          }
+        />
+      </ImageWrapper>
+      <RankNumWrapper>
+        <TextRankNum rankNum={rankNum} />
+      </RankNumWrapper>
+      <TextWrapper>
+        <TextProductCompany productCompany={productCompany} />
+        <TextProductName productName={productName} />
+      </TextWrapper>
+      <ScoreWrapper>
+        <TextProductScore score={score} />
+      </ScoreWrapper>
     </Container>
   );
 };
