@@ -1,7 +1,7 @@
 import * as React from 'react';
 import styled from 'styled-components';
 import { Text } from 'react-native';
-import { device, color } from '~/utils/constant';
+import { d, color } from '~/utils/constant';
 import Product from '~/components/product/reviewWriting/Product';
 
 const ReviewProduct = () => {

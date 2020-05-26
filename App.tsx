@@ -1,9 +1,9 @@
 import * as React from 'react';
 import { SafeAreaView } from 'react-native';
-
+import { ThemeProvider } from 'styled-components/native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-
+import { theme } from '~/utils/constant';
 import GenderColor from '~/screens/join/GenderColor';
 import Home from '~/screens/home/HomeMain';
 import Laboratory from '~/screens/lab/LabMain';
@@ -18,11 +18,13 @@ const Tab = createBottomTabNavigator();
 
 const App = () => {
   return (
-    <SafeAreaView style={{ backgroundColor: 'white', flex: 1 }}>
-      <NavigationContainer>
-        <RootTabNavigation />
-      </NavigationContainer>
-    </SafeAreaView>
+    <ThemeProvider theme={theme}>
+      <SafeAreaView style={{ backgroundColor: 'white', flex: 1 }}>
+        <NavigationContainer>
+          <RootTabNavigation />
+        </NavigationContainer>
+      </SafeAreaView>
+    </ThemeProvider>
   );
 };
 

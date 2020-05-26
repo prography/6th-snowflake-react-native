@@ -2,15 +2,15 @@ import * as React from 'react';
 import { useState } from 'react';
 import { View, SafeAreaView } from 'react-native';
 import styled from 'styled-components/native';
-import { device, color } from '~/utils/constant';
-import TopBarWithIcon from '~/components/universal/TopBarWithIcon';
+import { d, color } from '~/utils/constant';
+import TopBarWithIcon from '~/components/universal/topBar/TopBarRightIcon';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import BottomButton from '~/components/universal/BottomButton';
 
 const Container = styled.View`
   flex-direction: column;
   align-items: flex-start;
-  padding: 0 ${device.px * 20}px;
+  padding: 0 ${d.px * 20}px;
   flex: 1;
 `;
 
@@ -27,7 +27,7 @@ const OneLine = styled.View`
 
 const ContentText = styled.Text`
   font-weight: 500;
-  font-size: ${device.px * 22}px;
+  font-size: ${d.px * 22}px;
 `;
 
 const ColorContainer = styled.View`
@@ -98,15 +98,15 @@ export default () => {
 
             <View
               style={{
-                width: device.px * 35,
-                height: device.px * 35,
-                marginLeft: device.px * 10,
-                marginRight: device.px * 5,
+                width: d.px * 35,
+                height: d.px * 35,
+                marginLeft: d.px * 10,
+                marginRight: d.px * 5,
                 borderRadius: 100,
                 backgroundColor: womanColor === null ? 'white' : womanColor,
                 borderColor: womanColor === null ? color.lightGray : womanColor,
                 borderStyle: womanColor === null ? 'dashed' : 'solid',
-                borderWidth: device.px * 1,
+                borderWidth: d.px * 1,
               }}
             />
             <ContentText>색,</ContentText>
@@ -115,15 +115,15 @@ export default () => {
             <ContentText>남성은</ContentText>
             <View
               style={{
-                width: device.px * 35,
-                height: device.px * 35,
-                marginLeft: device.px * 10,
-                marginRight: device.px * 5,
+                width: d.px * 35,
+                height: d.px * 35,
+                marginLeft: d.px * 10,
+                marginRight: d.px * 5,
                 borderRadius: 100,
                 backgroundColor: manColor === null ? 'white' : manColor,
                 borderColor: manColor === null ? color.lightGray : manColor,
                 borderStyle: manColor === null ? 'dashed' : 'solid',
-                borderWidth: device.px * 1,
+                borderWidth: d.px * 1,
               }}
             />
             <ContentText>색으로</ContentText>
@@ -139,10 +139,10 @@ export default () => {
                     pickColor(circleColor);
                   }}
                   style={{
-                    width: device.px * 40,
-                    height: device.px * 40,
-                    marginRight: device.px * 44,
-                    marginBottom: device.px * 30,
+                    width: d.px * 40,
+                    height: d.px * 40,
+                    marginRight: d.px * 44,
+                    marginBottom: d.px * 30,
                     borderRadius: 100,
                     backgroundColor: circle.circleColor,
                   }}
