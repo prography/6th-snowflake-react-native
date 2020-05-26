@@ -36,7 +36,7 @@ const Tab = styled.TouchableOpacity`
 `;
 const Title = styled.Text`
   color: ${color.darkGray};
-  font-size: ${d.px * 11}px;
+  font-size: ${d.px * 12}px;
 `;
 
 const NavBar = ({ children, navigation }: Props) => {

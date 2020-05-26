@@ -1,7 +1,8 @@
 import * as React from 'react';
+import { useState } from 'react';
 import { SafeAreaView, Text, ScrollView } from 'react-native';
 import styled from 'styled-components/native';
-import { d } from '~/utils/constant';
+import { d, c } from '~/utils/constant';
 
 import NavBar from '~/screens/NavBar';
 import TopBarLeftIcon from '~/components/universal/topBar/TopBarLeftIcon';
@@ -18,12 +19,27 @@ const Container = styled.View`
   flex-direction: column;
   align-items: flex-start;
 `;
+const Blinder = styled.TouchableOpacity`
+  width: 50px;
+  height: 50px;
+  background-color: ${c.mint};
+  position: absolute;
+  right: ${d.px * 20}px;
+  top: ${d.px * 25}px;
+`;
 
 const ProductMain = () => {
+  const [blind, setBlind] = useState(true);
   return (
     <>
       <NavBar>
         <TopBarLeftIcon />
+        <Blinder
+          onPress={() => {
+            setBlind(!blind);
+          }}
+        />
+
         <ScrollView>
           <Container>
             <CardPurpleRight

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import styled from 'styled-components/native';
 import { d, color } from '~/utils/constant';
-import { View, Text } from 'react-native';
+import { ScrollView } from 'react-native';
 import TextTitleDarkLeft from '~/components/universal/text/TextTitleDarkLeft';
 import TextContentLightLeft from '~/components/universal/text/TextContentLightLeft';
 import MarginWide from '~/components/universal/margin/MarginWide';
@@ -53,17 +53,19 @@ const Trio = () => {
         />
         <MarginMedium />
       </Container>
-      <TrioContainer>
-        {trioInfo.map((product) => {
-          return (
-            <TrioBox
-              title={product.title}
-              productCompany={product.productCompany}
-              productName={product.productName}
-            />
-          );
-        })}
-      </TrioContainer>
+      <ScrollView horizontal={true}>
+        <TrioContainer>
+          {trioInfo.map((product) => {
+            return (
+              <TrioBox
+                title={product.title}
+                productCompany={product.productCompany}
+                productName={product.productName}
+              />
+            );
+          })}
+        </TrioContainer>
+      </ScrollView>
       <MarginWide />
       <LineGrayRightLong />
     </>
