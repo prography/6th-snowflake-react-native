@@ -3,6 +3,7 @@ import { SafeAreaView, Text, ScrollView } from 'react-native';
 import styled from 'styled-components/native';
 import { device } from '~/utils/constant';
 
+import NavBar from '~/screens/NavBar';
 import BoxContainer from '~/components/universal/BoxContainer';
 import TitleText from '~/components/universal/TitleText';
 import TitleTextStack from '~/components/universal/TitleTextStack';
@@ -19,24 +20,26 @@ const Container = styled.View`
 const ProductMain = () => {
   return (
     <>
-      <ScrollView>
-        <Container>
-          <Margin />
-          <BoxContainer />
-          <Margin />
-          <TitleTextStack
-            title={'총점 TOP 3'}
-            button={'더 보기'}
-            stack={'Ranking'}
-          />
-          <TopThree />
-          <Margin />
-          <TitleText title={'콘돔 핵심 트리오'} />
-          <Trio />
-          <Margin />
-          <Margin />
-        </Container>
-      </ScrollView>
+      <NavBar>
+        <ScrollView>
+          <Container>
+            <Margin />
+            <BoxContainer />
+            <Margin />
+            <TitleTextStack
+              title={'총점 TOP 3'}
+              button={'더 보기'}
+              stack={'Ranking'}
+            />
+            <TopThree />
+            <Margin />
+            <TitleText title={'콘돔 핵심 트리오'} />
+            <Trio />
+            <Margin />
+            <Margin />
+          </Container>
+        </ScrollView>
+      </NavBar>
     </>
   );
 };
