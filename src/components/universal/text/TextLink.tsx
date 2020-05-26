@@ -1,7 +1,6 @@
 import * as React from 'react';
 import styled from 'styled-components/native';
 import { d, c } from '~/utils/constant';
-import { View, Text } from 'react-native';
 
 interface Props {
   content: string;
@@ -9,14 +8,15 @@ interface Props {
 
 const TextStyle = styled.Text`
   font-family: 'Jost-Semi';
-  font-size: ${d.px * 15}px;
-  line-height: ${d.px * 25}px;
+  font-size: ${d.px * 12}px;
+  line-height: ${d.px * 16}px;
   text-align: right;
+  text-decoration-line: underline;
   color: ${c.darkGray};
 `;
 
-const TextContentDarkRight = ({ content }: Props) => {
+const TextLink = ({ content }: Props) => {
   return <TextStyle>{content}</TextStyle>;
 };
 
-export default TextContentDarkRight;
+export default TextLink;

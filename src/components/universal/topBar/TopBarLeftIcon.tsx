@@ -4,23 +4,26 @@ import styled from 'styled-components/native';
 import { d } from '~/utils/constant';
 
 const Container = styled.View`
-  height: ${d.height / 12}px;
+  height: ${d.px * 75}px;
   width: 100%;
   margin-left: ${d.px * 30}px;
   align-items: flex-start;
   justify-content: center;
+  background-color: transparent;
 `;
 
 const SnowFlake = styled.Image`
   height: ${d.px * 42}px;
   width: ${d.px * 42}px;
-  resize-mode: contain;
 `;
 
 const TopBarLeftIcon = () => {
   return (
     <Container>
-      <SnowFlake source={require('~/img/logo.png')} />
+      <SnowFlake
+        style={{ resizeMode: 'contain' }}
+        source={require('~/img/logo.png')}
+      />
     </Container>
   );
 };

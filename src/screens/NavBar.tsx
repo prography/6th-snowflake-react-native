@@ -20,7 +20,7 @@ const Screen = styled.View`
 `;
 
 const Container = styled.View`
-  height: ${d.height / 11}px;
+  height: ${d.px * 75}px;
   width: ${d.width}px;
   position: absolute;
   bottom: 0px;
@@ -36,7 +36,7 @@ const Tab = styled.TouchableOpacity`
 `;
 const Title = styled.Text`
   color: ${color.darkGray};
-  font-size: ${d.px * 11}px;
+  font-size: ${d.px * 12}px;
 `;
 
 const NavBar = ({ children, navigation }: Props) => {

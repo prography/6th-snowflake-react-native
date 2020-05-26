@@ -4,19 +4,19 @@ import { d, c } from '~/utils/constant';
 import { View, Text } from 'react-native';
 
 interface Props {
-  content: string;
+  productName: string;
 }
 
 const TextStyle = styled.Text`
   font-family: 'Jost-Semi';
+  line-height: ${d.px * 23}px;
   font-size: ${d.px * 15}px;
-  line-height: ${d.px * 25}px;
-  text-align: right;
-  color: ${c.darkGray};
+  text-align: left;
+  color: ${c.black};
 `;
 
-const TextContentDarkRight = ({ content }: Props) => {
-  return <TextStyle>{content}</TextStyle>;
+const TextProductName = ({ productName }: Props) => {
+  return <TextStyle>{productName}</TextStyle>;
 };
 
-export default TextContentDarkRight;
+export default TextProductName;

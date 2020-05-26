@@ -11,7 +11,7 @@ export const c: Color = {
   black: '#2d2d2d',
   darkGray: '#525252',
   lightGray: '#9b9b9b',
-  extraLightGray: '#f2f2f2',
+  extraLightGray: '#D8D8D8',
   purple: '#884aff',
   mint: '#B2FFF9',
 };
@@ -52,4 +52,5 @@ export const color: Ccolor = {
 
 export const theme = {
   purpleTitleRight: 'Jost-Bold',
+  mL: d.width * 20,
 };

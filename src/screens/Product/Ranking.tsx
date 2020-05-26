@@ -12,7 +12,7 @@ const Container = styled.View`
 const Ranking = () => {
   return (
     <Container>
-      <Text>ji</Text>
+      <Text>랭킹 페이지</Text>
     </Container>
   );
 };
