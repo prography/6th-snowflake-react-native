@@ -5,10 +5,8 @@ import { d, c } from '~/utils/constant';
 
 const Container = styled.View`
   width: ${d.width - d.px * 30}px;
-
-  border-style: solid;
-  border-width: ${d.px * 0.2}px;
-  border-bottom-color: ${c.extraLightGray};
+  border-width: ${d.px * 0.3}px;
+  border-color: ${c.extraLightGray};
 `;
 
 const LineGrayRightLong = () => {

@@ -12,6 +12,7 @@ import TopThree from '~/containers/product/main/TopThree';
 import Trio from '~/containers/product/main/Trio';
 import Margin from '~/components/universal/Margin';
 import CardPurpleRight from '~/components/universal/card/CardPurpleRight';
+import MarginWide from '~/components/universal/margin/MarginWide';
 
 const Container = styled.View`
   flex-direction: column;
@@ -28,18 +29,12 @@ const ProductMain = () => {
             <CardPurpleRight
               title={'Closed beta OPEN!'}
               content={
-                '2020년 6월 6일 기준\nPROGRAPHY 내부에 공개된 버전입니다\n추후 더 다양한 제품군으로 확장 예정입니다.'
+                '2020년 6월 6일 기준,\nPROGRAPHY 내부에 공개된 버전입니다.\n추후 더 다양한 제품군으로 확장 예정입니다.'
               }
             />
-            <Margin />
-            <BoxContainer />
-            <Margin />
-            <TitleTextStack
-              title={'총점 TOP 3'}
-              button={'더 보기'}
-              stack={'Ranking'}
-            />
-            <TopThree />
+            <MarginWide />
+            <Trio />
+            <MarginWide />
             <Margin />
             <TitleText title={'콘돔 핵심 트리오'} />
             <Trio />
