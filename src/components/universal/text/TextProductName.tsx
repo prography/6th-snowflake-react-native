@@ -9,6 +9,7 @@ interface Props {
 
 const TextStyle = styled.Text`
   font-family: 'Jost-Semi';
+  line-height: ${d.px * 23}px;
   font-size: ${d.px * 15}px;
   text-align: left;
   color: ${c.black};

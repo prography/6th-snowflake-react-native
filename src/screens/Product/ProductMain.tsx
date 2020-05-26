@@ -40,7 +40,7 @@ const ProductMain = () => {
           }}
         />
 
-        <ScrollView>
+        <ScrollView showsVerticalScrollIndicator={false}>
           <Container>
             <CardPurpleRight
               title={'Closed beta OPEN!'}
