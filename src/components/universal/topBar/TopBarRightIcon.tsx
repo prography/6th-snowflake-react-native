@@ -13,13 +13,15 @@ const Container = styled.View`
 const SnowFlake = styled.Image`
   height: ${d.px * 42}px;
   width: ${d.px * 42}px;
-  resize-mode: contain;
 `;
 
 const TopBarWithIcon = () => {
   return (
     <Container>
-      <SnowFlake source={require('~/img/logo.png')} />
+      <SnowFlake
+        style={{ resizeMode: 'contain' }}
+        source={require('~/img/logo.png')}
+      />
     </Container>
   );
 };

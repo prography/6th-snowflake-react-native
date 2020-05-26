@@ -24,8 +24,6 @@ const cardPurpleRight = ({ title, content }: Props) => {
       <TextTitlePurpleRight title={title} />
       <MarginWide />
       <TextContentDarkRight content={content} />
-      <MarginWide />
-      <LineGrayRightLong />
     </Container>
   );
 };

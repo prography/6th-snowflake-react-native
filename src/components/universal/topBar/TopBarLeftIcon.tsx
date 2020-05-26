@@ -4,7 +4,7 @@ import styled from 'styled-components/native';
 import { d } from '~/utils/constant';
 
 const Container = styled.View`
-  height: ${d.px * 100}px;
+  height: ${d.px * 75}px;
   width: 100%;
   margin-left: ${d.px * 30}px;
   align-items: flex-start;

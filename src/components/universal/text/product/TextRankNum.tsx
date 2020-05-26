@@ -1,0 +1,22 @@
+import * as React from 'react';
+import styled from 'styled-components/native';
+import { d, c } from '~/utils/constant';
+import { View, Text } from 'react-native';
+
+interface Props {
+  rankNum: number;
+}
+
+const TextStyle = styled.Text`
+  font-family: 'Jost-Semi';
+  line-height: ${d.px * 23}px;
+  font-size: ${d.px * 15}px;
+  text-align: left;
+  color: ${c.black};
+`;
+
+const TextRankNum = ({ rankNum }: Props) => {
+  return <TextStyle>{rankNum}</TextStyle>;
+};
+
+export default TextRankNum;
