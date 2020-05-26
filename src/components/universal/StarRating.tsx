@@ -1,6 +1,6 @@
 import * as React from 'react';
 import StarRating from 'react-native-star-rating';
-import { color, device } from '~/utils/constant';
+import { color, d } from '~/utils/constant';
 import styled from 'styled-components/native';
 
 const StarRatingView = styled.View``;

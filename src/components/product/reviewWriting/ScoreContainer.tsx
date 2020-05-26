@@ -1,61 +1,61 @@
 import * as React from 'react';
 import styled from 'styled-components/native';
 import { Text } from 'react-native';
-import { device, color } from '../../../utils/constant';
+import { d, color } from '../../../utils/constant';
 import StarRating from '../../universal/StarRating';
 
 const Container = styled.View`
-  height: ${device.width * 0.6}px;
-  width: ${device.width}px;
+  height: ${d.width * 0.6}px;
+  width: ${d.width}px;
 `;
 
 const TrioScoreContainer = styled.View`
-  height: ${device.width * 0.1}px;
-  width: ${device.width}px;
+  height: ${d.width * 0.1}px;
+  width: ${d.width}px;
   align-items: center;
 `;
 
 const EachScoreContainer = styled.View`
-  height: ${device.width * 0.16}px;
-  width: ${device.width}px;
+  height: ${d.width * 0.16}px;
+  width: ${d.width}px;
   align-items: center;
   justify-content: center;
 `;
 
 const ScoreTitle = styled.Text`
-  margin-top: ${device.width * 0.01}px;
+  margin-top: ${d.width * 0.01}px;
   color: ${color.grayDark};
   font-weight: 700;
-  font-size: ${device.px * 13}px;
+  font-size: ${d.px * 13}px;
 `;
 
 const Score = styled.Text`
   color: ${color.mainDark};
-  margin-top: ${device.width * 0.01}px;
+  margin-top: ${d.width * 0.01}px;
   font-weight: 700;
-  font-size: ${device.px * 20}px;
+  font-size: ${d.px * 20}px;
 `;
 
 const TotalScoreContainer = styled.View`
-  height: ${device.width * 0.16}px;
-  width: ${device.width}px;
-  padding-top: ${device.width * 0.07}px;
+  height: ${d.width * 0.16}px;
+  width: ${d.width}px;
+  padding-top: ${d.width * 0.07}px;
   align-items: center;
   justify-content: center;
 `;
 
 const TotalScoreTitle = styled.Text`
-  margin-top: ${device.width * 0.01}px;
+  margin-top: ${d.width * 0.01}px;
   color: ${color.grayDark};
   font-weight: 900;
-  font-size: ${device.px * 15}px;
+  font-size: ${d.px * 15}px;
 `;
 
 const TotalScore = styled.Text`
   color: ${color.mainLight};
-  margin-top: ${device.width * 0.01}px;
+  margin-top: ${d.width * 0.01}px;
   font-weight: 700;
-  font-size: ${device.px * 25}px;
+  font-size: ${d.px * 25}px;
 `;
 
 const ScoreContainer = (props) => {

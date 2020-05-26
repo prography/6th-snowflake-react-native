@@ -2,17 +2,17 @@ import * as React from 'react';
 import { useState } from 'react';
 import { ScrollView, View, Text } from 'react-native';
 import styled from 'styled-components/native';
-import { device } from '../../utils/constant';
+import { d } from '../../utils/constant';
 import ProductInfo from '~/containers/product/review/ProductInfo';
 import ReviewFilter from '~/containers/product/review/ReviewFilter';
 import Reviews from '~/containers/product/review/Reviews';
 import Animated from 'react-native-reanimated';
 import NavBar from '~/screens/NavBar';
 
-HEADER_MAX_HEIGHT = device.width * 0.92;
-HEADER_MIN_HEIGHT = device.width * 0.3;
-PROFILE_IMAGE_MAX_HEIGHT = device.width * 0.4;
-PROFILE_IMAGE_MIN_HEIGHT = device.width * 0.2;
+HEADER_MAX_HEIGHT = d.width * 0.92;
+HEADER_MIN_HEIGHT = d.width * 0.3;
+PROFILE_IMAGE_MAX_HEIGHT = d.width * 0.4;
+PROFILE_IMAGE_MIN_HEIGHT = d.width * 0.2;
 
 const { Value, Extrapolate } = Animated;
 const Review = () => {

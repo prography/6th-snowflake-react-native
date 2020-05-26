@@ -7,7 +7,7 @@ import { TouchableWithoutFeedback } from 'react-native';
 import { withNavigation } from '@react-navigation/compat';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RootTabParamList } from '~/navigation/RootTabNavigation';
-import { device, color } from '~/utils/constant';
+import { d, color } from '~/utils/constant';
 
 interface Props {
   children: React.ReactNode;
@@ -20,8 +20,8 @@ const Screen = styled.View`
 `;
 
 const Container = styled.View`
-  height: ${device.height / 11}px;
-  width: ${device.width}px;
+  height: ${d.height / 11}px;
+  width: ${d.width}px;
   position: absolute;
   bottom: 0px;
   flex: 1;
@@ -32,11 +32,11 @@ const Container = styled.View`
 const Tab = styled.TouchableOpacity`
   flex: 1;
   align-items: center;
-  padding-top: ${device.px * 10}px;
+  padding-top: ${d.px * 10}px;
 `;
 const Title = styled.Text`
   color: ${color.darkGray};
-  font-size: ${device.px * 11}px;
+  font-size: ${d.px * 11}px;
 `;
 
 const NavBar = ({ children, navigation }: Props) => {
