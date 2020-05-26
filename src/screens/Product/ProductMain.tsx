@@ -11,7 +11,7 @@ import TitleTextStack from '~/components/universal/TitleTextStack';
 import TopThree from '~/containers/product/main/TopThree';
 import Trio from '~/containers/product/main/Trio';
 import Margin from '~/components/universal/Margin';
-import TitleRightPurpleContainer from '~/components/universal/containerComponent/TitleRightPurpleContainer';
+import CardPurpleRight from '~/components/universal/card/CardPurpleRight';
 
 const Container = styled.View`
   flex-direction: column;
@@ -25,7 +25,12 @@ const ProductMain = () => {
         <TopBarLeftIcon />
         <ScrollView>
           <Container>
-            <TitleRightPurpleContainer title={'Closed beta OPEN!'} />
+            <CardPurpleRight
+              title={'Closed beta OPEN!'}
+              content={
+                '2020년 6월 6일 기준\nPROGRAPHY 내부에 공개된 버전입니다\n추후 더 다양한 제품군으로 확장 예정입니다.'
+              }
+            />
             <Margin />
             <BoxContainer />
             <Margin />
