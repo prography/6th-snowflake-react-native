@@ -20,7 +20,7 @@ const Screen = styled.View`
 `;
 
 const Container = styled.View`
-  height: ${d.height / 11}px;
+  height: ${d.px * 75}px;
   width: ${d.width}px;
   position: absolute;
   bottom: 0px;
