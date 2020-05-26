@@ -1,7 +1,10 @@
-import * as React from 'react';
+// import * as React from '~/screens/product/node_modules/react';
+import * as React from "react";
 import { useState } from 'react';
 import { ScrollView, View, Text } from 'react-native';
+// import styled from '~/screens/product/node_modules/styled-components/native';
 import styled from 'styled-components/native';
+
 import { device } from '../../utils/constant';
 import ProductInfo from '~/containers/product/review/ProductInfo';
 import ReviewFilter from '~/containers/product/review/ReviewFilter';

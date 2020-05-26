@@ -1,5 +1,7 @@
-import * as React from 'react';
+// import * as React from '~/screens/product/node_modules/react';
+import * as React from "react";
 import { SafeAreaView, Text, ScrollView } from 'react-native';
+// import styled from '~/screens/product/node_modules/styled-components/native';
 import styled from 'styled-components/native';
 import { device } from '~/utils/constant';
 
