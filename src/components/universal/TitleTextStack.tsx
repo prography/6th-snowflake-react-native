@@ -1,11 +1,11 @@
 import * as React from 'react';
 import { SafeAreaView, Text, ScrollView } from 'react-native';
 import styled from 'styled-components/native';
-import { device, color } from '../../utils/constant';
+import { d, color } from '../../utils/constant';
 import { withNavigation } from '@react-navigation/compat';
 
 const Container = styled.View`
-  height: ${device.width / 10}px;
+  height: ${d.width / 10}px;
   width: 100%;
   flex-direction: row;
   align-items: center;
@@ -13,26 +13,26 @@ const Container = styled.View`
 `;
 
 const Title = styled.Text`
-  font-size: ${device.px * 18}px;
-  font-weight: 600;
+  font-size: ${d.px * 20}px;
+  font-family: 'Jost-Heavy';
 `;
 
 const Button = styled.TouchableOpacity`
-  height: ${device.width / 10}px;
+  height: ${d.width / 10}px;
   justify-content: center;
   align-items: flex-end;
-  width: ${device.width / 5}px;
+  width: ${d.width / 5}px;
 `;
 
 const ButtonText = styled.Text`
-  font-size: ${device.px * 15}px;
+  font-size: ${d.px * 15}px;
   font-weight: 500;
   color: ${color.grayLight};
 `;
 interface Props {
-  title: string;
-  button?: string;
-  stack: string;
+  title: any;
+  button: any;
+  stack: any;
   navigation: any;
 }
 

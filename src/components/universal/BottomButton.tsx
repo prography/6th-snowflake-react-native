@@ -7,7 +7,7 @@ import { TouchableWithoutFeedback } from 'react-native';
 import { withNavigation } from '@react-navigation/compat';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RootTabParamList } from '~/navigation/RootTabNavigation';
-import { device, color } from '~/utils/constant';
+import { d, color } from '~/utils/constant';
 
 interface Props {
   children: React.ReactNode;
@@ -20,20 +20,20 @@ const Screen = styled.View`
 `;
 
 const Container = styled.TouchableOpacity`
-  height: ${device.height / 11}px;
-  width: ${device.width}px;
+  height: ${d.height / 11}px;
+  width: ${d.width}px;
   position: absolute;
   bottom: 0px;
   flex: 1;
   flex-direction: row;
   background-color: ${color.lightGray};
-  padding-top: ${device.px * 10}px;
+  padding-top: ${d.px * 10}px;
   justify-content: center;
 `;
 
 const Title = styled.Text`
   color: white;
-  font-size: ${device.px * 15}px;
+  font-size: ${d.px * 15}px;
   font-weight: 400;
 `;
 

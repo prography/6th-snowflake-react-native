@@ -1,56 +1,56 @@
 import * as React from 'react';
 import styled from 'styled-components/native';
 import { Text } from 'react-native';
-import { device, color } from '~/utils/constant';
+import { d, color } from '~/utils/constant';
 
 const Container = styled.View`
-  height: ${device.width * 0.12}px;
-  width: ${device.width}px;
+  height: ${d.width * 0.12}px;
+  width: ${d.width}px;
   flex-direction: row;
   align-items: center;
-  margin-top: ${device.width * 0.05}px;
+  margin-top: ${d.width * 0.05}px;
 `;
 
 const ReviewCntContainer = styled.View`
-  width: ${device.width * 0.38}px;
+  width: ${d.width * 0.38}px;
   justify-content: center;
   align-items: center;
 `;
 
 const ReviewCntText = styled.Text`
   color: ${color.grayDark};
-  font-size: ${device.px * 20}px;
+  font-size: ${d.px * 20}px;
   font-weight: 800;
 `;
 
 const FirstFilterContainer = styled.TouchableOpacity`
-  height: ${device.width * 0.08}px;
-  width: ${device.width * 0.22}px;
+  height: ${d.width * 0.08}px;
+  width: ${d.width * 0.22}px;
   border-color: ${color.grayLight};
-  border-width: ${device.px}px;
-  border-radius: ${device.px * 20}px;
-  margin-right: ${device.width * 0.015}px;
+  border-width: ${d.px}px;
+  border-radius: ${d.px * 20}px;
+  margin-right: ${d.width * 0.015}px;
   justify-content: center;
   align-items: center;
 `;
 
 const SecondFilterContainer = styled.TouchableOpacity`
-  height: ${device.width * 0.08}px;
-  width: ${device.width * 0.18}px;
+  height: ${d.width * 0.08}px;
+  width: ${d.width * 0.18}px;
   border-color: ${color.grayLight};
-  border-width: ${device.px}px;
-  border-radius: ${device.px * 20}px;
-  margin-right: ${device.width * 0.015}px;
+  border-width: ${d.px}px;
+  border-radius: ${d.px * 20}px;
+  margin-right: ${d.width * 0.015}px;
   justify-content: center;
   align-items: center;
 `;
 
 const ThirdFilterContainer = styled.TouchableOpacity`
-  height: ${device.width * 0.08}px;
-  width: ${device.width * 0.13}px;
+  height: ${d.width * 0.08}px;
+  width: ${d.width * 0.13}px;
   border-color: ${color.grayLight};
-  border-width: ${device.px}px;
-  border-radius: ${device.px * 20}px;
+  border-width: ${d.px}px;
+  border-radius: ${d.px * 20}px;
   justify-content: center;
   align-items: center;
 `;

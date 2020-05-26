@@ -1,10 +1,10 @@
 import * as React from 'react';
 import { SafeAreaView, Text, ScrollView } from 'react-native';
 import styled from 'styled-components/native';
-import { device } from '~/utils/constant';
+import { d } from '~/utils/constant';
 
 const Container = styled.View`
-  height: ${device.width / 11}px;
+  height: ${d.px * 33}px;
   width: 100%;
 `;
 
