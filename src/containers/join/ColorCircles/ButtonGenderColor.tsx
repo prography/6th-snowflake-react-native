@@ -25,10 +25,9 @@ const Container = styled.TouchableOpacity`
   width: ${d.width}px;
   position: absolute;
   bottom: 0px;
-  flex: 1;
   flex-direction: row;
-  padding-top: ${d.px * 10}px;
   justify-content: center;
+  align-items: center;
 `;
 
 const ButtonGenderColor = ({ children, navigation }: Props) => {

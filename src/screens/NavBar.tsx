@@ -60,14 +60,14 @@ const NavBar = ({ children, navigation }: Props) => {
         </Tab>
         <Tab
           onPress={() => {
-            navigation.navigate('ClinicStack');
+            navigation.navigate('LabStack');
           }}
         >
           <Title>실험실</Title>
         </Tab>
         <Tab
           onPress={() => {
-            navigation.navigate('LabStack');
+            navigation.navigate('ClinicStack');
           }}
         >
           <Title>상담소</Title>

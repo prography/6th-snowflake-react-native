@@ -10,6 +10,8 @@ export const d = {
 
 export const l = {
   bottomBar: d.px * 75,
+  mR: d.px * 20,
+  mL: d.px * 30,
 };
 export const c: Color = {
   black: '#2d2d2d',

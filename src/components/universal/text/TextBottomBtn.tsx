@@ -11,7 +11,6 @@ const TextStyle = styled.Text`
   font-family: 'Jost-Book';
   font-size: ${d.px * 15}px;
   line-height: ${d.px * 40}px;
-  text-align: left;
   color: white;
 `;
 
