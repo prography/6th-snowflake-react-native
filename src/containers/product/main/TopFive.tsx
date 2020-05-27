@@ -28,8 +28,7 @@ const TopFive = () => {
       rankNum: 2,
       productCompany: '유니더스',
       productName: '롱러브',
-      imageUri:
-        'https://www.google.com/url?sa=i&url=https%3A%2F%2Fdlpng.com%2Fpng%2F149192&psig=AOvVaw2aIQGAa2yQRmAUSl0e6H_l&ust=1590579132745000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCNjs-ZW30ekCFQAAAAAdAAAAABBu',
+      imageUri: 'https://i.dlpng.com/static/png/291856_preview.png',
       score: 4.84,
     },
     {

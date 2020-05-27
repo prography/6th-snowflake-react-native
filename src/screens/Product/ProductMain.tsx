@@ -1,14 +1,9 @@
 import * as React from 'react';
-import { useState } from 'react';
-import { SafeAreaView, Text, ScrollView } from 'react-native';
+import { SafeAreaView, Text, ScrollView, View } from 'react-native';
 import styled from 'styled-components/native';
 import { d, c } from '~/utils/constant';
-
 import NavBar from '~/screens/NavBar';
 import TopBarLeftIcon from '~/components/universal/topBar/TopBarLeftIcon';
-import BoxContainer from '~/components/universal/BoxContainer';
-import TitleText from '~/components/universal/TitleText';
-import TitleTextStack from '~/components/universal/TitleTextStack';
 import Trio from '~/containers/product/main/Trio';
 import Margin from '~/components/universal/Margin';
 import CardPurpleRight from '~/components/universal/card/CardPurpleRight';
@@ -16,32 +11,19 @@ import MarginWide from '~/components/universal/margin/MarginWide';
 import LineGrayRightLong from '~/components/universal/line/LineGrayRightLong';
 import TopFive from '~/containers/product/main/TopFive';
 import MarginBottom from '~/components/universal/margin/MarginBottom';
+import Blinder from '~/components/product/Blinder';
 
 const Container = styled.View`
   flex-direction: column;
   align-items: flex-start;
 `;
-const Blinder = styled.TouchableOpacity`
-  width: 50px;
-  height: 50px;
-  background-color: ${c.mint};
-  position: absolute;
-  right: ${d.px * 20}px;
-  top: ${d.px * 25}px;
-`;
 
 const ProductMain = () => {
-  const [blind, setBlind] = useState(true);
   return (
     <>
       <NavBar>
         <ScrollView showsVerticalScrollIndicator={false}>
           <TopBarLeftIcon />
-          {/* <Blinder
-          onPress={() => {
-            setBlind(!blind);
-          }}
-        /> */}
 
           <Container>
             {/* 제목이 보라색인 카드 */}
@@ -66,6 +48,8 @@ const ProductMain = () => {
           </Container>
         </ScrollView>
       </NavBar>
+      <Blinder />
+      {/* Blinder: 스크린의 가장 마지막에 놓아주어야 터치가 됨*/}
     </>
   );
 };
