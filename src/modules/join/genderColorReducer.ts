@@ -1,3 +1,4 @@
+import { c } from '~/utils/constant';
 export interface State {
   womanColor: string;
   manColor: string;
@@ -17,6 +18,7 @@ const genderColorReducer = (state = initialState, action) => {
       return { ...state, womanColor: action.womanColor };
     case SET_MAN_COLOR:
       return { ...state, manColor: action.manColor };
+
     default:
       return state;
   }

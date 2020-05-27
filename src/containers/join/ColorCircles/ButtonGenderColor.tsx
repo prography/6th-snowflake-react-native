@@ -8,6 +8,7 @@ import { withNavigation } from '@react-navigation/compat';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RootTabParamList } from '~/navigation/RootTabNavigation';
 import { d, c } from '~/utils/constant';
+import TextBottomBtn from '~/components/universal/text/TextBottomBtn';
 
 interface Props {
   children: React.ReactNode;
@@ -26,15 +27,8 @@ const Container = styled.TouchableOpacity`
   bottom: 0px;
   flex: 1;
   flex-direction: row;
-
   padding-top: ${d.px * 10}px;
   justify-content: center;
-`;
-
-const Title = styled.Text`
-  color: white;
-  font-size: ${d.px * 15}px;
-  font-weight: 400;
 `;
 
 const ButtonGenderColor = ({ children, navigation }: Props) => {
@@ -48,17 +42,15 @@ const ButtonGenderColor = ({ children, navigation }: Props) => {
     <Screen>
       {children}
       <Container
+        activeOpacity={1}
         style={{
-          backgroundColor:
-            womanColor === null
-              ? c.lightGray
-              : manColor === null
-              ? c.lightGray
-              : c.purple,
+          backgroundColor: womanColor && manColor ? c.purple : c.lightGray,
         }}
-        onPress={() => navigation.navigate('HomeStack')}
+        onPress={() =>
+          womanColor && manColor && navigation.navigate('HomeStack')
+        }
       >
-        <Title>눈송이 시작하기</Title>
+        <TextBottomBtn btnName={'눈송이 시작하기'} />
       </Container>
     </Screen>
   );

@@ -2,6 +2,7 @@ import * as React from 'react';
 import styled from 'styled-components/native';
 import { d, c } from '~/utils/constant';
 import { withNavigation } from '@react-navigation/compat';
+import TextBottomBtn from '../text/TextBottomBtn';
 
 interface Props {
   buttonText: string;
@@ -42,7 +43,7 @@ const ButtonLinkPurpleLarge = ({ buttonText, link, navigation }: Props) => {
         navigation.navigate(link);
       }}
     >
-      <TextStyle>{buttonText}</TextStyle>
+      <TextBottomBtn btnName={buttonText} />
       <TriangleArrow
         style={{ resizeMode: 'contain' }}
         source={require('~/img/triangleArrow.png')}
