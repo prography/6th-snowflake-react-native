@@ -19,7 +19,7 @@ export const setBlinder = (blindState) => {
 const blindReducer = (state = initialState, action) => {
   switch (action.type) {
     case SET_BLINDER:
-      return { blindState: !action.blindState };
+      return { ...state, blindState: !action.blindState };
     default:
       return state;
   }
