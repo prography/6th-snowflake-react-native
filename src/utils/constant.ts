@@ -7,6 +7,10 @@ export const d = {
   height: Dimensions.get('window').height,
   px: Number(Dimensions.get('window').width) / 380,
 };
+
+export const l = {
+  bottomBar: d.px * 75,
+};
 export const c: Color = {
   black: '#2d2d2d',
   darkGray: '#525252',

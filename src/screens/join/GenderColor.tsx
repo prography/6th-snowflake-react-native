@@ -60,8 +60,8 @@ const GenderColor = () => {
             <TextTitleDarkLeft title={'나는 여성은'} />
             <View
               style={{
-                width: d.px * 35,
-                height: d.px * 35,
+                width: d.height / 25,
+                height: d.height / 25,
                 marginLeft: d.px * 10,
                 marginRight: d.px * 5,
                 borderRadius: 100,
@@ -77,8 +77,8 @@ const GenderColor = () => {
             <TextTitleDarkLeft title={'남성은'} />
             <View
               style={{
-                width: d.px * 35,
-                height: d.px * 35,
+                width: d.height / 25,
+                height: d.height / 25,
                 marginLeft: d.px * 10,
                 marginRight: d.px * 5,
                 borderRadius: 100,
