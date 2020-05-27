@@ -10,6 +10,7 @@ interface Props {
 const TextStyle = styled.Text`
   font-family: 'Jost-Bold';
   font-size: ${d.px * 20}px;
+  line-height: ${d.px * 30}px;
   text-align: right;
   color: ${c.purple};
 `;
