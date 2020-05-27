@@ -101,6 +101,7 @@ const GenderColor = () => {
           <ColorCircles5 />
         </ColorContainer>
       </Container>
+      <MarginMedium />
       <MarginBottom />
     </ButtonGenderColor>
   );
