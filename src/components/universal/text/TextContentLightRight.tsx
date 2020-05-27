@@ -11,12 +11,13 @@ const TextStyle = styled.Text`
   font-family: 'Jost-Book';
   font-size: ${d.px * 15.5}px;
   line-height: ${d.px * 23.5}px;
-  text-align: left;
+  text-align: right;
+
   color: ${c.darkGray};
 `;
 
-const TextContentLightLeft = ({ content }: Props) => {
+const TextContentLightRight = ({ content }: Props) => {
   return <TextStyle>{content}</TextStyle>;
 };
 
-export default TextContentLightLeft;
+export default TextContentLightRight;

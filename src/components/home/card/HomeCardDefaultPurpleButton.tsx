@@ -3,16 +3,17 @@ import styled from 'styled-components/native';
 import TextTitleDarkRight from '../../universal/text/TextTitleDarkRight';
 import ButtonLinkPurpleLarge from '../../universal/button/ButtonLinkPurpleLarge';
 import LineGrayRightLong from '../../universal/line/LineGrayRightLong';
-import MarginWide from '../margin/MarginWide';
+import MarginWide from '../../universal/margin/MarginWide';
 import { d, color, c } from '../../../utils/constant';
-import MarginNarrow from '../margin/MarginNarrow';
-import TextTag from '../text/TextTag';
+import MarginNarrow from '../../universal/margin/MarginNarrow';
+import TextTag from '../../universal/text/TextTag';
 
 interface Props {
   tag: any;
   title: string;
   btnText: string;
   link: string;
+  content: null;
 }
 
 const Container = styled.View`
@@ -28,7 +29,7 @@ const TagBox = styled.View`
   margin-right: ${d.px * 12}px;
 `;
 
-const HomeCard = ({ tag, title, btnText, link }: Props) => {
+const HomeCardDefaultPurpleButton = ({ tag, title, btnText, link }: Props) => {
   return (
     <>
       <Container>
@@ -53,4 +54,4 @@ const HomeCard = ({ tag, title, btnText, link }: Props) => {
   );
 };
 
-export default HomeCard;
+export default HomeCardDefaultPurpleButton;

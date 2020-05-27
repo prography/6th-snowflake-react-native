@@ -51,7 +51,7 @@ const Trio = () => {
         <MarginMedium />
         <TextContentLightLeft
           content={
-            '눈송이 팀이 설문조사를 꼼꼼히 분석하여 선정한\n콘돔의 가장 중요한 3가지 요소, 콘돔 삼박자!'
+            '눈송이 팀이 생생한 후기를 꼼꼼히 분석하여 선정한\n콘돔의 가장 중요한 3가지 요소, 콘돔 삼박자!'
           }
         />
         <MarginMedium />

@@ -9,14 +9,14 @@ interface Props {
 
 const TextStyle = styled.Text`
   font-family: 'Jost-Book';
-  font-size: ${d.px * 15.5}px;
-  line-height: ${d.px * 23.5}px;
+  font-size: ${d.px * 15}px;
+  line-height: ${d.px * 40}px;
   text-align: left;
-  color: ${c.darkGray};
+  color: white;
 `;
 
-const TextContentLightLeft = ({ content }: Props) => {
-  return <TextStyle>{content}</TextStyle>;
+const TextBottomBtn = ({ btnName }: Props) => {
+  return <TextStyle>{btnName}</TextStyle>;
 };
 
-export default TextContentLightLeft;
+export default TextBottomBtn;
