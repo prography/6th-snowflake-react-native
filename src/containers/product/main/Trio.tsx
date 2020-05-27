@@ -14,6 +14,7 @@ const Container = styled.View`
 
 const TrioContainer = styled.View`
   padding-left: ${d.px * 30}px;
+  padding-right: ${d.px * 10}px;
   flex-direction: row;
 `;
 

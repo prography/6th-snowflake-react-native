@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useState } from 'react';
+import { useSelector } from 'react-redux';
 import styled from 'styled-components/native';
 import { d, c } from '~/utils/constant';
 import TextMiddleTitleDark from '~/components/universal/text/TextMiddleTitleDark';
@@ -57,18 +57,19 @@ const RankBar = ({
   imageUri,
   navigation,
 }: Props) => {
-  const [blind, setBlind] = useState(true);
-
+  const blindState = useSelector(
+    (state: State) => state.blindReducer.blindState
+  );
   return (
     <Container
       activeOpacity={1}
-      onPress={() => [navigation.navigate('Review'), setBlind(!blind)]}
+      onPress={() => [navigation.navigate('Review')]}
     >
       <ImageWrapper>
         <ProductImage
           style={{ resizeMode: 'contain' }}
           source={
-            blind
+            blindState
               ? rankNum < 4
                 ? require('~/img/doodle/doodleCdBoxPurple.png')
                 : require('~/img/doodle/doodleCdBoxMintPurpleHeart.png')

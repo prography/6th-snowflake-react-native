@@ -1,46 +1,98 @@
 import * as React from 'react';
-import ContentBox from '../../../components/home/main/ContentBox';
 import { ScrollView, Dimensions, Platform } from 'react-native';
+import { d, color } from '../../../utils/constant';
+import LineGrayRightLong from '~/components/universal/line/LineGrayRightLong';
+import HomeCard from '~/components/universal/card/HomeCard';
 
-const CARD_WIDTH = Dimensions.get('window').width * 0.8;
-const CARD_HEIGHT = Dimensions.get('window').height * 0.7;
-const SPACING_FOR_CARD_INSET = Dimensions.get('window').width * 0.1 - 10;
-
+const CARD_WIDTH = d.width - d.px * 50;
+const CARD_HEIGHT = d.px * 203;
+const SPACING_FOR_CARD_INSET = d.height * 0.1 - 10;
 
 const Content = () => {
-    const contentList = [
-        {id: 1, tag1: '#제품', tag2: '#랭킹', desc: '지난주의 탑3 제품,\n함께 확인해볼까요?', btnText: '총점 랭킹 ▶',img_url: '../../img/condom.png'},
-        {id: 2, tag1: '#실험실', tag2: '#랭킹', desc: '이것은 실험실실험실 실험실 실험실,\n함께 확인해볼까요?', btnText: '실험실 내용 ▶',img_url: '../../img/condom.png'},
-        {id: 3, tag1: '#상담소', tag2: '#랭킹', desc: '상담내용,\n함께 확인해볼까요?', btnText: '상담 보기 ▶',img_url: '../../img/condom.png'},
-        {id: 4, tag1: '#상담소', tag2: '#랭킹', desc: '상담내용,\n함께 확인해볼까요?', btnText: '상담 보기 ▶',img_url: '../../img/condom.png'},
-        {id: 5, tag1: '#상담소', tag2: '#랭킹', desc: '상담내용,\n함께 확인해볼까요?', btnText: '상담 보기 ▶',img_url: '../../img/condom.png'},
-        {id: 6, tag1: '#상담소', tag2: '#랭킹', desc: '상담내용,\n함께 확인해볼까요?', btnText: '상담 보기 ▶',img_url: '../../img/condom.png'},
-        {id: 7, tag1: '#상담소', tag2: '#랭킹', desc: '상담내용,\n함께 확인해볼까요?', btnText: '상담 보기 ▶',img_url: '../../img/condom.png'},
-    ]
+  const contentList = [
+    {
+      id: 1,
+      tag: [{ tag: '제품' }, { tag: '랭킹' }],
+      title: '지난주의 TOP3 제품,\n함께 확인해볼까요?',
+      btnText: '총점 랭킹 ',
+      link: 'ProductStack',
+      //   'ProductStack', { screen: 'Ranking' } 가 들어가야 하는데 어떻게 넘겨주지
+    },
+    {
+      id: 2,
+      tag: [{ tag: '실험실' }],
+      title: '새로운 연구주제가\n업데이트되었습니다!',
+      btnText: '나도 참여하기 ',
+      link: 'LabStack',
+    },
+    {
+      id: 3,
+      tag: [{ tag: '이벤트' }, { tag: '광고' }],
 
+      title: '이번주엔 *이브*를\n파헤쳐 보았습니다',
+      btnText: '상담 보기 ',
+      link: 'ClinicStack',
+    },
+    {
+      id: 4,
+      tag: [{ tag: '상담소' }, { tag: '답장' }, { tag: '편지' }],
+      title: '지그레기님의 편지에\n5건의 답장이 도착했어요.',
+      btnText: '상담 보기 ',
+      link: 'ClinicStack',
+    },
+    {
+      id: 5,
+      tag: [{ tag: '제품' }],
+      title: '상담내용,\n확인해보실까요?',
+      btnText: '상담 보기 ',
+      link: 'ClinicStack',
+    },
+    {
+      id: 6,
+      tag: [{ tag: '제품' }, { tag: '랭킹' }],
+      title: '상담내용,\n확인해볼 수 있을까요?',
+      btnText: '상담 보기 ',
+      link: 'ClinicStack',
+    },
+    {
+      id: 7,
+      tag: [{ tag: '제품' }, { tag: '랭킹' }],
+      title: '상담내용,\n확인해보실래요?',
+      btnText: '상담 보기 ',
+      link: 'ClinicStack',
+    },
+  ];
 
-    return(
-        <ScrollView 
-            horizontal
-            pagingEnabled
-            decelerationRate={0}
-            snapToInterval={CARD_WIDTH+10}
-            snapToAlignment='center'
-            contentInset={{ // iOS ONLY
-                top: 0,
-                left: SPACING_FOR_CARD_INSET,
-                bottom: 0,
-                right: SPACING_FOR_CARD_INSET
-              }}
-              contentContainerStyle={{
-                paddingHorizontal: Platform.OS === 'android' ? SPACING_FOR_CARD_INSET : 0
-              }}
-            >
-            {contentList.map((content) => {
-                return <ContentBox content={content}/>;
-            })}
-        </ScrollView>
-    );
+  return (
+    <ScrollView
+      showsVerticalScrollIndicator={false}
+      pagingEnabled
+      decelerationRate={0}
+      snapToInterval={CARD_HEIGHT}
+      snapToAlignment='start'
+      contentInset={{
+        // iOS ONLY
+        top: 0,
+        left: 0,
+        bottom: SPACING_FOR_CARD_INSET,
+        right: 0,
+      }}
+      contentContainerStyle={{
+        paddingVertical: Platform.OS === 'android' ? SPACING_FOR_CARD_INSET : 0,
+      }}
+    >
+      {contentList.map((content) => {
+        return (
+          <HomeCard
+            tag={content.tag}
+            title={content.title}
+            btnText={content.btnText}
+            link={content.link}
+          />
+        );
+      })}
+    </ScrollView>
+  );
 };
 
 export default Content;
