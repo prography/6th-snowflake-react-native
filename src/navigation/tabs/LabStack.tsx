@@ -6,7 +6,11 @@ const Stack = createStackNavigator();
 
 export default () => {
   return (
-    <Stack.Navigator>
+    <Stack.Navigator
+      screenOptions={{
+        headerShown: false,
+      }}
+    >
       <Stack.Screen name='LabMain' component={LabMain} />
     </Stack.Navigator>
   );

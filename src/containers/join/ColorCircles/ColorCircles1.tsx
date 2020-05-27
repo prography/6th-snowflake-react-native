@@ -52,8 +52,8 @@ const ColorCircles1 = () => {
                 console.log('바뀐 womanColor:', womanColor, 'man', manColor);
               }}
               style={{
-                width: d.px * 40,
-                height: d.px * 40,
+                width: d.height / 20,
+                height: d.height / 20,
                 borderRadius: 1000,
                 backgroundColor: circle.cColor,
               }}

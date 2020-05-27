@@ -10,7 +10,11 @@ const Stack = createStackNavigator<ClinicStackParamList>();
 
 export default () => {
   return (
-    <Stack.Navigator>
+    <Stack.Navigator
+      screenOptions={{
+        headerShown: false,
+      }}
+    >
       <Stack.Screen name='ClinicMain' component={ClinicMain} />
     </Stack.Navigator>
   );

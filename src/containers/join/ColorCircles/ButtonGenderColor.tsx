@@ -7,7 +7,7 @@ import { TouchableWithoutFeedback } from 'react-native';
 import { withNavigation } from '@react-navigation/compat';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RootTabParamList } from '~/navigation/RootTabNavigation';
-import { d, c } from '~/utils/constant';
+import { d, c, l } from '~/utils/constant';
 import TextBottomBtn from '~/components/universal/text/TextBottomBtn';
 
 interface Props {
@@ -21,14 +21,13 @@ const Screen = styled.View`
 `;
 
 const Container = styled.TouchableOpacity`
-  height: ${d.height / 11}px;
+  height: ${l.bottomBar}px;
   width: ${d.width}px;
   position: absolute;
   bottom: 0px;
-  flex: 1;
   flex-direction: row;
-  padding-top: ${d.px * 10}px;
   justify-content: center;
+  align-items: center;
 `;
 
 const ButtonGenderColor = ({ children, navigation }: Props) => {
