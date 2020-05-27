@@ -12,8 +12,8 @@ interface Props {
 const Container = styled.TouchableOpacity`
   background-color: ${c.purple};
   align-self: flex-end;
-  padding-left: ${d.px *10}px;
-  padding-right: ${d.px *10}px;
+  padding-left: ${d.px * 10}px;
+  padding-right: ${d.px * 10}px;
   height: ${d.px * 40}px;
   flex-direction: row;
   justify-content: center;
@@ -21,9 +21,9 @@ const Container = styled.TouchableOpacity`
 `;
 
 const TextStyle = styled.Text`
-  font-family: 'Jost-Bold';
+  font-family: 'Jost-Book';
   font-size: ${d.px * 15}px;
-  line-height: ${d.px * 20}px;
+  line-height: ${d.px * 40}px;
   text-align: left;
   color: white;
 `;
