@@ -1,12 +1,11 @@
+// blindState 타입 설정
 export interface State {
   blindState: boolean;
 }
-
+// blindState의 초기값 설정
 const initialState: State = {
   blindState: true,
 };
-
-export const BLINDER = 'BLINDER';
 
 export const SET_BLINDER = 'SET_BLINDER';
 

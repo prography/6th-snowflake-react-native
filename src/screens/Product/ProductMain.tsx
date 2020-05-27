@@ -1,12 +1,7 @@
 import * as React from 'react';
-import { useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { SafeAreaView, Text, ScrollView } from 'react-native';
+import { SafeAreaView, Text, ScrollView, View } from 'react-native';
 import styled from 'styled-components/native';
 import { d, c } from '~/utils/constant';
-
-import { setBlinder, State } from '~/modules/blindReducer';
-
 import NavBar from '~/screens/NavBar';
 import TopBarLeftIcon from '~/components/universal/topBar/TopBarLeftIcon';
 import Trio from '~/containers/product/main/Trio';
@@ -29,7 +24,7 @@ const ProductMain = () => {
       <NavBar>
         <ScrollView showsVerticalScrollIndicator={false}>
           <TopBarLeftIcon />
-          <Blinder />
+
           <Container>
             {/* 제목이 보라색인 카드 */}
             <CardPurpleRight
@@ -53,6 +48,8 @@ const ProductMain = () => {
           </Container>
         </ScrollView>
       </NavBar>
+      <Blinder />
+      {/* Blinder: 스크린의 가장 마지막에 놓아주어야 터치가 됨*/}
     </>
   );
 };
