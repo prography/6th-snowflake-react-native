@@ -2,15 +2,26 @@ import * as React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { View, SafeAreaView } from 'react-native';
 import styled from 'styled-components/native';
-import { d, color } from '~/utils/constant';
+import { d, c, circleColor1 } from '~/utils/constant';
 import TopBarWithIcon from '~/components/universal/topBar/TopBarRightIcon';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import BottomButton from '~/components/universal/BottomButton';
+import ColorCircles1 from '~/containers/join/ColorCircles/ColorCircles1';
+import TextTitleDarkLeft from '~/components/universal/text/TextTitleDarkLeft';
+import MarginWide from '~/components/universal/margin/MarginWide';
+import ColorCircles2 from '~/containers/join/ColorCircles/ColorCircles2';
+import ColorCircles3 from '~/containers/join/ColorCircles/ColorCircles3';
+import ColorCircles4 from '~/containers/join/ColorCircles/ColorCircles4';
+import ColorCircles5 from '~/containers/join/ColorCircles/ColorCircles5';
+import MarginBottom from '~/components/universal/margin/MarginBottom';
+import MarginMedium from '~/components/universal/margin/MarginMedium';
+import ButtonGenderColor from '~/containers/join/ColorCircles/ButtonGenderColor';
 
 const Container = styled.View`
   flex-direction: column;
   align-items: flex-start;
-  padding: 0 ${d.px * 30}px;
+  padding-left: ${d.px * 30}px;
+  padding-right: ${d.px * 30}px;
   flex: 1;
 `;
 
@@ -20,28 +31,18 @@ const TextContainer = styled.View`
   flex: 1;
 `;
 
-const OneLine = styled.View`
+const OneTextLine = styled.View`
   flex-direction: row;
   align-items: center;
-`;
-
-const ContentText = styled.Text`
-  font-weight: 500;
-  font-size: ${d.px * 22}px;
 `;
 
 const ColorContainer = styled.View`
-  width: 100%;
   flex: 3;
-  justify-content: center;
-  align-items: center;
+  justify-content: space-around;
+  width: 100%;
 `;
 
-const ColorCircles = styled.View`
-  flex-direction: row;
-`;
-
-export default () => {
+const GenderColor = () => {
   const womanColor = useSelector(
     (state: State) => state.genderColorReducer.womanColor
   );
@@ -50,66 +51,13 @@ export default () => {
   );
   console.log('womanColor:', womanColor);
   console.log('manColor:', manColor);
-
-  const circleColor1 = [
-    { circleColor: '#3CB7D3' },
-    { circleColor: '#C1AB85' },
-    { circleColor: '#F76B6B' },
-    { circleColor: '#A76CF4' },
-  ];
-
-  const circleColor2 = [
-    { circleColor: '#5CB762' },
-    { circleColor: '#F7AD6B' },
-    { circleColor: '#F46CF1' },
-    { circleColor: '#6969F9' },
-  ];
-
-  const circleColor3 = [
-    { circleColor: '#75EF83' },
-    { circleColor: '#F7DC6B' },
-    { circleColor: '#C5A1FF' },
-    { circleColor: '#6BA4F7' },
-  ];
-  const circleColor4 = [
-    { circleColor: '#C1F76B' },
-    { circleColor: '#F4F76B' },
-    { circleColor: '#FF99BB' },
-    { circleColor: '#6BD2F7' },
-  ];
-
-  const circleColor5 = [
-    { circleColor: '#D1DBD3' },
-    { circleColor: '#EAE3D5' },
-    { circleColor: '#E0CCCC' },
-    { circleColor: '#D3D7DE' },
-  ];
-
-  interface circleColor {
-    circleColor: string;
-  }
-  const pickColor = ({ circleColor }: circleColor) => {
-    womanColor === null
-      ? setWomanColor(circleColor)
-      : [
-          manColor === null
-            ? [
-                circleColor === womanColor
-                  ? alert('다른 색을 골라주세요')
-                  : setManColor(circleColor),
-              ]
-            : [setWomanColor(circleColor), setManColor(null)],
-        ];
-  };
-
   return (
-    <BottomButton>
+    <ButtonGenderColor>
       <Container>
         <TopBarWithIcon />
         <TextContainer>
-          <OneLine>
-            <ContentText>나는 여성은</ContentText>
-
+          <OneTextLine>
+            <TextTitleDarkLeft title={'나는 여성은'} />
             <View
               style={{
                 width: d.px * 35,
@@ -118,15 +66,15 @@ export default () => {
                 marginRight: d.px * 5,
                 borderRadius: 100,
                 backgroundColor: womanColor === null ? 'white' : womanColor,
-                borderColor: womanColor === null ? color.lightGray : womanColor,
+                borderColor: womanColor === null ? c.lightGray : womanColor,
                 borderStyle: womanColor === null ? 'dashed' : 'solid',
                 borderWidth: d.px * 1,
               }}
             />
-            <ContentText>색,</ContentText>
-          </OneLine>
-          <OneLine>
-            <ContentText>남성은</ContentText>
+            <TextTitleDarkLeft title={'색,'} />
+          </OneTextLine>
+          <OneTextLine>
+            <TextTitleDarkLeft title={'남성은'} />
             <View
               style={{
                 width: d.px * 35,
@@ -135,37 +83,27 @@ export default () => {
                 marginRight: d.px * 5,
                 borderRadius: 100,
                 backgroundColor: manColor === null ? 'white' : manColor,
-                borderColor: manColor === null ? color.lightGray : manColor,
+                borderColor: manColor === null ? c.lightGray : manColor,
                 borderStyle: manColor === null ? 'dashed' : 'solid',
                 borderWidth: d.px * 1,
               }}
             />
-            <ContentText>색으로</ContentText>
-          </OneLine>
-          <ContentText>표현하고 싶어요.</ContentText>
+            <TextTitleDarkLeft title={'색으로'} />
+          </OneTextLine>
+          <TextTitleDarkLeft title={'표현할래요.'} />
         </TextContainer>
+        <MarginMedium />
         <ColorContainer>
-          <ColorCircles style={{ flexWrap: 'wrap' }}>
-            {circleColor1.map((circle) => {
-              return (
-                <TouchableOpacity
-                  onPress={() => {
-                    pickColor(circleColor);
-                  }}
-                  style={{
-                    width: d.px * 40,
-                    height: d.px * 40,
-                    marginRight: d.px * 44,
-                    marginBottom: d.px * 30,
-                    borderRadius: 100,
-                    backgroundColor: circle.circleColor,
-                  }}
-                />
-              );
-            })}
-          </ColorCircles>
+          <ColorCircles1 />
+          <ColorCircles2 />
+          <ColorCircles3 />
+          <ColorCircles4 />
+          <ColorCircles5 />
         </ColorContainer>
       </Container>
-    </BottomButton>
+      <MarginBottom />
+    </ButtonGenderColor>
   );
 };
+
+export default GenderColor;

@@ -20,6 +20,7 @@ const Container = styled.View`
 const TextStyle = styled.Text`
   font-family: 'Jost-Bold';
   font-size: ${d.px * 20}px;
+  line-height: ${d.px * 35}px;
   text-align: left;
   color: ${c.black};
 `;
