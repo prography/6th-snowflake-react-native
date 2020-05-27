@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useState } from 'react';
+import { useSelector } from 'react-redux';
 import styled from 'styled-components/native';
 import { d, c } from '~/utils/constant';
 import TextMiddleTitleDark from '~/components/universal/text/TextMiddleTitleDark';
@@ -45,7 +45,9 @@ const TrioBox = ({
   imageUri,
   navigation,
 }: Props) => {
-  const [blind, setBlind] = useState(true);
+  const blindState = useSelector(
+    (state: State) => state.blindReducer.blindState
+  );
   return (
     <Container>
       <TextMiddleTitleDark title={title} />
@@ -53,13 +55,13 @@ const TrioBox = ({
       <ProductBox
         activeOpacity={1}
         onPress={() => {
-          setBlind(!blind);
+          navigation.navigate('Review');
         }}
       >
         <ProductImage
           style={{ resizeMode: 'contain' }}
           source={
-            blind
+            blindState
               ? require('~/img/doodle/doodleCdBoxCrownFilledMint.png')
               : { uri: imageUri }
           }
