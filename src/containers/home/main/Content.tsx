@@ -1,8 +1,6 @@
 import * as React from 'react';
-import ContentBox from '../../../components/home/main/ContentBox';
 import { ScrollView, Dimensions, Platform } from 'react-native';
 import { d, color } from '../../../utils/constant';
-import LineGrayRightLong from '~/components/universal/line/LineGrayRightLong';
 import HomeCard from '~/components/universal/card/HomeCard';
 
 
@@ -14,7 +12,7 @@ const SPACING_FOR_CARD_INSET = d.height * 0.1 - 10;
 
 const Content = () => {
     const contentList = [
-        {id: 1, tag1: '#제품', tag2: '#랭킹', title: '지난주의 TOP3 제품,\n함께 확인해볼까요?', btnText: '총점 랭킹 ',link: 'Ranking'},
+        {id: 1, tag1: '#제품', tag2: '#랭킹', title: '지난주의 TOP3 제품,\n함께 확인해볼까요?', btnText: '총점 랭킹 ', link: 'Ranking'},
         {id: 2, tag1: '#실험실', tag2: '#날씨', title: '새로운 연구주제가\n업데이트되었습니다!', btnText: '나도 참여하기 ', link: 'LabStack'},
         {id: 3, tag1: '#상담소', tag2: '#좋아요', title: '상담내용,\n함께 확인해볼까요?', btnText: '상담 보기 ', link: 'ClinicStack'},
         {id: 4, tag1: '#상담소', tag2: '#댓글', title: '상담내용,\n혼자 확인해볼까요?', btnText: '상담 보기 ', link: 'ClinicStack'},
