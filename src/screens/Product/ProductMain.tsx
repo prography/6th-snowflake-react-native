@@ -1,9 +1,6 @@
 import * as React from 'react';
 import { useState } from 'react';
->>>>>>> bbd5ec8bbf4ce8abe5dbdabba05fefe04532b679
-import { SafeAreaView, Text, ScrollView } from 'react-native';
 import { SafeAreaView, Text, ScrollView, View } from 'react-native';
->>>>>>> 3d9c04f946fa088c246fd4112ccb92514e1e9618
 import styled from 'styled-components/native';
 import { d, c } from '~/utils/constant';
 import NavBar from '~/screens/NavBar';
