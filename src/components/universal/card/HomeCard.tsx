@@ -9,7 +9,10 @@ import MarginNarrow from '../margin/MarginNarrow';
 import TextTag from '../text/TextTag';
 
 interface Props {
-  content: object;
+  tag: any;
+  title: string;
+  btnText: string;
+  link: string;
 }
 
 const Container = styled.View`
@@ -25,19 +28,16 @@ const TagBox = styled.View`
   margin-right: ${d.px * 12}px;
 `;
 
-const HomeCard = ({ content }: Props) => {
+const HomeCard = ({ tag, title, btnText, link }: Props) => {
   return (
     <>
       <Container>
-        <TextTitleDarkRight title={content.title} />
+        <TextTitleDarkRight title={title} />
         <MarginWide />
-        <ButtonLinkPurpleLarge
-          buttonText={content.btnText}
-          link={content.link}
-        />
+        <ButtonLinkPurpleLarge buttonText={btnText} link={link} />
         <MarginNarrow />
         <TagContainer>
-          {content.tag.map((tag) => {
+          {tag.map((tag) => {
             return (
               <TagBox>
                 <TextTag tag={tag.tag} />

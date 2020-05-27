@@ -16,7 +16,8 @@ const Content = () => {
       tag: [{ tag: '제품' }, { tag: '랭킹' }],
       title: '지난주의 TOP3 제품,\n함께 확인해볼까요?',
       btnText: '총점 랭킹 ',
-      link: 'Ranking',
+      link: 'ProductStack',
+      //   'ProductStack', { screen: 'Ranking' } 가 들어가야 하는데 어떻게 넘겨주지
     },
     {
       id: 2,
@@ -82,7 +83,14 @@ const Content = () => {
       }}
     >
       {contentList.map((content) => {
-        return <HomeCard content={content} />;
+        return (
+          <HomeCard
+            tag={content.tag}
+            title={content.title}
+            btnText={content.btnText}
+            link={content.link}
+          />
+        );
       })}
     </ScrollView>
   );
