@@ -18,7 +18,7 @@ const Container = styled.View`
   margin-right: ${d.px * 20}px;
 `;
 
-const cardPurpleRight = ({ title, content }: Props) => {
+const CardPurpleRight = ({ title, content }: Props) => {
   return (
     <Container>
       <TextTitlePurpleRight title={title} />
@@ -28,4 +28,4 @@ const cardPurpleRight = ({ title, content }: Props) => {
   );
 };
 
-export default cardPurpleRight;
+export default CardPurpleRight;
