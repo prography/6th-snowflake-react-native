@@ -10,16 +10,21 @@ const Container = styled.View`
 `;
 
 const GenderCircle = styled.View`
-  width: 20px;
-  height: 20px;
+  width: ${d.px * 15}px;
+  height: ${d.px * 15}px;
   border-radius: 100px;
   background-color: ${(props) => props.genderColor || c.darkGray};
+  right: ${-d.px * 6}px;
+  z-index: 1;
 `;
 const PartnerGenderCircle = styled.View`
-  width: 20px;
-  height: 20px;
+  width: ${d.px * 15}px;
+  height: ${d.px * 15}px;
   border-radius: 100px;
-  background-color: ${(props) => props.partnerGenderColor || c.darkGray};
+  border-style: solid;
+  border-width: ${d.px * 4}px;
+  border-color: ${(props) => props.partnerGenderColor || c.darkGray};
+  z-index: 0;
 `;
 interface Props {
   gender: string;
@@ -36,8 +41,14 @@ const GenderLoop = ({ gender, partnerGender }: Props) => {
   return (
     <>
       <Container>
-        <GenderCircle genderColor={womanColor} />
-        <PartnerGenderCircle partnerGenderColor={manColor} />
+        <GenderCircle
+          genderColor={gender === 'female' ? womanColor : manColor}
+        />
+        <PartnerGenderCircle
+          partnerGenderColor={
+            partnerGender === 'female' ? womanColor : manColor
+          }
+        />
       </Container>
     </>
   );

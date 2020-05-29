@@ -6,6 +6,7 @@ import { d, c, l } from '~/utils/constant';
 import MarginMedium from '~/components/universal/margin/MarginMedium';
 import LineGrayRightShort from '~/components/universal/line/LineGrayRightShort';
 import GenderLoop from '~/components/universal/profile/GenderLoop';
+import MarginNarrow from '~/components/universal/margin/MarginNarrow';
 
 const Container = styled.View`
   flex-direction: row;
@@ -38,24 +39,49 @@ const ProfileImgDummy = styled.Image`
 const TopBar = styled.View`
   flex-direction: row;
   justify-content: space-between;
+  align-items: center;
+  height: ${d.px * 30}px;
 `;
 
-const Score = styled.Text``;
+const Score = styled.Text`
+  font-family: Jost-Semi;
+  font-size: ${d.px * 15}px;
+  color: ${c.black};
+`;
 const RightContainer = styled.View`
   flex-direction: row;
 `;
-const Age = styled.Text``;
+const Age = styled.Text`
+  font-family: Jost-Medium;
+  font-size: ${d.px * 13}px;
+  color: ${c.lightGray};
+`;
 
-const Review = styled.Text``;
+const Review = styled.Text`
+  font-family: Jost-Book;
+  font-size: ${d.px * 15}px;
+  line-height: ${d.px * 23}px;
+  color: ${c.black};
+`;
 
 const BottomBar = styled.View`
   flex-direction: row;
   justify-content: space-between;
 `;
 
-const Date = styled.Text``;
+const Date = styled.Text`
+  font-family: Jost-Light;
+  font-size: ${d.px * 12}px;
+  line-height: ${d.px * 20}px;
+  color: ${c.lightGray};
+`;
 
-const Like = styled.Text``;
+const Like = styled.Text`
+  font-family: Jost-Bold;
+  font-size: ${d.px * 12}px;
+  line-height: ${d.px * 20}px;
+  color: ${c.lightGray};
+`;
 
 interface Props {
   key: number;
@@ -80,34 +106,38 @@ const ReviewCard = ({
   like,
 }: Props) => {
   return (
-    <Container>
-      <LeftWrapper>
-        <ProfileCircle>
-          <ProfileImgDummy
-            style={{ resizeMode: 'contain' }}
-            source={require('~/img/profile/pfc8.png')}
-          />
-        </ProfileCircle>
-      </LeftWrapper>
-      <RightWapper>
-        <TopBar>
-          <Score>★ {score}</Score>
-          <RightContainer>
-            <Age>{age}대</Age>
-            <GenderLoop gender={gender} partnerGender={partnerGender} />
-          </RightContainer>
-        </TopBar>
-        <Review>{review}</Review>
-        <BottomBar>
-          <Date>{date}</Date>
-          <Like>♡{like}</Like>
-        </BottomBar>
-
-        <LineGrayRightShort />
-      </RightWapper>
+    <>
+      <Container>
+        <LeftWrapper>
+          <ProfileCircle>
+            <ProfileImgDummy
+              style={{ resizeMode: 'contain' }}
+              source={require('~/img/profile/pfc8.png')}
+            />
+          </ProfileCircle>
+        </LeftWrapper>
+        <RightWapper>
+          <TopBar>
+            <Score>★ {score}</Score>
+            <RightContainer>
+              <Age>{age}대</Age>
+              <GenderLoop gender={gender} partnerGender={partnerGender} />
+            </RightContainer>
+          </TopBar>
+          <MarginNarrow />
+          <Review>{review}</Review>
+          <MarginNarrow />
+          <BottomBar>
+            <Date>{date}</Date>
+            <Like>♡ {like}</Like>
+          </BottomBar>
+          <MarginNarrow />
+          <LineGrayRightShort />
+        </RightWapper>
+      </Container>
 
       <MarginMedium />
-    </Container>
+    </>
   );
 };
 
