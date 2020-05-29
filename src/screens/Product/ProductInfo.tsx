@@ -14,6 +14,8 @@ import ProductInfoSpecific from '~/containers/product/info/ProductInfoSpecific';
 import MarginNarrow from '~/components/universal/margin/MarginNarrow';
 import ProductInfoScore from '~/containers/product/info/ProductInfoScore';
 import ProductInfoReview from '~/containers/product/info/ProductInfoReview';
+import TopBarBackArrow from '~/components/universal/topBar/TopBarBackArrow';
+import ProductInfoBar from '~/components/universal/bottomBar/ProductInfoBar';
 
 const Container = styled.View`
   flex-direction: column;
@@ -23,9 +25,9 @@ const Container = styled.View`
 const ProductInfo = () => {
   return (
     <>
-      <NavBar>
+      <ProductInfoBar>
         <ScrollView showsVerticalScrollIndicator={false}>
-          <TopBarLeftIcon />
+          <TopBarBackArrow />
           <Container>
             <ProductInfoImage />
             <MarginMedium />
@@ -45,7 +47,7 @@ const ProductInfo = () => {
           </Container>
         </ScrollView>
         <MarginBottom />
-      </NavBar>
+      </ProductInfoBar>
       <Blinder />
       {/* Blinder: 스크린의 가장 마지막에 놓아주어야 터치가 됨*/}
     </>

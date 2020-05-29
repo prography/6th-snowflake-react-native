@@ -13,6 +13,7 @@ export const l = {
   mR: d.px * 20,
   mL: d.px * 30,
   lW: d.px * 75,
+  tB: d.px * 75,
 };
 export const c: Color = {
   black: '#2d2d2d',
