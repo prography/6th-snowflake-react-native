@@ -9,10 +9,12 @@ import TextMiddleTitleDark from '~/components/universal/text/TextMiddleTitleDark
 import TextProductScoreBig from '~/components/universal/text/product/info/TextProductScoreBig';
 import TextProductMiddleBar from '~/components/universal/text/product/info/TextProductMiddleBar';
 import ReviewCardContainer from '../review/ReviewCardContainer';
+import MarginWide from '~/components/universal/margin/MarginWide';
 
 const Container = styled.View`
   width: ${d.width - l.mR * 2}px;
   margin-left: ${l.mR}px;
+
   flex-direction: column;
 `;
 
@@ -28,6 +30,7 @@ const ProductInfoReview = () => {
           title={'리뷰'}
           reviewNum={ProductInfo.reviewNum}
         />
+        <MarginWide />
         <ReviewCardContainer />
       </Container>
     </>

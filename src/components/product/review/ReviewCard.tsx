@@ -2,13 +2,24 @@ import * as React from 'react';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components/native';
 import { d, c, l } from '~/utils/constant';
-import { Text } from 'react-native';
 
-const Container = styled.View``;
+import MarginMedium from '~/components/universal/margin/MarginMedium';
+import LineGrayRightShort from '~/components/universal/line/LineGrayRightShort';
+import GenderLoop from '~/components/universal/profile/GenderLoop';
+
+const Container = styled.View`
+  flex-direction: row;
+  margin-right: ${l.mR}px;
+`;
 
 const LeftWrapper = styled.View`
   width: ${l.lW}px;
   justify-content: flex-start;
+  flex-direction: column;
+`;
+const RightWapper = styled.View`
+  width: ${d.width - l.mR * 2 - l.lW}px;
+  flex-direction: column;
 `;
 const ProfileCircle = styled.View`
   width: ${d.px * 40}px;
@@ -24,9 +35,27 @@ const ProfileImgDummy = styled.Image`
   height: ${d.px * 30}px;
 `;
 
-const RightWapper = styled.View`
-  width: 100%;
+const TopBar = styled.View`
+  flex-direction: row;
+  justify-content: space-between;
 `;
+
+const Score = styled.Text``;
+const RightContainer = styled.View`
+  flex-direction: row;
+`;
+const Age = styled.Text``;
+
+const Review = styled.Text``;
+
+const BottomBar = styled.View`
+  flex-direction: row;
+  justify-content: space-between;
+`;
+
+const Date = styled.Text``;
+
+const Like = styled.Text``;
 
 interface Props {
   key: number;
@@ -50,12 +79,6 @@ const ReviewCard = ({
   date,
   like,
 }: Props) => {
-  const womanColor = useSelector(
-    (state: State) => state.genderColorReducer.womanColor
-  );
-  const manColor = useSelector(
-    (state: State) => state.genderColorReducer.manColor
-  );
   return (
     <Container>
       <LeftWrapper>
@@ -66,7 +89,24 @@ const ReviewCard = ({
           />
         </ProfileCircle>
       </LeftWrapper>
-      <RightWapper />
+      <RightWapper>
+        <TopBar>
+          <Score>★ {score}</Score>
+          <RightContainer>
+            <Age>{age}대</Age>
+            <GenderLoop gender={gender} partnerGender={partnerGender} />
+          </RightContainer>
+        </TopBar>
+        <Review>{review}</Review>
+        <BottomBar>
+          <Date>{date}</Date>
+          <Like>♡{like}</Like>
+        </BottomBar>
+
+        <LineGrayRightShort />
+      </RightWapper>
+
+      <MarginMedium />
     </Container>
   );
 };
