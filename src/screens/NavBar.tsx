@@ -1,13 +1,9 @@
 import * as React from 'react';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-
-import HomeMain from '~/screens/home/HomeMain';
 import styled from 'styled-components/native';
-import { TouchableWithoutFeedback } from 'react-native';
 import { withNavigation } from '@react-navigation/compat';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RootTabParamList } from '~/navigation/RootTabNavigation';
-import { d, color } from '~/utils/constant';
+import { d, c, l } from '~/utils/constant';
 
 interface Props {
   children: React.ReactNode;
@@ -20,7 +16,7 @@ const Screen = styled.View`
 `;
 
 const Container = styled.View`
-  height: ${d.px * 75}px;
+  height: ${l.bottomBar}px;
   width: ${d.width}px;
   position: absolute;
   bottom: 0px;
@@ -35,7 +31,7 @@ const Tab = styled.TouchableOpacity`
   padding-top: ${d.px * 10}px;
 `;
 const Title = styled.Text`
-  color: ${color.darkGray};
+  color: ${c.darkGray};
   font-size: ${d.px * 12}px;
 `;
 
@@ -60,14 +56,14 @@ const NavBar = ({ children, navigation }: Props) => {
         </Tab>
         <Tab
           onPress={() => {
-            navigation.navigate('ClinicStack');
+            navigation.navigate('LabStack');
           }}
         >
           <Title>실험실</Title>
         </Tab>
         <Tab
           onPress={() => {
-            navigation.navigate('LabStack');
+            navigation.navigate('ClinicStack');
           }}
         >
           <Title>상담소</Title>

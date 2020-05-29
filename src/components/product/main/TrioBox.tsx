@@ -55,7 +55,7 @@ const TrioBox = ({
       <ProductBox
         activeOpacity={1}
         onPress={() => {
-          navigation.navigate('Review');
+          navigation.navigate('ProductInfo');
         }}
       >
         <ProductImage
