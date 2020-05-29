@@ -1,8 +1,6 @@
 import * as React from 'react';
-import { useSelector } from 'react-redux';
 import styled from 'styled-components/native';
 import { d, c, l } from '~/utils/constant';
-
 import MarginMedium from '~/components/universal/margin/MarginMedium';
 import LineGrayRightShort from '~/components/universal/line/LineGrayRightShort';
 import GenderLoop from '~/components/universal/profile/GenderLoop';

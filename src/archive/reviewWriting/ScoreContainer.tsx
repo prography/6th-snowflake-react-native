@@ -1,8 +1,8 @@
 import * as React from 'react';
 import styled from 'styled-components/native';
 import { Text } from 'react-native';
-import { d, color } from '../../../utils/constant';
-import StarRating from '../../universal/StarRating';
+import { d } from '~/utils/constant';
+import StarRating from '~/components/universal/StarRating';
 
 const Container = styled.View`
   height: ${d.width * 0.6}px;
@@ -24,13 +24,13 @@ const EachScoreContainer = styled.View`
 
 const ScoreTitle = styled.Text`
   margin-top: ${d.width * 0.01}px;
-  color: ${color.grayDark};
+  color: ${c.darkGray};
   font-weight: 700;
   font-size: ${d.px * 13}px;
 `;
 
 const Score = styled.Text`
-  color: ${color.mainDark};
+  color: ${c.darkGray};
   margin-top: ${d.width * 0.01}px;
   font-weight: 700;
   font-size: ${d.px * 20}px;
@@ -46,13 +46,13 @@ const TotalScoreContainer = styled.View`
 
 const TotalScoreTitle = styled.Text`
   margin-top: ${d.width * 0.01}px;
-  color: ${color.grayDark};
+  color: ${c.darkGray};
   font-weight: 900;
   font-size: ${d.px * 15}px;
 `;
 
 const TotalScore = styled.Text`
-  color: ${color.mainLight};
+  color: ${c.darkGray};
   margin-top: ${d.width * 0.01}px;
   font-weight: 700;
   font-size: ${d.px * 25}px;

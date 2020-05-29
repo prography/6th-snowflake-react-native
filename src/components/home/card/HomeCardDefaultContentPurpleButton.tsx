@@ -4,12 +4,10 @@ import TextTitleDarkRight from '../../universal/text/TextTitleDarkRight';
 import ButtonLinkPurpleLarge from '../../universal/button/ButtonLinkPurpleLarge';
 import LineGrayRightLong from '../../universal/line/LineGrayRightLong';
 import MarginWide from '../../universal/margin/MarginWide';
-import { d, color, c } from '../../../utils/constant';
+import { d } from '../../../utils/constant';
 import MarginNarrow from '../../universal/margin/MarginNarrow';
 import TextTag from '../../universal/text/TextTag';
-import TextContentDarkRight from '~/components/universal/text/TextContentDarkRight';
 import MarginMedium from '~/components/universal/margin/MarginMedium';
-import TextContentLightRight from '~/components/universal/text/TextContentLightRight';
 import TextContentLightLeft from '~/components/universal/text/TextContentLightLeft';
 
 interface Props {

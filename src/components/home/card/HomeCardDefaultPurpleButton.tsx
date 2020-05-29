@@ -4,7 +4,7 @@ import TextTitleDarkRight from '../../universal/text/TextTitleDarkRight';
 import ButtonLinkPurpleLarge from '../../universal/button/ButtonLinkPurpleLarge';
 import LineGrayRightLong from '../../universal/line/LineGrayRightLong';
 import MarginWide from '../../universal/margin/MarginWide';
-import { d, color, c } from '../../../utils/constant';
+import { d, c } from '../../../utils/constant';
 import MarginNarrow from '../../universal/margin/MarginNarrow';
 import TextTag from '../../universal/text/TextTag';
 

@@ -1,11 +1,9 @@
 import * as React from 'react';
 import styled from 'styled-components/native';
 import { d, color } from '~/utils/constant';
-import { View, Text } from 'react-native';
 import TextTitlePurpleRight from '../text/TextTitlePurpleRight';
 import TextContentDarkRight from '../text/TextContentDarkRight';
 import MarginWide from '../margin/MarginWide';
-import LineGrayRightLong from '../line/LineGrayRightLong';
 
 interface Props {
   title: string;

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import styled from 'styled-components/native';
 import { Text } from 'react-native';
-import { d, color } from '~/utils/constant';
+import { d, c } from '~/utils/constant';
 
 const Container = styled.View`
   height: ${d.width * 0.55}px;
@@ -9,24 +9,16 @@ const Container = styled.View`
   justify-content: center;
   align-items: center;
   border-bottom-width: ${d.px * 0.5}px;
-  border-color: ${color.grayLight};
+  border-color: ${c.lightGray};
 `;
 
 const ImageContainer = styled.View`
-    height: ${d.width * 0.25}px;
-    width: ${d.width * 0.25}px;
-    border-radius: ${(d.width * 0.25) / 2}px;
-    align-items: center;
-    justify-content: center;
-    background-color: white;
-    shadow-color: "#000"
-    shadow-offset: {
-        width: 10,
-        height: 10,
-    };
-    shadow-opacity: 0.3;
-    shadow-radius: 10;
-    elevation: 10;
+  height: ${d.width * 0.25}px;
+  width: ${d.width * 0.25}px;
+  border-radius: ${(d.width * 0.25) / 2}px;
+  align-items: center;
+  justify-content: center;
+  background-color: white;
 `;
 
 const Image = styled.Image`

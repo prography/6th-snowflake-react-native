@@ -1,7 +1,7 @@
-import React from 'react';
-import { Text } from 'react-native';
+import * as React from 'react';
+
 import styled from 'styled-components/native';
-import { d, color } from '../../../utils/constant';
+import { d } from '~/utils/constant';
 
 const Container = styled.View`
   margin-top: ${d.px * 105}px;

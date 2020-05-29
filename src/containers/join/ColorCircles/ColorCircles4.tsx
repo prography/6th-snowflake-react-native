@@ -1,13 +1,8 @@
 import * as React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { View, SafeAreaView, Text } from 'react-native';
 import styled from 'styled-components/native';
 import { d, c, circleColor4 } from '~/utils/constant';
-import TopBarWithIcon from '~/components/universal/topBar/TopBarRightIcon';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import BottomButton from '~/components/universal/BottomButton';
-import MarginWide from '~/components/universal/margin/MarginWide';
-import MarginMedium from '~/components/universal/margin/MarginMedium';
 
 const OneLine = styled.View`
   flex-direction: row;

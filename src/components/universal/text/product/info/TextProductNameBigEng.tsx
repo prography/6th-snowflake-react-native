@@ -1,7 +1,6 @@
 import * as React from 'react';
 import styled from 'styled-components/native';
 import { d, c } from '~/utils/constant';
-import { View, Text } from 'react-native';
 import TextTitleDarkLeft from '../../TextTitleDarkLeft';
 
 interface Props {

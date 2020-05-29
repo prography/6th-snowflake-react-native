@@ -5,12 +5,15 @@ import { SafeAreaView, Text, ScrollView } from 'react-native';
 import styled from 'styled-components/native';
 
 const Container = styled.TouchableOpacity`
-  width: 50px;
-  height: 50px;
-  background-color: ${c.purple};
+  width: ${d.px * 40}px;
+  height: ${d.px * 40}px;
+  border-radius: 1000;
+  background-color: ${(props) => props.blinderColor || c.mint};
   right: ${d.px * 20}px;
-  top: ${d.px * 12.5}px;
+  top: ${d.px * 22.5}px;
   position: absolute;
+  justify-content: center;
+  align-items: center;
 `;
 
 const Blinder = () => {
@@ -25,7 +28,10 @@ const Blinder = () => {
   };
 
   return (
-    <Container onPress={setBlinder}>
+    <Container
+      onPress={setBlinder}
+      blinderColor={blindState ? c.purple : c.mint}
+    >
       {blindState ? <Text>😎</Text> : <Text>🌞</Text>}
     </Container>
   );

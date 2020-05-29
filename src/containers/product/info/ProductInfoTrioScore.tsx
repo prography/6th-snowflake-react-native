@@ -1,6 +1,5 @@
 import * as React from 'react';
 import styled from 'styled-components/native';
-import { Text } from 'react-native';
 import { d, l } from '~/utils/constant';
 import ProductInfoTrioScoreBar from '~/components/product/info/ProductInfoTrioScoreBar';
 

@@ -1,13 +1,13 @@
 import * as React from 'react';
 import styled from 'styled-components/native';
-import { Text } from 'react-native';
-import { d, color } from '~/utils/constant';
+
+import { d, c } from '~/utils/constant';
 
 const Container = styled.View`
   height: ${d.width * 0.5}px;
   width: ${d.width}px;
   border-bottom-width: ${d.px}px;
-  border-color: ${color.grayLight};
+  border-color: ${c.darkGray};
   padding-top: ${d.width * 0.05}px;
   padding-left: ${d.px * 27}px;
   padding-right: ${d.px * 27}px;
@@ -32,7 +32,7 @@ const ScoreContainer = styled.View`
 `;
 
 const ScoreText = styled.Text`
-  color: ${color.grayDark};
+  color: ${c.darkGray};
   font-weight: 700;
   font-size: ${d.px * 20}px;
 `;
@@ -45,33 +45,33 @@ const AgeFilterContainer = styled.View`
 `;
 
 const AgeText = styled.Text`
-  color: ${color.grayLight};
+  color: ${c.darkGray};
   font-weight: 700;
   font-size: ${d.px * 13}px;
 `;
 
 const Filter = styled.Text`
-  color: ${color.grayLight};
+  color: ${c.darkGray};
   font-weight: 700;
   font-size: ${d.px * 15}px;
 `;
 
 const ReviewText = styled.Text`
   height: ${d.width * 0.23}px;
-  color: ${color.grayDark};
+  color: ${c.darkGray};
   padding: ${d.px * 12}px;
   font-weight: 700;
   font-size: ${d.px * 15}px;
 `;
 
 const DateText = styled.Text`
-  color: ${color.grayDark};
+  color: ${c.darkGray};
   padding: ${d.px * 12}px;
   font-size: ${d.px * 11}px;
 `;
 
 const LikeText = styled.Text`
-  color: ${color.grayDark};
+  color: ${c.darkGray};
   padding: ${d.px * 12}px;
   font-size: ${d.px * 11}px;
 `;

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import styled from 'styled-components/native';
 import { ScrollView } from 'react-native';
-import { d, color } from '~/utils/constant';
+import { d } from '~/utils/constant';
 
 const Container = styled.View`
   background-color: lightgray;
@@ -11,7 +11,7 @@ const ReviewText = styled.Text`
   height: ${d.width * 0.35}px;
   width: ${d.width}px;
   padding: ${d.width * 0.05}px;
-  color: ${color.grayDark};
+  color: ${d.darkGray};
   font-size: ${d.px * 14}px;
   font-weight: 500;
 `;
@@ -23,7 +23,7 @@ const RegisterButton = styled.TouchableOpacity`
   width: ${d.width}px;
   align-items: center;
   justify-content: center;
-  background-color: ${color.mainLight};
+  background-color: ${d.darkGray};
 `;
 
 const RegisterText = styled.Text`

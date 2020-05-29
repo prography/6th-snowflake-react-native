@@ -1,7 +1,6 @@
 import * as React from 'react';
 import styled from 'styled-components/native';
-import { Text } from 'react-native';
-import { d, color } from '~/utils/constant';
+import { d, c } from '~/utils/constant';
 
 const Container = styled.View`
   height: ${d.width * 0.12}px;
@@ -18,7 +17,7 @@ const ReviewCntContainer = styled.View`
 `;
 
 const ReviewCntText = styled.Text`
-  color: ${color.grayDark};
+  color: ${c.darkGray};
   font-size: ${d.px * 20}px;
   font-weight: 800;
 `;
@@ -26,7 +25,7 @@ const ReviewCntText = styled.Text`
 const FirstFilterContainer = styled.TouchableOpacity`
   height: ${d.width * 0.08}px;
   width: ${d.width * 0.22}px;
-  border-color: ${color.grayLight};
+  border-color: ${c.darkGray};
   border-width: ${d.px}px;
   border-radius: ${d.px * 20}px;
   margin-right: ${d.width * 0.015}px;
@@ -37,7 +36,7 @@ const FirstFilterContainer = styled.TouchableOpacity`
 const SecondFilterContainer = styled.TouchableOpacity`
   height: ${d.width * 0.08}px;
   width: ${d.width * 0.18}px;
-  border-color: ${color.grayLight};
+  border-color: ${c.darkGray};
   border-width: ${d.px}px;
   border-radius: ${d.px * 20}px;
   margin-right: ${d.width * 0.015}px;
@@ -48,7 +47,7 @@ const SecondFilterContainer = styled.TouchableOpacity`
 const ThirdFilterContainer = styled.TouchableOpacity`
   height: ${d.width * 0.08}px;
   width: ${d.width * 0.13}px;
-  border-color: ${color.grayLight};
+  border-color: ${c.darkGray};
   border-width: ${d.px}px;
   border-radius: ${d.px * 20}px;
   justify-content: center;
@@ -56,7 +55,7 @@ const ThirdFilterContainer = styled.TouchableOpacity`
 `;
 
 const FilterText = styled.Text`
-  color: ${color.grayLight};
+  color: ${c.darkGray};
 `;
 
 const ReviewFilterContainer = (props) => {

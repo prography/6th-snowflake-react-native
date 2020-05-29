@@ -1,8 +1,6 @@
 import * as React from 'react';
-import { useSelector } from 'react-redux';
 import styled from 'styled-components/native';
 import { d, c, l } from '~/utils/constant';
-import { Text } from 'react-native';
 import MarginMedium from '~/components/universal/margin/MarginMedium';
 import MarginNarrow from '~/components/universal/margin/MarginNarrow';
 import MarginWide from '~/components/universal/margin/MarginWide';

@@ -1,8 +1,6 @@
 import * as React from 'react';
 import { useSelector } from 'react-redux';
-
 import styled from 'styled-components/native';
-import { Text } from 'react-native';
 import { d, l, c } from '~/utils/constant';
 
 const Container = styled.View`

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { SafeAreaView, Text, ScrollView, View } from 'react-native';
+import { ScrollView } from 'react-native';
 import styled from 'styled-components/native';
 import { d, c } from '~/utils/constant';
 import NavBar from '~/screens/NavBar';

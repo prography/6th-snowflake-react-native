@@ -1,20 +1,12 @@
 import * as React from 'react';
 import styled from 'styled-components/native';
-import { d, color } from '~/utils/constant';
+import { d, c } from '~/utils/constant';
 
 const Container = styled.View`
-    height: ${d.width * 0.8}px;
-    width: ${d.width}px;
-    background-color: white;
-    border-radius: 50px;
-    shadow-color: "#000";
-    shadow-offset: {
-        width: 10,
-        height: 10,
-    };
-    shadow-opacity: 0.6;
-    shadow-radius: 10;
-    elevation: 10;
+  height: ${d.width * 0.8}px;
+  width: ${d.width}px;
+  background-color: white;
+  border-radius: 50px;
 `;
 
 const BackContainer = styled.View`
@@ -32,20 +24,20 @@ const ProductInfoContainer = styled.View`
 `;
 
 const RankNumText = styled.Text`
-  color: ${color.grayDark};
+  color: ${c.darkGray};
   font-weight: 900;
   font-size: ${d.px * 13}px;
 `;
 
 const BrandText = styled.Text`
-  color: ${color.grayLight};
+  color: ${c.darkGray};
   font-weight: 900;
   margin-top: ${d.width * 0.03}px;
   font-size: ${d.px * 16}px;
 `;
 
 const NameText = styled.Text`
-  color: ${color.grayDark};
+  color: ${c.darkGray};
   font-weight: 900;
   margin-top: ${d.width * 0.02}px;
   font-size: ${d.px * 23}px;
@@ -56,12 +48,12 @@ const ThreeInfoContainer = styled.View`
 `;
 
 const InfoText = styled.Text`
-  color: ${color.grayLight};
+  color: ${c.darkGray};
   margin-top: ${d.width * 0.01}px;
 `;
 
 const TotalScoreText = styled.Text`
-  color: ${color.grayDark};
+  color: ${c.darkGray};
   margin-top: ${d.width * 0.02}px;
   font-weight: 700;
   font-size: ${d.px * 42}px;
@@ -91,13 +83,13 @@ const EachScoreContainer = styled.View`
 
 const ScoreTitle = styled.Text`
   margin-top: ${d.width * 0.01}px;
-  color: ${color.grayDark};
+  color: ${c.darkGray};
   font-weight: 700;
   font-size: ${d.px * 15}px;
 `;
 
 const Score = styled.Text`
-  color: ${color.grayDark};
+  color: ${c.darkGray};
   margin-top: ${d.width * 0.01}px;
   font-weight: 700;
   font-size: ${d.px * 13}px;

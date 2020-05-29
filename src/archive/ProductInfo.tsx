@@ -1,5 +1,5 @@
 import * as React from 'react';
-import ReviewProduct from '~/components/product/review/ReviewProduct';
+import ReviewProduct from '~/archive/ReviewProduct';
 
 const ProductInfo = () => {
   const rankInfo = { style: '초박형', rank: 3 }; //mutable

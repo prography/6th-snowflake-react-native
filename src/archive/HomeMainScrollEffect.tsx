@@ -4,6 +4,10 @@ import { d } from '~/utils/constant';
 import HomeCardNoticePurple from '~/components/home/card/HomeCardNoticePurple';
 import HomeCardDefaultContentPurpleButton from '~/components/home/card/HomeCardDefaultContentPurpleButton';
 
+const CARD_WIDTH = d.width - d.px * 50;
+const CARD_HEIGHT = d.px * 203;
+const SPACING_FOR_CARD_INSET = d.height * 0.1 - 10;
+
 const Content = () => {
   const contentList = [
     {
@@ -29,7 +33,23 @@ const Content = () => {
   ];
 
   return (
-    <ScrollView showsVerticalScrollIndicator={false}>
+    <ScrollView
+      showsVerticalScrollIndicator={false}
+      pagingEnabled
+      decelerationRate={0}
+      snapToInterval={CARD_HEIGHT}
+      snapToAlignment='start'
+      contentInset={{
+        // iOS ONLY
+        top: 0,
+        left: 0,
+        bottom: SPACING_FOR_CARD_INSET,
+        right: 0,
+      }}
+      contentContainerStyle={{
+        paddingVertical: Platform.OS === 'android' ? SPACING_FOR_CARD_INSET : 0,
+      }}
+    >
       {contentList.map((card) => {
         switch (card.style) {
           case 'default':

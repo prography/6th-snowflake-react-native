@@ -1,5 +1,5 @@
 import * as React from 'react';
-import ReviewFilterContainer from '~/components/product/review/ReviewFilterContainer';
+import ReviewFilterContainer from '~/archive/ReviewFilterContainer';
 
 const ReviewFilter = () => {
   const reviewCnt = 125;

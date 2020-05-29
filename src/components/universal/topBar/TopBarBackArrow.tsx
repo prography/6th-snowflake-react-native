@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { SafeAreaView, Text, ScrollView, BackHandler } from 'react-native';
+import { Text, ScrollView, BackHandler } from 'react-native';
 import styled from 'styled-components/native';
 import { d, l } from '~/utils/constant';
 

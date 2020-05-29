@@ -1,5 +1,5 @@
 import * as React from 'react';
-import Review from '~/components/product/review/Review';
+import Review from '~/archive/Review';
 
 const Reviews = () => {
   const reviewList = [

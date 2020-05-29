@@ -1,9 +1,6 @@
 import * as React from 'react';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { useSelector } from 'react-redux';
-import HomeMain from '~/screens/home/HomeMain';
 import styled from 'styled-components/native';
-import { TouchableWithoutFeedback } from 'react-native';
 import { withNavigation } from '@react-navigation/compat';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RootTabParamList } from '~/navigation/RootTabNavigation';
