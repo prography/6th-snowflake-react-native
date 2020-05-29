@@ -16,6 +16,8 @@ import ProductInfoImage from '~/containers/product/info/ProductInfoImage';
 import LineGrayMiddle from '~/components/universal/line/LineGrayMiddle';
 import ProductInfoNameManufacturer from '~/containers/product/info/ProductInfoNameManufacturer';
 import MarginMedium from '~/components/universal/margin/MarginMedium';
+import ProductInfoSpecific from '~/containers/product/info/ProductInfoSpecific';
+import MarginNarrow from '~/components/universal/margin/MarginNarrow';
 
 const Container = styled.View`
   flex-direction: column;
@@ -33,7 +35,14 @@ const ProductInfo = () => {
             <ProductInfoImage />
             <MarginMedium />
             <ProductInfoNameManufacturer />
+            <MarginMedium />
             <LineGrayMiddle />
+          </Container>
+
+          <MarginMedium />
+
+          <Container>
+            <ProductInfoSpecific />
           </Container>
         </ScrollView>
       </NavBar>

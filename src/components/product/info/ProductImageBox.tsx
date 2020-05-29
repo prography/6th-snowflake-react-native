@@ -2,18 +2,11 @@ import * as React from 'react';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components/native';
 import { d, c, l } from '~/utils/constant';
-import TextMiddleTitleDark from '~/components/universal/text/TextMiddleTitleDark';
-import TextProductCompany from '~/components/universal/text/product/TextProductCompany';
-import TextProductName from '~/components/universal/text/product/TextProductName';
-import MarginNarrow from '~/components/universal/margin/MarginNarrow';
-import { Text } from 'react-native';
-import TextLink from '~/components/universal/text/TextLink';
 import { withNavigation } from '@react-navigation/compat';
 
 const Container = styled.View`
   margin: 0 ${l.mR}px;
   height: ${d.px * 150}px;
-
   align-self: center;
   justify-content: center;
   align-items: center;
