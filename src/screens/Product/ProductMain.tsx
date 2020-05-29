@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useState } from 'react';
 import { SafeAreaView, Text, ScrollView, View } from 'react-native';
 import styled from 'styled-components/native';
 import { d, c } from '~/utils/constant';
