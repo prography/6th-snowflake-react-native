@@ -6,7 +6,7 @@ import { withNavigation } from '@react-navigation/compat';
 
 const Container = styled.View`
   margin: 0 ${l.mR}px;
-  height: ${d.px * 150}px;
+  height: ${d.px * 130}px;
   align-self: center;
   justify-content: center;
   align-items: center;

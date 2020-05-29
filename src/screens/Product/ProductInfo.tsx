@@ -36,11 +36,11 @@ const ProductInfo = () => {
             <ProductInfoSpecific />
             <MarginMedium />
             <LineGrayMiddle />
-            <MarginWide />
+            <MarginMedium />
             <ProductInfoScore />
             <MarginMedium />
             <LineGrayMiddle />
-            <MarginWide />
+            <MarginMedium />
             <ProductInfoReview />
           </Container>
         </ScrollView>

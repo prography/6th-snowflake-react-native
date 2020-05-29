@@ -10,6 +10,7 @@ import TextProductScoreBig from '~/components/universal/text/product/info/TextPr
 import TextProductMiddleBar from '~/components/universal/text/product/info/TextProductMiddleBar';
 import MarginWide from '~/components/universal/margin/MarginWide';
 import ProductInfoTrioScore from './ProductInfoTrioScore';
+import MarginMedium from '~/components/universal/margin/MarginMedium';
 
 const Container = styled.View`
   width: ${d.width - l.mR * 2}px;
@@ -40,8 +41,7 @@ const ProductInfoScore = () => {
     <>
       <Container>
         <TextProductMiddleBar title={'총점'} score={ProductInfo.score} />
-        <MarginWide />
-
+        <MarginMedium />
         <ProductInfoTrioScore
           avgOily={ProductInfo.avgOily}
           avgThickness={ProductInfo.avgThickness}
