@@ -1,12 +1,6 @@
 import * as React from 'react';
 import styled from 'styled-components/native';
 import { d, l } from '~/utils/constant';
-import { ScrollView } from 'react-native';
-import TextTitleDarkLeft from '~/components/universal/text/TextTitleDarkLeft';
-import TextContentLightLeft from '~/components/universal/text/TextContentLightLeft';
-import MarginMedium from '~/components/universal/margin/MarginMedium';
-import TrioBox from '~/components/product/main/TrioBox';
-import ProductImageBox from '~/components/product/info/ProductImageBox';
 import TextProductSpecificTitle from '~/components/universal/text/product/TextProductSpecificTitle';
 import TextProductSpecificContent from '~/components/universal/text/product/TextProductSpecificContent';
 import MarginNarrow from '~/components/universal/margin/MarginNarrow';
@@ -22,6 +16,7 @@ const LeftWrapper = styled.View`
 const RightWapper = styled.View`
   width: 100%;
 `;
+
 const ProductInfoSpecific = () => {
   const ProductInfo = {
     key: 0,
@@ -45,7 +40,6 @@ const ProductInfoSpecific = () => {
           <MarginNarrow />
           <TextProductSpecificTitle title={'제품정보'} />
         </LeftWrapper>
-
         <RightWapper>
           <TextProductSpecificContent category={ProductInfo.category} />
           <MarginNarrow />

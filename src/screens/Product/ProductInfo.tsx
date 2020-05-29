@@ -1,15 +1,9 @@
 import * as React from 'react';
 import { SafeAreaView, Text, ScrollView, View } from 'react-native';
 import styled from 'styled-components/native';
-import { d, c } from '~/utils/constant';
 import NavBar from '~/screens/NavBar';
 import TopBarLeftIcon from '~/components/universal/topBar/TopBarLeftIcon';
-import Trio from '~/containers/product/main/Trio';
-import Margin from '~/components/universal/Margin';
-import CardPurpleRight from '~/components/universal/card/CardPurpleRight';
 import MarginWide from '~/components/universal/margin/MarginWide';
-import LineGrayRightLong from '~/components/universal/line/LineGrayRightLong';
-import TopFive from '~/containers/product/main/TopFive';
 import MarginBottom from '~/components/universal/margin/MarginBottom';
 import Blinder from '~/components/product/Blinder';
 import ProductInfoImage from '~/containers/product/info/ProductInfoImage';
@@ -30,7 +24,6 @@ const ProductInfo = () => {
       <NavBar>
         <ScrollView showsVerticalScrollIndicator={false}>
           <TopBarLeftIcon />
-
           <Container>
             <ProductInfoImage />
             <MarginMedium />
@@ -38,13 +31,13 @@ const ProductInfo = () => {
             <MarginMedium />
             <LineGrayMiddle />
           </Container>
-
           <MarginMedium />
 
           <Container>
             <ProductInfoSpecific />
           </Container>
         </ScrollView>
+        <MarginBottom />
       </NavBar>
       <Blinder />
       {/* Blinder: 스크린의 가장 마지막에 놓아주어야 터치가 됨*/}

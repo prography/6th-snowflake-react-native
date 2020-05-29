@@ -9,7 +9,7 @@ interface Props {
   nameEng: String;
 }
 
-const Container = styled.Text``;
+const Container = styled.View``;
 const SmallGap = styled.View`
   width: ${d.px * 10}px;
 `;
