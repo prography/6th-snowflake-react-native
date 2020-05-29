@@ -1,15 +1,12 @@
 import * as React from 'react';
 import styled from 'styled-components/native';
 import { d, l } from '~/utils/constant';
-import TextProductSpecificTitle from '~/components/universal/text/product/info/TextProductSpecificTitle';
-import TextProductSpecificContent from '~/components/universal/text/product/info/TextProductSpecificContent';
-import MarginNarrow from '~/components/universal/margin/MarginNarrow';
 import TextMiddleTitleDark from '~/components/universal/text/TextMiddleTitleDark';
 import TextProductScoreBig from '~/components/universal/text/product/info/TextProductScoreBig';
 
 interface Props {
   title: string;
-  score?: number;
+  score?: string;
   reviewNum?: number;
 }
 

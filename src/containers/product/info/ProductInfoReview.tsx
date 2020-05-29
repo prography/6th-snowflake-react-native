@@ -1,5 +1,6 @@
 import * as React from 'react';
 import styled from 'styled-components/native';
+import { Text } from 'react-native';
 import { d, l } from '~/utils/constant';
 import TextProductSpecificTitle from '~/components/universal/text/product/info/TextProductSpecificTitle';
 import TextProductSpecificContent from '~/components/universal/text/product/info/TextProductSpecificContent';
@@ -11,7 +12,7 @@ import TextProductMiddleBar from '~/components/universal/text/product/info/TextP
 const Container = styled.View`
   width: ${d.width - l.mR * 2}px;
   margin-left: ${l.mR}px;
-  flex-direction: row;
+  flex-direction: column;
 `;
 const LeftWrapper = styled.View`
   width: ${l.lW}px;
