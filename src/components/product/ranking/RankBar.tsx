@@ -63,7 +63,7 @@ const RankBar = ({
   return (
     <Container
       activeOpacity={1}
-      onPress={() => [navigation.navigate('Review')]}
+      onPress={() => [navigation.navigate('ProductInfo')]}
     >
       <ImageWrapper>
         <ProductImage
@@ -72,7 +72,7 @@ const RankBar = ({
             blindState
               ? rankNum < 4
                 ? require('~/img/doodle/doodleCdBoxPurple.png')
-                : require('~/img/doodle/doodleCdBoxMintPurpleHeart.png')
+                : require('~/img/doodle/doodleCdBoxMint.png')
               : { uri: imageUri }
           }
         />

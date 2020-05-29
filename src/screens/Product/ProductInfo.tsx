@@ -1,0 +1,46 @@
+import * as React from 'react';
+import { SafeAreaView, Text, ScrollView, View } from 'react-native';
+import styled from 'styled-components/native';
+import { d, c } from '~/utils/constant';
+import NavBar from '~/screens/NavBar';
+import TopBarLeftIcon from '~/components/universal/topBar/TopBarLeftIcon';
+import Trio from '~/containers/product/main/Trio';
+import Margin from '~/components/universal/Margin';
+import CardPurpleRight from '~/components/universal/card/CardPurpleRight';
+import MarginWide from '~/components/universal/margin/MarginWide';
+import LineGrayRightLong from '~/components/universal/line/LineGrayRightLong';
+import TopFive from '~/containers/product/main/TopFive';
+import MarginBottom from '~/components/universal/margin/MarginBottom';
+import Blinder from '~/components/product/Blinder';
+import ProductInfoImage from '~/containers/product/info/ProductInfoImage';
+import LineGrayMiddle from '~/components/universal/line/LineGrayMiddle';
+import ProductInfoNameManufacturer from '~/containers/product/info/ProductInfoNameManufacturer';
+import MarginMedium from '~/components/universal/margin/MarginMedium';
+
+const Container = styled.View`
+  flex-direction: column;
+  align-items: flex-start;
+`;
+
+const ProductInfo = () => {
+  return (
+    <>
+      <NavBar>
+        <ScrollView showsVerticalScrollIndicator={false}>
+          <TopBarLeftIcon />
+
+          <Container>
+            <ProductInfoImage />
+            <MarginMedium />
+            <ProductInfoNameManufacturer />
+            <LineGrayMiddle />
+          </Container>
+        </ScrollView>
+      </NavBar>
+      <Blinder />
+      {/* Blinder: 스크린의 가장 마지막에 놓아주어야 터치가 됨*/}
+    </>
+  );
+};
+
+export default ProductInfo;

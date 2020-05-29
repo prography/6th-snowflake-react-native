@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import ProductMain from '~/screens/product/ProductMain';
+import ProductInfo from '~/screens/product/ProductInfo';
 import Review from '~/screens/product/Review';
 import ReviewWriting from '~/screens/product/ReviewWriting';
 import Ranking from '~/screens/product/Ranking';
@@ -14,6 +15,7 @@ export default () => {
         headerShown: false,
       }}
     >
+      <Stack.Screen name='ProductInfo' component={ProductInfo} />
       <Stack.Screen name='ProductMain' component={ProductMain} />
       <Stack.Screen name='리뷰' component={Review} />
 

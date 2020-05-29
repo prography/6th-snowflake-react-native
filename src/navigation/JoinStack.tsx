@@ -13,8 +13,8 @@ export default () => {
         headerShown: false,
       }}
     >
-      <Stack.Screen name='Login' component={Login} />
       <Stack.Screen name='GenderColor' component={GenderColor} />
+      <Stack.Screen name='Login' component={Login} />
 
       <Stack.Screen name='Join' component={Join} />
     </Stack.Navigator>

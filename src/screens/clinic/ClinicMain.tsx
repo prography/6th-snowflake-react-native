@@ -23,7 +23,7 @@ const ClinicMain = () => {
             <CardPurpleRight
               title={'Getting ready...'}
               content={
-                '보다 섬세한 대화가 오갈 수 있도록 \n 준비 중인 상담소입니다.'
+                '보다 섬세한 대화가 오갈 수 있는 커뮤니티, \n 상담소는 현재 준비 중입니다.'
               }
             />
           </Container>
