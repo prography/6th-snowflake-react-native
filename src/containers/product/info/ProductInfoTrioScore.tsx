@@ -21,7 +21,11 @@ interface Props {
   avgDurability: number;
 }
 
-const ProductInfoTrioScore = ({ avgOily, avgThickness, avgDurability }) => {
+const ProductInfoTrioScore = ({
+  avgOily,
+  avgThickness,
+  avgDurability,
+}: Props) => {
   return (
     <>
       <Container>

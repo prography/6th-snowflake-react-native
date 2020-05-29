@@ -30,10 +30,10 @@ const ProductInfoScore = () => {
     length: '185±20mm',
     width: '49±2mm',
     thickness: '0.05cm',
-    score: 4.2,
-    avgOily: 3.9,
-    avgThickness: 2.5,
-    avgDurability: 3.7,
+    score: 3.2,
+    avgThickness: 3.2,
+    avgDurability: 1.5,
+    avgOily: 2.8,
   };
 
   return (
