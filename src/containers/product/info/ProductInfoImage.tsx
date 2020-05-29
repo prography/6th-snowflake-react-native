@@ -1,13 +1,12 @@
 import * as React from 'react';
 import styled from 'styled-components/native';
-import { d } from '~/utils/constant';
+import { d, l } from '~/utils/constant';
 import ProductImageBox from '~/components/product/info/ProductImageBox';
 
 const Container = styled.View`
-  width: ${d.width - d.px * 50}px;
-  margin-left: ${d.px * 30}px;
+  width: ${d.width - l.mR * 2}px;
+  margin-left: ${l.mR}px;
 `;
-
 const ProductInfoImage = () => {
   const ProductInfo = {
     key: 0,

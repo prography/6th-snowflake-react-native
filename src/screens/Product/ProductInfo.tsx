@@ -12,6 +12,8 @@ import ProductInfoNameManufacturer from '~/containers/product/info/ProductInfoNa
 import MarginMedium from '~/components/universal/margin/MarginMedium';
 import ProductInfoSpecific from '~/containers/product/info/ProductInfoSpecific';
 import MarginNarrow from '~/components/universal/margin/MarginNarrow';
+import ProductInfoScore from '~/containers/product/info/ProductInfoScore';
+import ProductInfoReview from '~/containers/product/info/ProductInfoReview';
 
 const Container = styled.View`
   flex-direction: column;
@@ -31,15 +33,16 @@ const ProductInfo = () => {
             <MarginMedium />
             <LineGrayMiddle />
             <MarginMedium />
-          </Container>
-
-          <Container>
             <ProductInfoSpecific />
             <MarginMedium />
             <LineGrayMiddle />
+            <MarginWide />
+            <ProductInfoScore />
+            <MarginMedium />
+            <LineGrayMiddle />
+            <MarginWide />
+            <ProductInfoReview />
           </Container>
-
-          <Container />
         </ScrollView>
         <MarginBottom />
       </NavBar>

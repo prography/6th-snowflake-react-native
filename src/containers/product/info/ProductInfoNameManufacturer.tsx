@@ -1,14 +1,13 @@
 import * as React from 'react';
 import styled from 'styled-components/native';
-import { d } from '~/utils/constant';
-import TextProductManufacturerBigEng from '~/components/universal/text/product/TextProductManufacturerBigEng';
-import TextProductNameBigEng from '~/components/universal/text/product/TextProductNameBigEng';
+import { d, l } from '~/utils/constant';
+import TextProductManufacturerBigEng from '~/components/universal/text/product/info/TextProductManufacturerBigEng';
+import TextProductNameBigEng from '~/components/universal/text/product/info/TextProductNameBigEng';
 
 const Container = styled.View`
-  width: ${d.width - d.px * 50}px;
-  margin-left: ${d.px * 30}px;
+  width: ${d.width - l.mR * 2}px;
+  margin-left: ${l.mR}px;
 `;
-
 const ProductInfoNameManufacturer = () => {
   const ProductInfo = {
     key: 0,

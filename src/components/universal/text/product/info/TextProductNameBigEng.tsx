@@ -2,14 +2,16 @@ import * as React from 'react';
 import styled from 'styled-components/native';
 import { d, c } from '~/utils/constant';
 import { View, Text } from 'react-native';
-import TextTitleDarkLeft from '../TextTitleDarkLeft';
+import TextTitleDarkLeft from '../../TextTitleDarkLeft';
 
 interface Props {
   nameKor: string;
-  nameEng: String;
+  nameEng: string;
 }
 
-const Container = styled.View``;
+const Container = styled.View`
+  flex-direction: row;
+`;
 const SmallGap = styled.View`
   width: ${d.px * 10}px;
 `;
