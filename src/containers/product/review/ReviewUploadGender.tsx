@@ -1,7 +1,6 @@
 import * as React from 'react';
 import {
   State,
-  setScore,
   setMyGender,
   setPartnerGender,
 } from '~/modules/product/reviewUpload/reviewUploadReducer';
@@ -20,6 +19,8 @@ const CHECKBOX_SIZE = d.px * 15;
 const ANSWER_TEXT_HEIGHT = d.px * 25;
 const SMALL_MARGIN = d.px * 8;
 
+const CIRCLE_SIZE = 25;
+const SELECT_CIRCLE_SIZE = 40;
 const LOOP_SIZE = 30;
 
 const GenderLoopContainer = styled.View`
@@ -42,13 +43,40 @@ const GuideTextContainer = styled.View`
   flex-direction: row;
   width: 100%;
   justify-content: center;
+  align-items: center;
 `;
 const GuideText = styled.Text`
   font-family: Jost-Semi;
   font-size: ${d.px * 15}px;
   color: ${c.black};
-  line-height: ${ANSWER_TEXT_HEIGHT}px;
-  text-align: center;
+  line-height: ${CIRCLE_SIZE}px;
+`;
+const GenderSelectContainer = styled.View`
+  flex-direction: row;
+`;
+const SelectCircleTouchArea = styled.TouchableOpacity`
+  width: ${SELECT_CIRCLE_SIZE}px;
+  height: ${SELECT_CIRCLE_SIZE}px;
+  justify-content: center;
+  align-items: center;
+`;
+const SelectCircle = styled.View`
+  width: ${SELECT_CIRCLE_SIZE}px;
+  height: ${SELECT_CIRCLE_SIZE}px;
+  border-radius: 1000px;
+  background-color: ${(props) =>
+    props.gender === 'female'
+      ? props.womanColor || c.darkGray
+      : props.manColor || c.darkGray};
+  justify-content: center;
+  align-items: center;
+  opacity: 0.1;
+`;
+const GenderText = styled.Text`
+  position: absolute;
+  font-family: Jost-Semi;
+  font-size: ${d.px * 14}px;
+  color: ${c.darkGray};
 `;
 const CheckBoxTouchArea = styled.TouchableOpacity`
   flex-direction: row;
@@ -64,7 +92,7 @@ const CheckBox = styled.View`
   border-width: ${0.7}px;
   border-color: ${c.lightGray};
   background-color: ${(props) => (props.checked ? c.purple : 'white')};
-  margin-right: ${d.px * 10}px;
+  margin-right: ${d.px * 20}px;
 `;
 const CheckText = styled.Text`
   font-family: Jost-Light;
@@ -81,7 +109,12 @@ const ReviewUploadGender = () => {
   const _partnerGender = useSelector(
     (state: State) => state.reviewUploadReducer.partnerGender
   );
-
+  const womanColor = useSelector(
+    (state: State) => state.genderColorReducer.womanColor
+  );
+  const manColor = useSelector(
+    (state: State) => state.genderColorReducer.manColor
+  );
   const _setMyGender = (myGender: State) => {
     dispatch(setMyGender(myGender));
   };
@@ -90,6 +123,18 @@ const ReviewUploadGender = () => {
     dispatch(setPartnerGender(partnerGender));
   };
 
+  // const setGender = (selectedGender, _myGender, _partnerGender) => {
+  //   _myGender === null
+  //     ? _setMyGender(selectedGender)
+  //     : _partnerGender === null
+  //     ? _setPartnerGender(selectedGender)
+  //     : [_setPartnerGender(null), _setMyGender(selectedGender)];
+  // };
+
+  const selection = [
+    { selection: '여성', gender: 'female' },
+    { selection: '남성', gender: 'male' },
+  ];
   return (
     <>
       <TitleContainer>
@@ -104,9 +149,29 @@ const ReviewUploadGender = () => {
         <GenderLoop gender={'female'} partnerGender={'male'} size={LOOP_SIZE} />
       </GenderLoopContainer>
       <GuideTextContainer>
-        <GuideText>저는 이고</GuideText>
-        <GenderCircle size={25} gender={_myGender} who={true} />
+        <GuideText>저는 {_myGender ? _myGender : '없어'}</GuideText>
+        <GenderCircle size={CIRCLE_SIZE} gender={_myGender} who={true} />
+        <GuideText>이고, 파트너는 </GuideText>
+        <GenderCircle size={CIRCLE_SIZE} gender={_partnerGender} who={false} />
+        <GuideText>{_partnerGender ? _partnerGender : '없어'}이에요.</GuideText>
       </GuideTextContainer>
+      <GenderSelectContainer>
+        {selection.map((circle) => {
+          return (
+            <SelectCircleTouchArea>
+              <SelectCircle
+                manColor={manColor}
+                womanColor={womanColor}
+                gender={circle.gender}
+                onPress={() => {
+                  setGender(circle.gender);
+                }}
+              />
+              <GenderText>{circle.selection}</GenderText>
+            </SelectCircleTouchArea>
+          );
+        })}
+      </GenderSelectContainer>
       <CheckBoxTouchArea
         activeOpacity={1}
         onPress={() => [setChecked(!checked)]}

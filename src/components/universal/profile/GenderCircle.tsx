@@ -7,7 +7,11 @@ interface Props {
   size: number;
   who: boolean;
 }
-
+const Container = styled.View`
+  width: ${(props) => d.px * (props.size * 1.4)}px;
+  justify-content: center;
+  align-items: center;
+`;
 const NullCircle = styled.View`
   width: ${(props) => d.px * props.size}px;
   height: ${(props) => d.px * props.size}px;
@@ -16,7 +20,7 @@ const NullCircle = styled.View`
   border-color: ${c.lightGray};
   border-style: dashed;
   border-width: ${d.px}px;
-  right: ${(props) => (-(d.px * props.size) / 15) * 6}px;
+
   z-index: 1;
 `;
 const MyGenderCircle = styled.View`
@@ -24,7 +28,6 @@ const MyGenderCircle = styled.View`
   height: ${(props) => d.px * props.size}px;
   border-radius: 100px;
   background-color: ${(props) => props.genderColor || c.darkGray};
-  right: ${(props) => (-(d.px * props.size) / 15) * 6}px;
   z-index: 1;
 `;
 const PartnerGenderCircle = styled.View`
@@ -47,19 +50,21 @@ const GenderCircle = ({ gender, size, who }: Props) => {
 
   return (
     <>
-      {gender === null ? (
-        <NullCircle size={size} />
-      ) : who ? (
-        <MyGenderCircle
-          size={size}
-          genderColor={gender === 'female' ? womanColor : manColor}
-        />
-      ) : (
-        <PartnerGenderCircle
-          size={size}
-          genderColor={gender === 'female' ? womanColor : manColor}
-        />
-      )}
+      <Container size={size}>
+        {gender === null ? (
+          <NullCircle size={size} />
+        ) : who ? (
+          <MyGenderCircle
+            size={size}
+            genderColor={gender === 'female' ? womanColor : manColor}
+          />
+        ) : (
+          <PartnerGenderCircle
+            size={size}
+            genderColor={gender === 'female' ? womanColor : manColor}
+          />
+        )}
+      </Container>
     </>
   );
 };
