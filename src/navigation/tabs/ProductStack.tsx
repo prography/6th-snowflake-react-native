@@ -3,7 +3,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import ProductMain from '~/screens/product/ProductMain';
 import ProductInfo from '~/screens/product/ProductInfo';
 import Ranking from '~/screens/product/Ranking';
-import ReviewUpload from '~/screens/product/ReviewUpload';
+import ReviewUpload1 from '~/screens/product/ReviewUpload1';
 
 const Stack = createStackNavigator();
 
@@ -14,9 +14,9 @@ export default () => {
         headerShown: false,
       }}
     >
+      <Stack.Screen name='ReviewUpload1' component={ReviewUpload1} />
       <Stack.Screen name='ProductMain' component={ProductMain} />
       <Stack.Screen name='ProductInfo' component={ProductInfo} />
-      <Stack.Screen name='ReviewUpload' component={ReviewUpload} />
 
       <Stack.Screen name='Ranking' component={Ranking} />
     </Stack.Navigator>

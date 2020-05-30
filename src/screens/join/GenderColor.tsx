@@ -42,6 +42,12 @@ const ColorContainer = styled.View`
   width: 100%;
 `;
 
+interface State {
+  womanColor: string;
+  manColor: string;
+  genderColorReducer: string;
+}
+
 const GenderColor = () => {
   const womanColor = useSelector(
     (state: State) => state.genderColorReducer.womanColor

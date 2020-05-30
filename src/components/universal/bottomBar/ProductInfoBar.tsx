@@ -48,7 +48,7 @@ const ProductInfoBar = ({ children, navigation }: Props) => {
         </Tab>
         <Tab
           onPress={() => {
-            navigation.navigate('ReviewUpload');
+            navigation.navigate('ReviewUpload1');
           }}
         >
           <Title>리뷰 쓰러 가기</Title>
