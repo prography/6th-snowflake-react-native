@@ -16,6 +16,7 @@ import ColorCircles5 from '~/containers/join/ColorCircles/ColorCircles5';
 import MarginBottom from '~/components/universal/margin/MarginBottom';
 import MarginMedium from '~/components/universal/margin/MarginMedium';
 import ButtonGenderColor from '~/containers/join/ColorCircles/ButtonGenderColor';
+import GenderCircle from '~/components/universal/profile/GenderCircle';
 
 const Container = styled.View`
   flex-direction: column;
@@ -64,6 +65,7 @@ const GenderColor = () => {
         <TextContainer>
           <OneTextLine>
             <TextTitleDarkLeft title={'나는 여성은'} />
+
             <View
               style={{
                 width: d.height / 25,

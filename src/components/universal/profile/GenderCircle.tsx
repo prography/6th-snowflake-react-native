@@ -1,13 +1,25 @@
 import * as React from 'react';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components/native';
-import { d, l, c } from '~/utils/constant';
+import { d, c } from '~/utils/constant';
+interface Props {
+  gender: string;
+  size: number;
+  who: boolean;
+}
 
-const Container = styled.View`
-  flex-direction: row;
+const NullCircle = styled.View`
+  width: ${(props) => d.px * props.size}px;
+  height: ${(props) => d.px * props.size}px;
+  border-radius: 100px;
+  background-color: white;
+  border-color: ${c.lightGray};
+  border-style: dashed;
+  border-width: ${d.px}px;
+  right: ${(props) => (-(d.px * props.size) / 15) * 6}px;
+  z-index: 1;
 `;
-
-const GenderCircle = styled.View`
+const MyGenderCircle = styled.View`
   width: ${(props) => d.px * props.size}px;
   height: ${(props) => d.px * props.size}px;
   border-radius: 100px;
@@ -24,13 +36,8 @@ const PartnerGenderCircle = styled.View`
   border-color: ${(props) => props.partnerGenderColor || c.darkGray};
   z-index: 0;
 `;
-interface Props {
-  gender: string;
-  partnerGender: string;
-  size: number;
-}
 
-const GenderLoop = ({ gender, partnerGender, size }: Props) => {
+const GenderCircle = ({ gender, size, who }: Props) => {
   const womanColor = useSelector(
     (state: State) => state.genderColorReducer.womanColor
   );
@@ -40,20 +47,21 @@ const GenderLoop = ({ gender, partnerGender, size }: Props) => {
 
   return (
     <>
-      <Container>
-        <GenderCircle
+      {gender === null ? (
+        <NullCircle size={size} />
+      ) : who ? (
+        <MyGenderCircle
+          size={size}
           genderColor={gender === 'female' ? womanColor : manColor}
-          size={size}
         />
+      ) : (
         <PartnerGenderCircle
-          partnerGenderColor={
-            partnerGender === 'female' ? womanColor : manColor
-          }
           size={size}
+          genderColor={gender === 'female' ? womanColor : manColor}
         />
-      </Container>
+      )}
     </>
   );
 };
 
-export default GenderLoop;
+export default GenderCircle;
