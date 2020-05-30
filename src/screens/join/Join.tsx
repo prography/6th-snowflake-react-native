@@ -5,6 +5,8 @@ import { View, Text } from 'react-native';
 import NavBar from '~/screens/NavBar';
 import { c, d, l } from '~/utils/constant';
 import TopBarWithIcon from '~/components/universal/topBar/TopBarRightIcon';
+import EmailInput from '~/components/universal/input/EmailInput'
+import PasswdInput from '~/components/universal/input/PasswdInput';
 
 const Container = styled.View`
   margin-right: ${l.mR}px;
@@ -16,7 +18,10 @@ const Join = () => {
     <NavBar>
       <Container>
         <TopBarWithIcon/>
-        <Text>Join</Text>
+        <Text>이메일</Text>
+        <EmailInput/>
+        <Text>비밀번호</Text>
+        <PasswdInput/>
       </Container>
     </NavBar>
   );
