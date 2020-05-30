@@ -12,7 +12,8 @@ import MarginMedium from '~/components/universal/margin/MarginMedium';
 import TextMiddleTitleDark from '~/components/universal/text/TextMiddleTitleDark';
 
 const TOUCH_AREA = d.px * 40;
-const CHECKBOX_SIZE = d.px * 20;
+const CHECKBOX_SIZE = d.px * 15;
+const ANSWER_TEXT_HEIGHT = d.px * 25;
 
 const TitleContainer = styled.View`
   align-items: center;
@@ -21,17 +22,20 @@ const TitleContainer = styled.View`
 const AnswerContainer = styled.View`
   justify-content: center;
   align-items: center;
+  height: ${TOUCH_AREA + ANSWER_TEXT_HEIGHT * 2}px;
 `;
-
+const AverageText = styled.Text`
+  color: ${c.purple};
+  font-family: Jost-Semi;
+  font-size: ${d.px * 20};
+`;
 const StarContainer = styled.View`
   flex-direction: row;
   justify-content: space-around;
-
-  margin: 0 ${l.mR}px;
-  width: ${d.width - l.mR * 2}px;
+  width: ${TOUCH_AREA * 5 + d.px * 80}px;
 `;
 const SelectedTextContainer = styled.View`
-  height: ${d.px * 20}px;
+  height: ${ANSWER_TEXT_HEIGHT}px;
   justify-content: center;
 `;
 
@@ -39,7 +43,7 @@ const SelectedText = styled.Text`
   font-family: Jost-Semi;
   font-size: ${d.px * 15}px;
   color: ${c.purple};
-  line-height: ${d.px * 20}px;
+  line-height: ${ANSWER_TEXT_HEIGHT}px;
   text-align: center;
 `;
 
@@ -61,18 +65,26 @@ const StarTouchArea = styled.TouchableOpacity`
   z-index: 1;
 `;
 
-const CheckBoxContainer = styled.View`
+const CheckBoxTouchArea = styled.TouchableOpacity`
   flex-direction: row;
+  height: ${TOUCH_AREA}px;
+  justify-content: center;
+  align-items: center;
 `;
-const CheckBox = styled.TouchableOpacity`
+const CheckBox = styled.View`
   width: ${CHECKBOX_SIZE}px;
   height: ${CHECKBOX_SIZE}px;
   border-style: solid;
   border-width: ${0.7}px;
   border-color: ${c.lightGray};
   background-color: ${(props) => (props.checked ? c.purple : 'white')};
+  margin-right: ${d.px * 10}px;
 `;
-const CheckText = styled.Text``;
+const CheckText = styled.Text`
+  font-family: Jost-Light;
+  font-size: ${d.px * 14}px;
+  color: ${(props) => (props.checked ? c.darkGray : c.lightGray)};
+`;
 
 const ReviewUploadScore = () => {
   const dispatch = useDispatch();
@@ -87,11 +99,11 @@ const ReviewUploadScore = () => {
   );
 
   const oneToFive = [
-    { score: 1, text: '아니' },
-    { score: 2, text: '별로' },
-    { score: 3, text: '응' },
-    { score: 4, text: '그래' },
-    { score: 5, text: '조아' },
+    { score: 1, text: '별로예요' },
+    { score: 2, text: '비추해요' },
+    { score: 3, text: '무난해요' },
+    { score: 4, text: '추천해요' },
+    { score: 5, text: '최고예요' },
   ];
   console.log('삼박자평균', _trioAverage);
   return (
@@ -99,18 +111,17 @@ const ReviewUploadScore = () => {
       <TitleContainer>
         <TextMiddleTitleDark title={'이 제품을 추천하시나요?'} />
       </TitleContainer>
-      <MarginMedium />
 
-      <AnswerContainer>
-        <SelectedTextContainer>
-          {!checked && _score && (
-            <SelectedText>{oneToFive[_score - 1].text}</SelectedText>
-          )}
-        </SelectedTextContainer>
+      {!checked && (
+        <AnswerContainer>
+          <SelectedTextContainer>
+            {_score && (
+              <SelectedText>{oneToFive[_score - 1].text}</SelectedText>
+            )}
+          </SelectedTextContainer>
 
-        <StarContainer>
-          {!checked &&
-            oneToFive.map((star) => {
+          <StarContainer>
+            {oneToFive.map((star) => {
               return (
                 <>
                   <StarTouchArea
@@ -125,21 +136,30 @@ const ReviewUploadScore = () => {
                 </>
               );
             })}
-        </StarContainer>
-        {checked && <Text>{_trioAverage}</Text>}
-      </AnswerContainer>
+          </StarContainer>
+        </AnswerContainer>
+      )}
 
-      <CheckBoxContainer>
-        <CheckBox
-          activeOpacity={1}
-          checked={checked}
-          onPress={() => [
-            setChecked(!checked),
-            checked ? _setScore(null) : _setScore(_trioAverage),
-          ]}
-        />
-        <CheckText>앞의 콘돔 삼박자 평균 점수만큼 추천할래요.</CheckText>
-      </CheckBoxContainer>
+      {checked && (
+        <AnswerContainer>
+          <AverageText>★ {_trioAverage.toFixed(2)}</AverageText>
+        </AnswerContainer>
+      )}
+
+      <CheckBoxTouchArea
+        activeOpacity={1}
+        onPress={() => [
+          setChecked(!checked),
+          checked
+            ? _setScore(Math.round(_trioAverage))
+            : _setScore(_trioAverage),
+        ]}
+      >
+        <CheckBox checked={checked} />
+        <CheckText checked={checked}>
+          앞의 콘돔 삼박자 평균 점수만큼 추천할래요.
+        </CheckText>
+      </CheckBoxTouchArea>
     </>
   );
 };
