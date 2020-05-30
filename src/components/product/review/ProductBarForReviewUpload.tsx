@@ -4,21 +4,17 @@ import styled from 'styled-components/native';
 import { d, c, l } from '~/utils/constant';
 import TextProductCompany from '~/components/universal/text/product/TextProductCompany';
 import TextProductName from '~/components/universal/text/product/TextProductName';
-import { withNavigation } from '@react-navigation/compat';
-import TextRankNum from '~/components/universal/text/product/TextRankNum';
-import TextProductScore from '~/components/universal/text/product/TextProductScore';
 
 interface Props {
   rankNum: number;
-
   productCompany: string;
   productName: string;
   imageUri: string;
   navigation: any;
 }
 
-const Container = styled.TouchableOpacity`
-  height: ${d.px * 80}px;
+const Container = styled.View`
+  height: ${d.px * 70}px;
   width: 100%;
   flex-direction: row;
   justify-content: flex-start;
@@ -39,34 +35,25 @@ const TextWrapper = styled.View`
 `;
 
 const ProductBarForReviewUpload = ({
-  rankNum,
-
   productCompany,
   productName,
   imageUri,
-  navigation,
 }: Props) => {
   const blindState = useSelector(
     (state: State) => state.blindReducer.blindState
   );
   return (
-    <Container
-      activeOpacity={1}
-      onPress={() => [navigation.navigate('ProductInfo')]}
-    >
+    <Container>
       <ImageWrapper>
         <ProductImage
           style={{ resizeMode: 'contain' }}
           source={
             blindState
-              ? rankNum < 4
-                ? require('~/img/doodle/doodleCdBoxPurple.png')
-                : require('~/img/doodle/doodleCdBoxMint.png')
+              ? require('~/img/doodle/doodleCdBoxMintPurpleHeart.png')
               : { uri: imageUri }
           }
         />
       </ImageWrapper>
-
       <TextWrapper>
         <TextProductCompany productCompany={productCompany} />
         <TextProductName productName={productName} />
@@ -75,4 +62,4 @@ const ProductBarForReviewUpload = ({
   );
 };
 
-export default withNavigation(ProductBarForReviewUpload);
+export default ProductBarForReviewUpload;

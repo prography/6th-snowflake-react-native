@@ -12,14 +12,14 @@ import ProductBarForReviewUpload from '~/components/product/review/ProductBarFor
 import MarginMedium from '~/components/universal/margin/MarginMedium';
 import ReviewUploadTrioScore from '~/containers/product/review/ReviewUploadTrioScore';
 import MarginBottom from '~/components/universal/margin/MarginBottom';
-import ProductReviewBar1 from '~/components/universal/bottomBar/product/ProductReviewBar1';
+import ProductReviewBar2 from '~/components/universal/bottomBar/product/ProductReviewBar2';
 
 const Container = styled.View`
   flex-direction: column;
   align-items: center;
 `;
 
-const ReviewUpload1 = () => {
+const ReviewUpload2 = () => {
   const ProductInfo = {
     key: 0,
     rankNum: 1,
@@ -30,7 +30,7 @@ const ReviewUpload1 = () => {
   };
   return (
     <>
-      <ProductReviewBar1>
+      <ProductReviewBar2>
         <TopBarBackArrow />
 
         <ProductBarForReviewUpload
@@ -47,10 +47,10 @@ const ReviewUpload1 = () => {
           <ReviewUploadTrioScore />
           <MarginBottom />
         </ScrollView>
-      </ProductReviewBar1>
+      </ProductReviewBar2>
       <Blinder />
     </>
   );
 };
 
-export default ReviewUpload1;
+export default ReviewUpload2;

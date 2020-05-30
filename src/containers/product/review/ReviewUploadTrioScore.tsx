@@ -32,7 +32,8 @@ const TitleContainer = styled.View`
 `;
 const Container = styled.View`
   flex-direction: column;
-  margin: 0 ${l.mL}px;
+  justify-content: center;
+  margin: 0 ${l.mR}px;
   width: ${d.width - l.mR * 2}px;
 `;
 const SelectedTextContainer = styled.View`
@@ -43,7 +44,7 @@ const SelectedTextContainer = styled.View`
 const SelectedText = styled.Text`
   font-family: Jost-Semi;
   font-size: ${d.px * 14}px;
-  color: ${c.darkGray};
+  color: ${c.purple};
   line-height: ${d.px * 20}px;
   text-align: center;
 `;
@@ -52,8 +53,9 @@ const BarWrapper = styled.View`
 `;
 
 const BarContainer = styled.View`
-  height: ${BAR_HEIGHT}px;
+  height: ${TOUCH_AREA}px;
   justify-content: center;
+  top: ${-TOUCH_AREA / 3}px;
 `;
 const GrayBar = styled.View`
   width: 100%;
@@ -80,6 +82,7 @@ const PurpleIndicatorTouchArea = styled.TouchableOpacity`
   height: ${TOUCH_AREA}px;
   justify-content: center;
   align-items: center;
+  z-index: 1;
 `;
 interface indicatorProps {
   givenNum: number;
@@ -109,22 +112,17 @@ const PurpleIndicator = styled.View`
 
 const DescriptionContainer = styled.View`
   margin: 0 ${TOUCH_AREA / 2}px;
-
   flex-direction: row;
   justify-content: space-between;
+  z-index: 0;
 `;
 
 const Description = styled.Text`
   font-family: Jost-Medium;
   font-size: ${d.px * 13}px;
   color: ${c.lightGray};
+  top: ${(TOUCH_AREA / 3) * 2}px;
 `;
-
-interface Props {
-  avgThickness?: number;
-  avgDurability?: number;
-  avgOily?: number;
-}
 
 const ReviewUploadTrioScore = () => {
   const dispatch = useDispatch();
@@ -148,7 +146,7 @@ const ReviewUploadTrioScore = () => {
   const _setOilyScore = (oilyScore: State) => {
     dispatch(setOilyScore(oilyScore));
   };
-  console.log('두께 점수', _thicknessScore);
+
   const trioScore = [
     {
       type: thickness,
@@ -214,9 +212,11 @@ const ReviewUploadTrioScore = () => {
             <SelectedText>{question.selectedText[question.score]}</SelectedText>
           )}
         </SelectedTextContainer>
-        <MarginMedium />
         <Container>
-          <MarginNarrow />
+          <DescriptionContainer>
+            <Description>{question.leftDescription}</Description>
+            <Description>{question.rightDescription}</Description>
+          </DescriptionContainer>
           <BarContainer>
             <BarWrapper>
               <GrayBar />
@@ -252,14 +252,9 @@ const ReviewUploadTrioScore = () => {
               })}
             </PurpleIndicatorContainer>
           </BarContainer>
-          <MarginNarrow />
-          <DescriptionContainer>
-            <Description>{question.leftDescription}</Description>
-            <Description>{question.rightDescription}</Description>
-          </DescriptionContainer>
+
           <MarginMedium />
         </Container>
-        <MarginMedium />
       </>
     );
   });
