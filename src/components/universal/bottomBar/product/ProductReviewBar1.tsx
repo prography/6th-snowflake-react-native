@@ -1,5 +1,9 @@
 import * as React from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import {
+  setTrioAverage,
+  State,
+} from '~/modules/product/reviewUpload/reviewUploadReducer';
 import styled from 'styled-components/native';
 import { withNavigation } from '@react-navigation/compat';
 import { StackNavigationProp } from '@react-navigation/stack';
@@ -37,6 +41,13 @@ const ProductReviewBar1 = ({ children, navigation }: Props) => {
   const _oilyScore = useSelector(
     (state: State) => state.reviewUploadReducer.oilyScore
   );
+
+  const dispatch = useDispatch();
+
+  const _setTrioAverage = (trioAverage: State) => {
+    dispatch(setTrioAverage(trioAverage));
+  };
+
   return (
     <Screen>
       {children}
@@ -51,8 +62,12 @@ const ProductReviewBar1 = ({ children, navigation }: Props) => {
         onPress={() =>
           _thicknessScore &&
           _durabilityScore &&
-          _oilyScore &&
-          navigation.navigate('ReviewUpload2')
+          _oilyScore && [
+            _setTrioAverage(
+              Number((_thicknessScore + _oilyScore + _durabilityScore) / 3)
+            ),
+            navigation.navigate('ReviewUpload2'),
+          ]
         }
       >
         <TextBottomBtn btnName={'다음'} />

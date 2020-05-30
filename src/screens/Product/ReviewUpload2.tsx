@@ -13,6 +13,9 @@ import MarginMedium from '~/components/universal/margin/MarginMedium';
 import ReviewUploadTrioScore from '~/containers/product/review/ReviewUploadTrioScore';
 import MarginBottom from '~/components/universal/margin/MarginBottom';
 import ProductReviewBar2 from '~/components/universal/bottomBar/product/ProductReviewBar2';
+import ReviewUploadScoreGender from '~/containers/product/review/ReviewUploadScore';
+import ReviewUploadScore from '~/containers/product/review/ReviewUploadScore';
+import ReviewUploadGender from '~/containers/product/review/ReviewUploadGender';
 
 const Container = styled.View`
   flex-direction: column;
@@ -32,19 +35,19 @@ const ReviewUpload2 = () => {
     <>
       <ProductReviewBar2>
         <TopBarBackArrow />
-
         <ProductBarForReviewUpload
-          rankNum={ProductInfo.rankNum}
           productCompany={ProductInfo.productCompany}
           productName={ProductInfo.productName}
           imageUri={ProductInfo.imageUri}
-          score={ProductInfo.score}
         />
-
         <LineGrayMiddle />
         <MarginMedium />
         <ScrollView>
-          <ReviewUploadTrioScore />
+          <ReviewUploadScore />
+          <MarginMedium />
+          <LineGrayMiddle />
+          <MarginMedium />
+          <ReviewUploadGender />
           <MarginBottom />
         </ScrollView>
       </ProductReviewBar2>

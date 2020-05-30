@@ -28,14 +28,12 @@ const Container = styled.TouchableOpacity`
 `;
 
 const ProductReviewBar2 = ({ children, navigation }: Props) => {
-  const _thicknessScore = useSelector(
-    (state: State) => state.reviewUploadReducer.thicknessScore
+  const _score = useSelector((state: State) => state.reviewUploadReducer.score);
+  const _myGender = useSelector(
+    (state: State) => state.reviewUploadReducer.myGender
   );
-  const _durabilityScore = useSelector(
-    (state: State) => state.reviewUploadReducer.durabilityScore
-  );
-  const _oilyScore = useSelector(
-    (state: State) => state.reviewUploadReducer.oilyScore
+  const _partnerGender = useSelector(
+    (state: State) => state.reviewUploadReducer.partnerGender
   );
   return (
     <Screen>
@@ -44,14 +42,12 @@ const ProductReviewBar2 = ({ children, navigation }: Props) => {
         activeOpacity={1}
         style={{
           backgroundColor:
-            _thicknessScore && _durabilityScore && _oilyScore
-              ? c.purple
-              : c.lightGray,
+            _score && _myGender && _partnerGender ? c.purple : c.lightGray,
         }}
         onPress={() =>
-          _thicknessScore &&
-          _durabilityScore &&
-          _oilyScore &&
+          _score &&
+          _myGender &&
+          _partnerGender &&
           navigation.navigate('HomeStack')
         }
       >

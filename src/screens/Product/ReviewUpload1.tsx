@@ -34,11 +34,9 @@ const ReviewUpload1 = () => {
         <TopBarBackArrow />
 
         <ProductBarForReviewUpload
-          rankNum={ProductInfo.rankNum}
           productCompany={ProductInfo.productCompany}
           productName={ProductInfo.productName}
           imageUri={ProductInfo.imageUri}
-          score={ProductInfo.score}
         />
 
         <LineGrayMiddle />

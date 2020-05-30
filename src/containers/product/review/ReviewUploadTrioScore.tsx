@@ -1,5 +1,4 @@
 import * as React from 'react';
-
 import {
   State,
   setThicknessScore,
@@ -9,12 +8,8 @@ import {
 import styled from 'styled-components/native';
 import { useSelector, useDispatch } from 'react-redux';
 import { d, c, l } from '~/utils/constant';
-import { Text } from 'react-native';
 import MarginMedium from '~/components/universal/margin/MarginMedium';
-import MarginNarrow from '~/components/universal/margin/MarginNarrow';
-import MarginWide from '~/components/universal/margin/MarginWide';
 import TextMiddleTitleDark from '~/components/universal/text/TextMiddleTitleDark';
-import Score from '~/archive/reviewWritingContainer/Score';
 
 const BAR_HEIGHT = d.px * 4;
 const TOUCH_AREA = d.px * 50;
