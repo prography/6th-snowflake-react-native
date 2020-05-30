@@ -1,11 +1,8 @@
 import * as React from 'react';
 import styled from 'styled-components/native';
 import { d } from '~/utils/constant';
-import { ScrollView } from 'react-native';
 import TextTitleDarkPurpleLink from '~/components/universal/text/TextTitleDarkPurpleLink';
-import TextContentLightLeft from '~/components/universal/text/TextContentLightLeft';
 import MarginMedium from '~/components/universal/margin/MarginMedium';
-import TrioBox from '~/components/product/main/TrioBox';
 import RankBar from '~/components/product/ranking/RankBar';
 
 const Container = styled.View`

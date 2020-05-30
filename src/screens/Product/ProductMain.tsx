@@ -1,11 +1,11 @@
 import * as React from 'react';
+import { useState } from 'react';
 import { SafeAreaView, Text, ScrollView, View } from 'react-native';
 import styled from 'styled-components/native';
 import { d, c } from '~/utils/constant';
 import NavBar from '~/screens/NavBar';
 import TopBarLeftIcon from '~/components/universal/topBar/TopBarLeftIcon';
 import Trio from '~/containers/product/main/Trio';
-import Margin from '~/components/universal/Margin';
 import CardPurpleRight from '~/components/universal/card/CardPurpleRight';
 import MarginWide from '~/components/universal/margin/MarginWide';
 import LineGrayRightLong from '~/components/universal/line/LineGrayRightLong';
@@ -41,7 +41,7 @@ const ProductMain = () => {
             <Trio />
             <MarginWide />
             <LineGrayRightLong />
-            <Margin />
+            <MarginWide />
             {/* 콘돔 총점 TOP5 */}
             <TopFive />
             <MarginBottom />
