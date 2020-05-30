@@ -16,6 +16,7 @@ import ProductReviewBar2 from '~/components/universal/bottomBar/product/ProductR
 import ReviewUploadScoreGender from '~/containers/product/review/ReviewUploadScore';
 import ReviewUploadScore from '~/containers/product/review/ReviewUploadScore';
 import ReviewUploadGender from '~/containers/product/review/ReviewUploadGender';
+import MarginNarrow from '~/components/universal/margin/MarginNarrow';
 
 const Container = styled.View`
   flex-direction: column;
@@ -44,7 +45,7 @@ const ReviewUpload2 = () => {
         <MarginMedium />
         <ScrollView>
           <ReviewUploadScore />
-          <MarginMedium />
+          <MarginNarrow />
           <LineGrayMiddle />
           <MarginMedium />
           <ReviewUploadGender />

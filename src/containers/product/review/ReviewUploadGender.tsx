@@ -10,6 +10,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { d, c, l } from '~/utils/constant';
 import MarginMedium from '~/components/universal/margin/MarginMedium';
 import TextMiddleTitleDark from '~/components/universal/text/TextMiddleTitleDark';
+import TextMiddleTitleDarkCenter from '~/components/universal/text/TextMiddleTitleDarkCenter';
 
 const BAR_HEIGHT = d.px * 4;
 const TOUCH_AREA = d.px * 50;
@@ -21,6 +22,7 @@ const thickness = 'thickness';
 const durability = 'durability';
 const oily = 'oily';
 
+const GenderLoopContainer = styled.View``;
 const TitleContainer = styled.View`
   align-items: center;
   width: 100%;
@@ -137,25 +139,17 @@ const ReviewUploadGender = () => {
     dispatch(setPartnerGender(partnerGender));
   };
 
-  const oneToFive = [
-    { score: 1 },
-    { score: 2 },
-    { score: 3 },
-    { score: 4 },
-    { score: 5 },
-  ];
-
   return (
     <>
       <TitleContainer>
-        <TextMiddleTitleDark
+        <TextMiddleTitleDarkCenter
           title={
-            '본인의 성별과 \n 해당 제품을 함께 사용한 \n 파트너의 성별을 알려주세요'
+            '본인의 성별과 \n 해당 제품을 함께 사용한 \n 파트너의 성별을 알려주세요.'
           }
         />
       </TitleContainer>
       <MarginMedium />
-
+      <GenderLoopContainer />
       <Container>
         <MarginMedium />
       </Container>

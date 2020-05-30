@@ -14,6 +14,7 @@ import TextMiddleTitleDark from '~/components/universal/text/TextMiddleTitleDark
 const TOUCH_AREA = d.px * 40;
 const CHECKBOX_SIZE = d.px * 15;
 const ANSWER_TEXT_HEIGHT = d.px * 25;
+const SMALL_MARGIN = d.px * 8;
 
 const TitleContainer = styled.View`
   align-items: center;
@@ -22,7 +23,7 @@ const TitleContainer = styled.View`
 const AnswerContainer = styled.View`
   justify-content: center;
   align-items: center;
-  height: ${TOUCH_AREA + ANSWER_TEXT_HEIGHT * 2}px;
+  height: ${TOUCH_AREA + ANSWER_TEXT_HEIGHT * 2 + SMALL_MARGIN}px;
 `;
 const AverageText = styled.Text`
   color: ${c.purple};
@@ -37,6 +38,7 @@ const StarContainer = styled.View`
 const SelectedTextContainer = styled.View`
   height: ${ANSWER_TEXT_HEIGHT}px;
   justify-content: center;
+  margin-bottom: ${SMALL_MARGIN}px;
 `;
 
 const SelectedText = styled.Text`
@@ -70,6 +72,7 @@ const CheckBoxTouchArea = styled.TouchableOpacity`
   height: ${TOUCH_AREA}px;
   justify-content: center;
   align-items: center;
+  top: ${-TOUCH_AREA / 5}px;
 `;
 const CheckBox = styled.View`
   width: ${CHECKBOX_SIZE}px;

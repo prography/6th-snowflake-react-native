@@ -8,27 +8,28 @@ const Container = styled.View`
 `;
 
 const GenderCircle = styled.View`
-  width: ${d.px * 15}px;
-  height: ${d.px * 15}px;
+  width: ${(props) => d.px * props.size}px;
+  height: ${(props) => d.px * props.size}px;
   border-radius: 100px;
   background-color: ${(props) => props.genderColor || c.darkGray};
-  right: ${-d.px * 6}px;
+  right: ${(props) => (-(d.px * props.size) / 15) * 6}px;
   z-index: 1;
 `;
 const PartnerGenderCircle = styled.View`
-  width: ${d.px * 15}px;
-  height: ${d.px * 15}px;
+  width: ${(props) => d.px * props.size}px;
+  height: ${(props) => d.px * props.size}px;
   border-radius: 100px;
   border-style: solid;
-  border-width: ${d.px * 4}px;
+  border-width: ${(props) => ((d.px * props.size) / 15) * 4}px;
   border-color: ${(props) => props.partnerGenderColor || c.darkGray};
   z-index: 0;
 `;
 interface Props {
   gender: string;
   partnerGender: string;
+  size: number;
 }
-const GenderLoop = ({ gender, partnerGender }: Props) => {
+const GenderLoop = ({ gender, partnerGender, size }: Props) => {
   const womanColor = useSelector(
     (state: State) => state.genderColorReducer.womanColor
   );
@@ -41,11 +42,13 @@ const GenderLoop = ({ gender, partnerGender }: Props) => {
       <Container>
         <GenderCircle
           genderColor={gender === 'female' ? womanColor : manColor}
+          size={size}
         />
         <PartnerGenderCircle
           partnerGenderColor={
             partnerGender === 'female' ? womanColor : manColor
           }
+          size={size}
         />
       </Container>
     </>
