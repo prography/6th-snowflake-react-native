@@ -33,7 +33,7 @@ const TrioReviewUploadContainer = () => {
     avgDurability: 1.5,
     avgOily: 2.8,
   };
-  console.log('두께:', _thicknessScore);
+
   return (
     <>
       <Container>

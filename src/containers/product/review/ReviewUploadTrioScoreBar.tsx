@@ -1,5 +1,7 @@
 import * as React from 'react';
+import { useState } from 'react';
 import styled from 'styled-components/native';
+import { useSelector, useDispatch } from 'react-redux';
 import { d, c, l } from '~/utils/constant';
 import { Text } from 'react-native';
 import MarginMedium from '~/components/universal/margin/MarginMedium';
@@ -9,17 +11,26 @@ import TextMiddleTitleDark from '~/components/universal/text/TextMiddleTitleDark
 import Score from '~/archive/reviewWritingContainer/Score';
 
 const BAR_HEIGHT = d.px * 4;
-const TOUCH_AREA = d.px * 30;
+const TOUCH_AREA = d.px * 50;
+const SMALL_INDICATOR = d.px * 4;
+const BIG_INDICATOR = d.px * 8;
+const LIGHT_OPACITY = 0.5;
 const Container = styled.View`
   flex-direction: column;
   margin: 0 ${l.mL}px;
   width: ${d.width - l.mR * 2}px;
 `;
+const SelectedTextContainer = styled.View`
+  height: ${d.px * 20}px;
+  justify-content: center;
+`;
 
-const TrioNameContainer = styled.View`
-  /* padding: 0 ${d.px * 12.5}px; */
-  /* 이 값 주면 점수가 0, 5일 때 좌우 딱 맞아들지만 가운데 왔을 때는 중심이 안 맞음 */
-  left: ${-d.px * 25}px;
+const SelectedText = styled.Text`
+  font-family: Jost-Semi;
+  font-size: ${d.px * 14}px;
+  color: ${c.darkGray};
+  line-height: ${d.px * 20}px;
+  text-align: center;
 `;
 const BarWrapper = styled.View`
   margin: 0 ${TOUCH_AREA / 2}px;
@@ -35,7 +46,7 @@ const GrayBar = styled.View`
   background-color: ${c.extraLightGray};
 `;
 const MintBar = styled.View`
-  width: ${(props) => props.score * 20 || 0}%;
+  width: ${(props) => (props.score - 1) * 25 || 0}%;
   position: absolute;
   height: ${BAR_HEIGHT}px;
   background-color: ${c.mint};
@@ -56,9 +67,25 @@ const PurpleIndicatorTouchArea = styled.TouchableOpacity`
   align-items: center;
 `;
 const PurpleIndicator = styled.View`
-  width: ${d.px * 8}px;
-  height: ${d.px * 8}px;
+  width: ${(props) =>
+    props.givenNum === null
+      ? BIG_INDICATOR
+      : props.givenNum === props.selfNum
+      ? BIG_INDICATOR
+      : SMALL_INDICATOR}px;
+  height: ${(props) =>
+    props.givenNum === null
+      ? BIG_INDICATOR
+      : props.givenNum === props.selfNum
+      ? BIG_INDICATOR
+      : SMALL_INDICATOR}px;
   background-color: ${c.purple};
+  opacity: ${(props) =>
+    props.givenNum === null
+      ? 1
+      : props.givenNum === props.selfNum
+      ? 1
+      : LIGHT_OPACITY}px;
 `;
 
 const DescriptionContainer = styled.View`
@@ -79,11 +106,27 @@ interface Props {
   avgDurability?: number;
   avgOily?: number;
 }
+
+interface State {
+  thicknessScore: string;
+  reviewUploadReducer: any;
+}
+
 const ReviewUploadTrioScoreBar = ({
   avgThickness,
   avgDurability,
   avgOily,
 }: Props) => {
+  const dispatch = useDispatch();
+  const [selected, setSelected] = useState(null);
+  const _thicknessScore = useSelector(
+    (state: State) => state.reviewUploadReducer.thicknessScore
+  );
+
+  const setThicknessScore = (tScore) => {
+    dispatch({ type: 'SET_THICKNESS_SCORE', thicknessScore: tScore });
+  };
+  console.log('두께 점수', _thicknessScore);
   const trioScore = [
     {
       question: '얇기는 어떠셨나요?',
@@ -92,6 +135,14 @@ const ReviewUploadTrioScoreBar = ({
       name: '얇기',
       leftDescription: '두꺼워요',
       rightDescription: '얇아요',
+      selectedText: {
+        0: '',
+        1: '너무 두꺼워요',
+        2: '두꺼워요',
+        3: '보통이에요',
+        4: '얇아요',
+        5: '완전 얇아요',
+      },
     },
     {
       question: '내구성은 어떠셨나요?',
@@ -100,6 +151,14 @@ const ReviewUploadTrioScoreBar = ({
       name: '내구성',
       leftDescription: '약해요',
       rightDescription: '튼튼해요',
+      selectedText: {
+        0: '',
+        1: '너무 약해요',
+        2: '약해요',
+        3: '무난해요',
+        4: '튼튼해요',
+        5: '아주 튼튼해요',
+      },
     },
     {
       question: '윤활제는 충분했나요?',
@@ -108,6 +167,14 @@ const ReviewUploadTrioScoreBar = ({
       name: '윤활제',
       leftDescription: '건조해요',
       rightDescription: '촉촉해요',
+      selectedText: {
+        0: '',
+        1: '너무 건조해요',
+        2: '건조해요',
+        3: '적당해요',
+        4: '촉촉해요',
+        5: '정말 촉촉해요',
+      },
     },
   ];
 
@@ -124,22 +191,32 @@ const ReviewUploadTrioScoreBar = ({
       <>
         <TextMiddleTitleDark title={score.question} />
         <MarginMedium />
+        <SelectedTextContainer>
+          {_thicknessScore && (
+            <SelectedText>{score.selectedText[_thicknessScore]}</SelectedText>
+          )}
+        </SelectedTextContainer>
+        <MarginMedium />
         <Container>
           <MarginNarrow />
           <BarContainer>
             <BarWrapper>
               <GrayBar />
-              <MintBar score={score.score} />
+              <MintBar score={_thicknessScore} />
             </BarWrapper>
             <PurpleIndicatorContainer>
               {oneToFive.map((bar) => {
                 return (
                   <PurpleIndicatorTouchArea
                     onPress={() => {
-                      alert(bar.score);
+                      setThicknessScore(bar.score);
                     }}
+                    activeOpacity={1}
                   >
-                    <PurpleIndicator />
+                    <PurpleIndicator
+                      selfNum={bar.score}
+                      givenNum={_thicknessScore}
+                    />
                   </PurpleIndicatorTouchArea>
                 );
               })}

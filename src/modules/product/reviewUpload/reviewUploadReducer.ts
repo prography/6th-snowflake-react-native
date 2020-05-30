@@ -1,5 +1,3 @@
-import { ActionSheetIOS } from 'react-native';
-
 // blindState 타입 설정
 export interface State {
   thicknessScore: number;
@@ -21,7 +19,7 @@ export const setThicknessScore = (thicknessScore) => {
 const reviewUploadReducer = (state = initialState, action) => {
   switch (action.type) {
     case SET_THICKNESS_SCORE:
-      return { ...state, thicknessScore: !action.thicknessScore };
+      return { ...state, thicknessScore: action.thicknessScore };
     default:
       return state;
   }
