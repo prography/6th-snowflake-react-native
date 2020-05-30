@@ -1,12 +1,12 @@
 import * as React from 'react';
 import { View, Text } from 'react-native';
 import NavBar from '~/screens/NavBar';
+import TopBarLeftIcon from '~/components/universal/topBar/TopBarLeftIcon';
 const Join = () => {
   return (
     <NavBar>
-      <View>
+      <TopBarLeftIcon/>
         <Text>Join</Text>
-      </View>
     </NavBar>
   );
 };
