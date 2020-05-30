@@ -1,5 +1,11 @@
 import * as React from 'react';
-import { useState } from 'react';
+
+import {
+  State,
+  setThicknessScore,
+  setDurabilityScore,
+  setOilyScore,
+} from '~/modules/product/reviewUpload/reviewUploadReducer';
 import styled from 'styled-components/native';
 import { useSelector, useDispatch } from 'react-redux';
 import { d, c, l } from '~/utils/constant';
@@ -15,6 +21,15 @@ const TOUCH_AREA = d.px * 50;
 const SMALL_INDICATOR = d.px * 4;
 const BIG_INDICATOR = d.px * 8;
 const LIGHT_OPACITY = 0.5;
+
+const thickness = 'thickness';
+const durability = 'durability';
+const oily = 'oily';
+
+const TitleContainer = styled.View`
+  align-items: center;
+  width: 100%;
+`;
 const Container = styled.View`
   flex-direction: column;
   margin: 0 ${l.mL}px;
@@ -66,8 +81,12 @@ const PurpleIndicatorTouchArea = styled.TouchableOpacity`
   justify-content: center;
   align-items: center;
 `;
+interface indicatorProps {
+  givenNum: number;
+  selfNum: number;
+}
 const PurpleIndicator = styled.View`
-  width: ${(props) =>
+  width: ${(props: indicatorProps) =>
     props.givenNum === null
       ? BIG_INDICATOR
       : props.givenNum === props.selfNum
@@ -85,7 +104,7 @@ const PurpleIndicator = styled.View`
       ? 1
       : props.givenNum === props.selfNum
       ? 1
-      : LIGHT_OPACITY}px;
+      : LIGHT_OPACITY};
 `;
 
 const DescriptionContainer = styled.View`
@@ -107,36 +126,37 @@ interface Props {
   avgOily?: number;
 }
 
-interface State {
-  thicknessScore: string;
-  reviewUploadReducer: any;
-}
-
-const ReviewUploadTrioScoreBar = ({
-  avgThickness,
-  avgDurability,
-  avgOily,
-}: Props) => {
+const ReviewUploadTrioScore = () => {
   const dispatch = useDispatch();
-  const [selected, setSelected] = useState(null);
+
   const _thicknessScore = useSelector(
     (state: State) => state.reviewUploadReducer.thicknessScore
   );
+  const _durabilityScore = useSelector(
+    (state: State) => state.reviewUploadReducer.durabilityScore
+  );
+  const _oilyScore = useSelector(
+    (state: State) => state.reviewUploadReducer.oilyScore
+  );
+  const _setThicknessScore = (thicknessScore: State) => {
+    dispatch(setThicknessScore(thicknessScore));
+  };
+  const _setDurablityScore = (durabilityScore: State) => {
+    dispatch(setDurabilityScore(durabilityScore));
+  };
 
-  const setThicknessScore = (tScore) => {
-    dispatch({ type: 'SET_THICKNESS_SCORE', thicknessScore: tScore });
+  const _setOilyScore = (oilyScore: State) => {
+    dispatch(setOilyScore(oilyScore));
   };
   console.log('두께 점수', _thicknessScore);
   const trioScore = [
     {
+      type: thickness,
+      score: _thicknessScore,
       question: '얇기는 어떠셨나요?',
-      trioName: '얇기',
-      score: avgThickness,
-      name: '얇기',
       leftDescription: '두꺼워요',
       rightDescription: '얇아요',
       selectedText: {
-        0: '',
         1: '너무 두꺼워요',
         2: '두꺼워요',
         3: '보통이에요',
@@ -145,14 +165,12 @@ const ReviewUploadTrioScoreBar = ({
       },
     },
     {
+      type: durability,
+      score: _durabilityScore,
       question: '내구성은 어떠셨나요?',
-      trioName: '내구성',
-      score: avgDurability,
-      name: '내구성',
       leftDescription: '약해요',
       rightDescription: '튼튼해요',
       selectedText: {
-        0: '',
         1: '너무 약해요',
         2: '약해요',
         3: '무난해요',
@@ -161,14 +179,12 @@ const ReviewUploadTrioScoreBar = ({
       },
     },
     {
+      type: oily,
+      score: _oilyScore,
       question: '윤활제는 충분했나요?',
-      trioName: '윤활제',
-      score: avgOily,
-      name: '윤활제',
       leftDescription: '건조해요',
       rightDescription: '촉촉해요',
       selectedText: {
-        0: '',
         1: '너무 건조해요',
         2: '건조해요',
         3: '적당해요',
@@ -186,14 +202,16 @@ const ReviewUploadTrioScoreBar = ({
     { score: 5 },
   ];
 
-  return trioScore.map((score) => {
+  return trioScore.map((question) => {
     return (
       <>
-        <TextMiddleTitleDark title={score.question} />
+        <TitleContainer>
+          <TextMiddleTitleDark title={question.question} />
+        </TitleContainer>
         <MarginMedium />
         <SelectedTextContainer>
-          {_thicknessScore && (
-            <SelectedText>{score.selectedText[_thicknessScore]}</SelectedText>
+          {question.score && (
+            <SelectedText>{question.selectedText[question.score]}</SelectedText>
           )}
         </SelectedTextContainer>
         <MarginMedium />
@@ -202,20 +220,32 @@ const ReviewUploadTrioScoreBar = ({
           <BarContainer>
             <BarWrapper>
               <GrayBar />
-              <MintBar score={_thicknessScore} />
+              <MintBar score={question.score} />
             </BarWrapper>
             <PurpleIndicatorContainer>
               {oneToFive.map((bar) => {
                 return (
                   <PurpleIndicatorTouchArea
                     onPress={() => {
-                      setThicknessScore(bar.score);
+                      switch (question.type) {
+                        case thickness:
+                          _setThicknessScore(bar.score);
+                          return;
+                        case durability:
+                          _setDurablityScore(bar.score);
+                          return;
+                        case oily:
+                          _setOilyScore(bar.score);
+                          return;
+                        default:
+                          return;
+                      }
                     }}
                     activeOpacity={1}
                   >
                     <PurpleIndicator
                       selfNum={bar.score}
-                      givenNum={_thicknessScore}
+                      givenNum={question.score}
                     />
                   </PurpleIndicatorTouchArea>
                 );
@@ -224,8 +254,8 @@ const ReviewUploadTrioScoreBar = ({
           </BarContainer>
           <MarginNarrow />
           <DescriptionContainer>
-            <Description>{score.leftDescription}</Description>
-            <Description>{score.rightDescription}</Description>
+            <Description>{question.leftDescription}</Description>
+            <Description>{question.rightDescription}</Description>
           </DescriptionContainer>
           <MarginMedium />
         </Container>
@@ -235,4 +265,4 @@ const ReviewUploadTrioScoreBar = ({
   });
 };
 
-export default ReviewUploadTrioScoreBar;
+export default ReviewUploadTrioScore;

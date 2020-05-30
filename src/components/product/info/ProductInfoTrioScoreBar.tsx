@@ -20,7 +20,7 @@ const TrioName = styled.Text`
   color: ${c.darkGray};
   width: ${d.px * 50}px;
   text-align: center;
-  left: ${props => props.score * 20 || 0}%;
+  left: ${(props) => props.score * 20 || 0}%;
 `;
 
 const BarContainer = styled.View`
@@ -33,7 +33,7 @@ const GrayBar = styled.View`
   background-color: ${c.extraLightGray};
 `;
 const MintBar = styled.View`
-  width: ${props => props.score * 20 || 0}%;
+  width: ${(props) => props.score * 20 || 0}%;
   position: absolute;
   height: ${BAR_HEIGHT}px;
   background-color: ${c.mint};
@@ -50,7 +50,7 @@ const PurpleIndicator = styled.View`
   position: absolute;
   height: ${BAR_HEIGHT}px;
   background-color: ${c.purple};
-  left: ${props => props.score * 20 || 0}%;
+  left: ${(props) => props.score * 20 || 0}%;
 `;
 
 const DescriptionContainer = styled.View`
@@ -98,13 +98,11 @@ const ProductInfoTrioScoreBar = ({
       rightDescription: '촉촉해요',
     },
   ];
-  return trioScore.map(score => {
+  return trioScore.map((score) => {
     return (
       <Container>
         <TrioNameContainer>
-          <TrioName score={score.score}>
-            {score.trioName}
-          </TrioName>
+          <TrioName score={score.score}>{score.trioName}</TrioName>
         </TrioNameContainer>
         <MarginNarrow />
         <BarContainer>
@@ -116,12 +114,8 @@ const ProductInfoTrioScoreBar = ({
         </BarContainer>
         <MarginNarrow />
         <DescriptionContainer>
-          <Description>
-            {score.leftDescription}
-          </Description>
-          <Description>
-            {score.rightDescription}
-          </Description>
+          <Description>{score.leftDescription}</Description>
+          <Description>{score.rightDescription}</Description>
         </DescriptionContainer>
         <MarginMedium />
       </Container>

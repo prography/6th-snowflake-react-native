@@ -9,8 +9,8 @@ import RankBar from '~/components/product/ranking/RankBar';
 import TopBarBackArrow from '~/components/universal/topBar/TopBarBackArrow';
 import LineGrayMiddle from '~/components/universal/line/LineGrayMiddle';
 import ProductBarForReviewUpload from '~/components/product/review/ProductBarForReviewUpload';
-import TrioReviewUploadContainer from '~/containers/product/review/TrioReviewUploadContainer';
 import MarginMedium from '~/components/universal/margin/MarginMedium';
+import ReviewUploadTrioScore from '~/containers/product/review/ReviewUploadTrioScore';
 
 const Container = styled.View`
   flex-direction: column;
@@ -41,7 +41,7 @@ const ReviewUpload = () => {
 
         <LineGrayMiddle />
         <MarginMedium />
-        <TrioReviewUploadContainer />
+        <ReviewUploadTrioScore />
       </ProductInfoBar>
       <Blinder />
     </>
