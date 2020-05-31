@@ -12,8 +12,8 @@ import MarginWide from '~/components/universal/margin/MarginWide';
 import MarginNarrow from '~/components/universal/margin/MarginNarrow';
 import BottomButtonLink from '~/components/universal/button/BottomButtonLink';
 import Login from './Login';
-import {Picker} from '@react-native-community/picker';
 import MarginMedium from '~/components/universal/margin/MarginMedium';
+import YearInputForm from '~/components/universal/input/YearInputForm';
 
 const Container = styled.View`
   flex:1
@@ -26,17 +26,13 @@ const InputContainer = styled.View`
 `;
 
 const JoinSecond = () => {
-    const [year, setyear] = useState("1997");
     return (
         <Container>
             
             <InputContainer>
                 <TopBarWithIcon/>
                 <NickNameInputForm/>
-                <MarginWide/>
-                <MarginMedium/>
-
-                
+                <YearInputForm/>
             </InputContainer>
             
             <BottomButtonLink

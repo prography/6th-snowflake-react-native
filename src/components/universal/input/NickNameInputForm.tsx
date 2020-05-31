@@ -7,6 +7,7 @@ import { c, d, l } from '~/utils/constant';
 const NickNameContainer = styled.View`
     flex-direction: row;
     margin-top: ${d.px * 26.6}px;
+    margin-left: ${d.px * 20}px;
 `;
 
 const NickNameText = styled.Text`
