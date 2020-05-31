@@ -80,8 +80,8 @@ const ProductInfoTrioScoreBar = ({
       trioName: '얇기',
       score: avgThickness,
       name: '얇기',
-      leftDescription: '얇아요',
-      rightDescription: '두꺼워요',
+      leftDescription: '두꺼워요',
+      rightDescription: '얇아요',
     },
     {
       trioName: '내구성',

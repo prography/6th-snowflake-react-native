@@ -11,7 +11,7 @@ import ProductInfoSpecific from '~/containers/product/info/ProductInfoSpecific';
 import ProductInfoScore from '~/containers/product/info/ProductInfoScore';
 import ProductInfoReview from '~/containers/product/info/ProductInfoReview';
 import TopBarBackArrow from '~/components/universal/topBar/TopBarBackArrow';
-import ProductInfoBar from '~/components/universal/bottomBar/ProductInfoBar';
+import ProductInfoBar from '~/components/universal/bottomBar/product/ProductInfoBar';
 
 const Container = styled.View`
   flex-direction: column;

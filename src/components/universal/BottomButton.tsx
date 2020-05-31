@@ -3,7 +3,7 @@ import styled from 'styled-components/native';
 import { withNavigation } from '@react-navigation/compat';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RootTabParamList } from '~/navigation/RootTabNavigation';
-import { d, color } from '~/utils/constant';
+import { d, c } from '~/utils/constant';
 
 interface Props {
   children: React.ReactNode;
@@ -22,7 +22,7 @@ const Container = styled.TouchableOpacity`
   bottom: 0px;
   flex: 1;
   flex-direction: row;
-  background-color: ${color.lightGray};
+  background-color: ${c.lightGray};
   padding-top: ${d.px * 10}px;
   justify-content: center;
 `;

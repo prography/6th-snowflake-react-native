@@ -119,7 +119,11 @@ const ReviewCard = ({
             <Score>★ {score}</Score>
             <RightContainer>
               <Age>{age}대</Age>
-              <GenderLoop gender={gender} partnerGender={partnerGender} />
+              <GenderLoop
+                gender={gender}
+                partnerGender={partnerGender}
+                size={15}
+              />
             </RightContainer>
           </TopBar>
           <MarginNarrow />
