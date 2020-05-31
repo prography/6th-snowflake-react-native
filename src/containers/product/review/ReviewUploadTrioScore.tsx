@@ -1,12 +1,16 @@
 import * as React from 'react';
+import { useEffect } from 'react';
 import {
   State,
   setThicknessScore,
   setDurabilityScore,
   setOilyScore,
+  setIsFilledReviewUpload1,
+  setTrioAverage,
 } from '~/modules/product/reviewUpload/reviewUploadReducer';
 import styled from 'styled-components/native';
 import { useSelector, useDispatch } from 'react-redux';
+import { Text } from 'react-native';
 import { d, c, l } from '~/utils/constant';
 import MarginMedium from '~/components/universal/margin/MarginMedium';
 import TextMiddleTitleDark from '~/components/universal/text/TextMiddleTitleDark';
@@ -131,17 +135,31 @@ const ReviewUploadTrioScore = () => {
   const _oilyScore = useSelector(
     (state: State) => state.reviewUploadReducer.oilyScore
   );
+
   const _setThicknessScore = (thicknessScore: State) => {
     dispatch(setThicknessScore(thicknessScore));
   };
   const _setDurablityScore = (durabilityScore: State) => {
     dispatch(setDurabilityScore(durabilityScore));
   };
-
   const _setOilyScore = (oilyScore: State) => {
     dispatch(setOilyScore(oilyScore));
   };
+  const _setIsFilledReviewUpload1 = (isFilledReviewUpload1: State) => {
+    dispatch(setIsFilledReviewUpload1(isFilledReviewUpload1));
+  };
+  const _setTrioAverage = (trioAverage: State) => {
+    dispatch(setTrioAverage(trioAverage));
+  };
 
+  useEffect(() => {
+    _setIsFilledReviewUpload1(
+      _thicknessScore && _durabilityScore && _oilyScore ? true : false
+    );
+    _setTrioAverage(
+      Number((_thicknessScore + _oilyScore + _durabilityScore) / 3)
+    );
+  }, [_thicknessScore, _oilyScore, _durabilityScore]);
   const trioScore = [
     {
       type: thickness,
@@ -225,12 +243,15 @@ const ReviewUploadTrioScore = () => {
                       switch (question.type) {
                         case thickness:
                           _setThicknessScore(bar.score);
+
                           return;
                         case durability:
                           _setDurablityScore(bar.score);
+
                           return;
                         case oily:
                           _setOilyScore(bar.score);
+
                           return;
                         default:
                           return;

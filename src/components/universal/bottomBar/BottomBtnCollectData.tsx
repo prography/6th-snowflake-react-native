@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import styled from 'styled-components/native';
 import { withNavigation } from '@react-navigation/compat';
 import { StackNavigationProp } from '@react-navigation/stack';
@@ -10,6 +10,11 @@ import TextBottomBtn from '~/components/universal/text/TextBottomBtn';
 interface Props {
   children: React.ReactNode;
   navigation: StackNavigationProp<RootTabParamList>;
+  isFilled: boolean;
+  stack: string;
+  screen: string;
+  btnText: string;
+  btnTextBeforeFilled?: string;
 }
 
 const Screen = styled.View`
@@ -27,34 +32,39 @@ const Container = styled.TouchableOpacity`
   align-items: center;
 `;
 
-const ProductReviewBar2 = ({ children, navigation }: Props) => {
-  const _score = useSelector((state: State) => state.reviewUploadReducer.score);
-  const _myGender = useSelector(
-    (state: State) => state.reviewUploadReducer.myGender
-  );
-  const _partnerGender = useSelector(
-    (state: State) => state.reviewUploadReducer.partnerGender
-  );
+const BottomBtnCollectData = ({
+  children,
+  navigation,
+  isFilled,
+  stack,
+  screen,
+  btnText,
+  btnTextBeforeFilled,
+}: Props) => {
   return (
     <Screen>
       {children}
       <Container
         activeOpacity={1}
         style={{
-          backgroundColor:
-            _score && _myGender && _partnerGender ? c.purple : c.lightGray,
+          backgroundColor: isFilled ? c.purple : c.lightGray,
         }}
         onPress={() =>
-          _score &&
-          _myGender &&
-          _partnerGender &&
-          navigation.navigate('ProductStack', { screen: 'ReviewUpload3' })
+          isFilled ? navigation.navigate(stack, { screen: screen }) : null
         }
       >
-        <TextBottomBtn btnName={'다음'} />
+        <TextBottomBtn
+          btnName={
+            btnTextBeforeFilled
+              ? isFilled
+                ? btnText
+                : btnTextBeforeFilled
+              : btnText
+          }
+        />
       </Container>
     </Screen>
   );
 };
 
-export default withNavigation(ProductReviewBar2);
+export default withNavigation(BottomBtnCollectData);

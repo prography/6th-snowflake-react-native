@@ -1,18 +1,16 @@
 import * as React from 'react';
 import styled from 'styled-components/native';
 import { Text, ScrollView } from 'react-native';
-import { d, l } from '~/utils/constant';
-
-import ProductInfoBar from '~/components/universal/bottomBar/product/ProductInfoBar';
+import { useSelector } from 'react-redux';
+import { State } from '~/modules/product/reviewUpload/reviewUploadReducer';
 import Blinder from '~/components/product/Blinder';
-import RankBar from '~/components/product/ranking/RankBar';
 import TopBarBackArrow from '~/components/universal/topBar/TopBarBackArrow';
 import LineGrayMiddle from '~/components/universal/line/LineGrayMiddle';
 import ProductBarForReviewUpload from '~/components/product/review/ProductBarForReviewUpload';
 import MarginMedium from '~/components/universal/margin/MarginMedium';
 import ReviewUploadTrioScore from '~/containers/product/review/ReviewUploadTrioScore';
 import MarginBottom from '~/components/universal/margin/MarginBottom';
-import ProductReviewBar1 from '~/components/universal/bottomBar/product/ProductReviewBar1';
+import BottomBtnCollectData from '~/components/universal/bottomBar/BottomBtnCollectData';
 
 const Container = styled.View`
   flex-direction: column;
@@ -28,24 +26,31 @@ const ReviewUpload1 = () => {
     imageUri: 'http://pngimg.com/uploads/condom/condom_PNG21.png',
     score: 4.97,
   };
+  const _isFilledReviewUpload1 = useSelector(
+    (state: State) => state.reviewUploadReducer.isFilledReviewUpload1
+  );
   return (
     <>
-      <ProductReviewBar1>
+      <BottomBtnCollectData
+        btnText={'다음'}
+        stack={'ProductStack'}
+        screen={'ReviewUpload2'}
+        isFilled={_isFilledReviewUpload1}
+        btnTextBeforeFilled={'콘돔 삼박자를 평가해주세요'}
+      >
         <TopBarBackArrow />
-
         <ProductBarForReviewUpload
           productCompany={ProductInfo.productCompany}
           productName={ProductInfo.productName}
           imageUri={ProductInfo.imageUri}
         />
-
         <LineGrayMiddle />
         <MarginMedium />
         <ScrollView>
           <ReviewUploadTrioScore />
           <MarginBottom />
         </ScrollView>
-      </ProductReviewBar1>
+      </BottomBtnCollectData>
       <Blinder />
     </>
   );

@@ -3,8 +3,9 @@ import {
   State,
   setMyGender,
   setPartnerGender,
+  setIsFilledReviewUpload2,
 } from '~/modules/product/reviewUpload/reviewUploadReducer';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import styled from 'styled-components/native';
 import { useSelector, useDispatch } from 'react-redux';
 import { d, c, l } from '~/utils/constant';
@@ -110,6 +111,7 @@ const ReviewUploadGender = () => {
   const _partnerGender = useSelector(
     (state: State) => state.reviewUploadReducer.partnerGender
   );
+  const _score = useSelector((state: State) => state.reviewUploadReducer.score);
   const womanColor = useSelector(
     (state: State) => state.genderColorReducer.womanColor
   );
@@ -119,10 +121,17 @@ const ReviewUploadGender = () => {
   const _setMyGender = (myGender: State) => {
     dispatch(setMyGender(myGender));
   };
-
   const _setPartnerGender = (partnerGender: State) => {
     dispatch(setPartnerGender(partnerGender));
   };
+  const _setIsFilledReviewUpload2 = (isFilledReviewUpload2: State) => {
+    dispatch(setIsFilledReviewUpload2(isFilledReviewUpload2));
+  };
+  useEffect(() => {
+    _setIsFilledReviewUpload2(
+      _myGender && _partnerGender && _score ? true : false
+    );
+  }, [_myGender, _partnerGender, _score]);
   const setGender = (selectedGender) => {
     _myGender === null
       ? _setMyGender(selectedGender)

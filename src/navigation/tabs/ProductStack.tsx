@@ -15,11 +15,13 @@ export default () => {
         headerShown: false,
       }}
     >
+      <Stack.Screen name='ReviewUpload2' component={ReviewUpload2} />
       <Stack.Screen name='ReviewUpload1' component={ReviewUpload1} />
+
+      <Stack.Screen name='ReviewUpload3' component={ReviewUpload3} />
+
       <Stack.Screen name='ProductInfo' component={ProductInfo} />
 
-      <Stack.Screen name='ReviewUpload2' component={ReviewUpload2} />
-      <Stack.Screen name='ReviewUpload3' component={ReviewUpload3} />
       <Stack.Screen name='ProductMain' component={ProductMain} />
 
       <Stack.Screen name='Ranking' component={Ranking} />
