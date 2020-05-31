@@ -1,27 +1,14 @@
 import * as React from 'react';
 import styled from 'styled-components/native';
 import { Text, ScrollView } from 'react-native';
-import { d, l } from '~/utils/constant';
-import { useSelector, useDispatch } from 'react-redux';
-
-import ProductInfoBar from '~/components/universal/bottomBar/product/ProductInfoBar';
+import { useSelector } from 'react-redux';
+import { State } from '~/modules/product/reviewUpload/reviewUploadReducer';
 import Blinder from '~/components/product/Blinder';
-import RankBar from '~/components/product/ranking/RankBar';
 import TopBarBackArrow from '~/components/universal/topBar/TopBarBackArrow';
 import LineGrayMiddle from '~/components/universal/line/LineGrayMiddle';
 import ProductBarForReviewUpload from '~/components/product/review/ProductBarForReviewUpload';
 import MarginMedium from '~/components/universal/margin/MarginMedium';
-import ReviewUploadTrioScore from '~/containers/product/review/ReviewUploadTrioScore';
-import MarginBottom from '~/components/universal/margin/MarginBottom';
-import ProductReviewBar3 from '~/components/universal/bottomBar/product/ProductReviewBar3';
-import ReviewUploadScoreGender from '~/containers/product/review/ReviewUploadScore';
-import ReviewUploadScore from '~/containers/product/review/ReviewUploadScore';
 import ReviewUploadContent from '~/containers/product/review/ReviewUploadContent';
-import MarginNarrow from '~/components/universal/margin/MarginNarrow';
-import {
-  setIsFilledReviewUpload3,
-  State,
-} from '~/modules/product/reviewUpload/reviewUploadReducer';
 import BottomBtnCollectData from '~/components/universal/bottomBar/BottomBtnCollectData';
 
 const Container = styled.View`
@@ -48,7 +35,8 @@ const ReviewUpload3 = () => {
         isFilled={_isFilledReviewUpload3}
         stack={'ProductStack'}
         screen={'ProductMain'}
-        btnText={'리뷰호롤'}
+        btnText={'소중한 리뷰 감사드립니다'}
+        btnTextBeforeFilled={'15자 이상 입력해주세요.'}
       >
         <TopBarBackArrow />
         <ProductBarForReviewUpload

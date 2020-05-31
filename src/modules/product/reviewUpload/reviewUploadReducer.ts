@@ -8,6 +8,8 @@ export interface State {
   myGender: string;
   partnerGender: string;
   reviewContent: string;
+  isFilledReviewUpload1: boolean;
+  isFilledReviewUpload2: boolean;
   isFilledReviewUpload3: boolean;
 }
 
@@ -23,6 +25,8 @@ const initialState: State = {
   myGender: null,
   partnerGender: null,
   reviewContent: null,
+  isFilledReviewUpload1: false,
+  isFilledReviewUpload2: false,
   isFilledReviewUpload3: false,
 };
 
@@ -34,6 +38,8 @@ const SET_SCORE = 'SET_SCORE';
 const SET_MY_GENDER = 'SET_MY_GENDER';
 const SET_PARTNER_GENDER = 'SET_PARTNER_GENDER';
 const SET_REVIEW_CONTENT = 'SET_REVIEW_CONTENT';
+const SET_IS_FILLED_REVIEW_UPLOAD1 = 'SET_IS_FILLED_REVIEW_UPLOAD1';
+const SET_IS_FILLED_REVIEW_UPLOAD2 = 'SET_IS_FILLED_REVIEW_UPLOAD2';
 const SET_IS_FILLED_REVIEW_UPLOAD3 = 'SET_IS_FILLED_REVIEW_UPLOAD3';
 
 export const setThicknessScore = (thicknessScore: State) => {
@@ -88,7 +94,18 @@ export const setReviewContent = (reviewContent: State) => {
     reviewContent,
   };
 };
-
+export const setIsFilledReviewUpload1 = (isFilledReviewUpload1: State) => {
+  return {
+    type: SET_IS_FILLED_REVIEW_UPLOAD1,
+    isFilledReviewUpload1,
+  };
+};
+export const setIsFilledReviewUpload2 = (isFilledReviewUpload2: State) => {
+  return {
+    type: SET_IS_FILLED_REVIEW_UPLOAD2,
+    isFilledReviewUpload2,
+  };
+};
 export const setIsFilledReviewUpload3 = (isFilledReviewUpload3: State) => {
   return {
     type: SET_IS_FILLED_REVIEW_UPLOAD3,
@@ -114,6 +131,10 @@ const reviewUploadReducer = (state = initialState, action) => {
       return { ...state, partnerGender: action.partnerGender };
     case SET_REVIEW_CONTENT:
       return { ...state, reviewContent: action.reviewContent };
+    case SET_IS_FILLED_REVIEW_UPLOAD1:
+      return { ...state, isFilledReviewUpload1: action.isFilledReviewUpload1 };
+    case SET_IS_FILLED_REVIEW_UPLOAD2:
+      return { ...state, isFilledReviewUpload2: action.isFilledReviewUpload2 };
     case SET_IS_FILLED_REVIEW_UPLOAD3:
       return { ...state, isFilledReviewUpload3: action.isFilledReviewUpload3 };
 

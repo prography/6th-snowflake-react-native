@@ -14,6 +14,7 @@ interface Props {
   stack: string;
   screen: string;
   btnText: string;
+  btnTextBeforeFilled?: string;
 }
 
 const Screen = styled.View`
@@ -38,6 +39,7 @@ const BottomBtnCollectData = ({
   stack,
   screen,
   btnText,
+  btnTextBeforeFilled,
 }: Props) => {
   return (
     <Screen>
@@ -51,7 +53,15 @@ const BottomBtnCollectData = ({
           isFilled ? navigation.navigate(stack, { screen: screen }) : null
         }
       >
-        <TextBottomBtn btnName={btnText} />
+        <TextBottomBtn
+          btnName={
+            btnTextBeforeFilled
+              ? isFilled
+                ? btnText
+                : btnTextBeforeFilled
+              : btnText
+          }
+        />
       </Container>
     </Screen>
   );

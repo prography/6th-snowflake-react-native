@@ -45,9 +45,7 @@ const ReviewUploadContent = () => {
   const _setIsFilledReviewUpload3 = (isFilledReviewUpload3: State) => {
     dispatch(setIsFilledReviewUpload3(isFilledReviewUpload3));
   };
-  const _isFilledReviewUpload3 = useSelector(
-    (state: State) => state.reviewUploadReducer.isFilledReviewUpload3
-  );
+
   const _reviewContent = useSelector(
     (state: State) => state.reviewUploadReducer.reviewContent
   );
@@ -58,7 +56,6 @@ const ReviewUploadContent = () => {
         <TextMiddleTitleDark title={'사용 후기를 남겨주세요.'} />
         <ReviewLengthText>{reviewLength}</ReviewLengthText>
       </TitleContainer>
-
       <MarginMedium />
       <AnswerContainer>
         <AnswerInput
