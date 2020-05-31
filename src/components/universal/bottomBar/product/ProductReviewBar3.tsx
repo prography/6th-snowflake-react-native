@@ -1,12 +1,15 @@
 import * as React from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import styled from 'styled-components/native';
 import { withNavigation } from '@react-navigation/compat';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RootTabParamList } from '~/navigation/RootTabNavigation';
 import { d, c, l } from '~/utils/constant';
 import TextBottomBtn from '~/components/universal/text/TextBottomBtn';
-
+import {
+  State,
+  setReviewContent,
+} from '~/modules/product/reviewUpload/reviewUploadReducer';
 interface Props {
   children: React.ReactNode;
   navigation: StackNavigationProp<RootTabParamList>;
@@ -27,34 +30,31 @@ const Container = styled.TouchableOpacity`
   align-items: center;
 `;
 
-const ProductReviewBar2 = ({ children, navigation }: Props) => {
-  const _score = useSelector((state: State) => state.reviewUploadReducer.score);
-  const _myGender = useSelector(
-    (state: State) => state.reviewUploadReducer.myGender
+const ProductReviewBar3 = ({ children, navigation }: Props) => {
+  const dispatch = useDispatch();
+  const _reviewContent = useSelector(
+    (state: State) => state.reviewUploadReducer.reviewContent
   );
-  const _partnerGender = useSelector(
-    (state: State) => state.reviewUploadReducer.partnerGender
-  );
+  const _setReviewContent = (reviewContent) => {
+    dispatch(setReviewContent(reviewContent));
+  };
   return (
     <Screen>
       {children}
       <Container
         activeOpacity={1}
         style={{
-          backgroundColor:
-            _score && _myGender && _partnerGender ? c.purple : c.lightGray,
+          backgroundColor: _reviewContent ? c.purple : c.lightGray,
         }}
         onPress={() =>
-          _score &&
-          _myGender &&
-          _partnerGender &&
-          navigation.navigate('ProductStack', { screen: 'ReviewUpload3' })
+          _reviewContent &&
+          navigation.navigate('ProductStack', { screen: 'ProductInfo' })
         }
       >
-        <TextBottomBtn btnName={'다음'} />
+        <TextBottomBtn btnName={'리뷰 저장'} />
       </Container>
     </Screen>
   );
 };
 
-export default withNavigation(ProductReviewBar2);
+export default withNavigation(ProductReviewBar3);
