@@ -11,6 +11,7 @@ import PasswdInputForm from '~/components/universal/input/PasswdInputForm';
 import MarginWide from '~/components/universal/margin/MarginWide';
 import MarginNarrow from '~/components/universal/margin/MarginNarrow';
 import BottomButtonLink from '~/components/universal/button/BottomButtonLink';
+import Login from './Login';
 
 const Container = styled.View`
   flex:1
@@ -22,22 +23,21 @@ const InputContainer = styled.View`
   margin-left: ${l.mL}px;
 `;
 
-const Join = () => {
+const JoinThird = () => {
   return (
     <Container>
       <InputContainer>
         <TopBarWithIcon/>
         <EmailInputForm/>
-        <MarginWide/>
-        <MarginNarrow/>
+        <Text>3번쨰</Text>
         <PasswdInputForm/>   
       </InputContainer>
       <BottomButtonLink
         buttonText={'다음'}
-        link={'JoinSecond'}
+        link={'GenderColor'}
       />
     </Container>
   );
 };
 
-export default Join;
+export default JoinThird;
