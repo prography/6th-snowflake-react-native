@@ -2,7 +2,8 @@ import * as React from 'react';
 import styled from 'styled-components/native';
 import { Text, ScrollView } from 'react-native';
 import { d, l } from '~/utils/constant';
-
+import { useSelector } from 'react-redux';
+import { State } from '~/modules/product/reviewUpload/reviewUploadReducer';
 import ProductInfoBar from '~/components/universal/bottomBar/product/ProductInfoBar';
 import Blinder from '~/components/product/Blinder';
 import RankBar from '~/components/product/ranking/RankBar';
@@ -17,6 +18,7 @@ import ReviewUploadScoreGender from '~/containers/product/review/ReviewUploadSco
 import ReviewUploadScore from '~/containers/product/review/ReviewUploadScore';
 import ReviewUploadGender from '~/containers/product/review/ReviewUploadGender';
 import MarginNarrow from '~/components/universal/margin/MarginNarrow';
+import BottomBtnCollectData from '~/components/universal/bottomBar/BottomBtnCollectData';
 
 const Container = styled.View`
   flex-direction: column;
@@ -24,6 +26,9 @@ const Container = styled.View`
 `;
 
 const ReviewUpload2 = () => {
+  const _isFilledReviewUpload2 = useSelector(
+    (state: State) => state.reviewUploadReducer.isFilledReviewUpload2
+  );
   const ProductInfo = {
     key: 0,
     rankNum: 1,
@@ -34,7 +39,12 @@ const ReviewUpload2 = () => {
   };
   return (
     <>
-      <ProductReviewBar2>
+      <BottomBtnCollectData
+        btnText={'qjxm'}
+        stack={'ProductStack'}
+        screen={'ReviewUpload3'}
+        isFilled={_isFilledReviewUpload2}
+      >
         <TopBarBackArrow />
         <ProductBarForReviewUpload
           productCompany={ProductInfo.productCompany}
@@ -51,7 +61,7 @@ const ReviewUpload2 = () => {
           <ReviewUploadGender />
           <MarginBottom />
         </ScrollView>
-      </ProductReviewBar2>
+      </BottomBtnCollectData>
       <Blinder />
     </>
   );

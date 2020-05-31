@@ -93,7 +93,6 @@ const ReviewUploadScore = () => {
   const dispatch = useDispatch();
   const [checked, setChecked] = useState(false);
   const _score = useSelector((state: State) => state.reviewUploadReducer.score);
-
   const _setScore = (score: State) => {
     dispatch(setScore(score));
   };
