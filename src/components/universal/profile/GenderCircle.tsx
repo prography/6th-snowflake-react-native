@@ -36,7 +36,7 @@ const PartnerGenderCircle = styled.View`
   border-radius: 100px;
   border-style: solid;
   border-width: ${(props) => ((d.px * props.size) / 15) * 4}px;
-  border-color: ${(props) => props.partnerGenderColor || c.darkGray};
+  border-color: ${(props) => props.genderColor || c.darkGray};
   z-index: 0;
 `;
 

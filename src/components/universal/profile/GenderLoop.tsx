@@ -42,12 +42,22 @@ const GenderLoop = ({ gender, partnerGender, size }: Props) => {
     <>
       <Container>
         <GenderCircle
-          genderColor={gender === 'female' ? womanColor : manColor}
+          genderColor={
+            gender && gender === 'female'
+              ? womanColor
+              : gender === 'male'
+              ? manColor
+              : c.extraLightGray
+          }
           size={size}
         />
         <PartnerGenderCircle
           partnerGenderColor={
-            partnerGender === 'female' ? womanColor : manColor
+            partnerGender && partnerGender === 'female'
+              ? womanColor
+              : partnerGender === 'male'
+              ? manColor
+              : c.extraLightGray
           }
           size={size}
         />
