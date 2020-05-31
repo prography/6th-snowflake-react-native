@@ -4,23 +4,26 @@ import { TextInput } from 'react-native';
 import styled from 'styled-components/native';
 import { c, d, l } from '~/utils/constant';
 
-const EmailText = styled.Text`
-    font-family: 'Jost-Semi'
-    font-size: ${d.px * 15}px;
+const NickNameContainer = styled.View`
+    flex-direction: row;
+    margin-top: ${d.px * 26.6}px;
+`;
+
+const NickNameText = styled.Text`
+    font-family: 'Jost-Semi';
+    font-size: ${d.px * 23}px;
     color: ${c.darkGray}
-    margin-top: ${d.px * 20.6}px;
 `;
 
 const InputContainer = styled.TextInput`
     height: ${d.px * 28}px;
     border-color: ${c.extraLightGray};
     border-bottom-width: ${d.px * 2}px;
-    margin-top: ${d.px * 13}px;
     font-size: ${d.px * 23}px;
     font-family: 'Jost-Light'
 `;
 
-const EmailInputForm = () => {
+const NickNameInputForm = () => {
     const [isFocused, setFocused] = useState(false);
     const handlefocus = () => {setFocused(true)};
     const handleblur = () => {setFocused(false)};
@@ -30,20 +33,20 @@ const EmailInputForm = () => {
     };
     
     return(
-        <>
-            <EmailText>이메일</EmailText>
+        <NickNameContainer>
+            <NickNameText>닉네임은 </NickNameText>
             <InputContainer
                 style={labelStyle}
-                placeholder="이메일 입력"
+                placeholder="2~10자"
                 // onChangeText={text => onChangeText(text)}
                 // value={value}
                 onFocus={handlefocus}
                 onBlur={handleblur}
-                txtLabel='EMAIL'
                 blurOnSubmit
             />
-        </>
+            <NickNameText>,</NickNameText>
+        </NickNameContainer>
     )
 }
 
-export default EmailInputForm;
+export default NickNameInputForm;
