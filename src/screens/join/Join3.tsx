@@ -27,7 +27,7 @@ const OneLineWrapper = styled.View``;
 const GuideText = styled.Text``;
 const UserNameInput = styled.TextInput``;
 const YearInputContainer = styled.TextInput``;
-const Join2 = () => {
+const Join3 = () => {
   const [isFilled, setIsFilled] = useState(false);
 
   const dispatch = useDispatch();
@@ -102,4 +102,4 @@ const Join2 = () => {
   );
 };
 
-export default Join2;
+export default Join3;

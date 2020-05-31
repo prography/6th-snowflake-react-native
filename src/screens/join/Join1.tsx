@@ -29,10 +29,6 @@ const GuideText = styled.Text``;
 const WarningText = styled.Text``;
 const UserInfoInput = styled.TextInput``;
 const Join1 = () => {
-  const [isFilled, setIsFilled] = useState(false);
-  useEffect(() => {
-    setIsFilled(_userEmail && _userPassword1 && _userPassword2 ? true : false);
-  }, [_userEmail, _userPassword1, _userPassword2]);
   const dispatch = useDispatch();
   const _userEmail = useSelector(
     (state: State) => state.userInfoReducer.userEmail
@@ -76,6 +72,10 @@ const Join1 = () => {
   const _setUserPartnerGender = (userPartnerGender: State) => {
     dispatch(setUserPartnerGender(userPartnerGender));
   };
+  const [isFilled, setIsFilled] = useState(false);
+  useEffect(() => {
+    setIsFilled(_userEmail && _userPassword1 && _userPassword2 ? true : false);
+  }, [_userEmail, _userPassword1, _userPassword2]);
   const JoinList = [
     {
       guideText: '이메일',
@@ -83,6 +83,8 @@ const Join1 = () => {
       infoGiven: _userEmail,
       placeholder: '이메일 입력',
       function: _setUserEmail,
+      autoCompleteType: 'email',
+      textContentType: 'emailAddress',
     },
     {
       guideText: '비밀번호',
@@ -90,6 +92,8 @@ const Join1 = () => {
       infoGiven: _userPassword1,
       placeholder: '6자리 이상',
       function: _setUserPassword1,
+      autoCompleteType: 'password',
+      textContentType: 'newPassword',
     },
     {
       guideText: '비밀번호 확인',
@@ -97,6 +101,8 @@ const Join1 = () => {
       infoGiven: _userPassword2,
       placeholder: '6자리 이상',
       function: _setUserPassword2,
+      autoCompleteType: 'password',
+      textContentType: 'newPassword',
     },
   ];
   return (
@@ -117,6 +123,8 @@ const Join1 = () => {
                   <WarningText>{info.warningText}</WarningText>
                 </GuideTextArea>
                 <UserInfoInput
+                  autoCompleteType={info.autoCompleteType}
+                  textContentType={info.textContentType}
                   placeholder={info.placeholder}
                   onChangeText={(text) => info.function(text)}
                 >
