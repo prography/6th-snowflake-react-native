@@ -8,6 +8,8 @@ import { c, d, l } from '~/utils/constant';
 import TopBarWithIcon from '~/components/universal/topBar/TopBarRightIcon';
 import EmailInputForm from '~/components/universal/input/EmailInputForm'
 import PasswdInputForm from '~/components/universal/input/PasswdInputForm';
+import MarginWide from '~/components/universal/margin/MarginWide';
+import MarginNarrow from '~/components/universal/margin/MarginNarrow';
 
 
 const Container = styled.View`
@@ -20,6 +22,8 @@ const Join = () => {
       <Container>
         <TopBarWithIcon/>
         <EmailInputForm/>
+        <MarginWide/>
+        <MarginNarrow/>
         <PasswdInputForm/>
       </Container>
   );
