@@ -5,7 +5,8 @@ import ButtonLinkPurple from '~/components/universal/button/ButtonLinkPurple';
 
 interface Props {
   title: string;
-  link: string;
+  stack: string;
+  screen: string;
   buttonText: string;
 }
 
@@ -23,11 +24,16 @@ const TextStyle = styled.Text`
   color: ${c.black};
 `;
 
-const TextTitleDarkPurpleLink = ({ title, link, buttonText }: Props) => {
+const TextTitleDarkPurpleLink = ({
+  title,
+  stack,
+  screen,
+  buttonText,
+}: Props) => {
   return (
     <Container>
       <TextStyle>{title}</TextStyle>
-      <ButtonLinkPurple buttonText={buttonText} link={link} />
+      <ButtonLinkPurple buttonText={buttonText} stack={stack} screen={screen} />
     </Container>
   );
 };

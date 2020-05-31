@@ -19,17 +19,20 @@ const SettingMain = () => {
         <TextTitleDarkPurpleLink
           title={'성별 색상 변경'}
           buttonText={'Gender Color'}
-          link={'JoinStack'}
+          stack={'JoinStack'}
+          screen={'GenderColor'}
         />
         <TextTitleDarkPurpleLink
           title={'로그인'}
           buttonText={'LOGIN'}
-          link={'Login'}
+          stack={'JoinStack'}
+          screen={'Login'}
         />
         <TextTitleDarkPurpleLink
           title={'회원가입'}
           buttonText={'JOIN'}
-          link={'Join'}
+          stack={'JoinStack'}
+          screen={'Join1'}
         />
       </Container>
     </NavBar>
