@@ -114,10 +114,13 @@ const Join1 = () => {
   }
 
   const _signup = async () => {
+
+
+
     console.log('😸1. _signup 호출됨')
-    const email = 'd@d2.com'
+    const email = 'd@d3.com'
     const password = '1111'
-    const username = 'dahee982'
+    const username = 'dahee983'
 
     // 아래 두 줄은 로그인만 테스트해보고 싶을 때
     // _login(email, password)
@@ -156,6 +159,11 @@ const Join1 = () => {
     } catch (error) {
       console.log('😸. /accounts 회원가입 오류 catch.. ', error)
     }
+
+
+
+
+
   }
 
   return (

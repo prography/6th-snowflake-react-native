@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { ScrollView, Platform, Text } from 'react-native';
-import { d } from '~/utils/constant';
+import { d, BASE_URL } from '~/utils/constant';
 import HomeCardNoticePurple from '~/components/home/card/HomeCardNoticePurple';
 import HomeCardDefaultContentPurpleButton from '~/components/home/card/HomeCardDefaultContentPurpleButton';
 
@@ -27,6 +27,20 @@ const Content = () => {
       //   'ProductStack', { screen: 'ProductInfo' } 가 들어가야 하는데 어떻게 넘겨주지
     },
   ];
+
+  const _getWelcomCards = async () => {
+    try {
+      const response = await fetch(`${BASE_URL}/home/welcome-cards/`);
+      const json = await response.json()
+      console.log('👻 welcome-cards success', json)
+    } catch (error) {
+      console.log('👻 welcome-cards error ', error)
+    }
+  }
+
+  React.useEffect(() => {
+    _getWelcomCards()
+  }, [])
 
   return (
     <ScrollView showsVerticalScrollIndicator={false}>
