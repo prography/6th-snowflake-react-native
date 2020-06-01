@@ -1,5 +1,7 @@
-import { createStore, Unsubscribe } from 'redux';
-import rootReducer from '~/modules/index';
+import { createStore, Unsubscribe, applyMiddleware } from "redux";
+import rootReducer from "~/modules/index";
+import createSagaMiddleware from "redux-saga";
+import rootSaga from "~/saga";
 
 // interface Store {
 //   dispatch: Dispatch<Action>;
@@ -8,6 +10,7 @@ import rootReducer from '~/modules/index';
 //   replaceReducer(nextReducer: Reducer): Store;
 // }
 
-const store = createStore(rootReducer);
-
+const sagaMiddleware = createSagaMiddleware();
+const store = createStore(rootReducer, applyMiddleware(sagaMiddleware));
+sagaMiddleware.run(rootSaga);
 export default store;
