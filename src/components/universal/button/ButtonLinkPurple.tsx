@@ -5,7 +5,8 @@ import { withNavigation } from '@react-navigation/compat';
 
 interface Props {
   buttonText: string;
-  link: string;
+  stack: string;
+  screen: string;
   navigation: any;
 }
 
@@ -32,12 +33,12 @@ const TriangleArrow = styled.Image`
   margin-left: ${d.px * 5}px;
 `;
 
-const ButtonLinkPurple = ({ buttonText, link, navigation }: Props) => {
+const ButtonLinkPurple = ({ buttonText, stack, screen, navigation }: Props) => {
   return (
     <Container
       activeOpacity={1}
       onPress={() => {
-        navigation.navigate(link);
+        navigation.navigate(stack, { screen: screen });
       }}
     >
       <TextStyle>{buttonText}</TextStyle>

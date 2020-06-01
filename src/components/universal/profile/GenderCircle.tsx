@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components/native';
 import { d, c } from '~/utils/constant';
@@ -56,12 +57,32 @@ const GenderCircle = ({ gender, size, who }: Props) => {
         ) : who ? (
           <MyGenderCircle
             size={size}
-            genderColor={gender === 'female' ? womanColor : manColor}
+            genderColor={
+              gender === 'female'
+                ? womanColor
+                : gender === 'male'
+                ? manColor
+                : gender === 'both'
+                ? c.purple
+                : gender === 'none'
+                ? c.darkGray
+                : null
+            }
           />
         ) : (
           <PartnerGenderCircle
             size={size}
-            genderColor={gender === 'female' ? womanColor : manColor}
+            genderColor={
+              gender === 'female'
+                ? womanColor
+                : gender === 'male'
+                ? manColor
+                : gender === 'both'
+                ? c.purple
+                : gender === 'none'
+                ? c.darkGray
+                : null
+            }
           />
         )}
       </Container>
