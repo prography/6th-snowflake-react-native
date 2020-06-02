@@ -1,9 +1,10 @@
 import * as React from 'react';
 import { useState, useEffect } from 'react';
-import { ScrollView, Platform, Text } from 'react-native';
-import { d, BASE_URL } from '~/utils/constant';
+import { ScrollView, Platform, Text, View } from 'react-native';
+import { d, BASE_URL, l } from '~/utils/constant';
 import HomeCardNoticePurple from '~/components/home/card/HomeCardNoticePurple';
 import HomeCardDefaultContentPurpleButton from '~/components/home/card/HomeCardDefaultContentPurpleButton';
+import TextTitlePurpleRight from '~/components/universal/text/TextTitlePurpleRight';
 
 const Content = () => {
   const [contentArray, setContentArray] = useState(null);
@@ -26,7 +27,9 @@ const Content = () => {
   return (
     <ScrollView showsVerticalScrollIndicator={false}>
       {contentArray === null ? (
-        <Text>로딩 중</Text>
+        <View style={{ marginRight: l.mR }}>
+          <TextTitlePurpleRight title={'Loading...'} />
+        </View>
       ) : (
         contentArray.map((card) => {
           switch (card.design_type) {
