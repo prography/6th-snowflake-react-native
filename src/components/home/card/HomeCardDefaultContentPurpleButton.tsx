@@ -11,7 +11,7 @@ import MarginMedium from '~/components/universal/margin/MarginMedium';
 import TextContentLightLeft from '~/components/universal/text/TextContentLightLeft';
 
 interface Props {
-  tag: any;
+  tag: string;
   title: string;
   btnText: string;
   link: string;
@@ -52,7 +52,7 @@ const HomeCardDefaultContentPurpleButton = ({
           {tag.map((tag) => {
             return (
               <TagBox>
-                <TextTag tag={tag.tag} />
+                <TextTag tag={tag} />
               </TagBox>
             );
           })}

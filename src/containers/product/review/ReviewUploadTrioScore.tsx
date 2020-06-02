@@ -160,6 +160,7 @@ const ReviewUploadTrioScore = () => {
       Number((_thicknessScore + _oilyScore + _durabilityScore) / 3)
     );
   }, [_thicknessScore, _oilyScore, _durabilityScore]);
+
   const trioScore = [
     {
       type: thickness,

@@ -1,10 +1,12 @@
 import * as React from 'react';
+import { useState } from 'react';
 import { ScrollView, Platform, Text } from 'react-native';
 import { d, BASE_URL } from '~/utils/constant';
 import HomeCardNoticePurple from '~/components/home/card/HomeCardNoticePurple';
 import HomeCardDefaultContentPurpleButton from '~/components/home/card/HomeCardDefaultContentPurpleButton';
 
 const Content = () => {
+  const [contentArray, setContentArray] = useState({});
   const contentList = [
     {
       style: 'notice',
@@ -31,41 +33,47 @@ const Content = () => {
   const _getWelcomCards = async () => {
     try {
       const response = await fetch(`${BASE_URL}/home/welcome-cards/`);
-      const json = await response.json()
-      console.log('👻 welcome-cards success', json)
+      const json = await response.json();
+      console.log(
+        '👻 welcome-cards success',
+        contentArray,
+        '😎태그를 위한 여정',
+        contentArray.map((card) => card.tag_txt.split(','))
+      );
+      setContentArray(json.results);
     } catch (error) {
-      console.log('👻 welcome-cards error ', error)
+      console.log('👻 welcome-cards error ', error);
     }
-  }
+  };
 
   React.useEffect(() => {
-    _getWelcomCards()
-  }, [])
+    _getWelcomCards();
+  }, []);
 
   return (
     <ScrollView showsVerticalScrollIndicator={false}>
-      {contentList.map((card) => {
-        switch (card.style) {
+      {contentArray.map((card) => {
+        switch (card.design_type) {
           case 'default':
             return (
               <HomeCardDefaultContentPurpleButton
-                tag={card.tag}
+                tag={card.tag_txt.split(',')}
                 title={card.title}
-                btnText={card.btnText}
-                content={card.content}
-                link={card.link}
+                btnText={card.button_txt}
+                content={card.description}
+                link={card.button_src}
               />
             );
           case 'notice':
             return (
               <HomeCardNoticePurple
-                tag={card.tag}
+                tag={card.tag_txt.split(',')}
                 title={card.title}
-                content={card.content}
+                content={card.description}
               />
             );
           default:
-            return <Text>안디야</Text>;
+            return <Text>😭무언가 잘 못 되었음</Text>;
         }
       })}
     </ScrollView>
