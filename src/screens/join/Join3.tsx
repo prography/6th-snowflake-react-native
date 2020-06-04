@@ -32,7 +32,7 @@ const OneLineWrapper = styled.View`
 const GuideText = styled.Text``;
 
 const Join3 = ({navigation, route}) => {
-  const {email, password, name, year} = route.params;
+  const {signUpEmail, signUpPassword, signUpName, signUpYear} = route.params;
   console.log('🍊', route.params)
   const [isFilled, setIsFilled] = useState(false);
 
@@ -73,21 +73,15 @@ const Join3 = ({navigation, route}) => {
   };
 
   const _signup = async () => {
-
+    
     console.log('😸1. _signup 호출됨')
-    const signUpEmail = email;
-    const signUpPassword = password;
-    const signUpName = name;
-    const signUpYear = year;
-    const signUpGender = _userGender;
-    const signUpPartnerGender = _userPartnerGender;
-
-    console.log(signUpEmail,
-      signUpPassword,
-      signUpName,
-      signUpYear,
-      signUpGender,
-      signUpPartnerGender);
+    const email = signUpEmail;
+    const password = signUpPassword;
+    const username = signUpName;
+    const birth_year = signUpYear;
+    const gender = _userGender
+    console.log(typeof gender);
+    const partner_gender = _userPartnerGender;
       
     // 아래 두 줄은 로그인만 테스트해보고 싶을 때
     // _login(email, password)
@@ -103,12 +97,12 @@ const Join3 = ({navigation, route}) => {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          signUpEmail,
-          signUpPassword,
-          signUpName,
-          signUpYear,
-          signUpGender,
-          signUpPartnerGender
+          email,
+          password,
+          username,
+          birth_year,
+          // gender,
+          // partner_gender
         }),
       });
 

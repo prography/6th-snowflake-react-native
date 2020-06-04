@@ -28,7 +28,7 @@ const GuideText = styled.Text``;
 const UserNameInput = styled.TextInput``;
 const YearInputContainer = styled.TextInput``;
 const Join2 = ({ navigation, route }) => {
-  const { email, password } = route.params;
+  const { signUpEmail, signUpPassword } = route.params;
   console.log('🥇', route.params)
   const [isFilled, setIsFilled] = useState(false);
 
@@ -76,7 +76,7 @@ const Join2 = ({ navigation, route }) => {
         stack={'JoinStack'}
         screen={'Join3'}
         isFilled={isFilled}
-        params={{email: email, password: password, name: nameInput, year: yearInput}}
+        params={{signUpEmail: signUpEmail, signUpPassword: signUpPassword, signUpName: nameInput, signUpYear: yearInput}}
       >
         <TopBarBackArrowRightIcon />
         <Container>
