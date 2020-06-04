@@ -1,4 +1,6 @@
 import * as React from 'react';
+import { useState, useEffect } from 'react';
+import { BASE_URL } from '~/utils/constant';
 import { ScrollView } from 'react-native';
 import styled from 'styled-components/native';
 import MarginBottom from '~/components/universal/margin/MarginBottom';
@@ -19,6 +21,21 @@ const Container = styled.View`
 `;
 
 const ProductInfo = () => {
+  const [productId, setProductId] = useState(2);
+
+  const _getProductInfo = async () => {
+    try {
+      const response = await fetch(`${BASE_URL}/products/condom/${productId}/`);
+      const json = await response.json();
+      console.log('🍒 product info success', json);
+    } catch (error) {
+      console.log('🍒product info error', error);
+    }
+  };
+
+  useEffect(() => {
+    _getProductInfo();
+  }, []);
   return (
     <>
       <ProductInfoBar>
