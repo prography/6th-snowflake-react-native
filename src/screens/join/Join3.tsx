@@ -139,7 +139,7 @@ const Join3 = ({navigation, route}) => {
         <TopBarBackArrowRightIcon />
         <Container>
           <OneLineWrapper>
-            <GuideText>{name}님은</GuideText>
+            <GuideText>{signUpName}님은</GuideText>
           </OneLineWrapper>
           <OneLineWrapper>
             <GuideText>스스로를 </GuideText>
