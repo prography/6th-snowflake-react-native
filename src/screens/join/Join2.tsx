@@ -27,7 +27,9 @@ const OneLineWrapper = styled.View``;
 const GuideText = styled.Text``;
 const UserNameInput = styled.TextInput``;
 const YearInputContainer = styled.TextInput``;
-const Join2 = () => {
+const Join2 = ({ navigation, route }) => {
+  const { email, password } = route.params;
+  console.log('🥇', route.params)
   const [isFilled, setIsFilled] = useState(false);
 
   const dispatch = useDispatch();
@@ -77,8 +79,8 @@ const Join2 = () => {
             <UserNameInput
               placeholder={'2~10자'}
               onChangeText={(text) => _setUserName(text)}
+              value={_userName}
             >
-              {_userName}
             </UserNameInput>
           </OneLineWrapper>
           <OneLineWrapper>
@@ -87,8 +89,8 @@ const Join2 = () => {
               keyboardType={'number-pad'}
               returnKeyType={'done'}
               onChangeText={(text) => _setUserBirthYear(text)}
+              value={_userBirthYear}
             >
-              {_userBirthYear}
             </YearInputContainer>
             <GuideText>년생이에요.</GuideText>
           </OneLineWrapper>
