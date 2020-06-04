@@ -20,31 +20,48 @@ const TrioContainer = styled.View`
 `;
 
 const Trio = () => {
-  const trioInfo = [
-    {
-      key: 0,
-      title: '얇기',
-      productCompany: '듀렉스',
-      productName: '필 울트라씬',
-      imageUri: 'http://pngimg.com/uploads/condom/condom_PNG21.png',
-    },
-    {
-      key: 1,
-      title: '내구성',
-      productCompany: '유니더스',
-      productName: '롱러브',
-      imageUri:
-        'https://p7.hiclipart.com/preview/843/339/817/5bbff9096ac0c.jpg',
-    },
-    {
-      key: 2,
-      title: '윤활제',
-      productCompany: '이브',
-      productName: '플레져미',
-      imageUri:
-        'https://images-na.ssl-images-amazon.com/images/I/51tPmiQBoHL.jpg',
-    },
-  ];
+  const [_trioList, _setTrioList] = useState(null);
+
+  const _getTrioList = async () => {
+    try {
+      const response = await fetch(`${BASE_URL}/products/condom/trio/`);
+      const json = await response.json();
+      _setTrioList(json);
+      console.log('🍡trio - success!', _trioList);
+    } catch (error) {
+      console.log('🍡trio - error', error);
+    }
+  };
+  //제품 리스트에 현재 id 안 오고 있음
+  useEffect(() => {
+    _getTrioList();
+  }, []);
+
+  // const trioInfo = [
+  //   {
+  //     key: 0,
+  //     title: '얇기',
+  //     productCompany: '듀렉스',
+  //     productName: '필 울트라씬',
+  //     imageUri: 'http://pngimg.com/uploads/condom/condom_PNG21.png',
+  //   },
+  //   {
+  //     key: 1,
+  //     title: '내구성',
+  //     productCompany: '유니더스',
+  //     productName: '롱러브',
+  //     imageUri:
+  //       'https://p7.hiclipart.com/preview/843/339/817/5bbff9096ac0c.jpg',
+  //   },
+  //   {
+  //     key: 2,
+  //     title: '윤활제',
+  //     productCompany: '이브',
+  //     productName: '플레져미',
+  //     imageUri:
+  //       'https://images-na.ssl-images-amazon.com/images/I/51tPmiQBoHL.jpg',
+  //   },
+  // ];
   return (
     <>
       <Container>
@@ -59,16 +76,42 @@ const Trio = () => {
       </Container>
       <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
         <TrioContainer>
-          {trioInfo.map((product) => {
-            return (
-              <TrioBox
-                title={product.title}
-                productCompany={product.productCompany}
-                productName={product.productName}
-                imageUri={product.imageUri}
-              />
-            );
-          })}
+          {_trioList &&
+            _trioList.thickness.map((product) => {
+              return (
+                <TrioBox
+                  id={product.id}
+                  title={'얇기'}
+                  productCompany={product.manufacturer_kor}
+                  productName={product.name_kor}
+                  imageUri={product.thumbnail}
+                />
+              );
+            })}
+          {_trioList &&
+            _trioList.durability.map((product) => {
+              return (
+                <TrioBox
+                  id={product.id}
+                  title={'내구성'}
+                  productCompany={product.manufacturer_kor}
+                  productName={product.name_kor}
+                  imageUri={product.thumbnail}
+                />
+              );
+            })}
+          {_trioList &&
+            _trioList.oily.map((product) => {
+              return (
+                <TrioBox
+                  id={product.id}
+                  title={'윤활제'}
+                  productCompany={product.manufacturer_kor}
+                  productName={product.name_kor}
+                  imageUri={product.thumbnail}
+                />
+              );
+            })}
         </TrioContainer>
       </ScrollView>
     </>
