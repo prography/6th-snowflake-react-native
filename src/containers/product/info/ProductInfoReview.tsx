@@ -14,8 +14,9 @@ const Container = styled.View`
 
 interface Props {
   reviewNum: number;
+  productId: number;
 }
-const ProductInfoReview = ({ reviewNum }: Props) => {
+const ProductInfoReview = ({ reviewNum, productId }: Props) => {
   return (
     <>
       <Container>
@@ -25,7 +26,7 @@ const ProductInfoReview = ({ reviewNum }: Props) => {
           type={'review'}
         />
         <MarginWide />
-        {reviewNum ? <ReviewCardContainer /> : null}
+        {reviewNum ? <ReviewCardContainer productId={productId} /> : null}
       </Container>
     </>
   );

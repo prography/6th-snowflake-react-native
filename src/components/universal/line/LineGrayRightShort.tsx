@@ -6,6 +6,7 @@ const Container = styled.View`
   width: ${d.width - l.mR * 2 - l.lW}px;
   border-width: ${d.px * 0.3}px;
   border-color: ${c.extraLightGray};
+  height: ${d.px * 1}px;
 `;
 
 const LineGrayRightShort = () => {
