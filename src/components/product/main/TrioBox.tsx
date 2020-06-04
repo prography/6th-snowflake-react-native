@@ -65,6 +65,8 @@ const TrioBox = ({
           source={
             blindState
               ? require('~/img/doodle/doodleCdBoxCrownFilledMint.png')
+              : imageUri === null
+              ? require('~/img/icon/imageNull.png')
               : { uri: imageUri }
           }
         />

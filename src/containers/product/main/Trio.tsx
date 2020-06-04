@@ -32,7 +32,7 @@ const Trio = () => {
       console.log('🍡trio - error', error);
     }
   };
-  //제품 리스트에 현재 id 안 오고 있음
+
   useEffect(() => {
     _getTrioList();
   }, []);
