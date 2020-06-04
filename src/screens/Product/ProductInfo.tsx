@@ -23,7 +23,7 @@ const Container = styled.View`
 `;
 
 const ProductInfo = () => {
-  const [productId, setProductId] = useState(3);
+  const [productId, setProductId] = useState(2);
   const [productInfo, setProductInfo] = useState(null);
 
   const _getProductInfo = async () => {
@@ -68,14 +68,19 @@ const ProductInfo = () => {
                 thickness={productInfo.thickness}
               />
               <MarginMedium />
+              <LineGrayMiddle />
+              <MarginMedium />
+              <ProductInfoScore
+                score={productInfo.score}
+                avgOily={productInfo.avg_oily}
+                avgThickness={productInfo.avg_thickness}
+                avgDurability={productInfo.avg_durability}
+              />
 
-              <LineGrayMiddle />
-              <MarginMedium />
-              <ProductInfoScore />
               <MarginMedium />
               <LineGrayMiddle />
               <MarginMedium />
-              <ProductInfoReview />
+              <ProductInfoReview reviewNum={productInfo.num_of_reviews} />
             </Container>
           </ScrollView>
           <MarginBottom />

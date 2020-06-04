@@ -28,7 +28,17 @@ const ProductInfoSpecific = ({ category, length, width, thickness }: Props) => {
     switch (category) {
       case 'CHOBAK':
         return '초박형';
-      case 'DEFAULT':
+      case 'NORMAL':
+        return '일반형';
+      case 'SLIM':
+        return '슬림형';
+      case 'DOLCHUL':
+        return '돌출형';
+      case 'GGOKJI':
+        return '꼭지형';
+      case 'DELAY':
+        return '사전지연형';
+      default:
         return '일반형';
     }
   };
