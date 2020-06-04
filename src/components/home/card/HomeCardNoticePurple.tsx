@@ -39,7 +39,7 @@ const HomeCardNoticePurple = ({ tag, title, content }: Props) => {
           {tag.map((tag) => {
             return (
               <TagBox>
-                <TextTag tag={tag.tag} />
+                <TextTag tag={tag} />
               </TagBox>
             );
           })}

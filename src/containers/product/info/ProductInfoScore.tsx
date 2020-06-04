@@ -11,35 +11,31 @@ const Container = styled.View`
   flex-direction: column;
 `;
 
-const ProductInfoScore = () => {
-  const ProductInfo = {
-    key: 0,
-    title: '얇기',
-    manufacturerKor: '듀렉스',
-    manufacturerEng: 'Durex',
-    nameKor: '필 울트라씬',
-    nameEng: 'Feel Ultra Thin',
-    imageUri: 'http://pngimg.com/uploads/condom/condom_PNG21.png',
-    category: '초박형',
-    length: '185±20mm',
-    width: '49±2mm',
-    thickness: '0.05cm',
-    score: 3.2,
-    avgThickness: 3.2,
-    avgDurability: 1.5,
-    avgOily: 2.8,
-  };
+interface Props {
+  score: number;
+  avgOily: number;
+  avgThickness: number;
+  avgDurability: number;
+}
 
+const ProductInfoScore = ({
+  score,
+  avgOily,
+  avgThickness,
+  avgDurability,
+}: Props) => {
   return (
     <>
       <Container>
-        <TextProductMiddleBar title={'총점'} score={ProductInfo.score} />
+        <TextProductMiddleBar title={'총점'} score={score} type={'score'} />
         <MarginMedium />
-        <ProductInfoTrioScore
-          avgOily={ProductInfo.avgOily}
-          avgThickness={ProductInfo.avgThickness}
-          avgDurability={ProductInfo.avgDurability}
-        />
+        {avgOily ? (
+          <ProductInfoTrioScore
+            avgOily={avgOily}
+            avgThickness={avgThickness}
+            avgDurability={avgDurability}
+          />
+        ) : null}
       </Container>
     </>
   );
