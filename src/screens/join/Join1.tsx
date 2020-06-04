@@ -114,57 +114,57 @@ const Join1 = () => {
     },
   ];
 
-  const _login = (email: string, password: string) => {
-    console.log('😸5. 회원가입 성공 후 로그인 액션 호출')
-    dispatch(requestLogin(email, password))
-  }
+  // const _login = (email: string, password: string) => {
+  //   console.log('😸5. 회원가입 성공 후 로그인 액션 호출')
+  //   dispatch(requestLogin(email, password))
+  // }
 
-  const _signup = async () => {
+  // const _signup = async () => {
 
-    console.log('😸1. _signup 호출됨')
-    const email = emailInput
-    const password = passwdInput
-    const username = 'aefe'
+  //   console.log('😸1. _signup 호출됨')
+  //   const email = emailInput
+  //   const password = passwdInput
+  //   const username = 'aefe'
 
-    // 아래 두 줄은 로그인만 테스트해보고 싶을 때
-    // _login(email, password)
-    // return
+  //   // 아래 두 줄은 로그인만 테스트해보고 싶을 때
+  //   // _login(email, password)
+  //   // return
 
-    try {
-      console.log('😸2. /accounts 회원가입 api 호출')
-      const response = await fetch(`${BASE_URL}/accounts/`, { // 뒤에 슬래시 꼭 붙여야함
-        method: 'POST',
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          email,
-          password,
-          username,
-        }),
-      });
+  //   try {
+  //     console.log('😸2. /accounts 회원가입 api 호출')
+  //     const response = await fetch(`${BASE_URL}/accounts/`, { // 뒤에 슬래시 꼭 붙여야함
+  //       method: 'POST',
+  //       headers: {
+  //         Accept: 'application/json',
+  //         'Content-Type': 'application/json',
+  //       },
+  //       body: JSON.stringify({
+  //         email,
+  //         password,
+  //         username,
+  //       }),
+  //     });
 
-      const json = await response.json()
-      console.log('😸3. /accounts 회원가입 api 응답 확인')
-      switch (response.status) {
-        case 201:
-          console.log('😸4. /accounts 회원가입 성공!!', response.status, json)
-          // 회원가입 성공하면 바로 로그인 ㄱㄱ
-          _login(email, password)
-          break;
-        case 400:
-          console.log('😸4. /accounts 회원가입 실패.. ', response.status, json)
-          break;
-        default:
-          console.log('😸4. /accounts 회원가입 실패.. ', response.status, json)
-          break;
-      }
-    } catch (error) {
-      console.log('😸. /accounts 회원가입 오류 catch.. ', error)
-    }
+  //     const json = await response.json()
+  //     console.log('😸3. /accounts 회원가입 api 응답 확인')
+  //     switch (response.status) {
+  //       case 201:
+  //         console.log('😸4. /accounts 회원가입 성공!!', response.status, json)
+  //         // 회원가입 성공하면 바로 로그인 ㄱㄱ
+  //         _login(email, password)
+  //         break;
+  //       case 400:
+  //         console.log('😸4. /accounts 회원가입 실패.. ', response.status, json)
+  //         break;
+  //       default:
+  //         console.log('😸4. /accounts 회원가입 실패.. ', response.status, json)
+  //         break;
+  //     }
+  //   } catch (error) {
+  //     console.log('😸. /accounts 회원가입 오류 catch.. ', error)
+  //   }
 
-  }
+  // }
 
 
 

@@ -30,7 +30,9 @@ const OneLineWrapper = styled.View`
 `;
 const GuideText = styled.Text``;
 
-const Join3 = () => {
+const Join3 = ({navigation, route}) => {
+  const {email, password, name, year} = route.params;
+  console.log('🍊', route.params)
   const [isFilled, setIsFilled] = useState(false);
 
   const dispatch = useDispatch();
