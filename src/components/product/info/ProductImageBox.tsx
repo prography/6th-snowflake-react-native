@@ -19,7 +19,7 @@ const PImage = styled.Image`
 `;
 
 interface Props {
-  imageUri: string;
+  imageUri: any;
 }
 const ProductImageBox = ({ imageUri }: Props) => {
   const blindState = useSelector(
@@ -32,7 +32,9 @@ const ProductImageBox = ({ imageUri }: Props) => {
         source={
           blindState
             ? require('~/img/doodle/doodleCdBoxMintPurpleHeart.png')
-            : { uri: imageUri }
+            : imageUri
+            ? { uri: imageUri }
+            : require('~/img/doodle/doodleCdBoxMint.png')
         }
       />
     </Container>
