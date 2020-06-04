@@ -24,8 +24,22 @@ const Container = styled.View`
   margin: 0 ${l.mR}px;
 `;
 const OneLineWrapper = styled.View``;
-const GuideText = styled.Text``;
-const UserNameInput = styled.TextInput``;
+const GuideContainer = styled.View`
+  flex-direction: row;
+  margin-top: ${d.px * 26.6}px;
+`;
+const GuideText = styled.Text`
+  font-family: 'Jost-Semi';
+  font-size: ${d.px * 23}px;
+  color: ${c.darkGray};
+`;
+const UserNameInput = styled.TextInput`
+  height: ${d.px * 28}px;
+  border-color: ${c.extraLightGray};
+  border-bottom-width: ${d.px * 2}px;
+  font-size: ${d.px * 23}px;
+  font-family: 'Jost-Light';
+`;
 const YearInputContainer = styled.TextInput``;
 const Join2 = ({ navigation, route }) => {
   const { signUpEmail, signUpPassword } = route.params;
@@ -69,6 +83,16 @@ const Join2 = ({ navigation, route }) => {
   useEffect(() => {
     setIsFilled(nameInput && yearInput ? true : false);
   }, [nameInput, yearInput]);
+
+
+  const [isNameFocused, setNameFocused] = useState(false);
+  const handleNameFocus = () => {setNameFocused(true)};
+  const handleNameBlur = () => {setNameFocused(false)};
+  const nameLabelStyle = {
+    color: !isNameFocused ? c.darkGray : c.black,
+    borderColor: !isNameFocused ? c.lightGray : c.purple
+  };
+
   return (
     <>
       <BottomBtnCollectData
@@ -81,24 +105,31 @@ const Join2 = ({ navigation, route }) => {
         <TopBarBackArrowRightIcon />
         <Container>
           <OneLineWrapper>
-            <GuideText>닉네임은</GuideText>
-            <UserNameInput
-              placeholder={'2~10자'}
-              onChangeText={setNameInput}
-              value={nameInput}
-            >
-            </UserNameInput>
+            <GuideContainer>
+              <GuideText>닉네임은 </GuideText>
+              <UserNameInput
+                style={nameLabelStyle}
+                placeholder={'2~10자'}
+                onChangeText={setNameInput}
+                value={nameInput}
+                onFocus={handleNameFocus}
+                onBlur={handleNameBlur}
+                blurOnSubmit
+              />
+            </GuideContainer>
           </OneLineWrapper>
           <OneLineWrapper>
-            <YearInputContainer
-              placeholder={'year picker로 변경 예정'}
-              keyboardType={'number-pad'}
-              returnKeyType={'done'}
-              onChangeText={setYearInput}
-              value={yearInput}
-            >
-            </YearInputContainer>
-            <GuideText>년생이에요.</GuideText>
+            <GuideContainer>
+              <YearInputContainer
+                placeholder={'year picker로 변경 예정'}
+                keyboardType={'number-pad'}
+                returnKeyType={'done'}
+                onChangeText={setYearInput}
+                value={yearInput}
+              >
+              </YearInputContainer>
+              <GuideText>년생이에요.</GuideText>
+            </GuideContainer>
           </OneLineWrapper>
           <Text>수집된 닉네임:</Text>
           <Text>{nameInput}</Text>
