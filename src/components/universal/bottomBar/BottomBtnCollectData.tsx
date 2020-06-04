@@ -52,6 +52,7 @@ const BottomBtnCollectData = ({
           backgroundColor: isFilled ? c.purple : c.lightGray,
         }}
         onPress={() =>
+          // onPressFunction() ? navigation.navigate(stack, { screen: screen }) : null
           onPressFunction
             ? onPressFunction()
             : isFilled

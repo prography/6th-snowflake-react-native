@@ -75,34 +75,40 @@ const Join1 = () => {
     dispatch(setUserPartnerGender(userPartnerGender));
   };
   const [isFilled, setIsFilled] = useState(false);
+
+  const [emailInput, setEmailInput] = useState('');
+  const [passwdInput, setPasswdInput] = useState('');
+  const [checkPasswdInput, setCheckPasswdInput] = useState('');
+
+
   useEffect(() => {
-    setIsFilled(_userEmail && _userPassword1 && _userPassword2 ? true : false);
-  }, [_userEmail, _userPassword1, _userPassword2]);
+    setIsFilled(emailInput && passwdInput && checkPasswdInput ? true : false);
+  }, [emailInput, passwdInput, checkPasswdInput]);
   const JoinList = [
     {
       guideText: '이메일',
       warningText: '* 중복된 이메일입니다.',
-      infoGiven: _userEmail,
+      infoGiven: emailInput,
       placeholder: '이메일 입력',
-      function: _setUserEmail,
+      function: setEmailInput,
       autoCompleteType: 'email',
       textContentType: 'emailAddress',
     },
     {
       guideText: '비밀번호',
       warningText: '* 일치하지 않습니다',
-      infoGiven: _userPassword1,
+      infoGiven: passwdInput,
       placeholder: '6자리 이상',
-      function: _setUserPassword1,
+      function: setPasswdInput,
       autoCompleteType: 'password',
       textContentType: 'newPassword',
     },
     {
       guideText: '비밀번호 확인',
       warningText: '* 일치하지 않습니다',
-      infoGiven: _userPassword2,
+      infoGiven: checkPasswdInput,
       placeholder: '6자리 이상',
-      function: _setUserPassword2,
+      function: setCheckPasswdInput,
       autoCompleteType: 'password',
       textContentType: 'newPassword',
     },
@@ -115,12 +121,10 @@ const Join1 = () => {
 
   const _signup = async () => {
 
-
-
     console.log('😸1. _signup 호출됨')
-    const email = 'd@d3.com'
-    const password = '1111'
-    const username = 'dahee983'
+    const email = emailInput
+    const password = passwdInput
+    const username = 'abcdddefe'
 
     // 아래 두 줄은 로그인만 테스트해보고 싶을 때
     // _login(email, password)
@@ -160,11 +164,9 @@ const Join1 = () => {
       console.log('😸. /accounts 회원가입 오류 catch.. ', error)
     }
 
-
-
-
-
   }
+
+  
 
   return (
     <>
@@ -188,9 +190,9 @@ const Join1 = () => {
                   autoCompleteType={info.autoCompleteType}
                   textContentType={info.textContentType}
                   placeholder={info.placeholder}
-                  onChangeText={(text) => info.function(text)}
+                  onChangeText={info.function}
+                  value={info.infoGiven}
                 >
-                  {info.infoGiven}
                 </UserInfoInput>
                 <MarginWide />
               </OneInfoContainer>
@@ -198,11 +200,11 @@ const Join1 = () => {
           })}
 
           <Text>수집된 이메일:</Text>
-          <Text>{_userEmail}</Text>
+          <Text>{emailInput}</Text>
           <Text>수집된 비번1:</Text>
-          <Text>{_userPassword1}</Text>
+          <Text>{passwdInput}</Text>
           <Text>수집된 비번2:</Text>
-          <Text>{_userPassword2}</Text>
+          <Text>{checkPasswdInput}</Text>
         </Container>
       </BottomBtnCollectData>
     </>
