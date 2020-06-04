@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { useState, useEffect } from 'react';
+import { Text, Image } from 'react-native';
 import { BASE_URL } from '~/utils/constant';
 import { ScrollView } from 'react-native';
 import styled from 'styled-components/native';
@@ -14,6 +15,7 @@ import ProductInfoScore from '~/containers/product/info/ProductInfoScore';
 import ProductInfoReview from '~/containers/product/info/ProductInfoReview';
 import TopBarBackArrow from '~/components/universal/topBar/TopBarBackArrow';
 import ProductInfoBar from '~/components/universal/bottomBar/product/ProductInfoBar';
+import TextTitlePurpleRight from '~/components/universal/text/TextTitlePurpleRight';
 
 const Container = styled.View`
   flex-direction: column;
@@ -21,13 +23,15 @@ const Container = styled.View`
 `;
 
 const ProductInfo = () => {
-  const [productId, setProductId] = useState(2);
+  const [productId, setProductId] = useState(3);
+  const [productInfo, setProductInfo] = useState(null);
 
   const _getProductInfo = async () => {
     try {
       const response = await fetch(`${BASE_URL}/products/condom/${productId}/`);
       const json = await response.json();
-      console.log('🍒 product info success', json);
+      console.log('🍒 product info success', productInfo);
+      setProductInfo(json);
     } catch (error) {
       console.log('🍒product info error', error);
     }
@@ -36,31 +40,44 @@ const ProductInfo = () => {
   useEffect(() => {
     _getProductInfo();
   }, []);
+
   return (
     <>
-      <ProductInfoBar>
-        <ScrollView showsVerticalScrollIndicator={false}>
-          <TopBarBackArrow />
-          <Container>
-            <ProductInfoImage />
-            <MarginMedium />
-            <ProductInfoNameManufacturer />
-            <MarginMedium />
-            <LineGrayMiddle />
-            <MarginMedium />
-            <ProductInfoSpecific />
-            <MarginMedium />
-            <LineGrayMiddle />
-            <MarginMedium />
-            <ProductInfoScore />
-            <MarginMedium />
-            <LineGrayMiddle />
-            <MarginMedium />
-            <ProductInfoReview />
-          </Container>
-        </ScrollView>
-        <MarginBottom />
-      </ProductInfoBar>
+      {productInfo === null ? (
+        <TextTitlePurpleRight title={'Loading...'} />
+      ) : (
+        <ProductInfoBar>
+          <ScrollView showsVerticalScrollIndicator={false}>
+            <TopBarBackArrow />
+            <Container>
+              <ProductInfoImage imageUri={productInfo.image} />
+              <MarginMedium />
+              <ProductInfoNameManufacturer
+                nameKor={productInfo.name_kor}
+                nameEng={productInfo.name_eng}
+                manufacturerKor={productInfo.manufacturer_kor}
+                manufacturerEng={productInfo.manufacturer_eng}
+              />
+              <MarginMedium />
+
+              <LineGrayMiddle />
+              <MarginMedium />
+
+              <ProductInfoSpecific />
+              <MarginMedium />
+
+              <LineGrayMiddle />
+              <MarginMedium />
+              <ProductInfoScore />
+              <MarginMedium />
+              <LineGrayMiddle />
+              <MarginMedium />
+              <ProductInfoReview />
+            </Container>
+          </ScrollView>
+          <MarginBottom />
+        </ProductInfoBar>
+      )}
       <Blinder />
       {/* Blinder: 스크린의 가장 마지막에 놓아주어야 터치가 됨*/}
     </>

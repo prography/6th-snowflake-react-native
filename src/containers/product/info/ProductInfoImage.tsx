@@ -7,21 +7,11 @@ const Container = styled.View`
   width: ${d.width - l.mR * 2}px;
   margin-left: ${l.mR}px;
 `;
-const ProductInfoImage = () => {
-  const ProductInfo = {
-    key: 0,
-    title: '얇기',
-    manufacturerKor: '듀렉스',
-    manufacturerEng: 'Durex',
-    nameKor: '필 울트라씬',
-    nameEng: 'Feel Ultra Thin',
-    imageUri: 'http://pngimg.com/uploads/condom/condom_PNG21.png',
-  };
-
+const ProductInfoImage = (imageUri) => {
   return (
     <>
       <Container>
-        <ProductImageBox imageUri={ProductInfo.imageUri} />
+        <ProductImageBox imageUri={imageUri.imageUri} />
       </Container>
     </>
   );
