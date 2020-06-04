@@ -34,7 +34,8 @@ const TopFive = () => {
         <TextTitleDarkPurpleLink
           title={'콘돔 총점 TOP5'}
           buttonText={'RANKING'}
-          link={'Ranking'}
+          stack={'ProductStack'}
+          screen={'Ranking'}
         />
         <MarginMedium />
         {_topFiveList === null ? (
