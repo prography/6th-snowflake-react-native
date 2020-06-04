@@ -19,7 +19,6 @@ import BottomBtnCollectData from '~/components/universal/bottomBar/BottomBtnColl
 import MarginWide from '~/components/universal/margin/MarginWide';
 import TopBarLeftIcon from '~/components/universal/topBar/TopBarLeftIcon';
 import TopBarWithIcon from '~/components/universal/topBar/TopBarRightIcon';
-import { requestLogin } from '~/modules/auth';
 const Container = styled.View`
   margin: 0 ${l.mR}px;
 `;
@@ -77,13 +76,13 @@ const Join1 = () => {
   const [isFilled, setIsFilled] = useState(false);
 
   const [emailInput, setEmailInput] = useState('');
-  const [passwdInput, setPasswdInput] = useState('');
-  const [checkPasswdInput, setCheckPasswdInput] = useState('');
+  const [passwordInput, setPasswordInput] = useState('');
+  const [checkPasswordInput, setCheckPasswordInput] = useState('');
 
 
   useEffect(() => {
-    setIsFilled(emailInput && passwdInput && checkPasswdInput ? true : false);
-  }, [emailInput, passwdInput, checkPasswdInput]);
+    setIsFilled(emailInput && passwordInput && checkPasswordInput ? true : false);
+  }, [emailInput, passwordInput, checkPasswordInput]);
   const JoinList = [
     {
       guideText: '이메일',
@@ -97,76 +96,22 @@ const Join1 = () => {
     {
       guideText: '비밀번호',
       warningText: '* 일치하지 않습니다',
-      infoGiven: passwdInput,
+      infoGiven: passwordInput,
       placeholder: '6자리 이상',
-      function: setPasswdInput,
+      function: setPasswordInput,
       autoCompleteType: 'password',
       textContentType: 'newPassword',
     },
     {
       guideText: '비밀번호 확인',
       warningText: '* 일치하지 않습니다',
-      infoGiven: checkPasswdInput,
+      infoGiven: checkPasswordInput,
       placeholder: '6자리 이상',
-      function: setCheckPasswdInput,
+      function: setCheckPasswordInput,
       autoCompleteType: 'password',
       textContentType: 'newPassword',
     },
   ];
-
-  const _login = (email: string, password: string) => {
-    console.log('😸5. 회원가입 성공 후 로그인 액션 호출');
-    dispatch(requestLogin(email, password));
-  };
-
-  const _signup = async () => {
-
-    console.log('😸1. _signup 호출됨')
-    const email = emailInput
-    const password = passwdInput
-    const username = 'aefe'
-
-
-    // 아래 두 줄은 로그인만 테스트해보고 싶을 때
-    // _login(email, password)
-    // return
-
-    try {
-      console.log('😸2. /accounts 회원가입 api 호출');
-      const response = await fetch(`${BASE_URL}/accounts/`, {
-        // 뒤에 슬래시 꼭 붙여야함
-        method: 'POST',
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          email,
-          password,
-          username,
-        }),
-      });
-
-      const json = await response.json();
-      console.log('😸3. /accounts 회원가입 api 응답 확인');
-      switch (response.status) {
-        case 201:
-          console.log('😸4. /accounts 회원가입 성공!!', response.status, json);
-          // 회원가입 성공하면 바로 로그인 ㄱㄱ
-          _login(email, password);
-          break;
-        case 400:
-          console.log('😸4. /accounts 회원가입 실패.. ', response.status, json);
-          break;
-        default:
-          console.log('😸4. /accounts 회원가입 실패.. ', response.status, json);
-          break;
-      }
-    } catch (error) {
-      console.log('😸. /accounts 회원가입 오류 catch.. ', error);
-    }
-
-  };
   
   return (
     <>
@@ -176,7 +121,7 @@ const Join1 = () => {
         screen={'Join2'}
         isFilled={isFilled}
         // onPressFunction={_signup}
-        params={{ email: emailInput, password: passwdInput }}
+        params={{ email: emailInput, password: passwordInput }}
       >
         <Container>
           <TopBarWithIcon />
@@ -203,9 +148,9 @@ const Join1 = () => {
           <Text>수집된 이메일:</Text>
           <Text>{emailInput}</Text>
           <Text>수집된 비번1:</Text>
-          <Text>{passwdInput}</Text>
+          <Text>{passwordInput}</Text>
           <Text>수집된 비번2:</Text>
-          <Text>{checkPasswdInput}</Text>
+          <Text>{checkPasswordInput}</Text>
         </Container>
       </BottomBtnCollectData>
     </>
