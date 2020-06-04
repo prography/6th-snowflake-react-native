@@ -1,60 +1,55 @@
 import * as React from 'react';
+import { useState, useEffect } from 'react';
 import styled from 'styled-components/native';
 import { Text } from 'react-native';
-import { d, l } from '~/utils/constant';
+import { d, l, BASE_URL } from '~/utils/constant';
 import ReviewCard from '~/components/product/review/ReviewCard';
+import TextTitlePurpleRight from '~/components/universal/text/TextTitlePurpleRight';
 
 const Container = styled.View`
   width: ${d.width - l.mR * 2}px;
   flex-direction: column;
 `;
-
-const ReviewCardContainer = () => {
-  const ReviewInfo = [
-    {
-      key: 0,
-      score: 3.2,
-      age: 30,
-      gender: 'male',
-      partnerGender: 'female',
-      review:
-        '성분 괜찮아요. 윤활젤도 넉넉해요. 하지만 고무냄새가 꽤 나서 5점은 아니에요. 바른생각 에어핏 다음으로 많이 쓴 것 같아요.',
-      profileImg: 'http://pngimg.com/uploads/condom/condom_PNG21.png',
-      date: '2020.05.29',
-      like: 3,
-    },
-    {
-      key: 1,
-      score: 2.4,
-      age: 20,
-      gender: 'female',
-      partnerGender: 'female',
-      review:
-        '취지가 좋은 회사에서 나왔을 뿐만 아니라 괜찮은 내구도와 적당한 양의 윤활제가 만족스러웠다. 하지만 상대방 입장에선 콘돔속이 살짝 마르는 경향이 있다고도 하였다.',
-      profileImg: 'http://pngimg.com/uploads/condom/condom_PNG21.png',
-      date: '2020.05.29',
-      like: 1,
-    },
-  ];
-
+interface Props {
+  productId: number;
+}
+const ReviewCardContainer = ({ productId }: Props) => {
+  const _getReviewArray = async () => {
+    try {
+      const response = await fetch(`${BASE_URL}/reviews/?product=${productId}`);
+      const json = await response.json();
+      console.log('🌮 id', productId, '의 review array success!', reviewArray);
+      setReviewArray(json.results);
+    } catch (error) {
+      console.log('🌮', productId, '의 review array', error);
+    }
+  };
+  const [reviewArray, setReviewArray] = useState(null);
+  useEffect(() => {
+    _getReviewArray();
+  }, []);
   return (
     <>
       <Container>
-        {ReviewInfo.map((review) => {
-          return (
-            <ReviewCard
-              key={review.key}
-              score={review.score}
-              age={review.age}
-              gender={review.gender}
-              partnerGender={review.partnerGender}
-              review={review.review}
-              profileImg={review.profileImg}
-              date={review.date}
-              like={review.like}
-            />
-          );
-        })}
+        {reviewArray === null ? (
+          <TextTitlePurpleRight title={'Loading...'} />
+        ) : (
+          reviewArray.map((review) => {
+            return (
+              <ReviewCard
+                id={review.id}
+                score={review.total}
+                age={review.user.birth_year}
+                gender={review.gender}
+                partnerGender={review.partner_gender}
+                review={review.content}
+                profileImg={review.user.image}
+                date={review.created_at}
+                like={1}
+              />
+            );
+          })
+        )}
       </Container>
     </>
   );

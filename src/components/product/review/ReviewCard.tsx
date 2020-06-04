@@ -1,6 +1,7 @@
 import * as React from 'react';
+import { Text } from 'react-native';
 import styled from 'styled-components/native';
-import { d, c, l } from '~/utils/constant';
+import { d, c, l, getAgeEra, dateCutter } from '~/utils/constant';
 import MarginMedium from '~/components/universal/margin/MarginMedium';
 import LineGrayRightShort from '~/components/universal/line/LineGrayRightShort';
 import GenderLoop from '~/components/universal/profile/GenderLoop';
@@ -82,7 +83,7 @@ const Like = styled.Text`
 `;
 
 interface Props {
-  key: number;
+  id: number;
   score: number;
   age: number;
   gender: string;
@@ -93,7 +94,7 @@ interface Props {
   like: number;
 }
 const ReviewCard = ({
-  key,
+  id,
   score,
   age,
   gender,
@@ -118,7 +119,8 @@ const ReviewCard = ({
           <TopBar>
             <Score>★ {score}</Score>
             <RightContainer>
-              <Age>{age}대</Age>
+              <Age>{getAgeEra(age)}</Age>
+
               <GenderLoop
                 gender={gender}
                 partnerGender={partnerGender}
@@ -130,7 +132,7 @@ const ReviewCard = ({
           <Review>{review}</Review>
           <MarginNarrow />
           <BottomBar>
-            <Date>{date}</Date>
+            <Date>{dateCutter(date)}</Date>
             <Like>♡ {like}</Like>
           </BottomBar>
           <MarginNarrow />

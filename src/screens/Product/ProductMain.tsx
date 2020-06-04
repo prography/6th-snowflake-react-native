@@ -1,8 +1,9 @@
 import * as React from 'react';
-import { useState } from 'react';
+
+import { useState, useEffect } from 'react';
 import { SafeAreaView, Text, ScrollView, View } from 'react-native';
 import styled from 'styled-components/native';
-import { d, c } from '~/utils/constant';
+import { d, c, BASE_URL } from '~/utils/constant';
 import NavBar from '~/screens/NavBar';
 import TopBarLeftIcon from '~/components/universal/topBar/TopBarLeftIcon';
 import Trio from '~/containers/product/main/Trio';
@@ -19,6 +20,19 @@ const Container = styled.View`
 `;
 
 const ProductMain = () => {
+  const _getCondomList = async () => {
+    try {
+      const response = await fetch(`${BASE_URL}/products/condom/`);
+      const json = await response.json();
+      console.log('🍕product - condom list success!', json);
+    } catch (error) {
+      console.log('🍕product - condom list error', error);
+    }
+  };
+  //제품 리스트에 현재 id 안 오고 있음
+  useEffect(() => {
+    _getCondomList();
+  }, []);
   return (
     <>
       <NavBar>

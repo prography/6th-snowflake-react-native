@@ -80,7 +80,10 @@ const ProductInfo = () => {
               <MarginMedium />
               <LineGrayMiddle />
               <MarginMedium />
-              <ProductInfoReview reviewNum={productInfo.num_of_reviews} />
+              <ProductInfoReview
+                reviewNum={productInfo.num_of_reviews}
+                productId={productId}
+              />
             </Container>
           </ScrollView>
           <MarginBottom />
