@@ -80,7 +80,6 @@ const Join1 = () => {
   const [passwdInput, setPasswdInput] = useState('');
   const [checkPasswdInput, setCheckPasswdInput] = useState('');
 
-
   useEffect(() => {
     setIsFilled(emailInput && passwdInput && checkPasswdInput ? true : false);
   }, [emailInput, passwdInput, checkPasswdInput]);
@@ -120,12 +119,10 @@ const Join1 = () => {
   };
 
   const _signup = async () => {
-
-    console.log('😸1. _signup 호출됨')
-    const email = emailInput
-    const password = passwdInput
-    const username = 'aefe'
-
+    console.log('😸1. _signup 호출됨');
+    const email = emailInput;
+    const password = passwdInput;
+    const username = 'aefe';
 
     // 아래 두 줄은 로그인만 테스트해보고 싶을 때
     // _login(email, password)
@@ -165,9 +162,8 @@ const Join1 = () => {
     } catch (error) {
       console.log('😸. /accounts 회원가입 오류 catch.. ', error);
     }
-
   };
-  
+
   return (
     <>
       <BottomBtnCollectData
@@ -193,8 +189,7 @@ const Join1 = () => {
                   placeholder={info.placeholder}
                   onChangeText={info.function}
                   value={info.infoGiven}
-                >
-                </UserInfoInput>
+                />
                 <MarginWide />
               </OneInfoContainer>
             );

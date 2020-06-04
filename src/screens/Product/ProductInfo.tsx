@@ -23,7 +23,7 @@ const Container = styled.View`
 `;
 
 const ProductInfo = () => {
-  const [productId, setProductId] = useState(2);
+  const [productId, setProductId] = useState(4);
   const [productInfo, setProductInfo] = useState(null);
 
   const _getProductInfo = async () => {
