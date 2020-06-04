@@ -15,6 +15,7 @@ interface Props {
   productName: string;
   imageUri: string;
   navigation: any;
+  id: number;
 }
 
 const Container = styled.TouchableOpacity`
@@ -51,6 +52,7 @@ const RankBar = ({
   productCompany,
   productName,
   imageUri,
+  id,
   navigation,
 }: Props) => {
   const blindState = useSelector(
@@ -59,7 +61,9 @@ const RankBar = ({
   return (
     <Container
       activeOpacity={1}
-      onPress={() => [navigation.navigate('ProductInfo')]}
+      onPress={() => {
+        navigation.navigate('ProductInfo', { productId: id });
+      }}
     >
       <ImageWrapper>
         <ProductImage
@@ -69,6 +73,8 @@ const RankBar = ({
               ? rankNum < 4
                 ? require('~/img/doodle/doodleCdBoxPurple.png')
                 : require('~/img/doodle/doodleCdBoxMint.png')
+              : imageUri === null
+              ? require('~/img/icon/imageNull.png')
               : { uri: imageUri }
           }
         />
