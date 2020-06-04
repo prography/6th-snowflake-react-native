@@ -79,8 +79,8 @@ const Join2 = ({ navigation, route }) => {
             <UserNameInput
               placeholder={'2~10자'}
               onChangeText={(text) => _setUserName(text)}
+              value={_userName}
             >
-              {_userName}
             </UserNameInput>
           </OneLineWrapper>
           <OneLineWrapper>
@@ -89,8 +89,8 @@ const Join2 = ({ navigation, route }) => {
               keyboardType={'number-pad'}
               returnKeyType={'done'}
               onChangeText={(text) => _setUserBirthYear(text)}
+              value={_userBirthYear}
             >
-              {_userBirthYear}
             </YearInputContainer>
             <GuideText>년생이에요.</GuideText>
           </OneLineWrapper>
