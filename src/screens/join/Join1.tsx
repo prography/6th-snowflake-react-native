@@ -92,7 +92,6 @@ const Join1 = () => {
   const [passwordInput, setPasswordInput] = useState('');
   const [checkPasswordInput, setCheckPasswordInput] = useState('');
 
-
   useEffect(() => {
     setIsFilled(emailInput && passwordInput && checkPasswordInput ? true : false);
   }, [emailInput, passwordInput, checkPasswordInput]);
@@ -150,7 +149,6 @@ const Join1 = () => {
     borderColor: !isPasswordCheckFocused ? c.lightGray : c.purple
   };
 
-  
   return (
     <>
       <BottomBtnCollectData
@@ -214,7 +212,6 @@ const Join1 = () => {
               />
               <MarginWide />
             </OneInfoContainer>
-           
 
           {/* <Text>수집된 이메일:</Text>
           <Text>{emailInput}</Text>
