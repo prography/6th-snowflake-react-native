@@ -43,7 +43,13 @@ export const getAgeEra = (birthyear: number) => {
   }
   return ageEra;
 };
-
+export const dateCutter = (date) => {
+  const year = date.slice(0, 4);
+  const month = date.slice(6, 7);
+  const day = date.slice(9, 10);
+  const newDate = `${year}.${month}.${day}`;
+  return newDate;
+};
 export const l = {
   bottomBar: d.px * 75,
   mR: d.px * 20,
