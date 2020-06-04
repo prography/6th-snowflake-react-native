@@ -7,11 +7,11 @@ const Container = styled.View`
   width: ${d.width - l.mR * 2}px;
   margin-left: ${l.mR}px;
 `;
-const ProductInfoImage = (imageUri) => {
+const ProductInfoImage = ({ imageUri }) => {
   return (
     <>
       <Container>
-        <ProductImageBox imageUri={imageUri.imageUri} />
+        <ProductImageBox imageUri={imageUri} />
       </Container>
     </>
   );

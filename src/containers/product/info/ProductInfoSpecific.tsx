@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { Text, Image } from 'react-native';
 import styled from 'styled-components/native';
 import { d, l } from '~/utils/constant';
 import TextProductSpecificTitle from '~/components/universal/text/product/info/TextProductSpecificTitle';
@@ -16,22 +17,21 @@ const LeftWrapper = styled.View`
 const RightWapper = styled.View`
   width: 100%;
 `;
-
-const ProductInfoSpecific = () => {
-  const ProductInfo = {
-    key: 0,
-    title: '얇기',
-    manufacturerKor: '듀렉스',
-    manufacturerEng: 'Durex',
-    nameKor: '필 울트라씬',
-    nameEng: 'Feel Ultra Thin',
-    imageUri: 'http://pngimg.com/uploads/condom/condom_PNG21.png',
-    category: '초박형',
-    length: '185±20mm',
-    width: '49±2mm',
-    thickness: '0.05cm',
+interface Props {
+  category: string;
+  length: number;
+  width: number;
+  thickness: number;
+}
+const ProductInfoSpecific = ({ category, length, width, thickness }: Props) => {
+  const setCategoryToKor = (category) => {
+    switch (category) {
+      case 'CHOBAK':
+        return '초박형';
+      case 'DEFAULT':
+        return '일반형';
+    }
   };
-
   return (
     <>
       <Container>
@@ -41,12 +41,12 @@ const ProductInfoSpecific = () => {
           <TextProductSpecificTitle title={'제품정보'} />
         </LeftWrapper>
         <RightWapper>
-          <TextProductSpecificContent category={ProductInfo.category} />
+          <TextProductSpecificContent category={setCategoryToKor(category)} />
           <MarginNarrow />
           <TextProductSpecificContent
-            length={ProductInfo.length}
-            width={ProductInfo.width}
-            thickness={ProductInfo.thickness}
+            length={length || null}
+            width={width || null}
+            thickness={thickness || null}
           />
         </RightWapper>
       </Container>

@@ -59,11 +59,14 @@ const ProductInfo = () => {
                 manufacturerEng={productInfo.manufacturer_eng}
               />
               <MarginMedium />
-
               <LineGrayMiddle />
               <MarginMedium />
-
-              <ProductInfoSpecific />
+              <ProductInfoSpecific
+                category={productInfo.category}
+                length={productInfo.length}
+                width={productInfo.width}
+                thickness={productInfo.thickness}
+              />
               <MarginMedium />
 
               <LineGrayMiddle />

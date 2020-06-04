@@ -28,9 +28,9 @@ const TextProductSpecificContent = ({
   return (
     <Container>
       {category && <TextStyle>{category}</TextStyle>}
-      {length && <TextStyle>{length}</TextStyle>}
-      {width && <TextStyle>{width}</TextStyle>}
-      {thickness && <TextStyle>{thickness}</TextStyle>}
+      {length && <TextStyle>길이 {length}mm</TextStyle>}
+      {width && <TextStyle>폭 {width}mm</TextStyle>}
+      {thickness && <TextStyle>폭 {thickness}mm</TextStyle>}
     </Container>
   );
 };
