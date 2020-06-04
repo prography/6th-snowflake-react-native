@@ -28,7 +28,7 @@ const GuideText = styled.Text``;
 const UserNameInput = styled.TextInput``;
 const YearInputContainer = styled.TextInput``;
 const Join2 = ({ navigation, route }) => {
-  const { email, password } = route.params;
+  const { signUpEmail, signUpPassword } = route.params;
   console.log('🥇', route.params)
   const [isFilled, setIsFilled] = useState(false);
 
@@ -61,9 +61,14 @@ const Join2 = ({ navigation, route }) => {
   const _setUserPartnerGender = (userPartnerGender: State) => {
     dispatch(setUserPartnerGender(userPartnerGender));
   };
+
+  const [nameInput, setNameInput] = useState('');
+  const [yearInput, setYearInput] = useState('');
+
+
   useEffect(() => {
-    setIsFilled(_userName && _userBirthYear ? true : false);
-  }, [_userName, _userBirthYear]);
+    setIsFilled(nameInput && yearInput ? true : false);
+  }, [nameInput, yearInput]);
   return (
     <>
       <BottomBtnCollectData
@@ -71,6 +76,7 @@ const Join2 = ({ navigation, route }) => {
         stack={'JoinStack'}
         screen={'Join3'}
         isFilled={isFilled}
+        params={{signUpEmail: signUpEmail, signUpPassword: signUpPassword, signUpName: nameInput, signUpYear: yearInput}}
       >
         <TopBarBackArrowRightIcon />
         <Container>
@@ -78,8 +84,8 @@ const Join2 = ({ navigation, route }) => {
             <GuideText>닉네임은</GuideText>
             <UserNameInput
               placeholder={'2~10자'}
-              onChangeText={(text) => _setUserName(text)}
-              value={_userName}
+              onChangeText={setNameInput}
+              value={nameInput}
             >
             </UserNameInput>
           </OneLineWrapper>
@@ -88,16 +94,16 @@ const Join2 = ({ navigation, route }) => {
               placeholder={'year picker로 변경 예정'}
               keyboardType={'number-pad'}
               returnKeyType={'done'}
-              onChangeText={(text) => _setUserBirthYear(text)}
-              value={_userBirthYear}
+              onChangeText={setYearInput}
+              value={yearInput}
             >
             </YearInputContainer>
             <GuideText>년생이에요.</GuideText>
           </OneLineWrapper>
           <Text>수집된 닉네임:</Text>
-          <Text>{_userName}</Text>
+          <Text>{nameInput}</Text>
           <Text>수집된 태어난 연도:</Text>
-          <Text>{_userBirthYear}</Text>
+          <Text>{yearInput}</Text>
         </Container>
       </BottomBtnCollectData>
     </>
