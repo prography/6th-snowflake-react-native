@@ -1,6 +1,7 @@
 import * as React from 'react';
+import { useState, useEffect } from 'react';
 import styled from 'styled-components/native';
-import { d } from '~/utils/constant';
+import { d, BASE_URL } from '~/utils/constant';
 import { ScrollView } from 'react-native';
 import TextTitleDarkLeft from '~/components/universal/text/TextTitleDarkLeft';
 import TextContentLightLeft from '~/components/universal/text/TextContentLightLeft';

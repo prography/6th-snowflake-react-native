@@ -12,20 +12,21 @@ const Container = styled.View`
   flex-direction: column;
 `;
 
-const ProductInfoReview = () => {
-  const ProductInfo = {
-    reviewNum: 27,
-  };
-
+interface Props {
+  reviewNum: number;
+  productId: number;
+}
+const ProductInfoReview = ({ reviewNum, productId }: Props) => {
   return (
     <>
       <Container>
         <TextProductMiddleBar
           title={'리뷰'}
-          reviewNum={ProductInfo.reviewNum}
+          reviewNum={reviewNum}
+          type={'review'}
         />
         <MarginWide />
-        <ReviewCardContainer />
+        {reviewNum ? <ReviewCardContainer productId={productId} /> : null}
       </Container>
     </>
   );
