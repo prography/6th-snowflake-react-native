@@ -166,7 +166,7 @@ const Join1 = () => {
 
   }
 
-  
+
 
   return (
     <>
@@ -175,7 +175,8 @@ const Join1 = () => {
         stack={'JoinStack'}
         screen={'Join2'}
         isFilled={isFilled}
-        onPressFunction={_signup}
+        // onPressFunction={_signup}
+        params={{ email: emailInput, password: passwdInput }}
       >
         <Container>
           <TopBarWithIcon />

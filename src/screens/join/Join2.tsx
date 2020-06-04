@@ -27,7 +27,9 @@ const OneLineWrapper = styled.View``;
 const GuideText = styled.Text``;
 const UserNameInput = styled.TextInput``;
 const YearInputContainer = styled.TextInput``;
-const Join2 = () => {
+const Join2 = ({ navigation, route }) => {
+  const { email, password } = route.params;
+  console.log('🥇', route.params)
   const [isFilled, setIsFilled] = useState(false);
 
   const dispatch = useDispatch();
