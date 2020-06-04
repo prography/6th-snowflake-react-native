@@ -37,6 +37,12 @@ const GuideText = styled.Text`
   color: ${c.darkGray};
 `;
 
+const CommaText = styled.Text`
+  font-family: 'Jost-Semi';
+  font-size: ${d.px * 23}px;
+  color: ${c.darkGray};
+`;
+
 const YearText = styled.Text`
   font-family: 'Jost-Semi';
   font-size: ${d.px * 23}px;
@@ -138,6 +144,7 @@ const Join2 = ({ navigation, route }) => {
                 onBlur={handleNameBlur}
                 blurOnSubmit
               />
+              <CommaText>,</CommaText>
             </GuideContainer>
           </OneLineWrapper>
           <OneLineWrapper>
