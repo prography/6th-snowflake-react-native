@@ -124,7 +124,7 @@ const Join1 = () => {
     console.log('😸1. _signup 호출됨')
     const email = emailInput
     const password = passwdInput
-    const username = 'abcdddefe'
+    const username = 'aefe'
 
     // 아래 두 줄은 로그인만 테스트해보고 싶을 때
     // _login(email, password)

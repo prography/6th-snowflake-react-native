@@ -16,6 +16,7 @@ interface Props {
   btnText: string;
   btnTextBeforeFilled?: string;
   onPressFunction?: any;
+  params?:any
 }
 
 const Screen = styled.View`
@@ -52,12 +53,11 @@ const BottomBtnCollectData = ({
           backgroundColor: isFilled ? c.purple : c.lightGray,
         }}
         onPress={() =>
-          // onPressFunction() ? navigation.navigate(stack, { screen: screen }) : null
           onPressFunction
             ? onPressFunction()
             : isFilled
             ? stack && screen
-              ? navigation.navigate(stack, { screen: screen })
+              ? navigation.navigate(stack, { screen: screen }, params)
               : null
             : null
         }
