@@ -79,7 +79,6 @@ const Join1 = () => {
   const [passwordInput, setPasswordInput] = useState('');
   const [checkPasswordInput, setCheckPasswordInput] = useState('');
 
-
   useEffect(() => {
     setIsFilled(emailInput && passwordInput && checkPasswordInput ? true : false);
   }, [emailInput, passwordInput, checkPasswordInput]);
@@ -112,7 +111,7 @@ const Join1 = () => {
       textContentType: 'newPassword',
     },
   ];
-  
+
   return (
     <>
       <BottomBtnCollectData
@@ -138,8 +137,7 @@ const Join1 = () => {
                   placeholder={info.placeholder}
                   onChangeText={info.function}
                   value={info.infoGiven}
-                >
-                </UserInfoInput>
+                />
                 <MarginWide />
               </OneInfoContainer>
             );

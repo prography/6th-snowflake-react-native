@@ -1,23 +1,36 @@
 import * as React from 'react';
-import { useState } from 'react';
-import { c, d, l } from '~/utils/constant';
+import { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { c, d, l, BASE_URL } from '~/utils/constant';
+import { requestLogin } from '~/modules/auth/index';
 import { View, Text } from 'react-native';
 import styled from 'styled-components/native';
 import NavBar from '~/screens/NavBar';
 import BottomBtnCollectData from '~/components/universal/bottomBar/BottomBtnCollectData';
 import TopBarBackArrowRightIcon from '~/components/universal/topBar/TopBarBackArrowRightIcon';
 import TopBarWithIcon from '~/components/universal/topBar/TopBarRightIcon';
+import { withNavigation } from '@react-navigation/compat';
 const Container = styled.View`
   margin: 0 ${l.mR}px;
 `;
 const LoginInfoInput = styled.TextInput``;
-const Login = () => {
+const Login = ({ navigation }) => {
+  const dispatch = useDispatch();
   const [userEmail, setUserEmail] = useState(null);
   const [userPassword, setUserPassword] = useState(null);
+  const _isLoggedin = useSelector((state) => state.authReducer.isLoggedin);
+  console.log('_loggedin', _isLoggedin);
+  useEffect(() => {
+    _isLoggedin ? navigation.navigate('HomeStack') : null;
+  }, _isLoggedin);
+  const _login = (email: string, password: string) => {
+    console.log('😸5... 로그인 액션 호출');
+    dispatch(requestLogin(userEmail, userPassword));
+  };
   return (
     <BottomBtnCollectData
       btnText={'로그인'}
-      onPressFunction={() => alert('로그인 기능을 추가해 봅시다')}
+      onPressFunction={_login}
       isFilled={true}
     >
       <Container>
@@ -45,4 +58,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default withNavigation(Login);
