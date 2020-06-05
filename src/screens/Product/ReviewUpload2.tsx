@@ -29,6 +29,9 @@ const ReviewUpload2 = () => {
   const _isFilledReviewUpload2 = useSelector(
     (state: State) => state.reviewUploadReducer.isFilledReviewUpload2
   );
+  const _reviewUploadProductId = useSelector(
+    (state: State) => state.reviewUploadReducer.reviewUploadProductId
+  );
   const ProductInfo = {
     key: 0,
     rankNum: 1,
@@ -50,6 +53,7 @@ const ReviewUpload2 = () => {
           productCompany={ProductInfo.productCompany}
           productName={ProductInfo.productName}
           imageUri={ProductInfo.imageUri}
+          productId={_reviewUploadProductId}
         />
         <LineGrayMiddle />
         <MarginMedium />

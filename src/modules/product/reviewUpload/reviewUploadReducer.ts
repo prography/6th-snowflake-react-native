@@ -11,7 +11,7 @@ export interface State {
   isFilledReviewUpload1: boolean;
   isFilledReviewUpload2: boolean;
   isFilledReviewUpload3: boolean;
-  reviewUploadArray: Array;
+  reviewUploadProductId: number;
 }
 
 export const reviewUploadContentPlaceholder =
@@ -29,7 +29,7 @@ const initialState: State = {
   isFilledReviewUpload1: false,
   isFilledReviewUpload2: false,
   isFilledReviewUpload3: false,
-  reviewUploadArray: [],
+  reviewUploadProductId: null,
 };
 
 const SET_THICKNESS_SCORE = 'SET_THICKNESS_SCORE';
@@ -43,7 +43,7 @@ const SET_REVIEW_CONTENT = 'SET_REVIEW_CONTENT';
 const SET_IS_FILLED_REVIEW_UPLOAD1 = 'SET_IS_FILLED_REVIEW_UPLOAD1';
 const SET_IS_FILLED_REVIEW_UPLOAD2 = 'SET_IS_FILLED_REVIEW_UPLOAD2';
 const SET_IS_FILLED_REVIEW_UPLOAD3 = 'SET_IS_FILLED_REVIEW_UPLOAD3';
-const SET_REVIEW_UPLOAD_ARRAY = 'SET_REVIEW_UPLOAD_ARRAY';
+const SET_REVIEW_UPLOAD_PRODUCT_ID = 'SET_REVIEW_UPLOAD_PRODUCT_ID';
 
 export const setThicknessScore = (thicknessScore: State) => {
   return {
@@ -116,10 +116,10 @@ export const setIsFilledReviewUpload3 = (isFilledReviewUpload3: State) => {
   };
 };
 
-export const setReviewUploadArray = (reviewUploadArray: State) => {
+export const setReviewUProductId = (reviewUploadProductId: State) => {
   return {
-    type: SET_REVIEW_CONTENT,
-    reviewUploadArray,
+    type: SET_REVIEW_UPLOAD_PRODUCT_ID,
+    reviewUploadProductId,
   };
 };
 const reviewUploadReducer = (state = initialState, action) => {
@@ -147,8 +147,8 @@ const reviewUploadReducer = (state = initialState, action) => {
       return { ...state, isFilledReviewUpload2: action.isFilledReviewUpload2 };
     case SET_IS_FILLED_REVIEW_UPLOAD3:
       return { ...state, isFilledReviewUpload3: action.isFilledReviewUpload3 };
-    case SET_REVIEW_UPLOAD_ARRAY:
-      return { ...state, reviewUploadArray: action.reviewUploadArray };
+    case SET_REVIEW_UPLOAD_PRODUCT_ID:
+      return { ...state, reviewUploadProductId: action.reviewUploadProductId };
     default:
       return state;
   }

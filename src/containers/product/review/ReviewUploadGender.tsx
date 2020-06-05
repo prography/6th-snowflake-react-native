@@ -66,7 +66,7 @@ const SelectCircle = styled.View`
   height: ${SELECT_CIRCLE_SIZE}px;
   border-radius: 1000px;
   background-color: ${(props) =>
-    props.gender === 'female'
+    props.gender === 'WOMAN'
       ? props.womanColor || c.extraLightGray
       : props.manColor || c.extraLightGray};
   justify-content: center;
@@ -140,8 +140,8 @@ const ReviewUploadGender = () => {
       : [_setPartnerGender(null), _setMyGender(selectedGender)];
   };
   const selection = [
-    { selection: '여성', gender: 'female' },
-    { selection: '남성', gender: 'male' },
+    { selection: '여성', gender: 'WOMAN' },
+    { selection: '남성', gender: 'MAN' },
   ];
   return (
     <>
