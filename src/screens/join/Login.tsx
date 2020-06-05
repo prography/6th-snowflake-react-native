@@ -13,6 +13,8 @@ import { withNavigation } from '@react-navigation/compat';
 import LinePurpleWhenFocused from '~/components/universal/line/LinePurpleWhenFocused';
 import MarginWide from '~/components/universal/margin/MarginWide';
 import MarginNarrow from '~/components/universal/margin/MarginNarrow';
+import { StackActions } from '@react-navigation/native';
+
 const Container = styled.View`
   margin: 0 ${l.mR}px;
 `;
@@ -39,7 +41,7 @@ const Login = ({ navigation }) => {
   const _isLoggedin = useSelector((state) => state.authReducer.isLoggedin);
   console.log('_loggedin', _isLoggedin);
   useEffect(() => {
-    _isLoggedin ? navigation.navigate('HomeStack') : null;
+    _isLoggedin ? navigation.dispatch(StackActions.popToTop()) : null;
   }, [_isLoggedin]);
   useEffect(() => {
     userEmail && userPassword ? setIsFilled(true) : setIsFilled(false);
