@@ -37,7 +37,7 @@ const TextProductMiddleBar = ({ title, score, reviewNum, type }: Props) => {
         <RightWapper>
           {type === 'score' ? (
             score ? (
-              <TextProductScoreBig score={score} />
+              <TextProductScoreBig score={score.toFixed(2)} />
             ) : (
               <AlarmText>작성된 리뷰가 아직 없어요</AlarmText>
             )

@@ -157,7 +157,7 @@ const ReviewUploadTrioScore = () => {
       _thicknessScore && _durabilityScore && _oilyScore ? true : false
     );
     _setTrioAverage(
-      Number((_thicknessScore + _oilyScore + _durabilityScore) / 3)
+      Number(((_thicknessScore + _oilyScore + _durabilityScore) / 3).toFixed(2))
     );
   }, [_thicknessScore, _oilyScore, _durabilityScore]);
 

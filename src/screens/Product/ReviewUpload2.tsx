@@ -32,29 +32,18 @@ const ReviewUpload2 = () => {
   const _reviewUploadProductId = useSelector(
     (state: State) => state.reviewUploadReducer.reviewUploadProductId
   );
-  const ProductInfo = {
-    key: 0,
-    rankNum: 1,
-    productCompany: '듀렉스',
-    productName: '필 울트라씬',
-    imageUri: 'http://pngimg.com/uploads/condom/condom_PNG21.png',
-    score: 4.97,
-  };
+
   return (
     <>
       <BottomBtnCollectData
-        btnText={'qjxm'}
+        btnText={'다음'}
+        btnTextBeforeFilled={'추천도와 성별 정보를 부탁드려요'}
         stack={'ProductStack'}
         screen={'ReviewUpload3'}
         isFilled={_isFilledReviewUpload2}
       >
         <TopBarBackArrow />
-        <ProductBarForReviewUpload
-          productCompany={ProductInfo.productCompany}
-          productName={ProductInfo.productName}
-          imageUri={ProductInfo.imageUri}
-          productId={_reviewUploadProductId}
-        />
+        <ProductBarForReviewUpload productId={_reviewUploadProductId} />
         <LineGrayMiddle />
         <MarginMedium />
         <ScrollView>

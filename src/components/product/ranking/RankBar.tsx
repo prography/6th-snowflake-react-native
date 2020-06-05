@@ -87,7 +87,7 @@ const RankBar = ({
         <TextProductName productName={productName} />
       </TextWrapper>
       <ScoreWrapper>
-        <TextProductScore score={score} />
+        <TextProductScore score={score.toFixed(2)} />
       </ScoreWrapper>
     </Container>
   );

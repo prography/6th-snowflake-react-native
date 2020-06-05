@@ -17,7 +17,7 @@ const TextStyle = styled.Text`
 const TextProductScore = ({ score }: Props) => {
   return (
     <>
-      {score === 0 ? (
+      {score === '0.00' ? (
         <TextStyle>x</TextStyle>
       ) : (
         <TextStyle>★ {score}</TextStyle>
