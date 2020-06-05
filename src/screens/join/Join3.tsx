@@ -28,12 +28,13 @@ const Container = styled.View`
 `;
 const OneLineWrapper = styled.View`
   flex-direction: row;
+  align-items: center;
 `;
 
 const GuideText = styled.Text`
-  margin-left: ${d.px * 20}px;
-  font-family: 'Jost-Semi';
+  font-family: 'Jost-Bold';
   font-size: ${d.px * 23}px;
+  line-height: ${d.px * 36}px;
   color: ${c.darkGray};
 `;
 
@@ -50,16 +51,11 @@ const CircleContainer = styled.View`
   justify-content: center;
 `;
 
-
-const CircleTextContatiner = styled.View`
-
-`;
-
-
+const CircleTextContatiner = styled.View``;
 
 const Join3 = ({ navigation, route }) => {
-  const {signUpEmail, signUpPassword, signUpName, signUpYear} = route.params;
-  console.log('🍊', route.params)
+  const { signUpEmail, signUpPassword, signUpName, signUpYear } = route.params;
+  console.log('🍊', route.params);
   const [isFilled, setIsFilled] = useState(false);
 
   const dispatch = useDispatch();
@@ -115,28 +111,34 @@ const Join3 = ({ navigation, route }) => {
         stack={'JoinStack'}
         screen={'Join4'}
         isFilled={isFilled}
-        params={{signUpEmail: signUpEmail, signUpPassword: signUpPassword, signUpName: signUpName, signUpYear: signUpYear, signUpGender: _userGender, signUpPartnerGender: _userPartnerGender}}
+        params={{
+          signUpEmail: signUpEmail,
+          signUpPassword: signUpPassword,
+          signUpName: signUpName,
+          signUpYear: signUpYear,
+          signUpGender: _userGender,
+          signUpPartnerGender: _userPartnerGender,
+        }}
       >
         <TopBarBackArrowRightIcon />
         <Container>
           <OneLineWrapper>
             <GuideText>{signUpName}님은</GuideText>
           </OneLineWrapper>
-          <MarginWide/>
+          <MarginWide />
           <OneLineWrapper>
             <GuideText>스스로를 </GuideText>
             <GenderCircle size={36} who={true} gender={_userGender} />
-
             <GuideText>으로 여기며</GuideText>
           </OneLineWrapper>
-          <MarginWide/>
+          <MarginWide />
           <OneLineWrapper>
             <GuideText>파트너는 대체로 </GuideText>
             <GenderCircle size={36} who={false} gender={_userPartnerGender} />
             <GuideText>이에요.</GuideText>
           </OneLineWrapper>
-          <MarginWide/>
-          <MarginMedium/>
+          <MarginWide />
+          <MarginMedium />
           <CircleContainer>
             <CircleTextContatiner>
               <TouchableOpacity
@@ -158,11 +160,10 @@ const Join3 = ({ navigation, route }) => {
                   }}
                 />
               </TouchableOpacity>
-              <GenderText style={{marginLeft: d.px*17.8}}>여성</GenderText>
+              <GenderText style={{ marginLeft: d.px * 17.8 }}>여성</GenderText>
             </CircleTextContatiner>
             <CircleTextContatiner>
               <TouchableOpacity
-                
                 onPress={() => {
                   setGender('MAN');
                 }}
@@ -181,11 +182,11 @@ const Join3 = ({ navigation, route }) => {
                   }}
                 />
               </TouchableOpacity>
-              <GenderText style={{marginLeft: d.px*47}}>남성</GenderText>
+              <GenderText style={{ marginLeft: d.px * 47 }}>남성</GenderText>
             </CircleTextContatiner>
           </CircleContainer>
-          <MarginWide/>
-          <MarginMedium/>
+          <MarginWide />
+          <MarginMedium />
           <CircleContainer>
             <CircleTextContatiner>
               <TouchableOpacity
@@ -207,7 +208,7 @@ const Join3 = ({ navigation, route }) => {
                   }}
                 />
               </TouchableOpacity>
-              <GenderText style={{marginLeft: d.px*10}}>모든 성</GenderText>
+              <GenderText style={{ marginLeft: d.px * 10 }}>모든 성</GenderText>
             </CircleTextContatiner>
             <CircleTextContatiner>
               <TouchableOpacity
@@ -229,7 +230,7 @@ const Join3 = ({ navigation, route }) => {
                   }}
                 />
               </TouchableOpacity>
-              <GenderText style={{marginLeft: d.px*40}}>비공개</GenderText>
+              <GenderText style={{ marginLeft: d.px * 40 }}>비공개</GenderText>
             </CircleTextContatiner>
           </CircleContainer>
           {/* <Text>수집된 유저 젠더:</Text>

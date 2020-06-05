@@ -57,16 +57,18 @@ const ProductBarForReviewUpload = ({ productId }: Props) => {
   return (
     <Container>
       <ImageWrapper>
-        <ProductImage
-          style={{ resizeMode: 'contain' }}
-          source={
-            blindState
-              ? require('~/img/doodle/doodleCdBoxMintPurpleHeart.png')
-              : _productInfo.image === null
-              ? require('~/img/icon/imageNull.png')
-              : { uri: _productInfo.image }
-          }
-        />
+        {_productInfo === null ? null : (
+          <ProductImage
+            style={{ resizeMode: 'contain' }}
+            source={
+              blindState
+                ? require('~/img/doodle/doodleCdBoxMintPurpleHeart.png')
+                : _productInfo.image === null
+                ? require('~/img/icon/imageNull.png')
+                : { uri: _productInfo.image }
+            }
+          />
+        )}
       </ImageWrapper>
       <TextWrapper>
         <TextProductCompany
