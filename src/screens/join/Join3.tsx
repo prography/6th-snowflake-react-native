@@ -22,13 +22,26 @@ import TopBarBackArrow from '~/components/universal/topBar/TopBarBackArrow';
 import TopBarBackArrowRightIcon from '~/components/universal/topBar/TopBarBackArrowRightIcon';
 import GenderCircle from '~/components/universal/profile/GenderCircle';
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import MarginMedium from '~/components/universal/margin/MarginMedium';
 const Container = styled.View`
   margin: 0 ${l.mR}px;
 `;
 const OneLineWrapper = styled.View`
   flex-direction: row;
 `;
-const GuideText = styled.Text``;
+
+const GuideText = styled.Text`
+  margin-left: ${d.px * 20}px;
+  font-family: 'Jost-Semi';
+  font-size: ${d.px * 23}px;
+  color: ${c.darkGray};
+`;
+
+const CircleContainer = styled.View`
+  flex-direction: row;
+  margin-top: ${d.px * 26.6}px;
+  justify-content: center;
+`;
 
 const Join3 = ({ navigation, route }) => {
   const {signUpEmail, signUpPassword, signUpName, signUpYear} = route.params;
@@ -65,8 +78,23 @@ const Join3 = ({ navigation, route }) => {
 
   // const [genderInput, setGenderInput] = useState('');
   // const [genderPartnerInput, setGenderPartnerInput] = useState('');
+  interface State {
+    womanColor: string;
+    manColor: string;
+    genderColorReducer: string;
+  }
 
-  
+  const womanColor = useSelector(
+    (state: State) => state.genderColorReducer.womanColor
+  );
+  const manColor = useSelector(
+    (state: State) => state.genderColorReducer.manColor
+  );
+
+  const [womanColor2, setWomanColor2] = useState(c.red);
+  const [manColor2, setManColor2] = useState(c.blue);
+  const [bothColor, setBothColor] = useState(c.purple);
+  const [noneColor, setNoneColor] = useState(c.black);
 
   return (
     <>
@@ -82,66 +110,110 @@ const Join3 = ({ navigation, route }) => {
           <OneLineWrapper>
             <GuideText>{signUpName}님은</GuideText>
           </OneLineWrapper>
+          <MarginWide/>
           <OneLineWrapper>
             <GuideText>스스로를 </GuideText>
             <GenderCircle size={36} who={true} gender={_userGender} />
+
             <GuideText>으로 여기며</GuideText>
           </OneLineWrapper>
+          <MarginWide/>
           <OneLineWrapper>
             <GuideText>파트너는 대체로 </GuideText>
             <GenderCircle size={36} who={false} gender={_userPartnerGender} />
             <GuideText>이에요.</GuideText>
           </OneLineWrapper>
-          <>
+          <MarginWide/>
+          <MarginMedium/>
+          <CircleContainer>
             <TouchableOpacity
-              style={{
-                height: 50,
-                width: 50,
-                backgroundColor: 'blue',
-                marginBottom: 10,
-              }}
               onPress={() => {
                 setGender('WOMAN');
               }}
-            />
+            >
+              <View
+                style={{
+                  width: d.height / 20,
+                  height: d.height / 20,
+                  marginLeft: d.px * 10,
+                  marginRight: d.px * 40,
+                  borderRadius: 100,
+                  backgroundColor: womanColor2 === null ? 'white' : womanColor2,
+                  borderColor: womanColor2 === null ? c.lightGray : womanColor2,
+                  borderStyle: womanColor2 === null ? 'dashed' : 'solid',
+                  borderWidth: d.px * 1,
+                }}
+              />
+            </TouchableOpacity>
+
+
             <TouchableOpacity
-              style={{
-                height: 50,
-                width: 50,
-                backgroundColor: 'blue',
-                marginBottom: 10,
-              }}
+              
               onPress={() => {
                 setGender('MAN');
               }}
-            />
+            >
+              <View
+                style={{
+                  width: d.height / 20,
+                  height: d.height / 20,
+                  marginLeft: d.px * 40,
+                  marginRight: d.px * 5,
+                  borderRadius: 100,
+                  backgroundColor: manColor2 === null ? 'white' : manColor2,
+                  borderColor: manColor2 === null ? c.lightGray : manColor2,
+                  borderStyle: manColor2 === null ? 'dashed' : 'solid',
+                  borderWidth: d.px * 1,
+                }}
+              />
+            </TouchableOpacity>
+          </CircleContainer>
+          <MarginWide/>
+          <MarginMedium/>
+          <CircleContainer>
             <TouchableOpacity
-              style={{
-                height: 50,
-                width: 50,
-                backgroundColor: 'blue',
-                marginBottom: 10,
-              }}
               onPress={() => {
                 setGender('BOTH');
               }}
-            />
+            >
+              <View
+                style={{
+                  width: d.height / 20,
+                  height: d.height / 20,
+                  marginLeft: d.px * 10,
+                  marginRight: d.px * 40,
+                  borderRadius: 100,
+                  backgroundColor: bothColor === null ? 'white' : bothColor,
+                  borderColor: bothColor === null ? c.lightGray : bothColor,
+                  borderStyle: bothColor === null ? 'dashed' : 'solid',
+                  borderWidth: d.px * 1,
+                }}
+              />
+            </TouchableOpacity>
             <TouchableOpacity
-              style={{
-                height: 50,
-                width: 50,
-                backgroundColor: 'blue',
-                marginBottom: 10,
-              }}
               onPress={() => {
                 setGender('NONE');
               }}
-            />
-          </>
-          <Text>수집된 유저 젠더:</Text>
+            >
+              <View
+                style={{
+                  width: d.height / 20,
+                  height: d.height / 20,
+                  marginLeft: d.px * 40,
+                  marginRight: d.px * 5,
+                  borderRadius: 100,
+                  backgroundColor: noneColor === null ? 'white' : noneColor,
+                  borderColor: noneColor === null ? c.lightGray : noneColor,
+                  borderStyle: bothColor === null ? 'dashed' : 'solid',
+                  borderWidth: d.px * 1,
+                }}
+              />
+            </TouchableOpacity>
+          </CircleContainer>
+          {/* <Text>수집된 유저 젠더:</Text>
           <Text>{_userGender}</Text>
           <Text>수집된 유저 파트너 젠더:</Text>
-          <Text>{_userPartnerGender}</Text>
+          <Text>{_userPartnerGender}</Text> */}
         </Container>
       </BottomBtnCollectData>
     </>

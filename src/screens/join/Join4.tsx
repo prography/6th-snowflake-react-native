@@ -110,3 +110,14 @@ const Join4 = ({ navigation, route }) => {
 };
 
 export default Join4;
+
+
+
+
+// onPress={() =>
+//   onPressFunction ? onPressFunction() : isFilled
+//       ? stack && screen
+//         ? navigation.navigate(screen, params)
+//         : null
+//       : null
+// }

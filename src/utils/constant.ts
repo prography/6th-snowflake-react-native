@@ -64,6 +64,8 @@ export const c: Color = {
   extraLightGray: '#D8D8D8',
   purple: '#884aff',
   mint: '#B2FFF9',
+  red: '#F76B6B',
+  blue: '#6BA4F7',
 };
 
 export const circleColor1 = [
@@ -104,6 +106,8 @@ interface Color {
   extraLightGray: string;
   purple: string;
   mint: string;
+  red: string;
+  blue: string;
 }
 
 export const theme = {
