@@ -33,7 +33,7 @@ const ReviewUpload1 = ({ route }) => {
   };
 
   useEffect(() => {
-    productId === null ? null : _setReviewUploadProductId(productId);
+    productId === null ? null : [_setReviewUploadProductId(productId)];
   });
   return (
     <>
