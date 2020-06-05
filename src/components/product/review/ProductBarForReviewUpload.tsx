@@ -1,4 +1,6 @@
 import * as React from 'react';
+import { useState, useEffect } from 'react';
+import { BASE_URL } from '~/utils/constant';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components/native';
 import { d, c, l } from '~/utils/constant';
@@ -6,10 +8,7 @@ import TextProductCompany from '~/components/universal/text/product/TextProductC
 import TextProductName from '~/components/universal/text/product/TextProductName';
 
 interface Props {
-  rankNum: number;
-  productCompany: string;
-  productName: string;
-  imageUri: string;
+  productId: number;
   navigation: any;
 }
 
@@ -34,11 +33,24 @@ const TextWrapper = styled.View`
   justify-content: center;
 `;
 
-const ProductBarForReviewUpload = ({
-  productCompany,
-  productName,
-  imageUri,
-}: Props) => {
+const ProductBarForReviewUpload = ({ productId }: Props) => {
+  const [_productInfo, _setProductInfo] = useState(null);
+
+  const _getProductInfo = async () => {
+    try {
+      const response = await fetch(`${BASE_URL}/products/condom/${productId}/`);
+      const json = await response.json();
+      console.log('🎃review upload - product info success', _productInfo);
+      _setProductInfo(json);
+    } catch (error) {
+      console.log('🎃review upload - product info error', error);
+    }
+  };
+
+  useEffect(() => {
+    _getProductInfo();
+  }, []);
+
   const blindState = useSelector(
     (state: State) => state.blindReducer.blindState
   );
@@ -50,13 +62,23 @@ const ProductBarForReviewUpload = ({
           source={
             blindState
               ? require('~/img/doodle/doodleCdBoxMintPurpleHeart.png')
-              : { uri: imageUri }
+              : _productInfo.image === null
+              ? require('~/img/icon/imageNull.png')
+              : { uri: _productInfo.image }
           }
         />
       </ImageWrapper>
       <TextWrapper>
-        <TextProductCompany productCompany={productCompany} />
-        <TextProductName productName={productName} />
+        <TextProductCompany
+          productCompany={
+            _productInfo === null ? 'Loading...' : _productInfo.manufacturer_kor
+          }
+        />
+        <TextProductName
+          productName={
+            _productInfo === null ? 'Loading...' : _productInfo.name_kor
+          }
+        />
       </TextWrapper>
     </Container>
   );

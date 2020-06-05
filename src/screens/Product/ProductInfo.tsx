@@ -49,7 +49,7 @@ const ProductInfo = ({ route, navigation }) => {
       {productInfo === null ? (
         <TextTitlePurpleRight title={'Loading...'} />
       ) : (
-        <ProductInfoBar>
+        <ProductInfoBar productId={productId}>
           <ScrollView showsVerticalScrollIndicator={false}>
             <TopBarBackArrow />
             <Container>

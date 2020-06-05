@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useState } from 'react';
 import styled from 'styled-components/native';
 import { Text, ScrollView } from 'react-native';
 import { useSelector } from 'react-redux';
@@ -17,7 +18,9 @@ const Container = styled.View`
   align-items: center;
 `;
 
-const ReviewUpload1 = () => {
+const ReviewUpload1 = ({ route }) => {
+  const { productId } = route.params;
+  const [isFilled, setIsFilled] = useState(false);
   const ProductInfo = {
     key: 0,
     rankNum: 1,
@@ -35,15 +38,13 @@ const ReviewUpload1 = () => {
         btnText={'다음'}
         stack={'ProductStack'}
         screen={'ReviewUpload2'}
-        isFilled={_isFilledReviewUpload1}
+        isFilled={isFilled}
         btnTextBeforeFilled={'콘돔 삼박자를 평가해주세요'}
+        params={{ productId: productId }}
       >
         <TopBarBackArrow />
-        <ProductBarForReviewUpload
-          productCompany={ProductInfo.productCompany}
-          productName={ProductInfo.productName}
-          imageUri={ProductInfo.imageUri}
-        />
+
+        <ProductBarForReviewUpload productId={productId} />
         <LineGrayMiddle />
         <MarginMedium />
         <ScrollView>
