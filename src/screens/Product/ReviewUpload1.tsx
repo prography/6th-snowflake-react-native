@@ -1,8 +1,13 @@
 import * as React from 'react';
+import { useEffect } from 'react';
 import styled from 'styled-components/native';
 import { Text, ScrollView } from 'react-native';
-import { useSelector } from 'react-redux';
-import { State } from '~/modules/product/reviewUpload/reviewUploadReducer';
+import {
+  State,
+  setReviewUProductId,
+} from '~/modules/product/reviewUpload/reviewUploadReducer';
+import { useSelector, useDispatch } from 'react-redux';
+
 import Blinder from '~/components/product/Blinder';
 import TopBarBackArrow from '~/components/universal/topBar/TopBarBackArrow';
 import LineGrayMiddle from '~/components/universal/line/LineGrayMiddle';
@@ -17,18 +22,19 @@ const Container = styled.View`
   align-items: center;
 `;
 
-const ReviewUpload1 = () => {
-  const ProductInfo = {
-    key: 0,
-    rankNum: 1,
-    productCompany: '듀렉스',
-    productName: '필 울트라씬',
-    imageUri: 'http://pngimg.com/uploads/condom/condom_PNG21.png',
-    score: 4.97,
-  };
+const ReviewUpload1 = ({ route }) => {
+  const { productId } = route.params;
+  const dispatch = useDispatch();
   const _isFilledReviewUpload1 = useSelector(
     (state: State) => state.reviewUploadReducer.isFilledReviewUpload1
   );
+  const _setReviewUploadProductId = (reviewUploadProductId: State) => {
+    dispatch(setReviewUProductId(reviewUploadProductId));
+  };
+
+  useEffect(() => {
+    productId === null ? null : [_setReviewUploadProductId(productId)];
+  });
   return (
     <>
       <BottomBtnCollectData
@@ -37,17 +43,14 @@ const ReviewUpload1 = () => {
         screen={'ReviewUpload2'}
         isFilled={_isFilledReviewUpload1}
         btnTextBeforeFilled={'콘돔 삼박자를 평가해주세요'}
+        params={{ productId: productId }}
       >
         <TopBarBackArrow />
-        <ProductBarForReviewUpload
-          productCompany={ProductInfo.productCompany}
-          productName={ProductInfo.productName}
-          imageUri={ProductInfo.imageUri}
-        />
+        <ProductBarForReviewUpload productId={productId} />
         <LineGrayMiddle />
         <MarginMedium />
         <ScrollView>
-          <ReviewUploadTrioScore />
+          <ReviewUploadTrioScore productId={productId} />
           <MarginBottom />
         </ScrollView>
       </BottomBtnCollectData>

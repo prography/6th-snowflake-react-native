@@ -32,9 +32,9 @@ const ProductImageBox = ({ imageUri }: Props) => {
         source={
           blindState
             ? require('~/img/doodle/doodleCdBoxMintPurpleHeart.png')
-            : imageUri
-            ? { uri: imageUri }
-            : require('~/img/doodle/doodleCdBoxMint.png')
+            : imageUri === null
+            ? require('~/img/icon/imageNull.png')
+            : { uri: imageUri }
         }
       />
     </Container>

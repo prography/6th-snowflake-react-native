@@ -27,9 +27,9 @@ const GuideTextArea = styled.View`
   flex-direction: row;
 `;
 const GuideText = styled.Text`
-  font-family: 'Jost-Semi'
+  font-family: 'Jost-Semi';
   font-size: ${d.px * 15}px;
-  color: ${c.darkGray}
+  color: ${c.darkGray};
   margin-top: ${d.px * 20.6}px;
 `;
 const WarningText = styled.Text``;
@@ -39,7 +39,7 @@ const UserInfoInput = styled.TextInput`
   border-bottom-width: ${d.px * 2}px;
   margin-top: ${d.px * 13}px;
   font-size: ${d.px * 23}px;
-  font-family: 'Jost-Light'
+  font-family: 'Jost-Light';
 `;
 
 const Join1 = () => {
@@ -93,7 +93,9 @@ const Join1 = () => {
   const [checkPasswordInput, setCheckPasswordInput] = useState('');
 
   useEffect(() => {
-    setIsFilled(emailInput && passwordInput && checkPasswordInput ? true : false);
+    setIsFilled(
+      emailInput && passwordInput && checkPasswordInput ? true : false
+    );
   }, [emailInput, passwordInput, checkPasswordInput]);
   const JoinList = [
     {
@@ -126,27 +128,39 @@ const Join1 = () => {
   ];
 
   const [isEmailFocused, setEmailFocused] = useState(false);
-  const handleEmailFocus = () => {setEmailFocused(true)};
-  const handleEmailBlur = () => {setEmailFocused(false)};
+  const handleEmailFocus = () => {
+    setEmailFocused(true);
+  };
+  const handleEmailBlur = () => {
+    setEmailFocused(false);
+  };
   const emailLabelStyle = {
     color: !isEmailFocused ? c.darkGray : c.black,
-    borderColor: !isEmailFocused ? c.lightGray : c.purple
+    borderColor: !isEmailFocused ? c.lightGray : c.purple,
   };
 
   const [isPasswordFocused, setPasswordFocused] = useState(false);
-  const handlePasswordfocus = () => {setPasswordFocused(true)};
-  const handlePasswordblur = () => {setPasswordFocused(false)};
+  const handlePasswordfocus = () => {
+    setPasswordFocused(true);
+  };
+  const handlePasswordblur = () => {
+    setPasswordFocused(false);
+  };
   const passwordLabelStyle = {
     color: !isPasswordFocused ? c.darkGray : c.black,
-    borderColor: !isPasswordFocused ? c.lightGray : c.purple
+    borderColor: !isPasswordFocused ? c.lightGray : c.purple,
   };
 
   const [isPasswordCheckFocused, setPasswordCheckFocused] = useState(false);
-  const handlePasswordCheckFocus = () => {setPasswordCheckFocused(true)};
-  const handlePasswordCheckBlur = () => {setPasswordCheckFocused(false)};
+  const handlePasswordCheckFocus = () => {
+    setPasswordCheckFocused(true);
+  };
+  const handlePasswordCheckBlur = () => {
+    setPasswordCheckFocused(false);
+  };
   const passwordCheckLabelStyle = {
     color: !isPasswordCheckFocused ? c.darkGray : c.black,
-    borderColor: !isPasswordCheckFocused ? c.lightGray : c.purple
+    borderColor: !isPasswordCheckFocused ? c.lightGray : c.purple,
   };
 
   return (
@@ -161,57 +175,57 @@ const Join1 = () => {
       >
         <Container>
           <TopBarWithIcon />
-          
-            <OneInfoContainer>
-              <GuideTextArea>
-                <GuideText>{JoinList[0].guideText}</GuideText>
-                {/* <WarningText>{info.warningText}</WarningText> */}
-              </GuideTextArea>
-              <UserInfoInput
-                style={emailLabelStyle}
-                autoCompleteType={JoinList[0].autoCompleteType}
-                textContentType={JoinList[0].textContentType}
-                placeholder={JoinList[0].placeholder}
-                onChangeText={JoinList[0].function}
-                value={JoinList[0].infoGiven}
-                onFocus={handleEmailFocus}
-                onBlur={handleEmailBlur}
-                blurOnSubmit
-              />
-              <GuideTextArea>
-                <GuideText>{JoinList[1].guideText}</GuideText>
-                {/* <WarningText>{info.warningText}</WarningText> */}
-              </GuideTextArea>
-              <UserInfoInput
-                style={passwordLabelStyle}
-                autoCompleteType={JoinList[1].autoCompleteType}
-                textContentType={JoinList[1].textContentType}
-                placeholder={JoinList[1].placeholder}
-                onChangeText={JoinList[1].function}
-                value={JoinList[1].infoGiven}
-                onFocus={handlePasswordfocus}
-                onBlur={handlePasswordblur}
-                blurOnSubmit
-                secureTextEntry={true}
-              />
-              <GuideTextArea>
-                <GuideText>{JoinList[2].guideText}</GuideText>
-                {/* <WarningText>{info.warningText}</WarningText> */}
-              </GuideTextArea>
-              <UserInfoInput
-                style={passwordCheckLabelStyle}
-                autoCompleteType={JoinList[2].autoCompleteType}
-                textContentType={JoinList[2].textContentType}
-                placeholder={JoinList[2].placeholder}
-                onChangeText={JoinList[2].function}
-                value={JoinList[2].infoGiven}
-                onFocus={handlePasswordCheckFocus}
-                onBlur={handlePasswordCheckBlur}
-                blurOnSubmit
-                secureTextEntry={true}
-              />
-              <MarginWide />
-            </OneInfoContainer>
+
+          <OneInfoContainer>
+            <GuideTextArea>
+              <GuideText>{JoinList[0].guideText}</GuideText>
+              {/* <WarningText>{info.warningText}</WarningText> */}
+            </GuideTextArea>
+            <UserInfoInput
+              style={emailLabelStyle}
+              autoCompleteType={JoinList[0].autoCompleteType}
+              textContentType={JoinList[0].textContentType}
+              placeholder={JoinList[0].placeholder}
+              onChangeText={JoinList[0].function}
+              value={JoinList[0].infoGiven}
+              onFocus={handleEmailFocus}
+              onBlur={handleEmailBlur}
+              blurOnSubmit
+            />
+            <GuideTextArea>
+              <GuideText>{JoinList[1].guideText}</GuideText>
+              {/* <WarningText>{info.warningText}</WarningText> */}
+            </GuideTextArea>
+            <UserInfoInput
+              style={passwordLabelStyle}
+              autoCompleteType={JoinList[1].autoCompleteType}
+              textContentType={JoinList[1].textContentType}
+              placeholder={JoinList[1].placeholder}
+              onChangeText={JoinList[1].function}
+              value={JoinList[1].infoGiven}
+              onFocus={handlePasswordfocus}
+              onBlur={handlePasswordblur}
+              blurOnSubmit
+              secureTextEntry={true}
+            />
+            <GuideTextArea>
+              <GuideText>{JoinList[2].guideText}</GuideText>
+              {/* <WarningText>{info.warningText}</WarningText> */}
+            </GuideTextArea>
+            <UserInfoInput
+              style={passwordCheckLabelStyle}
+              autoCompleteType={JoinList[2].autoCompleteType}
+              textContentType={JoinList[2].textContentType}
+              placeholder={JoinList[2].placeholder}
+              onChangeText={JoinList[2].function}
+              value={JoinList[2].infoGiven}
+              onFocus={handlePasswordCheckFocus}
+              onBlur={handlePasswordCheckBlur}
+              blurOnSubmit
+              secureTextEntry={true}
+            />
+            <MarginWide />
+          </OneInfoContainer>
 
           {/* <Text>수집된 이메일:</Text>
           <Text>{emailInput}</Text>

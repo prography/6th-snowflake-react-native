@@ -8,6 +8,7 @@ import { d, c, l } from '~/utils/constant';
 interface Props {
   children: React.ReactNode;
   navigation: StackNavigationProp<RootTabParamList>;
+  productId: number;
 }
 
 const Screen = styled.View`
@@ -35,7 +36,7 @@ const Title = styled.Text`
   font-size: ${d.px * 12}px;
 `;
 
-const ProductInfoBar = ({ children, navigation }: Props) => {
+const ProductInfoBar = ({ children, navigation, productId }: Props) => {
   return (
     <Screen>
       {children}
@@ -48,7 +49,7 @@ const ProductInfoBar = ({ children, navigation }: Props) => {
         </Tab>
         <Tab
           onPress={() => {
-            navigation.navigate('ReviewUpload1');
+            navigation.navigate('ReviewUpload1', { productId: productId });
           }}
         >
           <Title>리뷰 쓰러 가기</Title>

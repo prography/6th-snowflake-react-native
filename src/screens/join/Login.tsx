@@ -10,19 +10,39 @@ import BottomBtnCollectData from '~/components/universal/bottomBar/BottomBtnColl
 import TopBarBackArrowRightIcon from '~/components/universal/topBar/TopBarBackArrowRightIcon';
 import TopBarWithIcon from '~/components/universal/topBar/TopBarRightIcon';
 import { withNavigation } from '@react-navigation/compat';
+import LinePurpleWhenFocused from '~/components/universal/line/LinePurpleWhenFocused';
+import MarginWide from '~/components/universal/margin/MarginWide';
+import MarginNarrow from '~/components/universal/margin/MarginNarrow';
 const Container = styled.View`
   margin: 0 ${l.mR}px;
 `;
-const LoginInfoInput = styled.TextInput``;
+const InputContainer = styled.View``;
+const LoginGuideText = styled.Text`
+  font-family: Jost-Light;
+  font-size: ${d.px * 15}px;
+  color: ${c.lightGray};
+`;
+const LoginInfoInput = styled.TextInput`
+  font-family: Jost-Bold;
+  font-size: ${d.px * 23}px;
+  color: ${c.darkGray};
+`;
 const Login = ({ navigation }) => {
   const dispatch = useDispatch();
   const [userEmail, setUserEmail] = useState(null);
   const [userPassword, setUserPassword] = useState(null);
+  const [isFilled, setIsFilled] = useState(false);
+
+  const [handleEmailFocus, setHandleEmailFocus] = useState(false);
+  const [handlePasswordFocus, setPasswordFocus] = useState(false);
   const _isLoggedin = useSelector((state) => state.authReducer.isLoggedin);
   console.log('_loggedin', _isLoggedin);
   useEffect(() => {
     _isLoggedin ? navigation.navigate('HomeStack') : null;
-  }, _isLoggedin);
+  }, [_isLoggedin]);
+  useEffect(() => {
+    userEmail && userPassword ? setIsFilled(true) : setIsFilled(false);
+  }, [userEmail, userPassword]);
   const _login = (email: string, password: string) => {
     console.log('😸5... 로그인 액션 호출');
     dispatch(requestLogin(userEmail, userPassword));
@@ -31,28 +51,55 @@ const Login = ({ navigation }) => {
     <BottomBtnCollectData
       btnText={'로그인'}
       onPressFunction={_login}
-      isFilled={true}
+      isFilled={isFilled}
     >
       <Container>
         <TopBarWithIcon />
-        <LoginInfoInput
-          placeholder={'이메일 입력'}
-          onChangeText={(text) => {
-            setUserEmail(text);
-          }}
-        >
-          {userEmail}
-        </LoginInfoInput>
-        <LoginInfoInput
-          placeholder={'6자리 이상'}
-          onChangeText={(text) => {
-            setUserPassword(text);
-          }}
-        >
-          {userPassword}
-        </LoginInfoInput>
-        <Text>입력한 이메일: {userEmail}</Text>
-        <Text>입력한 비번: {userPassword}</Text>
+        <InputContainer>
+          <LoginGuideText>이메일</LoginGuideText>
+          <MarginNarrow />
+          <LoginInfoInput
+            placeholder={'이메일 입력'}
+            placeholderTextColor={c.extraLightGray}
+            onChangeText={(text) => {
+              setUserEmail(text);
+            }}
+            onFocus={() => {
+              setHandleEmailFocus(true);
+            }}
+            onBlur={() => {
+              setHandleEmailFocus(false);
+            }}
+          >
+            {userEmail}
+          </LoginInfoInput>
+          <LinePurpleWhenFocused focused={handleEmailFocus} />
+        </InputContainer>
+        <MarginWide />
+        <MarginWide />
+        <InputContainer>
+          <LoginGuideText>비밀번호</LoginGuideText>
+          <MarginNarrow />
+          <LoginInfoInput
+            placeholder={'6자리 이상'}
+            placeholderTextColor={c.extraLightGray}
+            autoCompleteType={'password'}
+            secureTextEntry={true}
+            onChangeText={(text) => {
+              setUserPassword(text);
+            }}
+            onFocus={() => {
+              setPasswordFocus(true);
+            }}
+            onBlur={() => {
+              setPasswordFocus(false);
+            }}
+          >
+            {userPassword}
+          </LoginInfoInput>
+          <LinePurpleWhenFocused focused={handlePasswordFocus} />
+        </InputContainer>
+        <MarginWide />
       </Container>
     </BottomBtnCollectData>
   );
