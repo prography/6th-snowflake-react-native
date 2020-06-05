@@ -83,13 +83,13 @@ const ReviewUpload3 = ({ navigation }) => {
     const content = _reviewContent;
 
     try {
-      console.log('🎃2_reviews 업로드 api 호출');
+      console.log('🎃2_reviews 업로드 api 호출 with token:', token);
       const response = await fetch(`${BASE_URL}/reviews/`, {
         method: 'POST',
         headers: {
           Accept: 'application/json',
           'Content-Type': 'application/json',
-          Authorization: 'Bearer ' + token,
+          Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify({
           product,
@@ -107,7 +107,7 @@ const ReviewUpload3 = ({ navigation }) => {
       await _resetReviewUploadStore();
       await navigation.navigate('ProductStack', { screen: 'ProductMain' });
     } catch (error) {
-      console.log('🎃 review업로드 안 됐다리');
+      console.log('🎃 review업로드 안 됐다리', error);
     }
   };
 
