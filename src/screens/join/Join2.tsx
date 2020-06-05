@@ -58,7 +58,7 @@ const UserNameInput = styled.TextInput`
   font-family: 'Jost-Light';
 `;
 
-const Join2 = ({ navigation, route }) => {
+const Join2 = ({ route }) => {
   const { signUpEmail, signUpPassword } = route.params;
   console.log('🥇', route.params)
   const [isFilled, setIsFilled] = useState(false);

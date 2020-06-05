@@ -31,7 +31,7 @@ const OneLineWrapper = styled.View`
 `;
 const GuideText = styled.Text``;
 
-const Join3 = ({navigation, route}) => {
+const Join3 = ({ navigation, route }) => {
   const {signUpEmail, signUpPassword, signUpName, signUpYear} = route.params;
   console.log('🍊', route.params)
   const [isFilled, setIsFilled] = useState(false);
@@ -101,8 +101,8 @@ const Join3 = ({navigation, route}) => {
           password,
           username,
           birth_year,
-          // gender,
-          // partner_gender
+          gender,
+          partner_gender
         }),
       });
 
@@ -124,7 +124,6 @@ const Join3 = ({navigation, route}) => {
     } catch (error) {
       console.log('😸. /accounts 회원가입 오류 catch.. ', error);
     }
-
   };
 
   return (
@@ -160,7 +159,7 @@ const Join3 = ({navigation, route}) => {
                 marginBottom: 10,
               }}
               onPress={() => {
-                setGender('female');
+                setGender('WOMAN');
               }}
             />
             <TouchableOpacity
@@ -171,7 +170,7 @@ const Join3 = ({navigation, route}) => {
                 marginBottom: 10,
               }}
               onPress={() => {
-                setGender('male');
+                setGender('MAN');
               }}
             />
             <TouchableOpacity
@@ -182,7 +181,7 @@ const Join3 = ({navigation, route}) => {
                 marginBottom: 10,
               }}
               onPress={() => {
-                setGender('both');
+                setGender('BOTH');
               }}
             />
             <TouchableOpacity
@@ -193,7 +192,7 @@ const Join3 = ({navigation, route}) => {
                 marginBottom: 10,
               }}
               onPress={() => {
-                setGender('none');
+                setGender('NONE');
               }}
             />
           </>
