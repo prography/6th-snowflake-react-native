@@ -32,6 +32,7 @@ const TextWrapper = styled.View``;
 const Link = styled.TouchableOpacity``;
 
 interface Props {
+  id: number;
   title: string;
   productCompany: string;
   productName: string;
@@ -39,6 +40,7 @@ interface Props {
   navigation: any;
 }
 const TrioBox = ({
+  id,
   title,
   productCompany,
   productName,
@@ -55,7 +57,7 @@ const TrioBox = ({
       <ProductBox
         activeOpacity={1}
         onPress={() => {
-          navigation.navigate('ProductInfo');
+          navigation.navigate('ProductInfo', { productId: id });
         }}
       >
         <ProductImage
@@ -63,6 +65,8 @@ const TrioBox = ({
           source={
             blindState
               ? require('~/img/doodle/doodleCdBoxCrownFilledMint.png')
+              : imageUri === null
+              ? require('~/img/icon/imageNull.png')
               : { uri: imageUri }
           }
         />

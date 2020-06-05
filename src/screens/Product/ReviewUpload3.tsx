@@ -1,5 +1,8 @@
 import * as React from 'react';
 import styled from 'styled-components/native';
+import { useEffect, useState } from 'react';
+import { BASE_URL } from '~/utils/constant';
+import { all, fork, takeLatest, call, put, take } from 'redux-saga/effects';
 import { Text, ScrollView } from 'react-native';
 import { useSelector } from 'react-redux';
 import { State } from '~/modules/product/reviewUpload/reviewUploadReducer';
@@ -10,6 +13,11 @@ import ProductBarForReviewUpload from '~/components/product/review/ProductBarFor
 import MarginMedium from '~/components/universal/margin/MarginMedium';
 import ReviewUploadContent from '~/containers/product/review/ReviewUploadContent';
 import BottomBtnCollectData from '~/components/universal/bottomBar/BottomBtnCollectData';
+import AsyncStorage, {
+  useAsyncStorage,
+} from '@react-native-community/async-storage';
+import { AsyncAccessToken } from '~/utils/asyncStorage';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 const Container = styled.View`
   flex-direction: column;
@@ -20,15 +28,81 @@ const ReviewUpload3 = () => {
   const _isFilledReviewUpload3 = useSelector(
     (state: State) => state.reviewUploadReducer.isFilledReviewUpload3
   );
-
-  const ProductInfo = {
-    key: 0,
-    rankNum: 1,
-    productCompany: '듀렉스',
-    productName: '필 울트라씬',
-    imageUri: 'http://pngimg.com/uploads/condom/condom_PNG21.png',
-    score: 4.97,
+  const _reviewUploadProductId = useSelector(
+    (state: State) => state.reviewUploadReducer.reviewUploadProductId
+  );
+  const _reviewContent = useSelector(
+    (state: State) => state.reviewUploadReducer.reviewContent
+  );
+  const _thicknessScore = useSelector(
+    (state: State) => state.reviewUploadReducer.thicknessScore
+  );
+  const _durabilityScore = useSelector(
+    (state: State) => state.reviewUploadReducer.durabilityScore
+  );
+  const _oilyScore = useSelector(
+    (state: State) => state.reviewUploadReducer.oilyScore
+  );
+  const _myGender = useSelector(
+    (state: State) => state.reviewUploadReducer.myGender
+  );
+  const _partnerGender = useSelector(
+    (state: State) => state.reviewUploadReducer.partnerGender
+  );
+  const [token, setToken] = useState(null);
+  const _score = useSelector((state: State) => state.reviewUploadReducer.score);
+  const _getToken = async () => {
+    try {
+      const _token = await AsyncStorage.getItem(AsyncAccessToken);
+      setToken(_token);
+      console.log(token);
+    } catch (e) {
+      console.error('안 가져와');
+    }
   };
+
+  const _reviewUpload = async () => {
+    console.log('🎃1_reviewUpload 호출');
+    const product = _reviewUploadProductId;
+    const total = _score;
+    const oily = _oilyScore;
+    const thickness = _thicknessScore;
+    const durability = _durabilityScore;
+    const gender = _myGender;
+    const partner_gender = _partnerGender;
+    const content = _reviewContent;
+
+    try {
+      console.log('🎃2_reviews 업로드 api 호출');
+      const response = await fetch(`${BASE_URL}/reviews/`, {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+          Authorization: 'Bearer ' + token,
+        },
+        body: JSON.stringify({
+          product,
+          total,
+          oily,
+          thickness,
+          durability,
+          gender,
+          partner_gender,
+          content,
+        }),
+      });
+      const json = await response.json();
+      console.log('🎃3_reviews 업로드도 반응이 오나요?', json);
+    } catch (error) {
+      console.log('🎃 review업로드 안 됐다리');
+    }
+  };
+
+  useEffect(() => {
+    _getToken();
+  }, []);
+
   return (
     <>
       <BottomBtnCollectData
@@ -39,13 +113,15 @@ const ReviewUpload3 = () => {
         btnTextBeforeFilled={'15자 이상 입력해주세요.'}
       >
         <TopBarBackArrow />
-        <ProductBarForReviewUpload
-          productCompany={ProductInfo.productCompany}
-          productName={ProductInfo.productName}
-          imageUri={ProductInfo.imageUri}
-        />
+        <ProductBarForReviewUpload productId={_reviewUploadProductId} />
         <LineGrayMiddle />
         <MarginMedium />
+        <TouchableOpacity
+          onPress={() => {
+            _reviewUpload();
+          }}
+          style={{ width: 100, height: 100, backgroundColor: 'black' }}
+        />
         <ScrollView>
           <ReviewUploadContent />
         </ScrollView>

@@ -22,13 +22,16 @@ const Container = styled.View`
   align-items: flex-start;
 `;
 
-const ProductInfo = () => {
-  const [productId, setProductId] = useState(4);
+const ProductInfo = ({ route, navigation }) => {
+  const { productId } = route.params;
+  // const [productId, setProductId] = useState(4);
   const [productInfo, setProductInfo] = useState(null);
 
   const _getProductInfo = async () => {
     try {
-      const response = await fetch(`${BASE_URL}/products/condom/${productId}/`);
+      const response = await fetch(
+        `${BASE_URL}/products/condom/${JSON.stringify(productId)}/`
+      );
       const json = await response.json();
       console.log('🍒 product info success', productInfo);
       setProductInfo(json);
@@ -46,7 +49,7 @@ const ProductInfo = () => {
       {productInfo === null ? (
         <TextTitlePurpleRight title={'Loading...'} />
       ) : (
-        <ProductInfoBar>
+        <ProductInfoBar productId={productId}>
           <ScrollView showsVerticalScrollIndicator={false}>
             <TopBarBackArrow />
             <Container>
