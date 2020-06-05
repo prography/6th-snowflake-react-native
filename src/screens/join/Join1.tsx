@@ -33,6 +33,7 @@ const WarningText = styled.Text`
 const JoinInfoInput = styled.TextInput`
   font-family: Jost-Bold;
   font-size: ${d.px * 23}px;
+  font-family: 'Jost-Bold';
   color: ${c.darkGray};
 `;
 
