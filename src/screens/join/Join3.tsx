@@ -28,11 +28,13 @@ const Container = styled.View`
 `;
 const OneLineWrapper = styled.View`
   flex-direction: row;
+  align-items: center;
 `;
 
 const GuideText = styled.Text`
   font-family: 'Jost-Bold';
   font-size: ${d.px * 23}px;
+  line-height: ${d.px * 36}px;
   color: ${c.darkGray};
 `;
 

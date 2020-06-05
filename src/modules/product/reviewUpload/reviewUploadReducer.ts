@@ -44,6 +44,7 @@ const SET_IS_FILLED_REVIEW_UPLOAD1 = 'SET_IS_FILLED_REVIEW_UPLOAD1';
 const SET_IS_FILLED_REVIEW_UPLOAD2 = 'SET_IS_FILLED_REVIEW_UPLOAD2';
 const SET_IS_FILLED_REVIEW_UPLOAD3 = 'SET_IS_FILLED_REVIEW_UPLOAD3';
 const SET_REVIEW_UPLOAD_PRODUCT_ID = 'SET_REVIEW_UPLOAD_PRODUCT_ID';
+const RESET_REVIEW_UPLOAD_STORE = 'RESET_REVIEW_UPLOAD_STORE';
 
 export const setThicknessScore = (thicknessScore: State) => {
   return {
@@ -122,6 +123,13 @@ export const setReviewUProductId = (reviewUploadProductId: State) => {
     reviewUploadProductId,
   };
 };
+
+export const resetReviewUploadStore = () => {
+  return {
+    type: RESET_REVIEW_UPLOAD_STORE,
+  };
+};
+
 const reviewUploadReducer = (state = initialState, action) => {
   switch (action.type) {
     case SET_THICKNESS_SCORE:
@@ -149,6 +157,22 @@ const reviewUploadReducer = (state = initialState, action) => {
       return { ...state, isFilledReviewUpload3: action.isFilledReviewUpload3 };
     case SET_REVIEW_UPLOAD_PRODUCT_ID:
       return { ...state, reviewUploadProductId: action.reviewUploadProductId };
+    case RESET_REVIEW_UPLOAD_STORE:
+      return {
+        ...state,
+        thicknessScore: null,
+        durabilityScore: null,
+        oilyScore: null,
+        trioAverage: null,
+        score: null,
+        myGender: null,
+        partnerGender: null,
+        reviewContent: null,
+        isFilledReviewUpload1: false,
+        isFilledReviewUpload2: false,
+        isFilledReviewUpload3: false,
+        reviewUploadProductId: null,
+      };
     default:
       return state;
   }
