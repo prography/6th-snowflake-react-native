@@ -21,6 +21,7 @@ const LoginGuideText = styled.Text`
   font-family: Jost-Light;
   font-size: ${d.px * 15}px;
   color: ${c.lightGray};
+  color: ${(props) => (props.focused ? c.purple : c.lightGray)};
 `;
 const LoginInfoInput = styled.TextInput`
   font-family: Jost-Bold;
@@ -80,7 +81,9 @@ const Login = ({ navigation }) => {
           return (
             <>
               <InputContainer>
-                <LoginGuideText>{data.guideText}</LoginGuideText>
+                <LoginGuideText focused={data.focused}>
+                  {data.guideText}
+                </LoginGuideText>
                 <MarginNarrow />
                 <LoginInfoInput
                   placeholder={data.placeholder}

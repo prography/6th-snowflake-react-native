@@ -16,10 +16,19 @@ const Container = styled.View`
   margin: 0 ${l.mR}px;
 `;
 const InputContainer = styled.View``;
+const GuideTextWrapper = styled.View`
+  flex-direction: row;
+`;
 const JoinGuideText = styled.Text`
   font-family: Jost-Light;
   font-size: ${d.px * 15}px;
-  color: ${c.lightGray};
+  color: ${(props) => (props.focused ? c.purple : c.lightGray)};
+  margin-right: ${d.px * 5}px;
+`;
+const WarningText = styled.Text`
+  color: ${c.purple};
+  font-family: Jost-Bold;
+  font-size: ${d.px * 13}px;
 `;
 const JoinInfoInput = styled.TextInput`
   font-family: Jost-Bold;
@@ -38,11 +47,26 @@ const Join1 = () => {
   const [emailFocus, handleEmailFocus] = useState(false);
   const [passwordFocus, handlePasswordFocus] = useState(false);
   const [checkPasswordFocus, handleCheckPasswordFocus] = useState(false);
+  const [checkPasswordWarning, setCheckPasswordWarning] = useState(false);
   useEffect(() => {
     setIsFilled(
-      emailInput && passwordInput && checkPasswordInput ? true : false
+      emailInput && passwordInput === checkPasswordInput ? true : false
     );
   }, [emailInput, passwordInput, checkPasswordInput]);
+
+  const checkPassword = () => {
+    passwordInput === ''
+      ? setCheckPasswordWarning(false)
+      : checkPasswordInput === ''
+      ? setCheckPasswordWarning(false)
+      : passwordInput === checkPasswordInput
+      ? setCheckPasswordWarning(false)
+      : setCheckPasswordWarning(true);
+  };
+
+  useEffect(() => {
+    checkPassword();
+  }, [passwordInput, checkPasswordInput]);
   const JoinInputArray = [
     {
       guideText: '이메일',
@@ -53,6 +77,7 @@ const Join1 = () => {
       focused: emailFocus,
       isPassword: false,
       warningText: '* 중복된 이메일입니다.',
+      warning: false,
     },
     {
       guideText: '비밀번호',
@@ -63,6 +88,7 @@ const Join1 = () => {
       focused: passwordFocus,
       isPassword: true,
       warningText: '* 중복된 이메일입니다.',
+      warning: false,
     },
     {
       guideText: '비밀번호 확인',
@@ -72,7 +98,8 @@ const Join1 = () => {
       inputContent: checkPasswordInput,
       focused: checkPasswordFocus,
       isPassword: true,
-      warningText: '* 중복된 이메일입니다.',
+      warningText: '* 비밀번호가 일치하지 않습니다.',
+      warning: checkPasswordWarning,
     },
   ];
 
@@ -92,7 +119,14 @@ const Join1 = () => {
             return (
               <>
                 <InputContainer>
-                  <JoinGuideText>{data.guideText}</JoinGuideText>
+                  <GuideTextWrapper>
+                    <JoinGuideText focused={data.focused}>
+                      {data.guideText}
+                    </JoinGuideText>
+                    {data.warning ? (
+                      <WarningText>{data.warningText}</WarningText>
+                    ) : null}
+                  </GuideTextWrapper>
                   <MarginNarrow />
                   <JoinInfoInput
                     placeholder={data.placeholder}
