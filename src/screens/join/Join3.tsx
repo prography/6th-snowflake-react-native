@@ -37,11 +37,25 @@ const GuideText = styled.Text`
   color: ${c.darkGray};
 `;
 
+const GenderText = styled.Text`
+  margin-top: ${d.px * 10}px;
+  font-family: 'Jost-Semi';
+  font-size: ${d.px * 15}px;
+  color: ${c.darkGray};
+`;
+
 const CircleContainer = styled.View`
   flex-direction: row;
   margin-top: ${d.px * 26.6}px;
   justify-content: center;
 `;
+
+
+const CircleTextContatiner = styled.View`
+
+`;
+
+
 
 const Join3 = ({ navigation, route }) => {
   const {signUpEmail, signUpPassword, signUpName, signUpYear} = route.params;
@@ -91,8 +105,6 @@ const Join3 = ({ navigation, route }) => {
     (state: State) => state.genderColorReducer.manColor
   );
 
-  const [womanColor2, setWomanColor2] = useState(c.red);
-  const [manColor2, setManColor2] = useState(c.blue);
   const [bothColor, setBothColor] = useState(c.purple);
   const [noneColor, setNoneColor] = useState(c.black);
 
@@ -126,89 +138,99 @@ const Join3 = ({ navigation, route }) => {
           <MarginWide/>
           <MarginMedium/>
           <CircleContainer>
-            <TouchableOpacity
-              onPress={() => {
-                setGender('WOMAN');
-              }}
-            >
-              <View
-                style={{
-                  width: d.height / 20,
-                  height: d.height / 20,
-                  marginLeft: d.px * 10,
-                  marginRight: d.px * 40,
-                  borderRadius: 100,
-                  backgroundColor: womanColor2 === null ? 'white' : womanColor2,
-                  borderColor: womanColor2 === null ? c.lightGray : womanColor2,
-                  borderStyle: womanColor2 === null ? 'dashed' : 'solid',
-                  borderWidth: d.px * 1,
+            <CircleTextContatiner>
+              <TouchableOpacity
+                onPress={() => {
+                  setGender('WOMAN');
                 }}
-              />
-            </TouchableOpacity>
-
-
-            <TouchableOpacity
-              
-              onPress={() => {
-                setGender('MAN');
-              }}
-            >
-              <View
-                style={{
-                  width: d.height / 20,
-                  height: d.height / 20,
-                  marginLeft: d.px * 40,
-                  marginRight: d.px * 5,
-                  borderRadius: 100,
-                  backgroundColor: manColor2 === null ? 'white' : manColor2,
-                  borderColor: manColor2 === null ? c.lightGray : manColor2,
-                  borderStyle: manColor2 === null ? 'dashed' : 'solid',
-                  borderWidth: d.px * 1,
+              >
+                <View
+                  style={{
+                    width: d.height / 20,
+                    height: d.height / 20,
+                    marginLeft: d.px * 10,
+                    marginRight: d.px * 40,
+                    borderRadius: 100,
+                    backgroundColor: womanColor === null ? 'white' : womanColor,
+                    borderColor: womanColor === null ? c.lightGray : womanColor,
+                    borderStyle: womanColor === null ? 'dashed' : 'solid',
+                    borderWidth: d.px * 1,
+                  }}
+                />
+              </TouchableOpacity>
+              <GenderText style={{marginLeft: d.px*17.8}}>여성</GenderText>
+            </CircleTextContatiner>
+            <CircleTextContatiner>
+              <TouchableOpacity
+                
+                onPress={() => {
+                  setGender('MAN');
                 }}
-              />
-            </TouchableOpacity>
+              >
+                <View
+                  style={{
+                    width: d.height / 20,
+                    height: d.height / 20,
+                    marginLeft: d.px * 40,
+                    marginRight: d.px * 5,
+                    borderRadius: 100,
+                    backgroundColor: manColor === null ? 'white' : manColor,
+                    borderColor: manColor === null ? c.lightGray : manColor,
+                    borderStyle: manColor === null ? 'dashed' : 'solid',
+                    borderWidth: d.px * 1,
+                  }}
+                />
+              </TouchableOpacity>
+              <GenderText style={{marginLeft: d.px*47}}>남성</GenderText>
+            </CircleTextContatiner>
           </CircleContainer>
           <MarginWide/>
           <MarginMedium/>
           <CircleContainer>
-            <TouchableOpacity
-              onPress={() => {
-                setGender('BOTH');
-              }}
-            >
-              <View
-                style={{
-                  width: d.height / 20,
-                  height: d.height / 20,
-                  marginLeft: d.px * 10,
-                  marginRight: d.px * 40,
-                  borderRadius: 100,
-                  backgroundColor: bothColor === null ? 'white' : bothColor,
-                  borderColor: bothColor === null ? c.lightGray : bothColor,
-                  borderStyle: bothColor === null ? 'dashed' : 'solid',
-                  borderWidth: d.px * 1,
+            <CircleTextContatiner>
+              <TouchableOpacity
+                onPress={() => {
+                  setGender('BOTH');
                 }}
-              />
-            </TouchableOpacity>
-            <TouchableOpacity
-              onPress={() => {
-                setGender('NONE');
-              }}
-            >
-              <View
-                style={{
-                  width: d.height / 20,
-                  height: d.height / 20,
-                  marginLeft: d.px * 40,
-                  marginRight: d.px * 5,
-                  borderRadius: 100,
-                  backgroundColor: noneColor === null ? 'white' : noneColor,
-                  borderColor: noneColor === null ? c.lightGray : noneColor,
-                  borderStyle: bothColor === null ? 'dashed' : 'solid',
-                  borderWidth: d.px * 1,
+              >
+                <View
+                  style={{
+                    width: d.height / 20,
+                    height: d.height / 20,
+                    marginLeft: d.px * 10,
+                    marginRight: d.px * 40,
+                    borderRadius: 100,
+                    backgroundColor: bothColor === null ? 'white' : bothColor,
+                    borderColor: bothColor === null ? c.lightGray : bothColor,
+                    borderStyle: bothColor === null ? 'dashed' : 'solid',
+                    borderWidth: d.px * 1,
+                  }}
+                />
+              </TouchableOpacity>
+              <GenderText style={{marginLeft: d.px*10}}>모든 성</GenderText>
+            </CircleTextContatiner>
+            <CircleTextContatiner>
+              <TouchableOpacity
+                onPress={() => {
+                  setGender('NONE');
                 }}
-              />
-            </TouchableOpacity>
+              >
+                <View
+                  style={{
+                    width: d.height / 20,
+                    height: d.height / 20,
+                    marginLeft: d.px * 40,
+                    marginRight: d.px * 5,
+                    borderRadius: 100,
+                    backgroundColor: noneColor === null ? 'white' : noneColor,
+                    borderColor: noneColor === null ? c.lightGray : noneColor,
+                    borderStyle: bothColor === null ? 'dashed' : 'solid',
+                    borderWidth: d.px * 1,
+                  }}
+                />
+              </TouchableOpacity>
+              <GenderText style={{marginLeft: d.px*40}}>비공개</GenderText>
+            </CircleTextContatiner>
           </CircleContainer>
           {/* <Text>수집된 유저 젠더:</Text>
           <Text>{_userGender}</Text>

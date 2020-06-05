@@ -58,30 +58,30 @@ const GenderCircle = ({ gender, size, who }: Props) => {
           <MyGenderCircle
             size={size}
             genderColor={
-              gender === 'female'
+              gender === 'female' || gender ==='WOMAN'
                 ? womanColor
-                : gender === 'male'
+                : gender === 'male' || gender === 'MAN'
                 ? manColor
-                : gender === 'both'
+                : gender === 'both' || gender === 'BOTH'
                 ? c.purple
-                : gender === 'none'
+                : gender === 'none' || gender === 'NONE'
                 ? c.darkGray
-                : null
+                : c.lightGray
             }
           />
         ) : (
           <PartnerGenderCircle
             size={size}
             genderColor={
-              gender === 'female'
+              gender === 'female' || gender === 'WOMAN'
                 ? womanColor
-                : gender === 'male'
+                : gender === 'male' || gender === 'MAN'
                 ? manColor
-                : gender === 'both'
+                : gender === 'both' || gender === 'BOTH'
                 ? c.purple
-                : gender === 'none'
+                : gender === 'none' || gender === 'NONE'
                 ? c.darkGray
-                : null
+                : c.lightGray
             }
           />
         )}
