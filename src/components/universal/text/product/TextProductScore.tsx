@@ -15,7 +15,15 @@ const TextStyle = styled.Text`
 `;
 
 const TextProductScore = ({ score }: Props) => {
-  return <TextStyle>★ {score}</TextStyle>;
+  return (
+    <>
+      {score === 0 ? (
+        <TextStyle>x</TextStyle>
+      ) : (
+        <TextStyle>★ {score}</TextStyle>
+      )}
+    </>
+  );
 };
 
 export default TextProductScore;

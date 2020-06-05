@@ -46,6 +46,7 @@ const ReviewCardContainer = ({ productId }: Props) => {
                 profileImg={review.user.image}
                 date={review.created_at}
                 like={1}
+                username={review.user.username}
               />
             );
           })

@@ -14,7 +14,7 @@ const Container = styled.View`
 
 const LeftWrapper = styled.View`
   width: ${l.lW}px;
-  justify-content: flex-start;
+  justify-content: space-between;
   flex-direction: column;
 `;
 const RightWapper = styled.View`
@@ -33,6 +33,14 @@ const ProfileCircle = styled.View`
 const ProfileImgDummy = styled.Image`
   width: ${d.px * 30}px;
   height: ${d.px * 30}px;
+`;
+
+const Username = styled.Text`
+  font-family: Jost-Bold;
+  font-size: ${d.px * 12}px;
+  line-height: ${d.px * 20}px;
+  color: ${c.extraLightGray};
+  width: ${l.lW}px;
 `;
 
 const TopBar = styled.View`
@@ -68,11 +76,15 @@ const BottomBar = styled.View`
   justify-content: space-between;
 `;
 
+const DateUserNameWrapper = styled.View`
+  flex-direction: row;
+`;
 const Date = styled.Text`
   font-family: Jost-Light;
   font-size: ${d.px * 12}px;
   line-height: ${d.px * 20}px;
   color: ${c.lightGray};
+  margin-right: ${d.px * 5}px;
 `;
 
 const Like = styled.Text`
@@ -92,6 +104,7 @@ interface Props {
   profileImg?: string;
   date: string;
   like: number;
+  username: string;
 }
 const ReviewCard = ({
   id,
@@ -103,6 +116,7 @@ const ReviewCard = ({
   profileImg,
   date,
   like,
+  username,
 }: Props) => {
   return (
     <>
@@ -132,7 +146,10 @@ const ReviewCard = ({
           <Review>{review}</Review>
           <MarginNarrow />
           <BottomBar>
-            <Date>{dateCutter(date)}</Date>
+            <DateUserNameWrapper>
+              <Date>{dateCutter(date)}</Date>
+              <Username>{username}</Username>
+            </DateUserNameWrapper>
             <Like>♡ {like}</Like>
           </BottomBar>
           <MarginNarrow />
