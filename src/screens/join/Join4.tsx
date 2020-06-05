@@ -69,6 +69,11 @@ const Join4 = ({ navigation, route }) => {
     dispatch(requestLogin(email, password));
   };
 
+  // const _isLoggedin = useSelector((state) => state.authReducer.isLoggedin);
+  // useEffect(() => {
+  //   _isLoggedin ? navigation.navigate('HomeStack') : null;
+  // }, [_isLoggedin]);
+
   const _signup = async () => {
     
     console.log('😸1. _signup 호출됨')
@@ -110,6 +115,7 @@ const Join4 = ({ navigation, route }) => {
           console.log('😸4. /accounts 회원가입 성공!!', response.status, json);
           // 회원가입 성공하면 바로 로그인 ㄱㄱ
           _login(email, password);
+          navigation.navigate('HomeStack')
           break;
         case 400:
           console.log('😸4. /accounts 회원가입 실패.. ', response.status, json);
@@ -122,7 +128,7 @@ const Join4 = ({ navigation, route }) => {
       console.log('😸. /accounts 회원가입 오류 catch.. ', error);
     }
   };
-
+    
   return (
     <>
       <BottomBtnCollectData

@@ -55,7 +55,7 @@ const UserNameInput = styled.TextInput`
   border-color: ${c.extraLightGray};
   border-bottom-width: ${d.px * 2}px;
   font-size: ${d.px * 23}px;
-  font-family: 'Jost-Light';
+  font-family: 'Jost-Bold';
 `;
 
 const Join2 = ({ route }) => {

@@ -39,7 +39,7 @@ const UserInfoInput = styled.TextInput`
   border-bottom-width: ${d.px * 2}px;
   margin-top: ${d.px * 13}px;
   font-size: ${d.px * 23}px;
-  font-family: 'Jost-Light';
+  font-family: 'Jost-Bold';
 `;
 
 const Join1 = () => {
