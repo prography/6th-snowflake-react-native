@@ -70,18 +70,18 @@ const NavBar = ({ children, navigation }: Props) => {
         </Tab>
         <Tab
           onPress={() => {
-            navigation.navigate('SettingStack');
+            navigation.navigate('JoinStack');
           }}
         >
           <Title>설정</Title>
         </Tab>
-        <Tab
+        {/* <Tab
           onPress={() => {
             navigation.navigate('JoinStack');
           }}
         >
           <Title>가입</Title>
-        </Tab>
+        </Tab> */}
       </Container>
     </Screen>
   );

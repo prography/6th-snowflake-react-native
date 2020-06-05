@@ -25,6 +25,8 @@ import GenderCircle from '~/components/universal/profile/GenderCircle';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import MarginNarrow from '~/components/universal/margin/MarginNarrow';
 import MarginMedium from '~/components/universal/margin/MarginMedium';
+import { StackActions } from '@react-navigation/native';
+
 const Container = styled.View`
   margin: 0 ${l.mR}px;
 `;
@@ -115,7 +117,7 @@ const Join4 = ({ navigation, route }) => {
           console.log('😸4. /accounts 회원가입 성공!!', response.status, json);
           // 회원가입 성공하면 바로 로그인 ㄱㄱ
           _login(email, password);
-          navigation.navigate('HomeStack')
+          navigation.dispatch(StackActions.popToTop())
           break;
         case 400:
           console.log('😸4. /accounts 회원가입 실패.. ', response.status, json);

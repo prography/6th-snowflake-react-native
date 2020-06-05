@@ -6,6 +6,7 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import { RootTabParamList } from '~/navigation/RootTabNavigation';
 import { d, c, l } from '~/utils/constant';
 import TextBottomBtn from '~/components/universal/text/TextBottomBtn';
+import { StackActions } from '@react-navigation/native';
 
 interface Props {
   children: React.ReactNode;
@@ -43,7 +44,7 @@ const ButtonGenderColor = ({ children, navigation }: Props) => {
           backgroundColor: womanColor && manColor ? c.purple : c.lightGray,
         }}
         onPress={() =>
-          womanColor && manColor && navigation.navigate('HomeStack')
+          womanColor && manColor && navigation.dispatch(StackActions.popToTop())
         }
       >
         <TextBottomBtn btnName={'눈송이 시작하기'} />

@@ -6,6 +6,7 @@ import Join1 from '~/screens/join/Join1';
 import Join2 from '~/screens/join/Join2';
 import Join3 from '~/screens/join/Join3';
 import Join4 from '~/screens/join/Join4';
+import SettingMain from '~/screens/setting/SettingMain';
 
 const Stack = createStackNavigator();
 
@@ -16,6 +17,7 @@ export default () => {
         headerShown: false,
       }}
     >
+      <Stack.Screen name='SettimgMain' component={SettingMain} />
       <Stack.Screen name='Join1' component={Join1} />
       <Stack.Screen name='Join2' component={Join2} />
       <Stack.Screen name='Join3' component={Join3} />
