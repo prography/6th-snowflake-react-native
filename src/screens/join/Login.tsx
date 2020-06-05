@@ -21,6 +21,7 @@ const LoginGuideText = styled.Text`
   font-family: Jost-Light;
   font-size: ${d.px * 15}px;
   color: ${c.lightGray};
+  color: ${(props) => (props.focused ? c.purple : c.lightGray)};
 `;
 const LoginInfoInput = styled.TextInput`
   font-family: Jost-Bold;
@@ -33,8 +34,8 @@ const Login = ({ navigation }) => {
   const [userPassword, setUserPassword] = useState(null);
   const [isFilled, setIsFilled] = useState(false);
 
-  const [handleEmailFocus, setHandleEmailFocus] = useState(false);
-  const [handlePasswordFocus, setPasswordFocus] = useState(false);
+  const [emailFocus, handleEmailFocus] = useState(false);
+  const [passwordFocus, handlePasswordFocus] = useState(false);
   const _isLoggedin = useSelector((state) => state.authReducer.isLoggedin);
   console.log('_loggedin', _isLoggedin);
   useEffect(() => {
@@ -47,6 +48,27 @@ const Login = ({ navigation }) => {
     console.log('😸5... 로그인 액션 호출');
     dispatch(requestLogin(userEmail, userPassword));
   };
+
+  const LoginInputArry = [
+    {
+      guideText: '이메일',
+      placeholder: '이메일 입력',
+      onChangeTextFunction: setUserEmail,
+      handleFocusFunction: handleEmailFocus,
+      inputContent: userEmail,
+      focused: emailFocus,
+      isPassword: false,
+    },
+    {
+      guideText: '비밀번호',
+      placeholder: '6자리 이상',
+      onChangeTextFunction: setUserPassword,
+      handleFocusFunction: handlePasswordFocus,
+      inputContent: userPassword,
+      focused: passwordFocus,
+      isPassword: true,
+    },
+  ];
   return (
     <BottomBtnCollectData
       btnText={'로그인'}
@@ -55,50 +77,38 @@ const Login = ({ navigation }) => {
     >
       <Container>
         <TopBarWithIcon />
-        <InputContainer>
-          <LoginGuideText>이메일</LoginGuideText>
-          <MarginNarrow />
-          <LoginInfoInput
-            placeholder={'이메일 입력'}
-            placeholderTextColor={c.extraLightGray}
-            onChangeText={(text) => {
-              setUserEmail(text);
-            }}
-            onFocus={() => {
-              setHandleEmailFocus(true);
-            }}
-            onBlur={() => {
-              setHandleEmailFocus(false);
-            }}
-          >
-            {userEmail}
-          </LoginInfoInput>
-          <LinePurpleWhenFocused focused={handleEmailFocus} />
-        </InputContainer>
-        <MarginWide />
-        <MarginWide />
-        <InputContainer>
-          <LoginGuideText>비밀번호</LoginGuideText>
-          <MarginNarrow />
-          <LoginInfoInput
-            placeholder={'6자리 이상'}
-            placeholderTextColor={c.extraLightGray}
-            autoCompleteType={'password'}
-            secureTextEntry={true}
-            onChangeText={(text) => {
-              setUserPassword(text);
-            }}
-            onFocus={() => {
-              setPasswordFocus(true);
-            }}
-            onBlur={() => {
-              setPasswordFocus(false);
-            }}
-          >
-            {userPassword}
-          </LoginInfoInput>
-          <LinePurpleWhenFocused focused={handlePasswordFocus} />
-        </InputContainer>
+        {LoginInputArry.map((data) => {
+          return (
+            <>
+              <InputContainer>
+                <LoginGuideText focused={data.focused}>
+                  {data.guideText}
+                </LoginGuideText>
+                <MarginNarrow />
+                <LoginInfoInput
+                  placeholder={data.placeholder}
+                  placeholderTextColor={c.extraLightGray}
+                  secureTextEntry={data.isPassword}
+                  onChangeText={(text) => {
+                    data.onChangeTextFunction(text);
+                  }}
+                  onFocus={() => {
+                    data.handleFocusFunction(true);
+                  }}
+                  onBlur={() => {
+                    data.handleFocusFunction(false);
+                  }}
+                >
+                  {data.inputContent}
+                </LoginInfoInput>
+                <LinePurpleWhenFocused focused={data.focused} />
+              </InputContainer>
+              <MarginWide />
+              <MarginWide />
+            </>
+          );
+        })}
+
         <MarginWide />
       </Container>
     </BottomBtnCollectData>

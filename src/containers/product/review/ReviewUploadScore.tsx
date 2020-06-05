@@ -144,7 +144,7 @@ const ReviewUploadScore = () => {
 
       {checked && (
         <AnswerContainer>
-          <AverageText>★ {_trioAverage.toFixed(2)}</AverageText>
+          <AverageText>★ {_trioAverage}</AverageText>
         </AnswerContainer>
       )}
 

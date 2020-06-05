@@ -4,8 +4,11 @@ import { useEffect, useState } from 'react';
 import { BASE_URL } from '~/utils/constant';
 import { all, fork, takeLatest, call, put, take } from 'redux-saga/effects';
 import { Text, ScrollView } from 'react-native';
-import { useSelector } from 'react-redux';
-import { State } from '~/modules/product/reviewUpload/reviewUploadReducer';
+import { useSelector, useDispatch } from 'react-redux';
+import {
+  State,
+  resetReviewUploadStore,
+} from '~/modules/product/reviewUpload/reviewUploadReducer';
 import Blinder from '~/components/product/Blinder';
 import TopBarBackArrow from '~/components/universal/topBar/TopBarBackArrow';
 import LineGrayMiddle from '~/components/universal/line/LineGrayMiddle';
@@ -24,7 +27,8 @@ const Container = styled.View`
   align-items: center;
 `;
 
-const ReviewUpload3 = () => {
+const ReviewUpload3 = ({ navigation }) => {
+  const dispatch = useDispatch();
   const _isFilledReviewUpload3 = useSelector(
     (state: State) => state.reviewUploadReducer.isFilledReviewUpload3
   );
@@ -49,8 +53,14 @@ const ReviewUpload3 = () => {
   const _partnerGender = useSelector(
     (state: State) => state.reviewUploadReducer.partnerGender
   );
-  const [token, setToken] = useState(null);
+
   const _score = useSelector((state: State) => state.reviewUploadReducer.score);
+  const [token, setToken] = useState(null);
+
+  const _resetReviewUploadStore = () => {
+    dispatch(resetReviewUploadStore());
+  };
+
   const _getToken = async () => {
     try {
       const _token = await AsyncStorage.getItem(AsyncAccessToken);
@@ -73,13 +83,13 @@ const ReviewUpload3 = () => {
     const content = _reviewContent;
 
     try {
-      console.log('🎃2_reviews 업로드 api 호출');
+      console.log('🎃2_reviews 업로드 api 호출 with token:', token);
       const response = await fetch(`${BASE_URL}/reviews/`, {
         method: 'POST',
         headers: {
           Accept: 'application/json',
           'Content-Type': 'application/json',
-          Authorization: 'Bearer ' + token,
+          Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify({
           product,
@@ -94,8 +104,10 @@ const ReviewUpload3 = () => {
       });
       const json = await response.json();
       console.log('🎃3_reviews 업로드도 반응이 오나요?', json);
+      await _resetReviewUploadStore();
+      await navigation.navigate('ProductStack', { screen: 'ProductMain' });
     } catch (error) {
-      console.log('🎃 review업로드 안 됐다리');
+      console.log('🎃 review업로드 안 됐다리', error);
     }
   };
 
@@ -111,17 +123,13 @@ const ReviewUpload3 = () => {
         screen={'ProductMain'}
         btnText={'소중한 리뷰 감사드립니다'}
         btnTextBeforeFilled={'15자 이상 입력해주세요.'}
+        onPressFunction={_reviewUpload}
       >
         <TopBarBackArrow />
         <ProductBarForReviewUpload productId={_reviewUploadProductId} />
         <LineGrayMiddle />
         <MarginMedium />
-        <TouchableOpacity
-          onPress={() => {
-            _reviewUpload();
-          }}
-          style={{ width: 100, height: 100, backgroundColor: 'black' }}
-        />
+
         <ScrollView>
           <ReviewUploadContent />
         </ScrollView>
