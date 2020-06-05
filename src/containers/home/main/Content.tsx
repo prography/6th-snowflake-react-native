@@ -40,9 +40,10 @@ const Content = () => {
                   title={card.title}
                   btnText={card.button_txt}
                   content={card.description}
-                  link={card.button_src}
+                  link={'ProductStack'}
                 />
               );
+            //임시로 productStack 고쳐야함
             case 'notice':
               return (
                 <HomeCardNoticePurple
