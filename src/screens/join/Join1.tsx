@@ -12,10 +12,12 @@ import BottomBtnCollectData from '~/components/universal/bottomBar/BottomBtnColl
 import MarginWide from '~/components/universal/margin/MarginWide';
 import TopBarLeftIcon from '~/components/universal/topBar/TopBarLeftIcon';
 import TopBarWithIcon from '~/components/universal/topBar/TopBarRightIcon';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 const Container = styled.View`
   margin: 0 ${l.mR}px;
 `;
-const InputContainer = styled.View``;
+const InputContainer = styled.View`
+`;
 const GuideTextWrapper = styled.View`
   flex-direction: row;
 `;
@@ -114,45 +116,47 @@ const Join1 = () => {
         // onPressFunction={_signup}
         params={{ signUpEmail: emailInput, signUpPassword: passwordInput }}
       >
-        <Container>
-          <TopBarWithIcon />
-          {JoinInputArray.map((data) => {
-            return (
-              <>
-                <InputContainer>
-                  <GuideTextWrapper>
-                    <JoinGuideText focused={data.focused}>
-                      {data.guideText}
-                    </JoinGuideText>
-                    {data.warning ? (
-                      <WarningText>{data.warningText}</WarningText>
-                    ) : null}
-                  </GuideTextWrapper>
-                  <MarginNarrow />
-                  <JoinInfoInput
-                    placeholder={data.placeholder}
-                    placeholderTextColor={c.extraLightGray}
-                    secureTextEntry={data.isPassword}
-                    onChangeText={(text) => {
-                      data.onChangeTextFunction(text);
-                    }}
-                    onFocus={() => {
-                      data.handleFocusFunction(true);
-                    }}
-                    onBlur={() => {
-                      data.handleFocusFunction(false);
-                    }}
-                  >
-                    {data.inputContent}
-                  </JoinInfoInput>
-                  <LinePurpleWhenFocused focused={data.focused} />
-                </InputContainer>
-                <MarginWide />
-                <MarginWide />
-              </>
-            );
-          })}
-        </Container>
+        <KeyboardAwareScrollView>
+          <Container>
+            <TopBarWithIcon />
+            {JoinInputArray.map((data) => {
+              return (
+                <>
+                  <InputContainer>
+                    <GuideTextWrapper>
+                      <JoinGuideText focused={data.focused}>
+                        {data.guideText}
+                      </JoinGuideText>
+                      {data.warning ? (
+                        <WarningText>{data.warningText}</WarningText>
+                      ) : null}
+                    </GuideTextWrapper>
+                    <MarginNarrow />
+                    <JoinInfoInput
+                      placeholder={data.placeholder}
+                      placeholderTextColor={c.extraLightGray}
+                      secureTextEntry={data.isPassword}
+                      onChangeText={(text) => {
+                        data.onChangeTextFunction(text);
+                      }}
+                      onFocus={() => {
+                        data.handleFocusFunction(true);
+                      }}
+                      onBlur={() => {
+                        data.handleFocusFunction(false);
+                      }}
+                    >
+                      {data.inputContent}
+                    </JoinInfoInput>
+                    <LinePurpleWhenFocused focused={data.focused} />
+                  </InputContainer>
+                  <MarginWide />
+                  <MarginWide />
+                </>
+              );
+            })}
+          </Container>
+        </KeyboardAwareScrollView>
       </BottomBtnCollectData>
     </>
   );
