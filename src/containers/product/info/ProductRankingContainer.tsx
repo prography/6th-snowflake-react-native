@@ -36,26 +36,22 @@ const ProductRankingContainer = () => {
           {_rankingList === null ? (
             <TextTitlePurpleRight title={'Loading...'} />
           ) : (
-
-              _rankingList.map((product) => {
-                return (
-                  <RankBar
-                    rankNum={_rankingList.indexOf(product) + 1}
-                    productCompany={product.manufacturer_kor}
-                    productName={product.name_kor}
-                    imageUri={product.thumbnail}
-                    score={product.score}
-                    id={product.id}
-                  />
-                );
-              })
-
-            )}
-
+            _rankingList.map((product) => {
+              return (
+                <RankBar
+                  rankNum={_rankingList.indexOf(product) + 1}
+                  productCompany={product.manufacturer_kor}
+                  productName={product.name_kor}
+                  imageUri={product.thumbnail}
+                  score={product.score}
+                  id={product.id}
+                />
+              );
+            })
+          )}
         </Container>
-
       </ScrollView>
-      <MarginBottom />
+
       <Blinder />
     </>
   );
