@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { useState, useEffect } from 'react';
-import { ScrollView } from 'react-native';
+import { ScrollView, Text } from 'react-native';
 
 import { d, BASE_URL } from '~/utils/constant';
 import TextTitlePurpleRight from '~/components/universal/text/TextTitlePurpleRight';
@@ -19,17 +19,49 @@ const CategoryWrapper = styled.View``;
 const Category = styled.TouchableOpacity`
   width: ${d.px * 45}px;
   height: ${d.px * 50}px;
-  background-color: blue;
+  background-color: yellow;
 `;
+
+enum CategoryEnum {
+  NONE = '',
+  NOMAL = 'NOMAL',
+  SLIM = 'SLIM',
+  CHOBAK = 'CHOBAK',
+  DOLCHUL = 'DOLCHUL',
+  GGOKJI = 'GGOKJI',
+  DELAY = 'DELAY',
+}
+enum OrderEnum {
+  NONE = '',
+  num_of_reviews = 'num_of_reviews',
+  avg_oily = 'avg_oily',
+  avg_thickness = 'avg_thickness',
+  avg_durability = 'avg_durability',
+}
 
 const ProductRankingContainer = () => {
   const [_rankingList, _setRankingList] = useState(null);
-  const [categoryParams, setCategoryParams] = useState('NORMAL');
+  const [categoryParam, setCategoryParam] = useState(CategoryEnum.NONE);
+  const [orderParam, setOrderParam] = useState(OrderEnum.NONE);
+
   const _getRankingList = async () => {
+    let url = `${BASE_URL}/products/condom?`;
+    if (categoryParam !== CategoryEnum.NONE) {
+      url += `category=${categoryParam}&`;
+    }
+    if (orderParam !== OrderEnum.NONE) {
+      url += `order=${orderParam}&`;
+    }
+
+    // url의 끝에 ?나 &가 있으면
+    if (url[url.length - 1] === '&' || url[url.length - 1] === '?') {
+      url = url.substring(0, url.length - 1);
+    }
+    console.log('🍎 url', url);
+
     try {
-      const response = await fetch(
-        `${BASE_URL}/products/condom?category=${categoryParams}`
-      );
+      const response = await fetch(url);
+
       const json = await response.json();
       _setRankingList(json.results);
       console.log('🧤Ranking List - success!', _rankingList);
@@ -40,7 +72,8 @@ const ProductRankingContainer = () => {
 
   useEffect(() => {
     _getRankingList();
-  }, [categoryParams]);
+  }, [categoryParam, orderParam]);
+
   return (
     <>
       <ScrollView style={{ width: '100%', flex: 1 }}>
@@ -48,13 +81,34 @@ const ProductRankingContainer = () => {
           <CategoryWrapper>
             <Category
               onPress={() => {
-                setCategoryParams('SLIM');
+                setCategoryParam(CategoryEnum.SLIM);
               }}
-            />
+            >
+              <Text>normal</Text>
+            </Category>
+            <Category
+              onPress={() => {
+                setCategoryParam(CategoryEnum.NONE);
+              }}
+            >
+              <Text>normal</Text>
+            </Category>
+            <Category
+              onPress={() => {
+                setOrderParam(OrderEnum.avg_thickness);
+              }}
+            >
+              <Text>순서변경</Text>
+            </Category>
+            <Category
+              onPress={() => {
+                setOrderParam(OrderEnum.NONE);
+              }}
+            >
+              <Text>순서없애</Text>
+            </Category>
           </CategoryWrapper>
-          {_rankingList === null ? (
-            <TextTitlePurpleRight title={'Loading...'} />
-          ) : (
+          {_rankingList ? (
             _rankingList.map((product) => {
               return (
                 <RankBar
@@ -67,6 +121,8 @@ const ProductRankingContainer = () => {
                 />
               );
             })
+          ) : (
+            <TextTitlePurpleRight title={'Loading...'} />
           )}
         </Container>
       </ScrollView>
