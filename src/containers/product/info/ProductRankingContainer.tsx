@@ -14,6 +14,7 @@ import LineGrayRightLong from '~/components/universal/line/LineGrayRightLong';
 const Container = styled.View`
   flex: 1;
   align-items: flex-start;
+  padding: 0 ${l.mL}px;
 `;
 
 const CategoryWrapper = styled.View`
@@ -32,6 +33,7 @@ const CategoryText = styled.Text`
   color: ${(props) =>
     props.selectedCategory === props.categoryEnum ? c.black : c.lightGray};
 `;
+
 enum CategoryEnum {
   NONE = '',
   NORMAL = 'NORMAL',
@@ -123,48 +125,48 @@ const ProductRankingContainer = () => {
         style={{ width: '100%', flex: 1 }}
         showsVerticalScrollIndicator={false}
       >
-        <Container>
-          <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
-            <CategoryWrapper>
-              {categoryList.map((category) => {
-                return (
-                  <Category
+        <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
+          <CategoryWrapper>
+            {categoryList.map((category) => {
+              return (
+                <Category
+                  categoryEnum={category.categoryEnum}
+                  onPress={() => {
+                    setCategoryParam(category.categoryEnum),
+                      setSelectedCategory(category.categoryEnum);
+                  }}
+                >
+                  <CategoryText
+                    selectedCategory={selectedCategory}
                     categoryEnum={category.categoryEnum}
-                    onPress={() => {
-                      setCategoryParam(category.categoryEnum),
-                        setSelectedCategory(category.categoryEnum);
-                    }}
                   >
-                    <CategoryText
-                      selectedCategory={selectedCategory}
-                      categoryEnum={category.categoryEnum}
-                    >
-                      {category.categoryText}
-                    </CategoryText>
-                  </Category>
-                );
-              })}
-            </CategoryWrapper>
-          </ScrollView>
-          <LineGrayMiddle />
-          <ScrollView horizontal={true}>
-            <CategoryWrapper>
-              <Category
-                onPress={() => {
-                  setOrderParam(OrderEnum.avg_thickness);
-                }}
-              >
-                <Text>순서변경</Text>
-              </Category>
-              <Category
-                onPress={() => {
-                  setOrderParam(OrderEnum.NONE);
-                }}
-              >
-                <Text>순서없애</Text>
-              </Category>
-            </CategoryWrapper>
-          </ScrollView>
+                    {category.categoryText}
+                  </CategoryText>
+                </Category>
+              );
+            })}
+          </CategoryWrapper>
+        </ScrollView>
+        <LineGrayMiddle />
+        <ScrollView horizontal={true}>
+          <CategoryWrapper>
+            <Category
+              onPress={() => {
+                setOrderParam(OrderEnum.avg_thickness);
+              }}
+            >
+              <Text>순서변경</Text>
+            </Category>
+            <Category
+              onPress={() => {
+                setOrderParam(OrderEnum.NONE);
+              }}
+            >
+              <Text>순서없애</Text>
+            </Category>
+          </CategoryWrapper>
+        </ScrollView>
+        <Container>
           {_rankingList ? (
             _rankingList.map((product) => {
               return (
