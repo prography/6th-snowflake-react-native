@@ -2,7 +2,7 @@ import * as React from 'react';
 import { useState, useEffect } from 'react';
 import { ScrollView, Text } from 'react-native';
 
-import { d, BASE_URL } from '~/utils/constant';
+import { d, BASE_URL, c } from '~/utils/constant';
 import TextTitlePurpleRight from '~/components/universal/text/TextTitlePurpleRight';
 import RankBar from '~/components/product/ranking/RankBar';
 import Blinder from '~/components/product/Blinder';
@@ -14,17 +14,22 @@ const Container = styled.View`
   align-items: flex-start;
 `;
 
-const CategoryWrapper = styled.View``;
-
-const Category = styled.TouchableOpacity`
-  width: ${d.px * 45}px;
-  height: ${d.px * 50}px;
-  background-color: yellow;
+const CategoryWrapper = styled.View`
+  flex-direction: row;
 `;
 
+const Category = styled.TouchableOpacity`
+  padding: ${d.px * 9}px;
+  margin-right: ${d.px * 20}px;
+`;
+const CategoryText = styled.Text`
+  font-size: ${d.px * 14}px;
+  color: ${(props) =>
+    props.selectedCategory === props.categoryEnum ? c.black : c.lightGray};
+`;
 enum CategoryEnum {
   NONE = '',
-  NOMAL = 'NOMAL',
+  NORMAL = 'NORMAL',
   SLIM = 'SLIM',
   CHOBAK = 'CHOBAK',
   DOLCHUL = 'DOLCHUL',
@@ -43,7 +48,7 @@ const ProductRankingContainer = () => {
   const [_rankingList, _setRankingList] = useState(null);
   const [categoryParam, setCategoryParam] = useState(CategoryEnum.NONE);
   const [orderParam, setOrderParam] = useState(OrderEnum.NONE);
-
+  const [selectedCategory, setSelectedCategory] = useState(CategoryEnum.NONE);
   const _getRankingList = async () => {
     let url = `${BASE_URL}/products/condom?`;
     if (categoryParam !== CategoryEnum.NONE) {
@@ -74,40 +79,83 @@ const ProductRankingContainer = () => {
     _getRankingList();
   }, [categoryParam, orderParam]);
 
+  const categoryList = [
+    {
+      categoryEnum: CategoryEnum.NONE,
+      categoryText: '전체',
+    },
+    {
+      categoryEnum: CategoryEnum.NORMAL,
+      categoryText: '일반형',
+    },
+    {
+      categoryEnum: CategoryEnum.CHOBAK,
+      categoryText: '초박형',
+    },
+    {
+      categoryEnum: CategoryEnum.DOLCHUL,
+      categoryText: '돌출형',
+    },
+    {
+      categoryEnum: CategoryEnum.SLIM,
+      categoryText: '슬림형',
+    },
+    {
+      categoryEnum: CategoryEnum.GGOKJI,
+      categoryText: '꼭지형',
+    },
+    {
+      categoryEnum: CategoryEnum.DELAY,
+      categoryText: '사전지연형',
+    },
+  ];
+
   return (
     <>
-      <ScrollView style={{ width: '100%', flex: 1 }}>
+      <ScrollView
+        style={{ width: '100%', flex: 1 }}
+        showsVerticalScrollIndicator={false}
+      >
         <Container>
-          <CategoryWrapper>
-            <Category
-              onPress={() => {
-                setCategoryParam(CategoryEnum.SLIM);
-              }}
-            >
-              <Text>normal</Text>
-            </Category>
-            <Category
-              onPress={() => {
-                setCategoryParam(CategoryEnum.NONE);
-              }}
-            >
-              <Text>normal</Text>
-            </Category>
-            <Category
-              onPress={() => {
-                setOrderParam(OrderEnum.avg_thickness);
-              }}
-            >
-              <Text>순서변경</Text>
-            </Category>
-            <Category
-              onPress={() => {
-                setOrderParam(OrderEnum.NONE);
-              }}
-            >
-              <Text>순서없애</Text>
-            </Category>
-          </CategoryWrapper>
+          <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
+            <CategoryWrapper>
+              {categoryList.map((category) => {
+                return (
+                  <Category
+                    onPress={() => {
+                      setCategoryParam(category.categoryEnum),
+                        setSelectedCategory(category.categoryEnum);
+                    }}
+                  >
+                    <CategoryText
+                      selectedCategory={selectedCategory}
+                      categoryEnum={category.categoryEnum}
+                    >
+                      {category.categoryText}
+                    </CategoryText>
+                  </Category>
+                );
+              })}
+            </CategoryWrapper>
+          </ScrollView>
+          <ScrollView horizontal={true}>
+            <CategoryWrapper>
+              <Category
+                onPress={() => {
+                  setOrderParam(OrderEnum.avg_thickness);
+                }}
+              >
+                <Text>순서변경</Text>
+              </Category>
+              <Category
+                onPress={() => {
+                  setOrderParam(OrderEnum.NONE);
+                }}
+              >
+                <Text>순서없애</Text>
+              </Category>
+            </CategoryWrapper>
+          </ScrollView>
           {_rankingList ? (
             _rankingList.map((product) => {
               return (
