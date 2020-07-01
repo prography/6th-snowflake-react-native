@@ -2,12 +2,14 @@ import * as React from 'react';
 import { useState, useEffect } from 'react';
 import { ScrollView, Text } from 'react-native';
 
-import { d, BASE_URL, c } from '~/utils/constant';
+import { d, BASE_URL, c, l } from '~/utils/constant';
 import TextTitlePurpleRight from '~/components/universal/text/TextTitlePurpleRight';
 import RankBar from '~/components/product/ranking/RankBar';
 import Blinder from '~/components/product/Blinder';
 import styled from 'styled-components/native';
 import MarginBottom from '~/components/universal/margin/MarginBottom';
+import LineGrayMiddle from '~/components/universal/line/LineGrayMiddle';
+import LineGrayRightLong from '~/components/universal/line/LineGrayRightLong';
 
 const Container = styled.View`
   flex: 1;
@@ -16,11 +18,14 @@ const Container = styled.View`
 
 const CategoryWrapper = styled.View`
   flex-direction: row;
+  padding: 0 ${l.mL}px;
 `;
 
 const Category = styled.TouchableOpacity`
   padding: ${d.px * 9}px;
   margin-right: ${d.px * 20}px;
+  padding-left: ${(props) =>
+    props.categoryEnum === CategoryEnum.NONE ? 0 : d.px * 9}px;
 `;
 const CategoryText = styled.Text`
   font-size: ${d.px * 14}px;
@@ -83,6 +88,7 @@ const ProductRankingContainer = () => {
     {
       categoryEnum: CategoryEnum.NONE,
       categoryText: '전체',
+      fist: true,
     },
     {
       categoryEnum: CategoryEnum.NORMAL,
@@ -112,6 +118,7 @@ const ProductRankingContainer = () => {
 
   return (
     <>
+      <LineGrayMiddle />
       <ScrollView
         style={{ width: '100%', flex: 1 }}
         showsVerticalScrollIndicator={false}
@@ -122,6 +129,7 @@ const ProductRankingContainer = () => {
               {categoryList.map((category) => {
                 return (
                   <Category
+                    categoryEnum={category.categoryEnum}
                     onPress={() => {
                       setCategoryParam(category.categoryEnum),
                         setSelectedCategory(category.categoryEnum);
@@ -138,6 +146,7 @@ const ProductRankingContainer = () => {
               })}
             </CategoryWrapper>
           </ScrollView>
+          <LineGrayMiddle />
           <ScrollView horizontal={true}>
             <CategoryWrapper>
               <Category
