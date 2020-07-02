@@ -13,24 +13,24 @@ import LineGrayRightLong from '~/components/universal/line/LineGrayRightLong';
 import MarginNarrow from '~/components/universal/margin/MarginNarrow';
 
 const NARROW_MARGIN = d.px * 9;
-const TEXT_HEIGHT = d.px * 15;
+const TEXT_HEIGHT = d.px * 14;
 const Container = styled.View`
-  flex: 1;
   align-items: flex-start;
-  padding: 0 ${l.mL}px;
+  padding: 0 ${l.mR}px;
 `;
 
 const CategoryWrapper = styled.View`
   flex-direction: row;
 
-  padding: 0 ${l.mL}px;
+  padding: 0 ${l.mR}px;
 `;
 
 const Category = styled.TouchableOpacity`
   align-items: center;
   justify-content: center;
-  background-color: yellow;
+
   margin-right: ${d.px * 20}px;
+
   padding-left: ${(props) => (props.first ? 0 : NARROW_MARGIN)}px;
   padding-right: ${(props) => (props.last ? 0 : NARROW_MARGIN)}px;
 `;
@@ -38,14 +38,15 @@ const CategoryText = styled.Text`
   padding-top: ${NARROW_MARGIN}px;
   padding-bottom: ${NARROW_MARGIN}px;
   font-size: ${d.px * 14}px;
-  line-height: ${NARROW_MARGIN}px;
+  line-height: ${TEXT_HEIGHT}px;
   text-align: center;
+
   color: ${(props) =>
     props.selectedCategory === props.categoryEnum ? c.black : c.lightGray};
 `;
 
 const FilterWrapper = styled.View`
-  padding: 0 ${l.mL}px;
+  padding: 0 ${l.mR}px;
   flex-direction: row;
   justify-content: flex-end;
 `;
@@ -202,8 +203,8 @@ const ProductRankingContainer = () => {
     <>
       <LineGrayMiddle />
 
-      <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
-        <CategoryWrapper>
+      <CategoryWrapper>
+        <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
           {categoryList.map((category) => {
             return (
               <Category
@@ -223,8 +224,9 @@ const ProductRankingContainer = () => {
               </Category>
             );
           })}
-        </CategoryWrapper>
-      </ScrollView>
+        </ScrollView>
+      </CategoryWrapper>
+
       <LineGrayMiddle />
       <MarginNarrow />
       <FilterWrapper>
