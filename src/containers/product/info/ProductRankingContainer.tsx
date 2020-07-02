@@ -10,7 +10,10 @@ import styled from 'styled-components/native';
 import MarginBottom from '~/components/universal/margin/MarginBottom';
 import LineGrayMiddle from '~/components/universal/line/LineGrayMiddle';
 import LineGrayRightLong from '~/components/universal/line/LineGrayRightLong';
+import MarginNarrow from '~/components/universal/margin/MarginNarrow';
 
+const NARROW_MARGIN = d.px * 9;
+const TEXT_HEIGHT = d.px * 15;
 const Container = styled.View`
   flex: 1;
   align-items: flex-start;
@@ -19,21 +22,61 @@ const Container = styled.View`
 
 const CategoryWrapper = styled.View`
   flex-direction: row;
+
   padding: 0 ${l.mL}px;
 `;
 
 const Category = styled.TouchableOpacity`
-  padding: ${d.px * 9}px;
+  align-items: center;
+  justify-content: center;
+  background-color: yellow;
   margin-right: ${d.px * 20}px;
-  padding-left: ${(props) =>
-    props.categoryEnum === CategoryEnum.NONE ? 0 : d.px * 9}px;
+  padding-left: ${(props) => (props.first ? 0 : NARROW_MARGIN)}px;
+  padding-right: ${(props) => (props.last ? 0 : NARROW_MARGIN)}px;
 `;
 const CategoryText = styled.Text`
+  padding-top: ${NARROW_MARGIN}px;
+  padding-bottom: ${NARROW_MARGIN}px;
   font-size: ${d.px * 14}px;
+  line-height: ${NARROW_MARGIN}px;
+  text-align: center;
   color: ${(props) =>
     props.selectedCategory === props.categoryEnum ? c.black : c.lightGray};
 `;
 
+const FilterWrapper = styled.View`
+  padding: 0 ${l.mL}px;
+  flex-direction: row;
+  justify-content: flex-end;
+`;
+
+const FilterBox = styled.TouchableOpacity`
+  border-width: 1px;
+  border-style: solid;
+  border-color: ${(props) =>
+    props.showOrderFilter ? 'white' : c.extraLightGray};
+  padding: ${NARROW_MARGIN}px;
+  background-color: ${(props) => (props.showOrderFilter ? c.mint : 'white')};
+`;
+
+const FilterText = styled.Text`
+  font-size: ${d.px * 14}px;
+  line-height: ${TEXT_HEIGHT}px;
+`;
+
+const OrderFilterWrapper = styled.View`
+  padding: ${l.mL}px ${l.mL}px;
+`;
+const OrderFilterBox = styled.TouchableOpacity`
+  width: 100%;
+
+  padding: ${NARROW_MARGIN}px 0;
+  margin-bottom: ${TEXT_HEIGHT}px;
+`;
+const OrderFilterText = styled.Text`
+  font-size: ${d.px * 14}px;
+  line-height: ${TEXT_HEIGHT}px;
+`;
 enum CategoryEnum {
   NONE = '',
   NORMAL = 'NORMAL',
@@ -56,6 +99,7 @@ const ProductRankingContainer = () => {
   const [categoryParam, setCategoryParam] = useState(CategoryEnum.NONE);
   const [orderParam, setOrderParam] = useState(OrderEnum.NONE);
   const [selectedCategory, setSelectedCategory] = useState(CategoryEnum.NONE);
+  const [showOrderFilter, setShowOrderFilter] = useState(false);
   const _getRankingList = async () => {
     let url = `${BASE_URL}/products/condom?`;
     if (categoryParam !== CategoryEnum.NONE) {
@@ -90,82 +134,128 @@ const ProductRankingContainer = () => {
     {
       categoryEnum: CategoryEnum.NONE,
       categoryText: '전체',
-      fist: true,
+      first: true,
+      last: false,
     },
     {
       categoryEnum: CategoryEnum.NORMAL,
       categoryText: '일반형',
+      first: false,
+      last: false,
     },
     {
       categoryEnum: CategoryEnum.CHOBAK,
       categoryText: '초박형',
+      first: false,
+      last: false,
     },
     {
       categoryEnum: CategoryEnum.DOLCHUL,
       categoryText: '돌출형',
+      first: false,
+      last: false,
     },
     {
       categoryEnum: CategoryEnum.SLIM,
       categoryText: '슬림형',
+      first: false,
+      last: false,
     },
     {
       categoryEnum: CategoryEnum.GGOKJI,
       categoryText: '꼭지형',
+      first: false,
+      last: false,
     },
     {
       categoryEnum: CategoryEnum.DELAY,
       categoryText: '사전지연형',
+      first: false,
+      last: true,
+    },
+  ];
+
+  const orderFilterList = [
+    {
+      orderEnum: OrderEnum.NONE,
+      orderText: '총점순',
+    },
+    {
+      orderEnum: OrderEnum.num_of_reviews,
+      orderText: '리뷰 개수순',
+    },
+    {
+      orderEnum: OrderEnum.avg_thickness,
+      orderText: '얇기순',
+    },
+    {
+      orderEnum: OrderEnum.avg_durability,
+      orderText: '내구성순',
+    },
+    {
+      orderEnum: OrderEnum.avg_oily,
+      orderText: '윤활제순',
     },
   ];
 
   return (
     <>
       <LineGrayMiddle />
+
+      <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
+        <CategoryWrapper>
+          {categoryList.map((category) => {
+            return (
+              <Category
+                first={category.first}
+                last={category.last}
+                onPress={() => {
+                  setCategoryParam(category.categoryEnum),
+                    setSelectedCategory(category.categoryEnum);
+                }}
+              >
+                <CategoryText
+                  selectedCategory={selectedCategory}
+                  categoryEnum={category.categoryEnum}
+                >
+                  {category.categoryText}
+                </CategoryText>
+              </Category>
+            );
+          })}
+        </CategoryWrapper>
+      </ScrollView>
+      <LineGrayMiddle />
+      <MarginNarrow />
+      <FilterWrapper>
+        <FilterBox
+          showOrderFilter={showOrderFilter}
+          onPress={() => {
+            setShowOrderFilter(!showOrderFilter);
+          }}
+        >
+          <FilterText>총점순</FilterText>
+        </FilterBox>
+      </FilterWrapper>
+      {showOrderFilter && (
+        <OrderFilterWrapper>
+          {orderFilterList.map((filter) => {
+            return (
+              <OrderFilterBox
+                onPress={() => {
+                  setOrderParam(filter.orderEnum);
+                }}
+              >
+                <OrderFilterText>{filter.orderText}</OrderFilterText>
+              </OrderFilterBox>
+            );
+          })}
+        </OrderFilterWrapper>
+      )}
       <ScrollView
-        style={{ width: '100%', flex: 1 }}
+        style={{ width: '100%' }}
         showsVerticalScrollIndicator={false}
       >
-        <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
-          <CategoryWrapper>
-            {categoryList.map((category) => {
-              return (
-                <Category
-                  categoryEnum={category.categoryEnum}
-                  onPress={() => {
-                    setCategoryParam(category.categoryEnum),
-                      setSelectedCategory(category.categoryEnum);
-                  }}
-                >
-                  <CategoryText
-                    selectedCategory={selectedCategory}
-                    categoryEnum={category.categoryEnum}
-                  >
-                    {category.categoryText}
-                  </CategoryText>
-                </Category>
-              );
-            })}
-          </CategoryWrapper>
-        </ScrollView>
-        <LineGrayMiddle />
-        <ScrollView horizontal={true}>
-          <CategoryWrapper>
-            <Category
-              onPress={() => {
-                setOrderParam(OrderEnum.avg_thickness);
-              }}
-            >
-              <Text>순서변경</Text>
-            </Category>
-            <Category
-              onPress={() => {
-                setOrderParam(OrderEnum.NONE);
-              }}
-            >
-              <Text>순서없애</Text>
-            </Category>
-          </CategoryWrapper>
-        </ScrollView>
         <Container>
           {_rankingList ? (
             _rankingList.map((product) => {
