@@ -11,23 +11,9 @@ const Container = styled.View`
   flex-direction: column;
 `;
 interface Props {
-  productId: number;
+  reviewArray: any;
 }
-const ReviewCardContainer = ({ productId }: Props) => {
-  const _getReviewArray = async () => {
-    try {
-      const response = await fetch(`${BASE_URL}/reviews/?product=${productId}`);
-      const json = await response.json();
-      console.log('🌮 id', productId, '의 review array success!', reviewArray);
-      setReviewArray(json.results);
-    } catch (error) {
-      console.log('🌮', productId, '의 review array', error);
-    }
-  };
-  const [reviewArray, setReviewArray] = useState(null);
-  useEffect(() => {
-    _getReviewArray();
-  }, []);
+const ReviewCardContainer = ({ reviewArray }: Props) => {
   return (
     <>
       <Container>
