@@ -10,30 +10,83 @@ import styled from 'styled-components/native';
 import MarginBottom from '~/components/universal/margin/MarginBottom';
 import LineGrayMiddle from '~/components/universal/line/LineGrayMiddle';
 import LineGrayRightLong from '~/components/universal/line/LineGrayRightLong';
+import MarginNarrow from '~/components/universal/margin/MarginNarrow';
 
+const NARROW_MARGIN = d.px * 9;
+const TEXT_HEIGHT = d.px * 16;
 const Container = styled.View`
-  flex: 1;
   align-items: flex-start;
-  padding: 0 ${l.mL}px;
+  padding: 0 ${l.mR}px;
 `;
 
 const CategoryWrapper = styled.View`
   flex-direction: row;
-  padding: 0 ${l.mL}px;
+  padding: 0 ${l.mR}px;
 `;
 
 const Category = styled.TouchableOpacity`
-  padding: ${d.px * 9}px;
+  align-items: center;
+  justify-content: center;
   margin-right: ${d.px * 20}px;
-  padding-left: ${(props) =>
-    props.categoryEnum === CategoryEnum.NONE ? 0 : d.px * 9}px;
+  padding-left: ${(props) => (props.first ? 0 : NARROW_MARGIN)}px;
+  padding-right: ${(props) => (props.last ? 0 : NARROW_MARGIN)}px;
 `;
 const CategoryText = styled.Text`
+  padding-top: ${NARROW_MARGIN}px;
+  padding-bottom: ${NARROW_MARGIN}px;
   font-size: ${d.px * 14}px;
+  line-height: ${TEXT_HEIGHT}px;
+  text-align: center;
+
   color: ${(props) =>
     props.selectedCategory === props.categoryEnum ? c.black : c.lightGray};
 `;
 
+const FilterWrapper = styled.View`
+  padding: 0 ${l.mR}px;
+  flex-direction: row;
+  justify-content: flex-end;
+`;
+
+const FilterBox = styled.TouchableOpacity`
+  border-width: 1px;
+  border-style: solid;
+  border-color: ${(props) =>
+    props.showOrderFilter ? 'white' : c.extraLightGray};
+  padding: ${NARROW_MARGIN}px;
+  background-color: ${(props) => (props.showOrderFilter ? c.purple : 'white')};
+`;
+
+const FilterText = styled.Text`
+  font-size: ${d.px * 14}px;
+  line-height: ${TEXT_HEIGHT}px;
+  color: ${(props) => (props.showOrderFilter ? 'white' : c.black)};
+`;
+
+const OrderFilterWrapper = styled.View`
+  padding: ${l.mR}px ${l.mR}px;
+`;
+const OrderFilterBox = styled.TouchableOpacity`
+  width: 100%;
+  padding: ${NARROW_MARGIN}px 0;
+  margin-bottom: ${TEXT_HEIGHT}px;
+  flex-direction: row;
+  justify-content: space-between;
+`;
+const OrderFilterText = styled.Text`
+  font-size: ${d.px * 14}px;
+  line-height: ${TEXT_HEIGHT}px;
+  font-family: ${(props) =>
+    props.orderEnum === props.selectedOrder ? 'Jost-Medium' : 'Jost-Light'};
+  color: ${(props) =>
+    props.orderEnum === props.selectedOrder ? c.black : c.lightGray};
+`;
+const SelectedCircle = styled.View`
+  width: ${TEXT_HEIGHT / 2}px;
+  height: ${TEXT_HEIGHT / 2}px;
+  background-color: ${c.purple};
+  border-radius: 1000px;
+`;
 enum CategoryEnum {
   NONE = '',
   NORMAL = 'NORMAL',
@@ -55,7 +108,10 @@ const ProductRankingContainer = () => {
   const [_rankingList, _setRankingList] = useState(null);
   const [categoryParam, setCategoryParam] = useState(CategoryEnum.NONE);
   const [orderParam, setOrderParam] = useState(OrderEnum.NONE);
+  const [orderText, setOrderText] = useState('총점순');
   const [selectedCategory, setSelectedCategory] = useState(CategoryEnum.NONE);
+  const [showOrderFilter, setShowOrderFilter] = useState(false);
+  const [selectedOrder, setSelectedOrder] = useState(OrderEnum.NONE);
   const _getRankingList = async () => {
     let url = `${BASE_URL}/products/condom?`;
     if (categoryParam !== CategoryEnum.NONE) {
@@ -90,82 +146,141 @@ const ProductRankingContainer = () => {
     {
       categoryEnum: CategoryEnum.NONE,
       categoryText: '전체',
-      fist: true,
+      first: true,
+      last: false,
     },
     {
       categoryEnum: CategoryEnum.NORMAL,
       categoryText: '일반형',
+      first: false,
+      last: false,
     },
     {
       categoryEnum: CategoryEnum.CHOBAK,
       categoryText: '초박형',
+      first: false,
+      last: false,
     },
     {
       categoryEnum: CategoryEnum.DOLCHUL,
       categoryText: '돌출형',
+      first: false,
+      last: false,
     },
     {
       categoryEnum: CategoryEnum.SLIM,
       categoryText: '슬림형',
+      first: false,
+      last: false,
     },
     {
       categoryEnum: CategoryEnum.GGOKJI,
       categoryText: '꼭지형',
+      first: false,
+      last: false,
     },
     {
       categoryEnum: CategoryEnum.DELAY,
       categoryText: '사전지연형',
+      first: false,
+      last: true,
+    },
+  ];
+
+  const orderFilterList = [
+    {
+      orderEnum: OrderEnum.NONE,
+      orderText: '총점순',
+    },
+    {
+      orderEnum: OrderEnum.num_of_reviews,
+      orderText: '리뷰 개수순',
+    },
+    {
+      orderEnum: OrderEnum.avg_thickness,
+      orderText: '얇기순',
+    },
+    {
+      orderEnum: OrderEnum.avg_durability,
+      orderText: '내구성순',
+    },
+    {
+      orderEnum: OrderEnum.avg_oily,
+      orderText: '윤활제순',
     },
   ];
 
   return (
     <>
       <LineGrayMiddle />
+
+      <CategoryWrapper>
+        <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
+          {categoryList.map((category) => {
+            return (
+              <Category
+                first={category.first}
+                last={category.last}
+                onPress={() => {
+                  setCategoryParam(category.categoryEnum),
+                    setSelectedCategory(category.categoryEnum);
+                }}
+              >
+                <CategoryText
+                  selectedCategory={selectedCategory}
+                  categoryEnum={category.categoryEnum}
+                >
+                  {category.categoryText}
+                </CategoryText>
+              </Category>
+            );
+          })}
+        </ScrollView>
+      </CategoryWrapper>
+
+      <LineGrayMiddle />
+      <MarginNarrow />
+      <FilterWrapper>
+        <FilterBox
+          showOrderFilter={showOrderFilter}
+          onPress={() => {
+            setShowOrderFilter(!showOrderFilter);
+          }}
+        >
+          <FilterText showOrderFilter={showOrderFilter}>{orderText}</FilterText>
+        </FilterBox>
+      </FilterWrapper>
+      {showOrderFilter && (
+        <OrderFilterWrapper>
+          {orderFilterList.map((filter) => {
+            return (
+              <OrderFilterBox
+                onPress={() => {
+                  setOrderParam(filter.orderEnum);
+                  setOrderText(filter.orderText);
+                  setSelectedOrder(filter.orderEnum);
+                }}
+                selectedOrder={selectedOrder}
+                orderEnum={filter.orderEnum}
+              >
+                <OrderFilterText
+                  selectedOrder={selectedOrder}
+                  orderEnum={filter.orderEnum}
+                >
+                  {filter.orderText}
+                </OrderFilterText>
+                {selectedOrder === filter.orderEnum && <SelectedCircle />}
+              </OrderFilterBox>
+            );
+          })}
+        </OrderFilterWrapper>
+      )}
+      <MarginNarrow />
+      <LineGrayMiddle />
       <ScrollView
-        style={{ width: '100%', flex: 1 }}
+        style={{ width: '100%' }}
         showsVerticalScrollIndicator={false}
       >
-        <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
-          <CategoryWrapper>
-            {categoryList.map((category) => {
-              return (
-                <Category
-                  categoryEnum={category.categoryEnum}
-                  onPress={() => {
-                    setCategoryParam(category.categoryEnum),
-                      setSelectedCategory(category.categoryEnum);
-                  }}
-                >
-                  <CategoryText
-                    selectedCategory={selectedCategory}
-                    categoryEnum={category.categoryEnum}
-                  >
-                    {category.categoryText}
-                  </CategoryText>
-                </Category>
-              );
-            })}
-          </CategoryWrapper>
-        </ScrollView>
-        <LineGrayMiddle />
-        <ScrollView horizontal={true}>
-          <CategoryWrapper>
-            <Category
-              onPress={() => {
-                setOrderParam(OrderEnum.avg_thickness);
-              }}
-            >
-              <Text>순서변경</Text>
-            </Category>
-            <Category
-              onPress={() => {
-                setOrderParam(OrderEnum.NONE);
-              }}
-            >
-              <Text>순서없애</Text>
-            </Category>
-          </CategoryWrapper>
-        </ScrollView>
         <Container>
           {_rankingList ? (
             _rankingList.map((product) => {
