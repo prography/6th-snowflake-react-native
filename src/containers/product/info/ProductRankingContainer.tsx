@@ -37,7 +37,6 @@ const CategoryText = styled.Text`
   font-size: ${d.px * 14}px;
   line-height: ${TEXT_HEIGHT}px;
   text-align: center;
-
   color: ${(props) =>
     props.selectedCategory === props.categoryEnum ? c.black : c.lightGray};
 `;
@@ -51,10 +50,14 @@ const FilterWrapper = styled.View`
 const FilterBox = styled.TouchableOpacity`
   border-width: 1px;
   border-style: solid;
-  border-color: ${(props) =>
-    props.showOrderFilter ? 'white' : c.extraLightGray};
+  border-color: ${c.extraLightGray};
   padding: ${NARROW_MARGIN}px;
-  background-color: ${(props) => (props.showOrderFilter ? c.purple : 'white')};
+  background-color: ${(props) =>
+    props.showOrderFilter
+      ? c.purple
+      : props.selectedOrder === ''
+      ? 'white'
+      : c.mint};
 `;
 
 const FilterText = styled.Text`
@@ -242,6 +245,7 @@ const ProductRankingContainer = () => {
       <MarginNarrow />
       <FilterWrapper>
         <FilterBox
+          selectedOrder={selectedOrder}
           showOrderFilter={showOrderFilter}
           onPress={() => {
             setShowOrderFilter(!showOrderFilter);
