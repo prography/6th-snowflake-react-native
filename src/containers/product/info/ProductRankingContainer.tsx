@@ -13,7 +13,7 @@ import LineGrayRightLong from '~/components/universal/line/LineGrayRightLong';
 import MarginNarrow from '~/components/universal/margin/MarginNarrow';
 
 const NARROW_MARGIN = d.px * 9;
-const TEXT_HEIGHT = d.px * 14;
+const TEXT_HEIGHT = d.px * 16;
 const Container = styled.View`
   align-items: flex-start;
   padding: 0 ${l.mR}px;
@@ -21,16 +21,13 @@ const Container = styled.View`
 
 const CategoryWrapper = styled.View`
   flex-direction: row;
-
   padding: 0 ${l.mR}px;
 `;
 
 const Category = styled.TouchableOpacity`
   align-items: center;
   justify-content: center;
-
   margin-right: ${d.px * 20}px;
-
   padding-left: ${(props) => (props.first ? 0 : NARROW_MARGIN)}px;
   padding-right: ${(props) => (props.last ? 0 : NARROW_MARGIN)}px;
 `;
@@ -57,26 +54,38 @@ const FilterBox = styled.TouchableOpacity`
   border-color: ${(props) =>
     props.showOrderFilter ? 'white' : c.extraLightGray};
   padding: ${NARROW_MARGIN}px;
-  background-color: ${(props) => (props.showOrderFilter ? c.mint : 'white')};
+  background-color: ${(props) => (props.showOrderFilter ? c.purple : 'white')};
 `;
 
 const FilterText = styled.Text`
   font-size: ${d.px * 14}px;
   line-height: ${TEXT_HEIGHT}px;
+  color: ${(props) => (props.showOrderFilter ? 'white' : c.black)};
 `;
 
 const OrderFilterWrapper = styled.View`
-  padding: ${l.mL}px ${l.mL}px;
+  padding: ${l.mR}px ${l.mR}px;
 `;
 const OrderFilterBox = styled.TouchableOpacity`
   width: 100%;
-
   padding: ${NARROW_MARGIN}px 0;
   margin-bottom: ${TEXT_HEIGHT}px;
+  flex-direction: row;
+  justify-content: space-between;
 `;
 const OrderFilterText = styled.Text`
   font-size: ${d.px * 14}px;
   line-height: ${TEXT_HEIGHT}px;
+  font-family: ${(props) =>
+    props.orderEnum === props.selectedOrder ? 'Jost-Medium' : 'Jost-Light'};
+  color: ${(props) =>
+    props.orderEnum === props.selectedOrder ? c.black : c.lightGray};
+`;
+const SelectedCircle = styled.View`
+  width: ${TEXT_HEIGHT / 2}px;
+  height: ${TEXT_HEIGHT / 2}px;
+  background-color: ${c.purple};
+  border-radius: 1000px;
 `;
 enum CategoryEnum {
   NONE = '',
@@ -99,8 +108,10 @@ const ProductRankingContainer = () => {
   const [_rankingList, _setRankingList] = useState(null);
   const [categoryParam, setCategoryParam] = useState(CategoryEnum.NONE);
   const [orderParam, setOrderParam] = useState(OrderEnum.NONE);
+  const [orderText, setOrderText] = useState('총점순');
   const [selectedCategory, setSelectedCategory] = useState(CategoryEnum.NONE);
   const [showOrderFilter, setShowOrderFilter] = useState(false);
+  const [selectedOrder, setSelectedOrder] = useState(OrderEnum.NONE);
   const _getRankingList = async () => {
     let url = `${BASE_URL}/products/condom?`;
     if (categoryParam !== CategoryEnum.NONE) {
@@ -236,7 +247,7 @@ const ProductRankingContainer = () => {
             setShowOrderFilter(!showOrderFilter);
           }}
         >
-          <FilterText>총점순</FilterText>
+          <FilterText showOrderFilter={showOrderFilter}>{orderText}</FilterText>
         </FilterBox>
       </FilterWrapper>
       {showOrderFilter && (
@@ -246,14 +257,26 @@ const ProductRankingContainer = () => {
               <OrderFilterBox
                 onPress={() => {
                   setOrderParam(filter.orderEnum);
+                  setOrderText(filter.orderText);
+                  setSelectedOrder(filter.orderEnum);
                 }}
+                selectedOrder={selectedOrder}
+                orderEnum={filter.orderEnum}
               >
-                <OrderFilterText>{filter.orderText}</OrderFilterText>
+                <OrderFilterText
+                  selectedOrder={selectedOrder}
+                  orderEnum={filter.orderEnum}
+                >
+                  {filter.orderText}
+                </OrderFilterText>
+                {selectedOrder === filter.orderEnum && <SelectedCircle />}
               </OrderFilterBox>
             );
           })}
         </OrderFilterWrapper>
       )}
+      <MarginNarrow />
+      <LineGrayMiddle />
       <ScrollView
         style={{ width: '100%' }}
         showsVerticalScrollIndicator={false}
