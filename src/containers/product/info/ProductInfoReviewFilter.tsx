@@ -10,9 +10,8 @@ import MarginWide from '~/components/universal/margin/MarginWide';
 const NARROW_MARGIN = d.px * 9;
 const TEXT_HEIGHT = d.px * 16;
 const FilterWrapper = styled.View`
-  padding: 0 ${l.mR}px;
-  flex-direction: row;
-  justify-content: flex-end;
+  flex-direction: column;
+  align-items: flex-end;
 `;
 
 const FilterBox = styled.TouchableOpacity`
@@ -28,8 +27,12 @@ const FilterText = styled.Text`
   line-height: ${TEXT_HEIGHT}px;
   color: ${(props) => (props.showFilter ? 'white' : c.black)};
 `;
-const FilterSelectWrapper = styled.View``;
-const Selection = styled.TouchableOpacity``;
+const FilterSelectWrapper = styled.View`
+  flex-direction: row;
+`;
+const Selection = styled.TouchableOpacity`
+  padding: 30px;
+`;
 interface Props {
   productId: number;
   reviewArray: any;
@@ -52,6 +55,7 @@ const ProductInfoReviewFilter = ({ setReviewArray, productId }: Props) => {
   const [genderParam, setGenderParam] = useState(GenderEnum.NONE);
   const [partnerParam, setPartnerParam] = useState(PartnerEnum.NONE);
   const [showGenderFilter, setShowGenderFilter] = useState(true);
+  const [showPartnerFilter, setShowPartnerFilter] = useState(true);
 
   const genderFilterList = [
     {
@@ -63,13 +67,23 @@ const ProductInfoReviewFilter = ({ setReviewArray, productId }: Props) => {
       genderText: '남성',
     },
   ];
+  const partnerFilterList = [
+    {
+      partnerEnum: PartnerEnum.woman,
+      partnerText: '여성',
+    },
+    {
+      partnerEnum: PartnerEnum.man,
+      partnerText: '남성',
+    },
+  ];
   const _getReviewArray = async () => {
     let url = `${BASE_URL}/reviews/?product=${productId}`;
     if (genderParam !== GenderEnum.NONE) {
       url += `&gender=${genderParam}`;
     }
     if (partnerParam !== PartnerEnum.NONE) {
-      url += `&partner = ${partnerParam}`;
+      url += `&partner=${partnerParam}`;
     }
 
     try {
@@ -94,10 +108,24 @@ const ProductInfoReviewFilter = ({ setReviewArray, productId }: Props) => {
             setShowGenderFilter(!showGenderFilter);
           }}
         >
-          <FilterText showFilter={showGenderFilter}>{genderParam}</FilterText>
+          <FilterText showFilter={showGenderFilter}>
+            작성자 성별: {genderParam}
+          </FilterText>
+        </FilterBox>
+        <FilterBox
+          selected={partnerParam}
+          showFilter={showPartnerFilter}
+          onPress={() => {
+            setShowPartnerFilter(!showPartnerFilter);
+          }}
+        >
+          <FilterText showFilter={showPartnerFilter}>
+            파트너 성별: {partnerParam}
+          </FilterText>
         </FilterBox>
         {showGenderFilter && (
           <FilterSelectWrapper>
+            <Text>성별필터!!</Text>
             {genderFilterList.map((filter) => {
               return (
                 <Selection
@@ -106,6 +134,22 @@ const ProductInfoReviewFilter = ({ setReviewArray, productId }: Props) => {
                   }}
                 >
                   <Text>{filter.genderText}</Text>
+                </Selection>
+              );
+            })}
+          </FilterSelectWrapper>
+        )}
+        {showPartnerFilter && (
+          <FilterSelectWrapper>
+            <Text>파트너 성별!!</Text>
+            {partnerFilterList.map((filter) => {
+              return (
+                <Selection
+                  onPress={() => {
+                    setPartnerParam(filter.partnerEnum);
+                  }}
+                >
+                  <Text>{filter.partnerText}</Text>
                 </Selection>
               );
             })}
