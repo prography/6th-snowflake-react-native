@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useState } from 'react';
 import styled from 'styled-components/native';
 import { d, l } from '~/utils/constant';
 import TextProductMiddleBar from '~/components/universal/text/product/info/TextProductMiddleBar';
@@ -18,6 +19,7 @@ interface Props {
   productId: number;
 }
 const ProductInfoReview = ({ reviewNum, productId }: Props) => {
+  const [reviewArray, setReviewArray] = useState(null);
   return (
     <>
       <Container>
@@ -27,8 +29,17 @@ const ProductInfoReview = ({ reviewNum, productId }: Props) => {
           type={'review'}
         />
         <MarginWide />
-        <ProductInfoReviewFilter />
-        {reviewNum ? <ReviewCardContainer productId={productId} /> : null}
+        <ProductInfoReviewFilter
+          reviewArray={reviewArray}
+          setReviewArray={setReviewArray}
+          productId={productId}
+        />
+        {reviewNum ? (
+          <ReviewCardContainer
+            productId={productId}
+            reviewArray={reviewArray}
+          />
+        ) : null}
       </Container>
     </>
   );
