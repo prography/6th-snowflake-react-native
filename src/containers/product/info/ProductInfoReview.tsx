@@ -4,6 +4,7 @@ import { d, l } from '~/utils/constant';
 import TextProductMiddleBar from '~/components/universal/text/product/info/TextProductMiddleBar';
 import ReviewCardContainer from '../review/ReviewCardContainer';
 import MarginWide from '~/components/universal/margin/MarginWide';
+import ProductInfoReviewFilter from './ProductInfoReviewFilter';
 
 const Container = styled.View`
   width: ${d.width - l.mR * 2}px;
@@ -26,6 +27,7 @@ const ProductInfoReview = ({ reviewNum, productId }: Props) => {
           type={'review'}
         />
         <MarginWide />
+        <ProductInfoReviewFilter />
         {reviewNum ? <ReviewCardContainer productId={productId} /> : null}
       </Container>
     </>
