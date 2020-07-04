@@ -14,6 +14,7 @@ import LinePurpleWhenFocused from '~/components/universal/line/LinePurpleWhenFoc
 import MarginWide from '~/components/universal/margin/MarginWide';
 import MarginNarrow from '~/components/universal/margin/MarginNarrow';
 import { StackActions } from '@react-navigation/native';
+import AppleBtn from '~/components/universal/button/AppleBtn';
 
 const Container = styled.View`
   margin: 0 ${l.mR}px;
@@ -110,7 +111,7 @@ const Login = ({ navigation }) => {
             </>
           );
         })}
-
+        <AppleBtn/>
         <MarginWide />
       </Container>
     </BottomBtnCollectData>
