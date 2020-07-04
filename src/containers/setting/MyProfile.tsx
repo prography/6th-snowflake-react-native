@@ -7,14 +7,14 @@ import styled from 'styled-components/native';
 import AsyncStorage, {
   useAsyncStorage,
 } from '@react-native-community/async-storage';
-import { AsyncAccessToken } from '~/utils/asyncStorage';
+import { UserId, AsyncAccessToken } from '~/utils/asyncStorage';
 
 const ProfileContainer = styled.View``;
-const UserName = styled.Text``;
+
 const MyProfile = () => {
   const _isLoggedin = useSelector((state) => state.authReducer.isLoggedin);
   const [token, setToken] = useState(null);
-  const [userInfoArray, setUserInfoArray] = useState([]);
+  const [userInfoArray, setUserInfoArray] = useState(null);
 
   const _getUserInfo = async () => {
     try {
@@ -35,7 +35,12 @@ const MyProfile = () => {
       const json = await response.json();
 
       console.log('🐹User info - success!', json);
-      setUserInfoArray(json);
+      await setUserInfoArray(json);
+
+      const { setItem, getItem } = useAsyncStorage(UserId);
+      await setItem(String(json.id));
+      const userIdFS = await getItem();
+      console.log('🐹store 안의 user id:', userIdFS);
     } catch (error) {
       console.log('🐹User info - error', error);
     }
@@ -43,18 +48,22 @@ const MyProfile = () => {
 
   useEffect(() => {
     _getUserInfo();
-  }, []);
+  }, [_isLoggedin]);
 
   return (
     <>
       {_isLoggedin ? (
-        <>
-          <ProfileContainer>
-            <TextTitlePurpleRight
-              title={userInfoArray.username + '님, 반가워요 ☀️'}
-            />
-          </ProfileContainer>
-        </>
+        userInfoArray !== null ? (
+          <>
+            <ProfileContainer>
+              <TextTitlePurpleRight
+                title={userInfoArray.username + '님, 반가워요 ☀️'}
+              />
+            </ProfileContainer>
+          </>
+        ) : (
+          <TextTitlePurpleRight title={'로딩☁️'} />
+        )
       ) : (
         <TextTitlePurpleRight title={'Please join us! ☁️'} />
       )}
