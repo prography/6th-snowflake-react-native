@@ -4,7 +4,7 @@ import styled from 'styled-components/native';
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import LinePurpleWhenFocused from '~/components/universal/line/LinePurpleWhenFocused';
-
+import { validateEmail } from '~/utils/validator';
 import MarginNarrow from '~/components/universal/margin/MarginNarrow';
 import { d, c, l, BASE_URL } from '~/utils/constant';
 
@@ -56,7 +56,12 @@ const Join1 = () => {
 
   useEffect(() => {
     _checkEmailDuplicate();
+    _checkEmialValidation();
   }, [emailInput]);
+
+  const _checkEmialValidation = () => {
+    console.log('메일메일체크체크', validateEmail(emailInput));
+  };
 
   const _checkEmailDuplicate = async () => {
     try {
