@@ -7,7 +7,7 @@ import styled from 'styled-components/native';
 import AsyncStorage, {
   useAsyncStorage,
 } from '@react-native-community/async-storage';
-import { UserId, AsyncAccessToken } from '~/utils/asyncStorage';
+import { UserId, AsyncAccessToken, UserName } from '~/utils/asyncStorage';
 
 const ProfileContainer = styled.View``;
 
@@ -36,13 +36,22 @@ const MyProfile = () => {
 
       console.log('🐹User info - success!', json);
       await setUserInfoArray(json);
-
-      const { setItem, getItem } = useAsyncStorage(UserId);
-      await setItem(String(json.id));
-      const userIdFS = await getItem();
-      console.log('🐹store 안의 user id:', userIdFS);
     } catch (error) {
       console.log('🐹User info - error', error);
+    }
+
+    try {
+      // const { setItem, getItem } = useAsyncStorage(UserId);
+      // await setItem(String(json.id));
+      // const userIdFS = await getItem();
+      await AsyncStorage.setItem('UserId', String(userInfoArray.id));
+      await AsyncStorage.setItem('UserName', String(userInfoArray.username));
+      const userIdFS = await AsyncStorage.getItem(UserId);
+      const userNameFS = await AsyncStorage.getItem(UserName);
+      console.log('🐹store 안의 userId:', userIdFS);
+      console.log('🐹store 안의 userName:', userNameFS);
+    } catch (error) {
+      console.log('🐹store 저장 에러', error);
     }
   };
 
