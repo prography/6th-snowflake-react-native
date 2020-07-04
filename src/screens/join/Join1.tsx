@@ -18,6 +18,7 @@ const Container = styled.View`
 const InputContainer = styled.View``;
 const GuideTextWrapper = styled.View`
   flex-direction: row;
+  align-items: center;
 `;
 const JoinGuideText = styled.Text`
   font-family: Jost-Light;
@@ -41,7 +42,7 @@ const Join1 = () => {
   const dispatch = useDispatch();
   const [isFilled, setIsFilled] = useState(false);
   const [emailInput, setEmailInput] = useState('');
-  const [emailDuplicateCheck, setEmailDuplicateCheck] = useState(true);
+  const [emailWarnigText, setEmailWarningText] = useState('');
   const [passwordInput, setPasswordInput] = useState('');
   const [checkPasswordInput, setCheckPasswordInput] = useState('');
   const [emailFocus, handleEmailFocus] = useState(false);
@@ -56,12 +57,7 @@ const Join1 = () => {
 
   useEffect(() => {
     _checkEmailDuplicate();
-    _checkEmialValidation();
   }, [emailInput]);
-
-  const _checkEmialValidation = () => {
-    console.log('메일메일체크체크', validateEmail(emailInput));
-  };
 
   const _checkEmailDuplicate = async () => {
     try {
@@ -69,18 +65,27 @@ const Join1 = () => {
         `${BASE_URL}/accounts/check-duplicates/email/?value=${emailInput}`
       );
       const json = await response.json();
-      console.log(
-        '🧢이메일 중복 체크 성공적으로',
-        json.message,
-        '🧢중복상태:',
-        emailDuplicateCheck
-      );
-      json.message === 'no email duplicates :)'
-        ? setEmailDuplicateCheck(false)
-        : setEmailDuplicateCheck(true);
+      console.log('🤯🤯🤯', response, json);
+      if (response.status === 200) {
+        // 중복 안됨! 성공!
+        _setEmailWarningText(false);
+        console.log('🧢🧢이메일 중복 체크', json.message, '중복아님');
+      } else {
+        _setEmailWarningText(true);
+        console.log('🧢🧢이메일 중복 체크', json.message, '중복임');
+      }
     } catch (error) {
       console.log('🧢이메일 중복 체크 실패', error);
     }
+  };
+  const _setEmailWarningText = (isDuplicate: boolean) => {
+    emailInput === ''
+      ? setEmailWarningText('')
+      : validateEmail(emailInput)
+      ? isDuplicate
+        ? setEmailWarningText('* 이미 가입된 메일입니다')
+        : setEmailWarningText('* 가입된 메일 아님')
+      : setEmailWarningText('* 올바른 메일을 입력해주세요');
   };
 
   const checkPassword = () => {
@@ -105,8 +110,8 @@ const Join1 = () => {
       inputContent: emailInput,
       focused: emailFocus,
       isPassword: false,
-      warningText: '* 중복된 이메일입니다.',
-      warning: false,
+      warningText: emailWarnigText,
+      warning: emailWarnigText === '' ? false : true,
     },
     {
       guideText: '비밀번호',
