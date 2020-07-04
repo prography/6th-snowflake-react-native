@@ -16,6 +16,8 @@ import ProductInfoReview from '~/containers/product/info/ProductInfoReview';
 import TopBarBackArrow from '~/components/universal/topBar/TopBarBackArrow';
 import ProductInfoBar from '~/components/universal/bottomBar/product/ProductInfoBar';
 import TextTitlePurpleRight from '~/components/universal/text/TextTitlePurpleRight';
+import AsyncStorage from '@react-native-community/async-storage';
+import { UserId } from '~/utils/asyncStorage';
 
 const Container = styled.View`
   flex-direction: column;
@@ -40,8 +42,29 @@ const ProductInfo = ({ route, navigation }) => {
     }
   };
 
+  const _likeProduct = async () => {
+    try {
+      const userIdFS = await AsyncStorage.getItem(UserId);
+      const response = await fetch(`${BASE_URL}/likes/`, {
+        method: 'POST',
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        body: {
+          model: 'product',
+          object_id: productId,
+          user: userIdFS,
+        },
+      });
+      console.log('☄️like post 성공! ', response);
+    } catch (error) {
+      console.log('☄️like 에러 ', error);
+    }
+  };
+
   useEffect(() => {
     _getProductInfo();
+    _likeProduct();
   }, []);
 
   return (
