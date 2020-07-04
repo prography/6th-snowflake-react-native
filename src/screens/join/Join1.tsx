@@ -19,23 +19,29 @@ const InputContainer = styled.View``;
 const GuideTextWrapper = styled.View`
   flex-direction: row;
   align-items: center;
+  height: ${d.px * 20}px;
+  margin-bottom: ${d.px * 10}px;
 `;
 const JoinGuideText = styled.Text`
   font-family: Jost-Light;
   font-size: ${d.px * 15}px;
   color: ${(props) => (props.focused ? c.purple : c.lightGray)};
   margin-right: ${d.px * 5}px;
+  line-height: ${d.px * 20}px;
 `;
 const WarningText = styled.Text`
   color: ${c.purple};
   font-family: Jost-Bold;
   font-size: ${d.px * 13}px;
+  line-height: ${d.px * 20}px;
 `;
 const JoinInfoInput = styled.TextInput`
   font-family: Jost-Bold;
   font-size: ${d.px * 23}px;
   font-family: 'Jost-Bold';
   color: ${c.darkGray};
+  justify-content: center;
+  align-items: center;
 `;
 
 const Join1 = () => {
@@ -165,6 +171,8 @@ const Join1 = () => {
                   <JoinInfoInput
                     placeholder={data.placeholder}
                     placeholderTextColor={c.extraLightGray}
+                    autoCapitalize={'none'}
+                    autoCorrect={false}
                     secureTextEntry={data.isPassword}
                     onChangeText={(text) => {
                       data.onChangeTextFunction(text);
