@@ -42,7 +42,7 @@ const Join1 = () => {
   const dispatch = useDispatch();
   const [isFilled, setIsFilled] = useState(false);
   const [emailInput, setEmailInput] = useState('');
-  const [emailWarnigText, setEmailWarningText] = useState('');
+  const [emailWarnigText, setEmailWarningText] = useState(null);
   const [passwordInput, setPasswordInput] = useState('');
   const [checkPasswordInput, setCheckPasswordInput] = useState('');
   const [emailFocus, handleEmailFocus] = useState(false);
@@ -51,7 +51,7 @@ const Join1 = () => {
   const [checkPasswordWarning, setCheckPasswordWarning] = useState(false);
   useEffect(() => {
     setIsFilled(
-      emailInput && passwordInput === checkPasswordInput ? true : false
+      emailWarnigText === '' ? (checkPasswordWarning ? true : false) : false
     );
   }, [emailInput, passwordInput, checkPasswordInput]);
 
@@ -80,11 +80,11 @@ const Join1 = () => {
   };
   const _setEmailWarningText = (isDuplicate: boolean) => {
     emailInput === ''
-      ? setEmailWarningText('')
+      ? setEmailWarningText(null)
       : validateEmail(emailInput)
       ? isDuplicate
         ? setEmailWarningText('* 이미 가입된 메일입니다')
-        : setEmailWarningText('* 가입된 메일 아님')
+        : setEmailWarningText('')
       : setEmailWarningText('* 올바른 메일을 입력해주세요');
   };
 
