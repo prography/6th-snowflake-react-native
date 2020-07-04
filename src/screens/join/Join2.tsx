@@ -3,7 +3,7 @@ import { View, Text } from 'react-native';
 import styled from 'styled-components/native';
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { d, c, l } from '~/utils/constant';
+import { d, c, l, BASE_URL } from '~/utils/constant';
 import {
   State,
   setUserEmail,
@@ -60,16 +60,44 @@ const UserNameInput = styled.TextInput`
   font-family: 'Jost-Bold';
   color: ${c.darkGray};
 `;
-
+const WarningText = styled.Text`
+  color: ${c.purple};
+  font-family: Jost-Bold;
+  font-size: ${d.px * 13}px;
+  line-height: ${d.px * 20}px;
+  margin-top: ${d.px * 20}px;
+  height: ${d.px * 20}px;
+`;
 const Join2 = ({ route }) => {
   const { signUpEmail, signUpPassword } = route.params;
   console.log('🥇', route.params);
   const [isFilled, setIsFilled] = useState(false);
   const [nameInput, setNameInput] = useState('');
-
+  const [nameWarningText, setNameWarningText] = useState(null);
   useEffect(() => {
     setIsFilled(nameInput ? true : false);
   }, [nameInput]);
+
+  useEffect(() => {
+    _checkNameDuplicate();
+  }, [nameInput]);
+
+  const _checkNameDuplicate = async () => {
+    try {
+      const response = await fetch(
+        `${BASE_URL}/accounts/check-duplicates/username?value=${nameInput}`
+      );
+      const json = await response.json();
+      console.log('⛄️닉네임 중복 체크', response, json);
+      if (response.status === 200) {
+        setNameWarningText('');
+      } else {
+        setNameWarningText('중복된 닉네임이에요!');
+      }
+    } catch (error) {
+      console.log('⛄️닉네임 중복 체크 실패', error);
+    }
+  };
 
   const [isNameFocused, setNameFocused] = useState(false);
   const handleNameFocus = () => {
@@ -121,6 +149,7 @@ const Join2 = ({ route }) => {
               />
               <CommaText>,</CommaText>
             </GuideContainer>
+            <WarningText>{nameWarningText}</WarningText>
           </OneLineWrapper>
           <OneLineWrapper>
             <GuideContainer>
