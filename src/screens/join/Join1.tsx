@@ -4,7 +4,7 @@ import styled from 'styled-components/native';
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import LinePurpleWhenFocused from '~/components/universal/line/LinePurpleWhenFocused';
-import { validateEmail } from '~/utils/validator';
+import { validateEmail, validatePassword } from '~/utils/validator';
 import MarginNarrow from '~/components/universal/margin/MarginNarrow';
 import { d, c, l, BASE_URL } from '~/utils/constant';
 
@@ -121,12 +121,12 @@ const Join1 = () => {
       inputContent: passwordInput,
       focused: passwordFocus,
       isPassword: true,
-      warningText: '* 중복된 이메일입니다.',
-      warning: false,
+      warningText: '* 6~20자, 영문과 숫자를 조합해주세요',
+      warning: passwordInput === '' ? false : !validatePassword(passwordInput),
     },
     {
       guideText: '비밀번호 확인',
-      placeholder: '6자리 이상',
+      placeholder: '위와 같게 입력해주세요',
       onChangeTextFunction: setCheckPasswordInput,
       handleFocusFunction: handleCheckPasswordFocus,
       inputContent: checkPasswordInput,
