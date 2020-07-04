@@ -39,10 +39,9 @@ const JoinInfoInput = styled.TextInput`
 
 const Join1 = () => {
   const dispatch = useDispatch();
-
   const [isFilled, setIsFilled] = useState(false);
-
   const [emailInput, setEmailInput] = useState('');
+  const [emailDuplicateCheck, setEmailDuplicateCheck] = useState(true);
   const [passwordInput, setPasswordInput] = useState('');
   const [checkPasswordInput, setCheckPasswordInput] = useState('');
   const [emailFocus, handleEmailFocus] = useState(false);
@@ -54,6 +53,30 @@ const Join1 = () => {
       emailInput && passwordInput === checkPasswordInput ? true : false
     );
   }, [emailInput, passwordInput, checkPasswordInput]);
+
+  useEffect(() => {
+    _checkEmailDuplicate();
+  }, [emailInput]);
+
+  const _checkEmailDuplicate = async () => {
+    try {
+      const response = await fetch(
+        `${BASE_URL}/accounts/check-duplicates/email/?value=${emailInput}`
+      );
+      const json = await response.json();
+      console.log(
+        '🧢이메일 중복 체크 성공적으로',
+        json.message,
+        '🧢중복상태:',
+        emailDuplicateCheck
+      );
+      json.message === 'no email duplicates :)'
+        ? setEmailDuplicateCheck(false)
+        : setEmailDuplicateCheck(true);
+    } catch (error) {
+      console.log('🧢이메일 중복 체크 실패', error);
+    }
+  };
 
   const checkPassword = () => {
     passwordInput === ''
