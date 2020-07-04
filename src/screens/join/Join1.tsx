@@ -4,7 +4,7 @@ import styled from 'styled-components/native';
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import LinePurpleWhenFocused from '~/components/universal/line/LinePurpleWhenFocused';
-
+import { validateEmail, validatePassword } from '~/utils/validator';
 import MarginNarrow from '~/components/universal/margin/MarginNarrow';
 import { d, c, l, BASE_URL } from '~/utils/constant';
 
@@ -18,30 +18,37 @@ const Container = styled.View`
 const InputContainer = styled.View``;
 const GuideTextWrapper = styled.View`
   flex-direction: row;
+  align-items: center;
+  height: ${d.px * 20}px;
+  margin-bottom: ${d.px * 10}px;
 `;
 const JoinGuideText = styled.Text`
   font-family: Jost-Light;
   font-size: ${d.px * 15}px;
   color: ${(props) => (props.focused ? c.purple : c.lightGray)};
   margin-right: ${d.px * 5}px;
+  line-height: ${d.px * 20}px;
 `;
 const WarningText = styled.Text`
   color: ${c.purple};
   font-family: Jost-Bold;
   font-size: ${d.px * 13}px;
+  line-height: ${d.px * 20}px;
 `;
 const JoinInfoInput = styled.TextInput`
   font-family: Jost-Bold;
   font-size: ${d.px * 23}px;
   font-family: 'Jost-Bold';
   color: ${c.darkGray};
+  justify-content: center;
+  align-items: center;
 `;
 
 const Join1 = () => {
   const dispatch = useDispatch();
   const [isFilled, setIsFilled] = useState(false);
   const [emailInput, setEmailInput] = useState('');
-  const [emailDuplicateCheck, setEmailDuplicateCheck] = useState(true);
+  const [emailWarnigText, setEmailWarningText] = useState(null);
   const [passwordInput, setPasswordInput] = useState('');
   const [checkPasswordInput, setCheckPasswordInput] = useState('');
   const [emailFocus, handleEmailFocus] = useState(false);
@@ -50,7 +57,7 @@ const Join1 = () => {
   const [checkPasswordWarning, setCheckPasswordWarning] = useState(false);
   useEffect(() => {
     setIsFilled(
-      emailInput && passwordInput === checkPasswordInput ? true : false
+      emailWarnigText === '' ? (checkPasswordWarning ? true : false) : false
     );
   }, [emailInput, passwordInput, checkPasswordInput]);
 
@@ -64,18 +71,27 @@ const Join1 = () => {
         `${BASE_URL}/accounts/check-duplicates/email/?value=${emailInput}`
       );
       const json = await response.json();
-      console.log(
-        '🧢이메일 중복 체크 성공적으로',
-        json.message,
-        '🧢중복상태:',
-        emailDuplicateCheck
-      );
-      json.message === 'no email duplicates :)'
-        ? setEmailDuplicateCheck(false)
-        : setEmailDuplicateCheck(true);
+      console.log('🤯🤯🤯', response, json);
+      if (response.status === 200) {
+        // 중복 안됨! 성공!
+        _setEmailWarningText(false);
+        console.log('🧢🧢이메일 중복 체크', json.message, '중복아님');
+      } else {
+        _setEmailWarningText(true);
+        console.log('🧢🧢이메일 중복 체크', json.message, '중복임');
+      }
     } catch (error) {
       console.log('🧢이메일 중복 체크 실패', error);
     }
+  };
+  const _setEmailWarningText = (isDuplicate: boolean) => {
+    emailInput === ''
+      ? setEmailWarningText(null)
+      : validateEmail(emailInput)
+      ? isDuplicate
+        ? setEmailWarningText('* 이미 가입된 메일입니다')
+        : setEmailWarningText('')
+      : setEmailWarningText('* 올바른 메일을 입력해주세요');
   };
 
   const checkPassword = () => {
@@ -100,8 +116,8 @@ const Join1 = () => {
       inputContent: emailInput,
       focused: emailFocus,
       isPassword: false,
-      warningText: '* 중복된 이메일입니다.',
-      warning: false,
+      warningText: emailWarnigText,
+      warning: emailWarnigText === '' ? false : true,
     },
     {
       guideText: '비밀번호',
@@ -111,12 +127,12 @@ const Join1 = () => {
       inputContent: passwordInput,
       focused: passwordFocus,
       isPassword: true,
-      warningText: '* 중복된 이메일입니다.',
-      warning: false,
+      warningText: '* 6~20자, 영문과 숫자를 조합해주세요',
+      warning: passwordInput === '' ? false : !validatePassword(passwordInput),
     },
     {
       guideText: '비밀번호 확인',
-      placeholder: '6자리 이상',
+      placeholder: '위와 같게 입력해주세요',
       onChangeTextFunction: setCheckPasswordInput,
       handleFocusFunction: handleCheckPasswordFocus,
       inputContent: checkPasswordInput,
@@ -155,6 +171,8 @@ const Join1 = () => {
                   <JoinInfoInput
                     placeholder={data.placeholder}
                     placeholderTextColor={c.extraLightGray}
+                    autoCapitalize={'none'}
+                    autoCorrect={false}
                     secureTextEntry={data.isPassword}
                     onChangeText={(text) => {
                       data.onChangeTextFunction(text);
