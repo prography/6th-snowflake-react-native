@@ -1,10 +1,13 @@
 import * as React from 'react';
+import { useState, useEffect } from 'react';
 import styled from 'styled-components/native';
 import { withNavigation } from '@react-navigation/compat';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RootTabParamList } from '~/navigation/RootTabNavigation';
 import { d, c, l } from '~/utils/constant';
-
+import AsyncStorage from '@react-native-community/async-storage';
+import { UserId, AsyncAccessToken } from '~/utils/asyncStorage';
+import { BASE_URL } from '~/utils/constant';
 interface Props {
   children: React.ReactNode;
   navigation: StackNavigationProp<RootTabParamList>;
@@ -37,11 +40,53 @@ const Title = styled.Text`
 `;
 
 const ProductInfoBar = ({ children, navigation, productId }: Props) => {
+  const [token, setToken] = useState(null);
+  const [userIdFS, setUserIdFS] = useState(null);
+
+  const _likeProduct = async () => {
+    const model = 'product';
+    const object_id = productId;
+    const user = userIdFS;
+    try {
+      const _token = await AsyncStorage.getItem(AsyncAccessToken);
+      const _userIdFS = await AsyncStorage.getItem(UserId);
+      setUserIdFS(_userIdFS);
+      setToken(_token);
+      console.log('1-1. 🍊like token 잘 가져옴 ', token);
+      console.log('1-2.🍊userId도...', userIdFS);
+    } catch (e) {
+      console.error('1. 🍊like error - token 안 가져와');
+    }
+
+    try {
+      const response = await fetch(`${BASE_URL}/likes/`, {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          model,
+          object_id,
+          user,
+        }),
+      });
+      console.log('2. 🍊like post 성공! ', response);
+    } catch (error) {
+      console.log('2. 🍊like 에러 ', error);
+    }
+  };
+
   return (
     <Screen>
       {children}
       <Container>
-        <Tab>
+        <Tab
+          onPress={() => {
+            _likeProduct();
+          }}
+        >
           <Title>찜하기</Title>
         </Tab>
         <Tab>
