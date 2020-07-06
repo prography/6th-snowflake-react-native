@@ -41,9 +41,6 @@ const MyProfile = () => {
     }
 
     try {
-      // const { setItem, getItem } = useAsyncStorage(UserId);
-      // await setItem(String(json.id));
-      // const userIdFS = await getItem();
       await AsyncStorage.setItem('UserId', String(userInfoArray.id));
       await AsyncStorage.setItem('UserName', String(userInfoArray.username));
       const userIdFS = await AsyncStorage.getItem(UserId);
@@ -62,7 +59,7 @@ const MyProfile = () => {
   return (
     <>
       {_isLoggedin ? (
-        userInfoArray !== null ? (
+        userInfoArray.username ? (
           <>
             <ProfileContainer>
               <TextTitlePurpleRight
