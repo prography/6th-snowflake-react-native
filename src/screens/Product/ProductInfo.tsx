@@ -17,7 +17,8 @@ import TopBarBackArrow from '~/components/universal/topBar/TopBarBackArrow';
 import ProductInfoBar from '~/components/universal/bottomBar/product/ProductInfoBar';
 import TextTitlePurpleRight from '~/components/universal/text/TextTitlePurpleRight';
 import AsyncStorage from '@react-native-community/async-storage';
-import { UserId } from '~/utils/asyncStorage';
+import { UserId, AsyncAccessToken } from '~/utils/asyncStorage';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 const Container = styled.View`
   flex-direction: column;
@@ -26,7 +27,8 @@ const Container = styled.View`
 
 const ProductInfo = ({ route, navigation }) => {
   const { productId } = route.params;
-  // const [productId, setProductId] = useState(4);
+  const [token, setToken] = useState(null);
+  const [userIdFS, setUserIdFS] = useState(null);
   const [productInfo, setProductInfo] = useState(null);
 
   const _getProductInfo = async () => {
@@ -43,22 +45,37 @@ const ProductInfo = ({ route, navigation }) => {
   };
 
   const _likeProduct = async () => {
+    const model = 'product';
+    const object_id = productId;
+    const user = userIdFS;
     try {
-      const userIdFS = await AsyncStorage.getItem(UserId);
+      const _token = await AsyncStorage.getItem(AsyncAccessToken);
+      const _userIdFS = await AsyncStorage.getItem(UserId);
+      setUserIdFS(_userIdFS);
+      setToken(_token);
+      console.log('1-1. 🍊like token 잘 가져옴 ', token);
+      console.log('1-2.🍊userId도...', userIdFS);
+    } catch (e) {
+      console.error('1. 🍊like error - token 안 가져와');
+    }
+
+    try {
       const response = await fetch(`${BASE_URL}/likes/`, {
         method: 'POST',
         headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
           Authorization: `Bearer ${token}`,
         },
-        body: {
-          model: 'product',
-          object_id: productId,
-          user: userIdFS,
-        },
+        body: JSON.stringify({
+          model,
+          object_id,
+          user,
+        }),
       });
-      console.log('☄️like post 성공! ', response);
+      console.log('2. 🍊like post 성공! ', response);
     } catch (error) {
-      console.log('☄️like 에러 ', error);
+      console.log('2. 🍊like 에러 ', error);
     }
   };
 
@@ -76,6 +93,14 @@ const ProductInfo = ({ route, navigation }) => {
           <ScrollView showsVerticalScrollIndicator={false}>
             <TopBarBackArrow />
             <Container>
+              <TouchableOpacity
+                onPress={() => {
+                  _likeProduct();
+                }}
+                style={{ height: 200, width: 200, backgroundColor: 'yellow' }}
+              >
+                <Text>Like Test</Text>
+              </TouchableOpacity>
               <ProductInfoImage imageUri={productInfo.image} />
               <MarginMedium />
               <ProductInfoNameManufacturer
