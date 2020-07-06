@@ -56,7 +56,7 @@ const MyProfile = () => {
 
   useEffect(() => {
     _getUserInfo();
-  }, []);
+  }, [token, _isLoggedin, userNameFS]);
 
   return (
     <>
@@ -64,7 +64,9 @@ const MyProfile = () => {
         userNameFS ? (
           <>
             <ProfileContainer>
-              <TextTitlePurpleRight title={userNameFS + '님, 반가워요 ☀️'} />
+              <TextTitlePurpleRight
+                title={userInfoArray.username + '님, 반가워요 ☀️'}
+              />
             </ProfileContainer>
           </>
         ) : (

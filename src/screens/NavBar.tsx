@@ -6,8 +6,8 @@ import { RootTabParamList } from '~/navigation/RootTabNavigation';
 import { d, c, l } from '~/utils/constant';
 
 interface Props {
-  children: React.ReactNode;
-  navigation: StackNavigationProp<RootTabParamList>;
+  children: any;
+  navigation: any;
 }
 
 const Screen = styled.View`
@@ -75,13 +75,6 @@ const NavBar = ({ children, navigation }: Props) => {
         >
           <Title>설정</Title>
         </Tab>
-        {/* <Tab
-          onPress={() => {
-            navigation.navigate('JoinStack');
-          }}
-        >
-          <Title>가입</Title>
-        </Tab> */}
       </Container>
     </Screen>
   );

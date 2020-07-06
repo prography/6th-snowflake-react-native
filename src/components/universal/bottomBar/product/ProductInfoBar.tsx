@@ -44,21 +44,21 @@ const ProductInfoBar = ({ children, navigation, productId }: Props) => {
   const [userIdFS, setUserIdFS] = useState(null);
 
   const _likeProduct = async () => {
-    const model = 'product';
-    const object_id = productId;
-    const user = userIdFS;
     try {
       const _token = await AsyncStorage.getItem(AsyncAccessToken);
       const _userIdFS = await AsyncStorage.getItem(UserId);
-      setUserIdFS(_userIdFS);
-      setToken(_token);
-      console.log('1-1. 🍊like token 잘 가져옴 ', token);
-      console.log('1-2.🍊userId도...', userIdFS);
+      await setUserIdFS(_userIdFS);
+      await setToken(_token);
+      await console.log('1-1. 🍊like token 잘 가져옴 ', token);
+      await console.log('1-2.🍊userId도...', userIdFS);
     } catch (e) {
       console.error('1. 🍊like error - token 안 가져와');
     }
 
     try {
+      const model = 'product';
+      const object_id = productId;
+      const user = userIdFS;
       const response = await fetch(`${BASE_URL}/likes/`, {
         method: 'POST',
         headers: {
