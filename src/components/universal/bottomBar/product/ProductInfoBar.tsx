@@ -39,6 +39,12 @@ const Title = styled.Text`
   font-size: ${d.px * 12}px;
 `;
 
+const HeartIcon = styled.Image`
+  width: ${d.px * 30}px;
+  height: ${d.px * 20}px;
+  resize-mode: contain;
+`;
+
 const ProductInfoBar = ({ children, navigation, productId }: Props) => {
   const [isLiked, setIsLiked] = useState(false);
   const _likeProduct = async () => {
@@ -113,7 +119,13 @@ const ProductInfoBar = ({ children, navigation, productId }: Props) => {
             _likeProduct();
           }}
         >
-          <Title>{isLiked ? '찜됐음' : '찜 취소'}</Title>
+          <HeartIcon
+            source={
+              isLiked
+                ? require('~/img/icon/iconHeartBlack.png')
+                : require('~/img/icon/iconHeartWhite.png')
+            }
+          />
         </Tab>
         <Tab>
           <Title>공유하기</Title>
