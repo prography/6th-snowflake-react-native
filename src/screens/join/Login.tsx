@@ -47,7 +47,7 @@ const Login = ({ navigation }) => {
     userEmail && userPassword ? setIsFilled(true) : setIsFilled(false);
   }, [userEmail, userPassword]);
   const _login = (email: string, password: string) => {
-    console.log('😸5... 로그인 액션 호출');
+    console.log('😸5... 로그인 액션 호출', userEmail);
     dispatch(requestLogin(userEmail, userPassword));
   };
 

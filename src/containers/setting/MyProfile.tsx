@@ -15,12 +15,13 @@ const MyProfile = () => {
   const _isLoggedin = useSelector((state) => state.authReducer.isLoggedin);
   const [token, setToken] = useState(null);
   const [userInfoArray, setUserInfoArray] = useState(null);
+  const [userNameFS, setUserNameFS] = useState(null);
 
   const _getUserInfo = async () => {
     try {
       const _token = await AsyncStorage.getItem(AsyncAccessToken);
       setToken(_token);
-      console.log(token);
+      console.log('1.🐹 토큰 store에 저장해서 불러옴:', token);
     } catch (e) {
       console.error('안 가져와');
     }
@@ -34,22 +35,20 @@ const MyProfile = () => {
       });
       const json = await response.json();
 
-      console.log('🐹User info - success!', json);
+      console.log('2.🐹User info 불러옴 - 성공!', json);
       await setUserInfoArray(json);
     } catch (error) {
       console.log('🐹User info - error', error);
     }
 
     try {
-      // const { setItem, getItem } = useAsyncStorage(UserId);
-      // await setItem(String(json.id));
-      // const userIdFS = await getItem();
       await AsyncStorage.setItem('UserId', String(userInfoArray.id));
       await AsyncStorage.setItem('UserName', String(userInfoArray.username));
-      const userIdFS = await AsyncStorage.getItem(UserId);
-      const userNameFS = await AsyncStorage.getItem(UserName);
-      console.log('🐹store 안의 userId:', userIdFS);
-      console.log('🐹store 안의 userName:', userNameFS);
+      const _userIdFS = await AsyncStorage.getItem(UserId);
+      const _userNameFS = await AsyncStorage.getItem(UserName);
+      console.log('3-1.🐹store 안의 userId:', _userIdFS);
+      console.log('3-2.🐹store 안의 userName:', _userNameFS);
+      setUserNameFS(_userNameFS);
     } catch (error) {
       console.log('🐹store 저장 에러', error);
     }
@@ -57,12 +56,12 @@ const MyProfile = () => {
 
   useEffect(() => {
     _getUserInfo();
-  }, [_isLoggedin]);
+  }, [token, _isLoggedin, userNameFS]);
 
   return (
     <>
       {_isLoggedin ? (
-        userInfoArray !== null ? (
+        userNameFS ? (
           <>
             <ProfileContainer>
               <TextTitlePurpleRight
