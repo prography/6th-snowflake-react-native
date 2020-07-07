@@ -40,6 +40,7 @@ const Title = styled.Text`
 `;
 
 const ProductInfoBar = ({ children, navigation, productId }: Props) => {
+  const [isLiked, setIsLiked] = useState(false);
   const _likeProduct = async () => {
     try {
       const _token = await AsyncStorage.getItem(AsyncAccessToken);
@@ -48,46 +49,61 @@ const ProductInfoBar = ({ children, navigation, productId }: Props) => {
       const user = await AsyncStorage.getItem(UserId);
       await console.log('1-1.🍊like token 잘 가져옴 ', _token);
       await console.log('1-2.🍊userId도...', user);
-      // const response = await fetch(`${BASE_URL}/likes/`, {
-      //   method: 'POST',
-      //   headers: {
-      //     Accept: 'application/json',
-      //     'Content-Type': 'application/json',
-      //     Authorization: `Bearer ${_token}`,
-      //   },
-      //   body: JSON.stringify({
-      //     model,
-      //     object_id,
-      //     user,
-      //   }),
-      // });
-      // console.log('2. 🍊like post 성공! ', response);
-
-      // const responseIsLiked = await fetch(
-      //   `${BASE_URL}/likes/?model=product&object_id=${productId}`,
-      //   {
-      //     method: 'GET',
-      //     headers: {
-      //       Authorization: `Bearer ${_token}`,
-      //     },
-      //   }
-      // );
-      // const json = await responseIsLiked.json();
-      // console.log('3. 🍊like 조회 ', json);
-
-      const delteLike = await fetch(`${BASE_URL}/likes/${productId}/`, {
-        method: 'DELETE',
+      const response = await fetch(`${BASE_URL}/likes/`, {
+        method: 'POST',
         headers: {
+          Accept: 'application/json',
           'Content-Type': 'application/json',
           Authorization: `Bearer ${_token}`,
         },
+        body: JSON.stringify({
+          model,
+          object_id,
+          user,
+        }),
       });
-      console.log('4. 🍊like 삭제 ', delteLike);
+      console.log('2. 🍊like post 성공! ', response);
+      await _checkIsLiked();
+      // const url = `${BASE_URL}/likes/${productId}/`;
+      // console.log('🍊url: ', url);
+      // const delteLike = await fetch(url, {
+      //   method: 'DELETE',
+      //   headers: {
+      //     'Content-Type': 'application/json',
+      //     Authorization: `Bearer ${_token}`,
+      //   },
+      // });
+      // const json2 = await delteLike.json();
+      // console.log('4. 🍊like 삭제 ', delteLike);
     } catch (error) {
       console.log('🍊like 에러 ', error);
     }
   };
 
+  const _checkIsLiked = async () => {
+    try {
+      const _token = await AsyncStorage.getItem(AsyncAccessToken);
+      const responseIsLiked = await fetch(
+        `${BASE_URL}/likes/?model=product&object_id=${productId}`,
+        {
+          method: 'GET',
+          headers: {
+            Authorization: `Bearer ${_token}`,
+          },
+        }
+      );
+      const responseIsLikedJson = await responseIsLiked.json();
+      await setIsLiked(responseIsLikedJson.results.length === 0 ? false : true);
+      await console.log('3-1. 🍊like 조회 ', responseIsLikedJson);
+      await console.log('3-2. 🍊이 제품을 찜 했나요?', isLiked);
+    } catch (error) {
+      console.log('🍊like 에러 ', error);
+    }
+  };
+
+  useEffect(() => {
+    _checkIsLiked();
+  }, []);
   return (
     <Screen>
       {children}
@@ -97,7 +113,7 @@ const ProductInfoBar = ({ children, navigation, productId }: Props) => {
             _likeProduct();
           }}
         >
-          <Title>찜하기</Title>
+          <Title>{isLiked ? '찜됐음' : '찜 취소'}</Title>
         </Tab>
         <Tab>
           <Title>공유하기</Title>
