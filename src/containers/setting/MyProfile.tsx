@@ -10,22 +10,20 @@ import AsyncStorage, {
 import { UserId, AsyncAccessToken, UserName } from '~/utils/asyncStorage';
 
 const ProfileContainer = styled.View``;
-
-const MyProfile = () => {
+const Container = styled.View`
+  margin-left: ${l.mL}px;
+  margin-right: ${l.mR}px;
+`;
+interface Props {
+  token: any;
+}
+const MyProfile = ({ token }: Props) => {
   const _isLoggedin = useSelector((state) => state.authReducer.isLoggedin);
-  const [token, setToken] = useState(null);
+  // const [token, setToken] = useState(null);
   const [userInfoArray, setUserInfoArray] = useState(null);
   const [userNameFS, setUserNameFS] = useState(null);
 
   const _getUserInfo = async () => {
-    try {
-      const _token = await AsyncStorage.getItem(AsyncAccessToken);
-      setToken(_token);
-      console.log('1.🐹 토큰 store에 저장해서 불러옴:', token);
-    } catch (e) {
-      console.error('안 가져와');
-    }
-
     try {
       const response = await fetch(`${BASE_URL}/accounts/`, {
         method: 'GET',
@@ -34,20 +32,15 @@ const MyProfile = () => {
         },
       });
       const json = await response.json();
-
       console.log('2.🐹User info 불러옴 - 성공!', json);
-      await setUserInfoArray(json);
-    } catch (error) {
-      console.log('🐹User info - error', error);
-    }
+      setUserInfoArray(json);
 
-    try {
       await AsyncStorage.setItem('UserId', String(userInfoArray.id));
       await AsyncStorage.setItem('UserName', String(userInfoArray.username));
       const _userIdFS = await AsyncStorage.getItem(UserId);
       const _userNameFS = await AsyncStorage.getItem(UserName);
-      console.log('3-1.🐹store 안의 userId:', _userIdFS);
-      console.log('3-2.🐹store 안의 userName:', _userNameFS);
+      console.log('3-1.🐹store 안의 userId 받아오나요:', _userIdFS);
+      console.log('3-2.🐹store 안의 userName 받아오나요:', _userNameFS);
       setUserNameFS(_userNameFS);
     } catch (error) {
       console.log('🐹store 저장 에러', error);
@@ -56,12 +49,12 @@ const MyProfile = () => {
 
   useEffect(() => {
     _getUserInfo();
-  }, [token, _isLoggedin, userNameFS]);
+  }, []);
 
   return (
-    <>
+    <Container>
       {_isLoggedin ? (
-        userNameFS ? (
+        userInfoArray ? (
           <>
             <ProfileContainer>
               <TextTitlePurpleRight
@@ -75,7 +68,7 @@ const MyProfile = () => {
       ) : (
         <TextTitlePurpleRight title={'Please join us! ☁️'} />
       )}
-    </>
+    </Container>
   );
 };
 export default MyProfile;
