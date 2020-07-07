@@ -10,6 +10,10 @@ import AsyncStorage, {
 import { UserId, AsyncAccessToken, UserName } from '~/utils/asyncStorage';
 
 const ProfileContainer = styled.View``;
+const Container = styled.View`
+  margin-left: ${l.mL}px;
+  margin-right: ${l.mR}px;
+`;
 interface Props {
   token: any;
 }
@@ -48,7 +52,7 @@ const MyProfile = ({ token }: Props) => {
   }, []);
 
   return (
-    <>
+    <Container>
       {_isLoggedin ? (
         userInfoArray ? (
           <>
@@ -64,7 +68,7 @@ const MyProfile = ({ token }: Props) => {
       ) : (
         <TextTitlePurpleRight title={'Please join us! ☁️'} />
       )}
-    </>
+    </Container>
   );
 };
 export default MyProfile;

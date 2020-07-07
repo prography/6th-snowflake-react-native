@@ -17,6 +17,7 @@ import AsyncStorage, {
 import { UserId, AsyncAccessToken, UserName } from '~/utils/asyncStorage';
 import Blinder from '~/components/product/Blinder';
 import TopBarLeftIcon from '~/components/universal/topBar/TopBarLeftIcon';
+import MyGenderColor from '~/containers/setting/MyGenderColor';
 
 const Container = styled.View``;
 
@@ -67,12 +68,7 @@ const SettingMain = () => {
               />
             </>
           )}
-          <TextTitleDarkPurpleLink
-            title={'성별 색상 변경'}
-            buttonText={'Gender Color'}
-            stack={'JoinStack'}
-            screen={'GenderColor'}
-          />
+          <MyGenderColor />
         </Container>
       </ScrollView>
       <Blinder />

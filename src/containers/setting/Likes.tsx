@@ -21,7 +21,7 @@ const ProfileContainer = styled.View`
 `;
 const Container = styled.View`
   align-items: flex-start;
-  padding: 0 ${l.mR}px;
+
   flex-direction: row;
 `;
 const Likes = ({ token }: Props) => {
