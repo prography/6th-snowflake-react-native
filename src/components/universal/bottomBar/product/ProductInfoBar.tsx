@@ -40,34 +40,51 @@ const Title = styled.Text`
 `;
 
 const ProductInfoBar = ({ children, navigation, productId }: Props) => {
-  const [token, setToken] = useState(null);
-  const [userIdFS, setUserIdFS] = useState(null);
-
   const _likeProduct = async () => {
     try {
       const _token = await AsyncStorage.getItem(AsyncAccessToken);
-
       const model = 'product';
       const object_id = productId;
       const user = await AsyncStorage.getItem(UserId);
-      await console.log('1-1.🍊like token 잘 가져옴 ', token);
+      await console.log('1-1.🍊like token 잘 가져옴 ', _token);
       await console.log('1-2.🍊userId도...', user);
-      const response = await fetch(`${BASE_URL}/likes/`, {
-        method: 'POST',
+      // const response = await fetch(`${BASE_URL}/likes/`, {
+      //   method: 'POST',
+      //   headers: {
+      //     Accept: 'application/json',
+      //     'Content-Type': 'application/json',
+      //     Authorization: `Bearer ${_token}`,
+      //   },
+      //   body: JSON.stringify({
+      //     model,
+      //     object_id,
+      //     user,
+      //   }),
+      // });
+      // console.log('2. 🍊like post 성공! ', response);
+
+      // const responseIsLiked = await fetch(
+      //   `${BASE_URL}/likes/?model=product&object_id=${productId}`,
+      //   {
+      //     method: 'GET',
+      //     headers: {
+      //       Authorization: `Bearer ${_token}`,
+      //     },
+      //   }
+      // );
+      // const json = await responseIsLiked.json();
+      // console.log('3. 🍊like 조회 ', json);
+
+      const delteLike = await fetch(`${BASE_URL}/likes/${productId}/`, {
+        method: 'DELETE',
         headers: {
-          Accept: 'application/json',
           'Content-Type': 'application/json',
           Authorization: `Bearer ${_token}`,
         },
-        body: JSON.stringify({
-          model,
-          object_id,
-          user,
-        }),
       });
-      console.log('2. 🍊like post 성공! ', response);
+      console.log('4. 🍊like 삭제 ', delteLike);
     } catch (error) {
-      console.log('2. 🍊like 에러 ', error);
+      console.log('🍊like 에러 ', error);
     }
   };
 
