@@ -9,26 +9,26 @@ import AsyncStorage, {
 } from '@react-native-community/async-storage';
 import { UserId, AsyncAccessToken, UserName } from '~/utils/asyncStorage';
 import RankBar from '~/components/product/ranking/RankBar';
+import { ScrollView } from 'react-native';
+import Blinder from '~/components/product/Blinder';
 
-const ProfileContainer = styled.View``;
+interface Props {
+  token: any;
+}
+const ProfileContainer = styled.View`
+  margin-left: ${l.mL}px;
+  margin-right: ${l.mR}px;
+`;
 const Container = styled.View`
   align-items: flex-start;
   padding: 0 ${l.mR}px;
+  flex-direction: row;
 `;
-const Likes = () => {
+const Likes = ({ token }: Props) => {
   const _isLoggedin = useSelector((state) => state.authReducer.isLoggedin);
-  const [token, setToken] = useState(null);
 
   const [_rankingList, _setRankingList] = useState(null);
   const _getLikes = async () => {
-    try {
-      const _token = await AsyncStorage.getItem(AsyncAccessToken);
-      setToken(_token);
-      console.log('1.🐰 토큰 store에 저장해서 불러옴:', token);
-    } catch (e) {
-      console.error('안 가져와');
-    }
-
     try {
       const response = await fetch(
         `${BASE_URL}/likes/?model=product&is_product_detail=true`,
@@ -57,30 +57,32 @@ const Likes = () => {
       {_isLoggedin ? (
         <>
           <ProfileContainer>
-            <TextTitlePurpleRight title={'로그인 라이크'} />
+            <TextTitlePurpleRight title={'찜한 제품들'} />
 
-            <Container>
-              {_rankingList ? (
-                _rankingList.map((product) => {
-                  return (
-                    <RankBar
-                      rankNum={_rankingList.indexOf(product) + 1}
-                      productCompany={product.object_detail.manufacturer_kor}
-                      productName={product.object_detail.name_kor}
-                      imageUri={product.object_detail.thumbnail}
-                      score={product.object_detail.score}
-                      id={product.object_detail.id}
-                    />
-                  );
-                })
-              ) : (
-                <TextTitlePurpleRight title={'Loading...'} />
-              )}
-            </Container>
+            <ScrollView horizontal={true}>
+              <Container>
+                {_rankingList ? (
+                  _rankingList.map((product) => {
+                    return (
+                      <RankBar
+                        rankNum={_rankingList.indexOf(product) + 1}
+                        productCompany={product.object_detail.manufacturer_kor}
+                        productName={product.object_detail.name_kor}
+                        imageUri={product.object_detail.thumbnail}
+                        score={product.object_detail.score}
+                        id={product.object_detail.id}
+                      />
+                    );
+                  })
+                ) : (
+                  <TextTitlePurpleRight title={'Loading...'} />
+                )}
+              </Container>
+            </ScrollView>
           </ProfileContainer>
         </>
       ) : (
-        <TextTitlePurpleRight title={'로그인이 안 됨 라이크'} />
+        <TextTitlePurpleRight title={'로그인 안 됨'} />
       )}
     </>
   );
