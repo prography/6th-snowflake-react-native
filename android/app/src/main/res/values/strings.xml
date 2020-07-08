@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">눈송이</string>
+    <string name="kakao_app_key">9539030ec30154856d2e62418ea6a90e</string>
 </resources>
