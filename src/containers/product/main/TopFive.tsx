@@ -33,7 +33,7 @@ const TopFive = () => {
       <Container>
         <TextTitleDarkPurpleLink
           title={'콘돔 총점 TOP5'}
-          buttonText={'RANKING'}
+          buttonText={'모든 제품 보기'}
           stack={'ProductStack'}
           screen={'Ranking'}
         />

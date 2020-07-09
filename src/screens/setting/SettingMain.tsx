@@ -18,8 +18,15 @@ import { UserId, AsyncAccessToken, UserName } from '~/utils/asyncStorage';
 import Blinder from '~/components/product/Blinder';
 import TopBarLeftIcon from '~/components/universal/topBar/TopBarLeftIcon';
 import MyGenderColor from '~/containers/setting/MyGenderColor';
+import LineGrayRightLong from '~/components/universal/line/LineGrayRightLong';
+import MarginMedium from '~/components/universal/margin/MarginMedium';
 
 const Container = styled.View``;
+
+const LoginContainer = styled.View`
+  margin-left: ${l.mL}px;
+  margin-right: ${l.mR}px;
+`;
 
 const SettingMain = () => {
   const [_token, _setToken] = useState(null);
@@ -54,20 +61,26 @@ const SettingMain = () => {
             </>
           ) : (
             <>
-              <TextTitleDarkPurpleLink
-                title={'로그인'}
-                buttonText={'LOGIN'}
-                stack={'JoinStack'}
-                screen={'Login'}
-              />
-              <TextTitleDarkPurpleLink
-                title={'회원가입'}
-                buttonText={'JOIN'}
-                stack={'JoinStack'}
-                screen={'Join1'}
-              />
+              <LoginContainer>
+                <MarginMedium />
+                <TextTitleDarkPurpleLink
+                  title={'로그인'}
+                  buttonText={'LOGIN'}
+                  stack={'JoinStack'}
+                  screen={'Login'}
+                />
+                <TextTitleDarkPurpleLink
+                  title={'회원가입'}
+                  buttonText={'JOIN'}
+                  stack={'JoinStack'}
+                  screen={'Join1'}
+                />
+              </LoginContainer>
             </>
           )}
+          <MarginWide />
+          <LineGrayRightLong />
+          <MarginWide />
           <MyGenderColor />
         </Container>
       </ScrollView>

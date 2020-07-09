@@ -50,7 +50,7 @@ const Likes = ({ token }: Props) => {
 
   useEffect(() => {
     _getLikes();
-  }, []);
+  }, [token]);
 
   return (
     <>

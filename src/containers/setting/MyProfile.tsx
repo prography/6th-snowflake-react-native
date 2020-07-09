@@ -19,7 +19,7 @@ interface Props {
 }
 const MyProfile = ({ token }: Props) => {
   const _isLoggedin = useSelector((state) => state.authReducer.isLoggedin);
-  // const [token, setToken] = useState(null);
+
   const [userInfoArray, setUserInfoArray] = useState(null);
   const [userNameFS, setUserNameFS] = useState(null);
 
@@ -49,7 +49,7 @@ const MyProfile = ({ token }: Props) => {
 
   useEffect(() => {
     _getUserInfo();
-  }, []);
+  }, [token]);
 
   return (
     <Container>
