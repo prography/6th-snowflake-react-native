@@ -73,7 +73,7 @@ const NavBar = ({ children, navigation }: Props) => {
             navigation.navigate('JoinStack');
           }}
         >
-          <Title>설정</Title>
+          <Title>마이</Title>
         </Tab>
       </Container>
     </Screen>
