@@ -23,13 +23,23 @@ const ProfileContainer = styled.View`
 `;
 const Container = styled.View`
   align-items: flex-start;
-
   flex-direction: row;
 `;
+
+const TitleWrapper = styled.View`
+  flex-direction: row;
+`;
+const ShowLikesButton = styled.TouchableOpacity`
+  width: 20;
+  height: 20;
+  background-color: yellow;
+`;
+
 const Likes = ({ token }: Props) => {
   const _isLoggedin = useSelector((state) => state.authReducer.isLoggedin);
 
   const [_rankingList, _setRankingList] = useState(null);
+  const [showLikes, setShowLikes] = useState(false);
   const _getLikes = async () => {
     try {
       const response = await fetch(
@@ -59,10 +69,17 @@ const Likes = ({ token }: Props) => {
       {_isLoggedin ? (
         <>
           <ProfileContainer>
-            <TextTitleDarkLeft title={'찜한 제품들'} />
+            <TitleWrapper>
+              <TextTitleDarkLeft title={'찜한 제품들'} />
+              <ShowLikesButton
+                onPress={() => {
+                  setShowLikes(!showLikes);
+                }}
+              />
+            </TitleWrapper>
             <ScrollView horizontal={true}>
               <Container>
-                {_rankingList ? (
+                {showLikes && _rankingList ? (
                   _rankingList.map((product) => {
                     return (
                       <RankBar

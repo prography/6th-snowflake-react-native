@@ -47,6 +47,7 @@ const HeartIcon = styled.Image`
 
 const ProductInfoBar = ({ children, navigation, productId }: Props) => {
   const [isLiked, setIsLiked] = useState(false);
+  const [likedId, setLikedId] = useState(null);
   console.log('hihihi');
   const _likeProduct = async () => {
     try {
@@ -54,7 +55,7 @@ const ProductInfoBar = ({ children, navigation, productId }: Props) => {
       const model = 'product';
       const object_id = productId;
       const user = await AsyncStorage.getItem(UserId);
-      console.log('1-1.🍊like token 잘 가져옴 ', _token);
+      console.log('1-1.🍊like 생성 위한 token 잘 가져옴 ', _token);
       console.log('1-2.🍊userId도...', user);
       const response = await fetch(`${BASE_URL}/likes/`, {
         method: 'POST',
@@ -72,22 +73,31 @@ const ProductInfoBar = ({ children, navigation, productId }: Props) => {
       console.log('2. 🍊like post 성공! ', response);
 
       await _checkIsLiked();
-      // const url = `${BASE_URL}/likes/${productId}/`;
-      // console.log('🍊url: ', url);
-      // const delteLike = await fetch(url, {
-      //   method: 'DELETE',
-      //   headers: {
-      //     'Content-Type': 'application/json',
-      //     Authorization: `Bearer ${_token}`,
-      //   },
-      // });
-      // const json2 = await delteLike.json();
-      // console.log('4. 🍊like 삭제 ', delteLike);
+    } catch (error) {
+      console.log('🍊like 생성 에러 ', error);
+    }
+  };
+
+  const _deleteLiked = async () => {
+    try {
+      const _token = await AsyncStorage.getItem(AsyncAccessToken);
+
+      const url = `${BASE_URL}/likes/${likedId}/`;
+      const delteLike = await fetch(url, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${_token}`,
+        },
+      });
+
+      console.log('4. 🍊like 삭제 ', delteLike);
+      console.log('productid:', productId);
+      await _checkIsLiked();
     } catch (error) {
       console.log('🍊like 에러 ', error);
     }
   };
-
   const _checkIsLiked = async () => {
     try {
       const _token = await AsyncStorage.getItem(AsyncAccessToken);
@@ -103,7 +113,15 @@ const ProductInfoBar = ({ children, navigation, productId }: Props) => {
       const responseIsLikedJson = await responseIsLiked.json();
       await setIsLiked(responseIsLikedJson.results.length === 0 ? false : true);
       await console.log('3-1. 🍊like 조회 ', responseIsLikedJson);
-      await console.log('3-2. 🍊이 제품을 찜 했나요?', isLiked);
+      console.log(
+        '3-2. 🍊like가 되었다면, 그 id',
+        responseIsLikedJson.results.length === 0
+          ? 'like 안 돼서 없음'
+          : responseIsLikedJson.results[0].id
+      );
+      responseIsLikedJson.results.length === 0
+        ? setLikedId(null)
+        : setLikedId(responseIsLikedJson.results[0].id);
     } catch (error) {
       console.log('🍊like 에러 ', error);
     }
@@ -118,7 +136,7 @@ const ProductInfoBar = ({ children, navigation, productId }: Props) => {
       <Container>
         <Tab
           onPress={() => {
-            _likeProduct();
+            isLiked ? _deleteLiked() : _likeProduct();
           }}
         >
           <HeartIcon
