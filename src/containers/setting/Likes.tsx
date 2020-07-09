@@ -11,6 +11,8 @@ import { UserId, AsyncAccessToken, UserName } from '~/utils/asyncStorage';
 import RankBar from '~/components/product/ranking/RankBar';
 import { ScrollView } from 'react-native';
 import Blinder from '~/components/product/Blinder';
+import TextMiddleTitleDark from '~/components/universal/text/TextMiddleTitleDark';
+import TextTitleDarkLeft from '~/components/universal/text/TextTitleDarkLeft';
 
 interface Props {
   token: any;
@@ -50,15 +52,14 @@ const Likes = ({ token }: Props) => {
 
   useEffect(() => {
     _getLikes();
-  }, [token]);
+  }, []);
 
   return (
     <>
       {_isLoggedin ? (
         <>
           <ProfileContainer>
-            <TextTitlePurpleRight title={'찜한 제품들'} />
-
+            <TextTitleDarkLeft title={'찜한 제품들'} />
             <ScrollView horizontal={true}>
               <Container>
                 {_rankingList ? (

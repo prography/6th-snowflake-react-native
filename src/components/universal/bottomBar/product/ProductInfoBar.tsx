@@ -47,14 +47,15 @@ const HeartIcon = styled.Image`
 
 const ProductInfoBar = ({ children, navigation, productId }: Props) => {
   const [isLiked, setIsLiked] = useState(false);
+  console.log('hihihi');
   const _likeProduct = async () => {
     try {
       const _token = await AsyncStorage.getItem(AsyncAccessToken);
       const model = 'product';
       const object_id = productId;
       const user = await AsyncStorage.getItem(UserId);
-      await console.log('1-1.🍊like token 잘 가져옴 ', _token);
-      await console.log('1-2.🍊userId도...', user);
+      console.log('1-1.🍊like token 잘 가져옴 ', _token);
+      console.log('1-2.🍊userId도...', user);
       const response = await fetch(`${BASE_URL}/likes/`, {
         method: 'POST',
         headers: {
@@ -69,6 +70,7 @@ const ProductInfoBar = ({ children, navigation, productId }: Props) => {
         }),
       });
       console.log('2. 🍊like post 성공! ', response);
+
       await _checkIsLiked();
       // const url = `${BASE_URL}/likes/${productId}/`;
       // console.log('🍊url: ', url);
