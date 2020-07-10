@@ -6,6 +6,9 @@ import TextProductMiddleBar from '~/components/universal/text/product/info/TextP
 import ReviewCardContainer from '../review/ReviewCardContainer';
 import MarginWide from '~/components/universal/margin/MarginWide';
 import ProductInfoReviewFilter from './ProductInfoReviewFilter';
+import MarginNarrow from '~/components/universal/margin/MarginNarrow';
+import LineGrayMiddle from '~/components/universal/line/LineGrayMiddle';
+import MarginMedium from '~/components/universal/margin/MarginMedium';
 
 const Container = styled.View`
   width: ${d.width - l.mR * 2}px;
@@ -28,12 +31,14 @@ const ProductInfoReview = ({ reviewNum, productId }: Props) => {
           reviewNum={reviewNum}
           type={'review'}
         />
-        <MarginWide />
+
         <ProductInfoReviewFilter
           reviewArray={reviewArray}
           setReviewArray={setReviewArray}
           productId={productId}
         />
+        <MarginMedium />
+
         {reviewNum ? (
           <ReviewCardContainer
             productId={productId}
