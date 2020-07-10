@@ -125,7 +125,7 @@ const ReviewCard = ({
           <ProfileCircle>
             <ProfileImgDummy
               style={{ resizeMode: 'contain' }}
-              source={require('~/img/profile/pfc8.png')}
+              source={require('~/img/profile/pfc2.png')}
             />
           </ProfileCircle>
         </LeftWrapper>
@@ -150,7 +150,7 @@ const ReviewCard = ({
               <Date>{dateCutter(date)}</Date>
               <Username>{username}</Username>
             </DateUserNameWrapper>
-            <Like>♡ {like}</Like>
+            {/* <Like>♡ {like}</Like> */}
           </BottomBar>
           <MarginNarrow />
           <LineGrayRightShort />
