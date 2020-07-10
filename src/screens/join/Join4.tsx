@@ -56,14 +56,16 @@ const NoticeText = styled.Text`
 `;
 
 const Join4 = ({ navigation, route }) => {
-  const {signUpEmail, signUpPassword, signUpName, signUpYear, signUpGender, signUpPartnerGender} = route.params;
+  const {
+    signUpEmail,
+    signUpPassword,
+    signUpName,
+    signUpYear,
+    signUpGender,
+    signUpPartnerGender,
+  } = route.params;
 
-  const noticeList = ["1. 한 사람을, 사물을, 현상을 단 하나의 관점에서만 본다면 그것에 숨겨진 무한한 세계를 발견할 수 없다.\n",
-  "2. 과학과 예술은 서로를 경유해 새로운 의미를 찾아낸다. 과학자는 우주에서 시를 발견하고 디자이너는 글자의 아름다움에 관한 법칙을 쓴다.\n",
-  "3. 서로 다른 영역에서 출발한 선이 무수히 교차하는 지점들이 펼쳐진다.\n",
-  "4. 각 다른 분야의 전문가들이 이처럼 공통된 창의력을 발휘한다는 점이 큰 충격으로 다가왔다.\n",
-  "5. “낯선 언어는 인식을 확장한다.”는 말처럼, 두 저자의 기막힌 만남이 “뜻밖의 연결을 만들어”내면서 빛을 발하고 있다.\n",
-  "6. 매우 크리에이티브해서 맘껏 칭찬하고 싶다.\n"];
+  const noticeList = ['눈송이 성명서 coming soon...'];
 
   const dispatch = useDispatch();
   const _login = (email: string, password: string) => {
@@ -77,16 +79,15 @@ const Join4 = ({ navigation, route }) => {
   // }, [_isLoggedin]);
 
   const _signup = async () => {
-    
-    console.log('😸1. _signup 호출됨')
+    console.log('😸1. _signup 호출됨');
     const email = signUpEmail;
     const password = signUpPassword;
     const username = signUpName;
     const birth_year = signUpYear;
-    const gender = signUpGender
+    const gender = signUpGender;
     // console.log(typeof gender);
     const partner_gender = signUpPartnerGender;
-      
+
     // 아래 두 줄은 로그인만 테스트해보고 싶을 때
     // _login(email, password)
     // return
@@ -106,7 +107,7 @@ const Join4 = ({ navigation, route }) => {
           username,
           birth_year,
           gender,
-          partner_gender
+          partner_gender,
         }),
       });
 
@@ -117,7 +118,7 @@ const Join4 = ({ navigation, route }) => {
           console.log('😸4. /accounts 회원가입 성공!!', response.status, json);
           // 회원가입 성공하면 바로 로그인 ㄱㄱ
           _login(email, password);
-          navigation.dispatch(StackActions.popToTop())
+          navigation.dispatch(StackActions.popToTop());
           break;
         case 400:
           console.log('😸4. /accounts 회원가입 실패.. ', response.status, json);
@@ -130,7 +131,7 @@ const Join4 = ({ navigation, route }) => {
       console.log('😸. /accounts 회원가입 오류 catch.. ', error);
     }
   };
-    
+
   return (
     <>
       <BottomBtnCollectData
@@ -142,13 +143,13 @@ const Join4 = ({ navigation, route }) => {
       >
         <TopBarBackArrowRightIcon />
         <WelcomeText>{signUpName}님, 환영합니다.</WelcomeText>
-        <MarginMedium/>
+        <MarginMedium />
         <NoiceTitleText>서로 존중하는 깨끗한 눈송이 문화를 위해</NoiceTitleText>
-        <MarginNarrow/>
+        <MarginNarrow />
         <NoiceTitleText>다음 내용을 반드시 숙지해주세요.</NoiceTitleText>
-        <MarginWide/>
-        {noticeList.map(notice => {
-          return <NoticeText>{notice}</NoticeText>
+        <MarginWide />
+        {noticeList.map((notice) => {
+          return <NoticeText>{notice}</NoticeText>;
         })}
       </BottomBtnCollectData>
     </>
@@ -156,9 +157,6 @@ const Join4 = ({ navigation, route }) => {
 };
 
 export default Join4;
-
-
-
 
 // onPress={() =>
 //   onPressFunction ? onPressFunction() : isFilled

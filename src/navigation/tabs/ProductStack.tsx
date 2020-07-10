@@ -7,6 +7,12 @@ import ReviewUpload2 from '~/screens/product/ReviewUpload2';
 import ReviewUpload1 from '~/screens/product/ReviewUpload1';
 import ReviewUpload3 from '~/screens/product/ReviewUpload3';
 import SearchProduct from '~/screens/product/SearchProduct';
+import Join1 from '~/screens/join/Join1';
+import Join2 from '~/screens/join/Join2';
+import Join3 from '~/screens/join/Join3';
+import Join4 from '~/screens/join/Join4';
+import SettingMain from '~/screens/setting/SettingMain';
+import HomeMain from '~/screens/home/HomeMain';
 const Stack = createStackNavigator();
 
 export default () => {
@@ -23,6 +29,12 @@ export default () => {
       <Stack.Screen name='ReviewUpload3' component={ReviewUpload3} />
       <Stack.Screen name='Ranking' component={Ranking} />
       <Stack.Screen name='SearchProduct' component={SearchProduct} />
+      <Stack.Screen name='Join1' component={Join1} />
+      <Stack.Screen name='Join2' component={Join2} />
+      <Stack.Screen name='Join3' component={Join3} />
+      <Stack.Screen name='Join4' component={Join4} />
+      <Stack.Screen name='SettimgMain' component={SettingMain} />
+      <Stack.Screen name='HomeMain' component={HomeMain} />
     </Stack.Navigator>
   );
 };

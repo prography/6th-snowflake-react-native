@@ -111,9 +111,7 @@ enum PartnerEnum {
 const ProductInfoReviewFilter = ({ setReviewArray, productId }: Props) => {
   const [genderParam, setGenderParam] = useState(GenderEnum.NONE);
   const [partnerParam, setPartnerParam] = useState(PartnerEnum.NONE);
-  const [showGenderFilter, setShowGenderFilter] = useState(true);
-  const [showPartnerFilter, setShowPartnerFilter] = useState(true);
-  const [showGenderPartnerFilter, setShowGenderPartnerFilter] = useState(true);
+  const [showGenderPartnerFilter, setShowGenderPartnerFilter] = useState(false);
   const womanColor = useSelector(
     (state: State) => state.genderColorReducer.womanColor
   );
