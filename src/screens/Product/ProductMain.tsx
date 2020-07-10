@@ -13,6 +13,7 @@ import LineGrayRightLong from '~/components/universal/line/LineGrayRightLong';
 import TopFive from '~/containers/product/main/TopFive';
 import MarginBottom from '~/components/universal/margin/MarginBottom';
 import Blinder from '~/components/product/Blinder';
+import TopBarLeftIconSearchBar from '~/components/universal/topBar/TopBarLeftIconSearchBar';
 
 const Container = styled.View`
   flex-direction: column;
@@ -37,8 +38,7 @@ const ProductMain = () => {
     <>
       <NavBar>
         <ScrollView showsVerticalScrollIndicator={false}>
-          <TopBarLeftIcon />
-
+          <TopBarLeftIconSearchBar />
           <Container>
             {/* 제목이 보라색인 카드 */}
             <CardPurpleRight
