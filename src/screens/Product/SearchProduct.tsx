@@ -13,13 +13,12 @@ const Container = styled.View`
   background-color: white;
 `;
 
-const Ranking = () => {
+const SearchProduct = () => {
   return (
     <Container>
-      <TopBarBackArrow />
-      <ProductRankingContainer />
+      <Text>검색 을 해봅시다.</Text>
     </Container>
   );
 };
 
-export default Ranking;
+export default SearchProduct;

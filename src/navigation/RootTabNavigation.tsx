@@ -5,7 +5,7 @@ import ProductStack from '~/navigation/tabs/ProductStack';
 import LabStack from '~/navigation/tabs/LabStack';
 import ClinicStack from '~/navigation/tabs/ClinicStack';
 import SettingStack from '~/navigation/tabs/SettingStack';
-import JoinStack from '~/navigation/JoinStack';
+import JoinStack from '~/navigation/tabs/JoinStack';
 
 export type RootTabParamList = {
   HomeStack: undefined;
