@@ -5,7 +5,8 @@ import { d } from '~/utils/constant';
 import ProductRankingContainer from '~/containers/product/info/ProductRankingContainer';
 import TopBarBackArrowRightIcon from '~/components/universal/topBar/TopBarBackArrowRightIcon';
 import TopBarBackArrow from '~/components/universal/topBar/TopBarBackArrow';
-import TopBarBackArrowSearchProduct from '~/components/universal/topBar/TopBarBackArrowSearchProduct';
+
+import TopBarBackArrowSearchBar from '~/components/universal/topBar/TopBarBackArrowSearchBar';
 
 const Container = styled.View`
   flex-direction: column;
@@ -16,7 +17,7 @@ const Container = styled.View`
 const Ranking = () => {
   return (
     <Container>
-      <TopBarBackArrow />
+      <TopBarBackArrowSearchBar />
       <ProductRankingContainer />
     </Container>
   );
