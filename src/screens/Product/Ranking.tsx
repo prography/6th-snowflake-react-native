@@ -6,6 +6,8 @@ import ProductRankingContainer from '~/containers/product/info/ProductRankingCon
 import TopBarBackArrowRightIcon from '~/components/universal/topBar/TopBarBackArrowRightIcon';
 import TopBarBackArrow from '~/components/universal/topBar/TopBarBackArrow';
 
+import TopBarBackArrowSearchBar from '~/components/universal/topBar/TopBarBackArrowSearchBar';
+
 const Container = styled.View`
   flex-direction: column;
   flex: 1;
@@ -15,8 +17,7 @@ const Container = styled.View`
 const Ranking = () => {
   return (
     <Container>
-      <TopBarBackArrow />
-
+      <TopBarBackArrowSearchBar />
       <ProductRankingContainer />
     </Container>
   );

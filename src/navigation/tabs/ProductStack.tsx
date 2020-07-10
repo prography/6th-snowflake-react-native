@@ -6,6 +6,7 @@ import Ranking from '~/screens/product/Ranking';
 import ReviewUpload2 from '~/screens/product/ReviewUpload2';
 import ReviewUpload1 from '~/screens/product/ReviewUpload1';
 import ReviewUpload3 from '~/screens/product/ReviewUpload3';
+import SearchProduct from '~/screens/product/SearchProduct';
 const Stack = createStackNavigator();
 
 export default () => {
@@ -21,6 +22,7 @@ export default () => {
       <Stack.Screen name='ReviewUpload2' component={ReviewUpload2} />
       <Stack.Screen name='ReviewUpload3' component={ReviewUpload3} />
       <Stack.Screen name='Ranking' component={Ranking} />
+      <Stack.Screen name='SearchProduct' component={SearchProduct} />
     </Stack.Navigator>
   );
 };

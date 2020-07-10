@@ -121,7 +121,7 @@ const Likes = ({ token, navigation }: Props) => {
                         <>
                           <LikeProductContainer
                             onPress={() => {
-                              navigation.navigate('ProductStack', {
+                              navigation.navigate('JoinStack', {
                                 screen: 'ProductInfo',
                                 params: { productId: product.object_detail.id },
                               });
