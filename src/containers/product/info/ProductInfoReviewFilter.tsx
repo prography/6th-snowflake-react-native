@@ -6,6 +6,7 @@ import { d, l, BASE_URL, c } from '~/utils/constant';
 import TextProductMiddleBar from '~/components/universal/text/product/info/TextProductMiddleBar';
 import ReviewCardContainer from '../review/ReviewCardContainer';
 import MarginWide from '~/components/universal/margin/MarginWide';
+import GenderLoop from '~/components/universal/profile/GenderLoop';
 
 const NARROW_MARGIN = d.px * 9;
 const TEXT_HEIGHT = d.px * 16;
@@ -21,12 +22,17 @@ const FilterBox = styled.TouchableOpacity`
   padding: ${NARROW_MARGIN}px;
   background-color: ${(props) =>
     props.showFilter ? c.purple : props.selected === '' ? 'white' : c.mint};
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
 `;
 const FilterText = styled.Text`
   font-size: ${d.px * 14}px;
   line-height: ${TEXT_HEIGHT}px;
   color: ${(props) => (props.showFilter ? 'white' : c.black)};
 `;
+const FilterSelectionText = styled.Text``;
+const GenderPartnerFilterContainer = styled.View``;
 const FilterSelectWrapper = styled.View`
   flex-direction: row;
 `;
@@ -40,13 +46,13 @@ interface Props {
 }
 
 enum GenderEnum {
-  NONE = '',
+  NONE = 'NONE',
   man = 'MAN',
   woman = 'WOMAN',
 }
 
 enum PartnerEnum {
-  NONE = '',
+  NONE = 'NONE',
   man = 'MAN',
   woman = 'WOMAN',
 }
@@ -56,6 +62,7 @@ const ProductInfoReviewFilter = ({ setReviewArray, productId }: Props) => {
   const [partnerParam, setPartnerParam] = useState(PartnerEnum.NONE);
   const [showGenderFilter, setShowGenderFilter] = useState(true);
   const [showPartnerFilter, setShowPartnerFilter] = useState(true);
+  const [showGenderPartnerFilter, setShowGenderPartnerFilter] = useState(true);
 
   const genderFilterList = [
     {
@@ -66,6 +73,10 @@ const ProductInfoReviewFilter = ({ setReviewArray, productId }: Props) => {
       genderEnum: GenderEnum.man,
       genderText: '남성',
     },
+    {
+      genderEnum: GenderEnum.NONE,
+      genderText: '초기화',
+    },
   ];
   const partnerFilterList = [
     {
@@ -75,6 +86,10 @@ const ProductInfoReviewFilter = ({ setReviewArray, productId }: Props) => {
     {
       partnerEnum: PartnerEnum.man,
       partnerText: '남성',
+    },
+    {
+      genderEnum: GenderEnum.NONE,
+      genderText: '초기화',
     },
   ];
   const _getReviewArray = async () => {
@@ -102,58 +117,51 @@ const ProductInfoReviewFilter = ({ setReviewArray, productId }: Props) => {
     <>
       <FilterWrapper>
         <FilterBox
-          selected={genderParam}
-          showFilter={showGenderFilter}
+          showFilter={showGenderPartnerFilter}
           onPress={() => {
-            setShowGenderFilter(!showGenderFilter);
+            setShowGenderPartnerFilter(!showGenderPartnerFilter);
           }}
         >
-          <FilterText showFilter={showGenderFilter}>
-            작성자 성별: {genderParam}
-          </FilterText>
+          {!showGenderPartnerFilter && <FilterText>성별 & 파트너:</FilterText>}
+
+          <GenderLoop
+            gender={genderParam}
+            partnerGender={partnerParam}
+            size={d.px * 15}
+          />
         </FilterBox>
-        <FilterBox
-          selected={partnerParam}
-          showFilter={showPartnerFilter}
-          onPress={() => {
-            setShowPartnerFilter(!showPartnerFilter);
-          }}
-        >
-          <FilterText showFilter={showPartnerFilter}>
-            파트너 성별: {partnerParam}
-          </FilterText>
-        </FilterBox>
-        {showGenderFilter && (
-          <FilterSelectWrapper>
-            <Text>성별필터!!</Text>
-            {genderFilterList.map((filter) => {
-              return (
-                <Selection
-                  onPress={() => {
-                    setGenderParam(filter.genderEnum);
-                  }}
-                >
-                  <Text>{filter.genderText}</Text>
-                </Selection>
-              );
-            })}
-          </FilterSelectWrapper>
-        )}
-        {showPartnerFilter && (
-          <FilterSelectWrapper>
-            <Text>파트너 성별!!</Text>
-            {partnerFilterList.map((filter) => {
-              return (
-                <Selection
-                  onPress={() => {
-                    setPartnerParam(filter.partnerEnum);
-                  }}
-                >
-                  <Text>{filter.partnerText}</Text>
-                </Selection>
-              );
-            })}
-          </FilterSelectWrapper>
+
+        {showGenderPartnerFilter && (
+          <GenderPartnerFilterContainer>
+            <FilterSelectWrapper>
+              <FilterSelectionText>작성자 성별:</FilterSelectionText>
+              {genderFilterList.map((filter) => {
+                return (
+                  <Selection
+                    onPress={() => {
+                      setGenderParam(filter.genderEnum);
+                    }}
+                  >
+                    <Text>{filter.genderText}</Text>
+                  </Selection>
+                );
+              })}
+            </FilterSelectWrapper>
+            <FilterSelectWrapper>
+              <FilterSelectionText>파트너 성별:</FilterSelectionText>
+              {partnerFilterList.map((filter) => {
+                return (
+                  <Selection
+                    onPress={() => {
+                      setPartnerParam(filter.partnerEnum);
+                    }}
+                  >
+                    <Text>{filter.partnerText}</Text>
+                  </Selection>
+                );
+              })}
+            </FilterSelectWrapper>
+          </GenderPartnerFilterContainer>
         )}
       </FilterWrapper>
     </>

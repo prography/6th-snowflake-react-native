@@ -5,6 +5,8 @@ import { d, l, c } from '~/utils/constant';
 
 const Container = styled.View`
   flex-direction: row;
+
+  left: ${(props) => (-(d.px * props.size) / 15) * 3}px;
 `;
 
 const GenderCircle = styled.View`
@@ -40,7 +42,7 @@ const GenderLoop = ({ gender, partnerGender, size }: Props) => {
 
   return (
     <>
-      <Container>
+      <Container size={size}>
         <GenderCircle
           genderColor={
             gender && gender === 'WOMAN'
