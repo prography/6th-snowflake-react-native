@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Text, ScrollView, BackHandler } from 'react-native';
+import { Text, ScrollView } from 'react-native';
 import styled from 'styled-components/native';
 import { d, l } from '~/utils/constant';
 import { withNavigation } from '@react-navigation/compat';
@@ -13,17 +13,9 @@ const Container = styled.View`
   background-color: transparent;
 `;
 
-const Button = styled.TouchableOpacity`
-  height: ${l.tB / 2}px;
-  width: ${d.px * 50}px;
-
-  align-items: flex-start;
-  justify-content: center;
-`;
-
 const SnowFlake = styled.Image`
-  height: ${d.px * 15}px;
-  width: ${d.px * 23}px;
+  height: ${d.px * 42}px;
+  width: ${d.px * 42}px;
 `;
 const SearchButton = styled.TouchableOpacity`
   height: ${l.tB / 2}px;
@@ -39,15 +31,13 @@ const SearchIcon = styled.Image`
 interface Props {
   navigation: any;
 }
-const TopBarBackArrowSearchBar = ({ navigation }: Props) => {
+const TopBarLeftIconSearchBar = ({ navigation }: Props) => {
   return (
     <Container>
-      <Button>
-        <SnowFlake
-          style={{ resizeMode: 'contain' }}
-          source={require('~/img/icon/iconBackArrow.png')}
-        />
-      </Button>
+      <SnowFlake
+        style={{ resizeMode: 'contain' }}
+        source={require('~/img/logo.png')}
+      />
       <SearchButton
         onPress={() => {
           navigation.navigate('ProductStack', {
@@ -64,4 +54,4 @@ const TopBarBackArrowSearchBar = ({ navigation }: Props) => {
   );
 };
 
-export default withNavigation(TopBarBackArrowSearchBar);
+export default withNavigation(TopBarLeftIconSearchBar);

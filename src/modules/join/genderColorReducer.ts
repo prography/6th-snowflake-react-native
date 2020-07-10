@@ -4,8 +4,8 @@ export interface State {
 }
 
 const initialState: State = {
-  womanColor: null,
-  manColor: null,
+  womanColor: '#F46CF1',
+  manColor: '#3CB7D3',
 };
 
 export const SET_WOMAN_COLOR = 'SET_WOMAN_COLOR';

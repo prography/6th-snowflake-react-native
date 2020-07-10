@@ -8,6 +8,7 @@ import { d, c, l } from '~/utils/constant';
 import AsyncStorage from '@react-native-community/async-storage';
 import { UserId, AsyncAccessToken } from '~/utils/asyncStorage';
 import { BASE_URL } from '~/utils/constant';
+import { useSelector } from 'react-redux';
 interface Props {
   children: React.ReactNode;
   navigation: StackNavigationProp<RootTabParamList>;
@@ -48,6 +49,7 @@ const HeartIcon = styled.Image`
 const ProductInfoBar = ({ children, navigation, productId }: Props) => {
   const [isLiked, setIsLiked] = useState(false);
   const [likedId, setLikedId] = useState(null);
+  const _isLoggedin = useSelector((state) => state.authReducer.isLoggedin);
   console.log('hihihi');
   const _likeProduct = async () => {
     try {
@@ -136,7 +138,11 @@ const ProductInfoBar = ({ children, navigation, productId }: Props) => {
       <Container>
         <Tab
           onPress={() => {
-            isLiked ? _deleteLiked() : _likeProduct();
+            _isLoggedin
+              ? isLiked
+                ? _deleteLiked()
+                : _likeProduct()
+              : alert('❄️마이 탭에서 회원 가입 후 \n 찜해보세요! ❄️');
           }}
         >
           <HeartIcon
@@ -147,12 +153,14 @@ const ProductInfoBar = ({ children, navigation, productId }: Props) => {
             }
           />
         </Tab>
-        <Tab>
+        {/* <Tab>
           <Title>공유하기</Title>
-        </Tab>
+        </Tab> */}
         <Tab
           onPress={() => {
-            navigation.navigate('ReviewUpload1', { productId: productId });
+            _isLoggedin
+              ? navigation.navigate('ReviewUpload1', { productId: productId })
+              : alert('❄️마이 탭에서 회원 가입 후 \n 리뷰 작성 부탁드려요 ❄️');
           }}
         >
           <Title>리뷰 쓰러 가기</Title>

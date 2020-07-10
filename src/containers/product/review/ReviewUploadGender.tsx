@@ -192,14 +192,14 @@ const ReviewUploadGender = () => {
           })}
         </GenderSelectContainer>
         <MarginMedium />
-        <CheckBoxTouchArea
+        {/* <CheckBoxTouchArea
           activeOpacity={1}
           onPress={() => [setChecked(!checked)]}
         >
           <CheckBox checked={checked} />
           <CheckText checked={checked}>저장해 주세요.</CheckText>
-          {/* 체크박스 기능 안 함 */}
-        </CheckBoxTouchArea>
+          
+        </CheckBoxTouchArea> */}
       </Container>
     </>
   );

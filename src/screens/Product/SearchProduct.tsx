@@ -29,9 +29,9 @@ const SearchInput = styled.TextInput`
   height: ${d.px * 40}px;
   width: ${d.px * 260}px;
   padding: ${d.px * 5}px ${d.px * 10}px;
-  font-family: Jost-Bold;
-  font-size: ${d.px * 18}px;
-  font-family: 'Jost-Bold';
+  font-family: Jost-Book;
+  font-size: ${d.px * 17}px;
+  font-family: 'Jost-Book';
   color: ${c.darkGray};
   justify-content: center;
   align-items: center;
