@@ -22,7 +22,7 @@ interface Props {
 const Feedback = ({ navigation }: Props) => {
   return (
     <>
-      <WebView source={{ uri: 'https://forms.gle/yNtUDaCnWTq9b7Eu5' }} />
+      <WebView source={{ uri: 'https://docs.google.com/forms/d/e/1FAIpQLSc7Xar8USMoiSKfV2ucJtlkAw8eZ47MdXSCEk3knbmg1KuyFw/viewform' }} />
       <Container
         activeOpacity={1}
         onPress={() => {
