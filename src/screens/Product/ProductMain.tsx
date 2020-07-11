@@ -42,9 +42,9 @@ const ProductMain = () => {
           <Container>
             {/* 제목이 보라색인 카드 */}
             <CardPurpleRight
-              title={'Closed beta OPEN!'}
+              title={'Open beta OPEN!'}
               content={
-                '2020년 6월 6일 기준,\nPROGRAPHY 내부에 공개된 버전입니다.\n추후 더 다양한 제품군으로 확장 예정입니다.'
+                '다양한 콘돔 제품 & 후기를 준비했어요.\n추후 더 다양한 제품군으로 확장 예정이니\n많은 관심 부탁드립니다 :)'
               }
             />
 
