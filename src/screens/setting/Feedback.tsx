@@ -1,0 +1,38 @@
+import * as React from 'react';
+import styled from 'styled-components/native';
+import { Text } from 'react-native';
+import NavBar from '~/screens/NavBar';
+import { d, c, l } from '~/utils/constant';
+import { withNavigation } from '@react-navigation/compat';
+import { WebView } from 'react-native-webview';
+const Container = styled.TouchableOpacity`
+  height: ${l.bottomBar}px;
+  width: ${d.width}px;
+  position: absolute;
+  bottom: 0px;
+  flex: 1;
+  flex-direction: row;
+  background-color: white;
+  justify-content: center;
+  align-items: center;
+`;
+interface Props {
+  navigation: any;
+}
+const Feedback = ({ navigation }: Props) => {
+  return (
+    <>
+      <WebView source={{ uri: 'https://forms.gle/yNtUDaCnWTq9b7Eu5' }} />
+      <Container
+        activeOpacity={1}
+        onPress={() => {
+          navigation.navigate('JoinStack', { screen: 'SettingMain' });
+        }}
+      >
+        <Text>설문에서 나가기</Text>
+      </Container>
+    </>
+  );
+};
+
+export default withNavigation(Feedback);

@@ -1,6 +1,7 @@
 import * as React from 'react';
 import styled from 'styled-components/native';
 import { ScrollView } from 'react-native';
+import { WebView } from 'react-native-webview';
 import { useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
 import NavBar from '~/screens/NavBar';
@@ -82,6 +83,17 @@ const SettingMain = () => {
           <LineGrayRightLong />
           <MarginWide />
           <MyGenderColor />
+          <MarginWide />
+          <LineGrayRightLong />
+          <MarginWide />
+          <LoginContainer>
+            <TextTitleDarkPurpleLink
+              title={'피드백을 부탁드립니다'}
+              buttonText={'Thank You!'}
+              stack={'FeedbackStack'}
+              screen={'Feedback'}
+            />
+          </LoginContainer>
         </Container>
       </ScrollView>
       <Blinder />

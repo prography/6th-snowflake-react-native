@@ -4,7 +4,7 @@ import HomeStack from '~/navigation/tabs/HomeStack';
 import ProductStack from '~/navigation/tabs/ProductStack';
 import LabStack from '~/navigation/tabs/LabStack';
 import ClinicStack from '~/navigation/tabs/ClinicStack';
-import SettingStack from '~/navigation/tabs/SettingStack';
+import FeedbackStack from '~/navigation/tabs/FeedbackStack';
 import JoinStack from '~/navigation/tabs/JoinStack';
 
 export type RootTabParamList = {
@@ -46,11 +46,11 @@ export default () => {
         component={JoinStack}
         options={{ tabBarVisible: false }}
       />
-      {/* <Tab.Screen
-        name='SettingStack'
-        component={SettingStack}
+      <Tab.Screen
+        name='FeedbackStack'
+        component={FeedbackStack}
         options={{ tabBarVisible: false }}
-      /> */}
+      />
     </Tab.Navigator>
   );
 };
