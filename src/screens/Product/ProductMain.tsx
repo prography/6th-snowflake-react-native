@@ -36,7 +36,7 @@ const ProductMain = () => {
   }, []);
   return (
     <>
-      <NavBar>
+      <NavBar selectedStack={'ProductStack'}>
         <ScrollView showsVerticalScrollIndicator={false}>
           <TopBarLeftIconSearchBar />
           <Container>

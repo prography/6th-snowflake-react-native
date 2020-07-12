@@ -6,7 +6,7 @@ import MarginBottom from '~/components/universal/margin/MarginBottom';
 
 const HomeMain = () => {
   return (
-    <NavBar>
+    <NavBar selectedStack={'HomeStack'}>
       <TopBarLeftIcon />
       {/* <MenuBar/> */}
       <Content />

@@ -5,7 +5,6 @@ import { c, d, l, BASE_URL } from '~/utils/constant';
 import { requestLogin } from '~/modules/auth/index';
 import { View, Text } from 'react-native';
 import styled from 'styled-components/native';
-import NavBar from '~/screens/NavBar';
 import BottomBtnCollectData from '~/components/universal/bottomBar/BottomBtnCollectData';
 import TopBarBackArrowRightIcon from '~/components/universal/topBar/TopBarBackArrowRightIcon';
 import TopBarWithIcon from '~/components/universal/topBar/TopBarRightIcon';
