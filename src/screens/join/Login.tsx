@@ -32,8 +32,10 @@ const LoginInfoInput = styled.TextInput`
 `;
 const Login = ({ navigation }) => {
   const dispatch = useDispatch();
-  const [userEmail, setUserEmail] = useState(null);
-  const [userPassword, setUserPassword] = useState(null);
+  const [userEmail, setUserEmail] = useState(__DEV__ ? '12@12.com' : null);
+  const [userPassword, setUserPassword] = useState(
+    __DEV__ ? '12@12.com' : null
+  );
   const [isFilled, setIsFilled] = useState(false);
 
   const [emailFocus, handleEmailFocus] = useState(false);

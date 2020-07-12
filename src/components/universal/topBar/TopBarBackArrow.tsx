@@ -2,6 +2,7 @@ import * as React from 'react';
 import { Text, ScrollView, BackHandler } from 'react-native';
 import styled from 'styled-components/native';
 import { d, l } from '~/utils/constant';
+import { withNavigation } from '@react-navigation/compat';
 
 const Container = styled.View`
   height: ${d.px * l.tB}px;
@@ -24,11 +25,17 @@ const SnowFlake = styled.Image`
   height: ${d.px * 15}px;
   width: ${d.px * 23}px;
 `;
-
-const TopBarBackArrow = () => {
+interface Props {
+  navigation: any;
+}
+const TopBarBackArrow = ({ navigation }: Props) => {
   return (
     <Container>
-      <Button>
+      <Button
+        onPress={() => {
+          navigation.pop();
+        }}
+      >
         <SnowFlake
           style={{ resizeMode: 'contain' }}
           source={require('~/img/icon/iconBackArrow.png')}
@@ -38,4 +45,4 @@ const TopBarBackArrow = () => {
   );
 };
 
-export default TopBarBackArrow;
+export default withNavigation(TopBarBackArrow);
