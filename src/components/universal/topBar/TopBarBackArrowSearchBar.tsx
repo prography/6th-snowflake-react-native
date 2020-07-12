@@ -42,7 +42,11 @@ interface Props {
 const TopBarBackArrowSearchBar = ({ navigation }: Props) => {
   return (
     <Container>
-      <Button>
+      <Button
+        onPress={() => {
+          navigation.pop();
+        }}
+      >
         <SnowFlake
           style={{ resizeMode: 'contain' }}
           source={require('~/img/icon/iconBackArrow.png')}

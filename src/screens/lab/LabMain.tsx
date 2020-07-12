@@ -14,7 +14,7 @@ const Container = styled.View`
 const LabMain = () => {
   return (
     <>
-      <NavBar>
+      <NavBar selectedStack={'LabStack'}>
         <ScrollView showsVerticalScrollIndicator={false}>
           <TopBarLeftIcon />
 

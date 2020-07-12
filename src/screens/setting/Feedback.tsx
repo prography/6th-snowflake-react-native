@@ -1,7 +1,6 @@
 import * as React from 'react';
 import styled from 'styled-components/native';
 import { Text } from 'react-native';
-import NavBar from '~/screens/NavBar';
 import { d, c, l } from '~/utils/constant';
 import { withNavigation } from '@react-navigation/compat';
 import { WebView } from 'react-native-webview';

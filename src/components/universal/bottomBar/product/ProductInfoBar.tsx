@@ -9,6 +9,8 @@ import AsyncStorage from '@react-native-community/async-storage';
 import { UserId, AsyncAccessToken } from '~/utils/asyncStorage';
 import { BASE_URL } from '~/utils/constant';
 import { useSelector } from 'react-redux';
+import { Alert } from 'react-native';
+
 interface Props {
   children: React.ReactNode;
   navigation: StackNavigationProp<RootTabParamList>;
@@ -142,7 +144,10 @@ const ProductInfoBar = ({ children, navigation, productId }: Props) => {
               ? isLiked
                 ? _deleteLiked()
                 : _likeProduct()
-              : alert('❄️마이 탭에서 회원 가입 후 \n 찜해보세요! ❄️');
+              : Alert.alert(
+                  '❄️',
+                  '마이 탭에서 회원 가입 후 \n 찜 기능을 이용해보세요!'
+                );
           }}
         >
           <HeartIcon
@@ -160,7 +165,10 @@ const ProductInfoBar = ({ children, navigation, productId }: Props) => {
           onPress={() => {
             _isLoggedin
               ? navigation.navigate('ReviewUpload1', { productId: productId })
-              : alert('❄️마이 탭에서 회원 가입 후 \n 리뷰 작성 부탁드려요 ❄️');
+              : Alert.alert(
+                  '❄️',
+                  '마이 탭에서 회원 가입 후 \n 리뷰 작성 부탁드려요!'
+                );
           }}
         >
           <Title>리뷰 쓰러 가기</Title>

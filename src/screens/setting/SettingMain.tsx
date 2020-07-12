@@ -49,7 +49,7 @@ const SettingMain = () => {
   }, []);
 
   return (
-    <NavBar>
+    <NavBar selectedStack={'JoinStack'}>
       <ScrollView>
         <Container>
           <TopBarLeftIcon />
