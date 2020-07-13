@@ -5,24 +5,9 @@ import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { requestLogin } from '~/modules/auth';
 import { d, c, l, BASE_URL } from '~/utils/constant';
-import {
-  State,
-  setUserEmail,
-  setUserPassword1,
-  setUserPassword2,
-  setUserName,
-  setUserBirthYear,
-  setUserGender,
-  setUserPartnerGender,
-} from '~/modules/join/userInfoReducer';
 import BottomBtnCollectData from '~/components/universal/bottomBar/BottomBtnCollectData';
 import MarginWide from '~/components/universal/margin/MarginWide';
-import TopBarLeftIcon from '~/components/universal/topBar/TopBarLeftIcon';
-import TopBarWithIcon from '~/components/universal/topBar/TopBarRightIcon';
-import TopBarBackArrow from '~/components/universal/topBar/TopBarBackArrow';
 import TopBarBackArrowRightIcon from '~/components/universal/topBar/TopBarBackArrowRightIcon';
-import GenderCircle from '~/components/universal/profile/GenderCircle';
-import { TouchableOpacity } from 'react-native-gesture-handler';
 import MarginNarrow from '~/components/universal/margin/MarginNarrow';
 import MarginMedium from '~/components/universal/margin/MarginMedium';
 import { StackActions } from '@react-navigation/native';
