@@ -57,7 +57,7 @@ const Join1 = () => {
   const [checkPasswordWarning, setCheckPasswordWarning] = useState(false);
   useEffect(() => {
     setIsFilled(
-      emailInput === ''
+      emailInput === '' || passwordInput === '' || checkPasswordInput === ''
         ? false
         : emailWarnigText !== null
         ? false
