@@ -31,7 +31,7 @@ const HomeCardNoticePurple = ({ tag, title, content }: Props) => {
   return (
     <>
       <Container>
-        <TextTitlePurpleRight title={title} />
+        <TextTitlePurpleRight title={`${title}`} />
         <MarginWide />
         <TextContentDarkRight content={content} />
         <MarginWide />
