@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "757880901426",
+    "firebase_url": "https://snowflake-59daa.firebaseio.com",
+    "project_id": "snowflake-59daa",
+    "storage_bucket": "snowflake-59daa.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:757880901426:android:4de4c96d45c732afc2d12b",
+        "android_client_info": {
+          "package_name": "com.snowflake.safelove"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "757880901426-sflvjj0gg4mi10elc2617kmc2nqjsar0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCNqjgEDV2dzqTGLMOPKH9_8Ew4G1nhBUU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "757880901426-sflvjj0gg4mi10elc2617kmc2nqjsar0.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "757880901426-qr9ap0pkhodcsne8mqqma3f5h980gp0d.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.snowflake.safelove"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
