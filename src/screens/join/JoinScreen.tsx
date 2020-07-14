@@ -54,9 +54,14 @@ const JoinScreen = ({ navigation }: Props) => {
       );
 
       console.log('🥇카카오 로그인,', response);
+      _setToken(response);
     } catch (error) {
       console.log();
     }
+  };
+
+  const _setToken = (tk) => {
+    setToken(tk);
   };
 
   const joinArray = [
