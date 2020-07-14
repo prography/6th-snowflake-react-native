@@ -3,15 +3,7 @@ import { View, Text } from 'react-native';
 import styled from 'styled-components/native';
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import LinePurpleWhenFocused from '~/components/universal/line/LinePurpleWhenFocused';
-import { validateEmail, validatePassword } from '~/utils/validator';
-import MarginNarrow from '~/components/universal/margin/MarginNarrow';
 import { d, c, l, BASE_URL } from '~/utils/constant';
-
-import BottomBtnCollectData from '~/components/universal/bottomBar/BottomBtnCollectData';
-import MarginWide from '~/components/universal/margin/MarginWide';
-import TopBarLeftIcon from '~/components/universal/topBar/TopBarLeftIcon';
-import TopBarWithIcon from '~/components/universal/topBar/TopBarRightIcon';
 import { withNavigation } from '@react-navigation/compat';
 import TopBarBackArrowRightIcon from '~/components/universal/topBar/TopBarBackArrowRightIcon';
 
@@ -48,7 +40,25 @@ interface Props {
 }
 
 const JoinScreen = ({ navigation }: Props) => {
-  const signInWithKakao = () => {};
+  const [token, setToken] = useState(null);
+
+  const _signInWithKakao = async () => {
+    //카카오로 accessToken을 받으면
+    const accessToken = '';
+    try {
+      const response = await fetch(
+        `${BASE_URL}/accounts/social/kakao-login-callback?access_token=${accessToken}`,
+        {
+          method: 'POST',
+        }
+      );
+
+      console.log('🥇카카오 로그인,', response);
+    } catch (error) {
+      console.log();
+    }
+  };
+
   const joinArray = [
     {
       guideText: '이메일로 가입하기',
@@ -62,7 +72,7 @@ const JoinScreen = ({ navigation }: Props) => {
       guideText: '카카오로 가입하기',
       guide: 'kakao',
       screen: 'JoinWithKakao',
-      function: signInWithKakao,
+      function: _signInWithKakao(),
       img: 'kakao',
       key: 1,
     },
