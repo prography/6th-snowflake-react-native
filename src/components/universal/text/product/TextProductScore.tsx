@@ -18,7 +18,7 @@ const TextProductScore = ({ score }: Props) => {
   return (
     <>
       {score === '0.00' ? (
-        <TextStyle>x</TextStyle>
+        <TextStyle>-</TextStyle>
       ) : (
         <TextStyle>★ {score}</TextStyle>
       )}

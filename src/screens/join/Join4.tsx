@@ -11,7 +11,10 @@ import TopBarBackArrowRightIcon from '~/components/universal/topBar/TopBarBackAr
 import MarginNarrow from '~/components/universal/margin/MarginNarrow';
 import MarginMedium from '~/components/universal/margin/MarginMedium';
 import { StackActions } from '@react-navigation/native';
-
+import AsyncStorage, {
+  useAsyncStorage,
+} from '@react-native-community/async-storage';
+import { UserName } from '~/utils/asyncStorage';
 const Container = styled.View`
   margin: 0 ${l.mR}px;
 `;
@@ -129,6 +132,7 @@ const Join4 = ({ navigation, route }: Props) => {
 
       const json = await response.json();
       console.log('😸3. /accounts 회원가입 api 응답 확인');
+      await AsyncStorage.setItem('UserName', String(signUpName));
       switch (response.status) {
         case 201:
           console.log('😸4. /accounts 회원가입 성공!!', response.status, json);
