@@ -74,7 +74,7 @@ const SettingMain = () => {
                   title={'회원가입'}
                   buttonText={'JOIN'}
                   stack={'JoinStack'}
-                  screen={'Join1'}
+                  screen={'JoinScreen'}
                 />
               </LoginContainer>
             </>

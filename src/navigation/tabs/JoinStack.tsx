@@ -5,6 +5,7 @@ import Login from '~/screens/join/Login';
 import Join1 from '~/screens/join/Join1';
 import Join2 from '~/screens/join/Join2';
 import Join3 from '~/screens/join/Join3';
+import JoinScreen from '~/screens/join/JoinScreen';
 import Join4 from '~/screens/join/Join4';
 import SettingMain from '~/screens/setting/SettingMain';
 import Feedback from '~/screens/setting/Feedback';
@@ -20,6 +21,7 @@ export default () => {
       }}
     >
       <Stack.Screen name='SettimgMain' component={SettingMain} />
+      <Stack.Screen name='JoinScreen' component={JoinScreen} />
       <Stack.Screen name='Join1' component={Join1} />
       <Stack.Screen name='Join2' component={Join2} />
       <Stack.Screen name='Join3' component={Join3} />
