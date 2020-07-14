@@ -48,11 +48,13 @@ interface Props {
 }
 
 const JoinScreen = ({ navigation }: Props) => {
+  const signInWithKakao = () => {};
   const joinArray = [
     {
       guideText: '이메일로 가입하기',
       guide: 'email',
       screen: 'Join1',
+      function: 'none',
       img: 'none',
       key: 0,
     },
@@ -60,6 +62,7 @@ const JoinScreen = ({ navigation }: Props) => {
       guideText: '카카오로 가입하기',
       guide: 'kakao',
       screen: 'JoinWithKakao',
+      function: signInWithKakao,
       img: 'kakao',
       key: 1,
     },
@@ -67,6 +70,7 @@ const JoinScreen = ({ navigation }: Props) => {
       guideText: '애플 로그인으로 가입하기',
       guide: 'apple',
       screen: 'JoinWithApple',
+      function: 'signInWithApple',
       img: 'apple',
       key: 2,
     },
@@ -82,7 +86,9 @@ const JoinScreen = ({ navigation }: Props) => {
                 guide={join.guide}
                 activeOpacity={1}
                 onPress={() => {
-                  navigation.navigate('JoinStack', { screen: join.screen });
+                  join.function === 'none'
+                    ? navigation.navigate('JoinStack', { screen: join.screen })
+                    : join.function;
                 }}
               >
                 <JoinText guide={join.guide}>{join.guideText}</JoinText>
