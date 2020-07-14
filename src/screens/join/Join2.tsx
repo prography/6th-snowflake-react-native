@@ -53,12 +53,13 @@ const YearText = styled.Text`
 `;
 
 const UserNameInput = styled.TextInput`
-  height: ${d.px * 32}px;
+  /* height: ${d.px * 32}px; */
   border-color: ${c.extraLightGray};
   border-bottom-width: ${d.px * 1}px;
   font-size: ${d.px * 23}px;
   font-family: 'Jost-Bold';
   color: ${c.darkGray};
+  /* padding: 0 ${d.px * 2}px; */
 `;
 const WarningText = styled.Text`
   color: ${c.purple};
