@@ -49,7 +49,7 @@ const MyProfile = ({ token }: Props) => {
 
   useEffect(() => {
     _getUserInfo();
-  }, [token]);
+  }, []);
 
   return (
     <Container>
