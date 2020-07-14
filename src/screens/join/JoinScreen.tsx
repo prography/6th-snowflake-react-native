@@ -40,8 +40,6 @@ interface Props {
 }
 
 const JoinScreen = ({ navigation }: Props) => {
-  const [token, setToken] = useState(null);
-
   const _signInWithKakao = async () => {
     //카카오로 accessToken을 받으면
     const accessToken = '';
@@ -54,15 +52,19 @@ const JoinScreen = ({ navigation }: Props) => {
       );
 
       console.log('🥇카카오 로그인,', response);
-      _setToken(response);
+
+      await navigation.navigate('JoinStack', {
+        screen: 'SocialJoin1',
+        params: { _token: response, socialJoin: true },
+      });
     } catch (error) {
       console.log();
     }
   };
 
-  const _setToken = (tk) => {
-    setToken(tk);
-  };
+  // const _setToken = (tk: any) => {
+  //   setToken(tk);
+  // };
 
   const joinArray = [
     {

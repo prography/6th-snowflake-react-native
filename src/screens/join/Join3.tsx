@@ -5,20 +5,11 @@ import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { d, c, l } from '~/utils/constant';
 import {
-  State,
-  setUserEmail,
-  setUserPassword1,
-  setUserPassword2,
-  setUserName,
-  setUserBirthYear,
   setUserGender,
   setUserPartnerGender,
 } from '~/modules/join/userInfoReducer';
 import BottomBtnCollectData from '~/components/universal/bottomBar/BottomBtnCollectData';
 import MarginWide from '~/components/universal/margin/MarginWide';
-import TopBarLeftIcon from '~/components/universal/topBar/TopBarLeftIcon';
-import TopBarWithIcon from '~/components/universal/topBar/TopBarRightIcon';
-import TopBarBackArrow from '~/components/universal/topBar/TopBarBackArrow';
 import TopBarBackArrowRightIcon from '~/components/universal/topBar/TopBarBackArrowRightIcon';
 import GenderCircle from '~/components/universal/profile/GenderCircle';
 import { TouchableOpacity } from 'react-native-gesture-handler';
@@ -52,16 +43,24 @@ const CircleContainer = styled.View`
 `;
 
 const CircleTextContatiner = styled.View``;
-
-const Join3 = ({ navigation, route }) => {
-  const { signUpEmail, signUpPassword, signUpName, signUpYear } = route.params;
+interface Props {
+  navigation: StackNavigationProp<JoinStackParamList, 'Join4'>;
+  route: RouteProp<JoinStackParamList, 'Join3'>;
+}
+const Join3 = ({ navigation, route }: Props) => {
+  const {
+    signUpEmail,
+    signUpPassword,
+    signUpName,
+    signUpYear,
+    socialJoin,
+    _token,
+  } = route.params;
   console.log('🍊', route.params);
   const [isFilled, setIsFilled] = useState(false);
 
   const dispatch = useDispatch();
-  const _userName = useSelector(
-    (state: State) => state.userInfoReducer.userName
-  );
+
   const _userGender = useSelector(
     (state: State) => state.userInfoReducer.userGender
   );
@@ -111,14 +110,26 @@ const Join3 = ({ navigation, route }) => {
         stack={'JoinStack'}
         screen={'Join4'}
         isFilled={isFilled}
-        params={{
-          signUpEmail: signUpEmail,
-          signUpPassword: signUpPassword,
-          signUpName: signUpName,
-          signUpYear: signUpYear,
-          signUpGender: _userGender,
-          signUpPartnerGender: _userPartnerGender,
-        }}
+        params={
+          socialJoin
+            ? {
+                signUpName: signUpName,
+                signUpYear: signUpYear,
+                signUpGender: _userGender,
+                signUpPartnerGender: _userPartnerGender,
+                socialJoin: socialJoin,
+                _token: _token,
+              }
+            : {
+                signUpEmail: signUpEmail,
+                signUpPassword: signUpPassword,
+                signUpName: signUpName,
+                signUpYear: signUpYear,
+                signUpGender: _userGender,
+                signUpPartnerGender: _userPartnerGender,
+                socialJoin: socialJoin,
+              }
+        }
       >
         <TopBarBackArrowRightIcon />
         <Container>

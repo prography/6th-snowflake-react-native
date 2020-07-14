@@ -21,6 +21,9 @@ import TopBarWithIcon from '~/components/universal/topBar/TopBarRightIcon';
 import TopBarBackArrow from '~/components/universal/topBar/TopBarBackArrow';
 import TopBarBackArrowRightIcon from '~/components/universal/topBar/TopBarBackArrowRightIcon';
 import { Picker } from '@react-native-community/picker';
+import { RouteProp } from '@react-navigation/native';
+import { JoinStackParamList } from '~/navigation/tabs/JoinStack';
+import { StackNavigationProp } from '@react-navigation/stack';
 
 const Container = styled.View`
   margin: 0 ${l.mR}px;
@@ -69,8 +72,13 @@ const WarningText = styled.Text`
   margin-top: ${d.px * 20}px;
   height: ${d.px * 20}px;
 `;
-const Join2 = ({ route }) => {
-  const { signUpEmail, signUpPassword } = route.params;
+
+interface Props {
+  navigation: StackNavigationProp<JoinStackParamList, 'Join3'>;
+  route: RouteProp<JoinStackParamList, 'Join2'>;
+}
+const Join2 = ({ navigation, route }: Props) => {
+  const { signUpEmail, signUpPassword, socialJoin, _token } = route.params;
   console.log('🥇', route.params);
   const [isFilled, setIsFilled] = useState(false);
   const [nameInput, setNameInput] = useState('');
@@ -126,12 +134,22 @@ const Join2 = ({ route }) => {
         stack={'JoinStack'}
         screen={'Join3'}
         isFilled={isFilled}
-        params={{
-          signUpEmail: signUpEmail,
-          signUpPassword: signUpPassword,
-          signUpName: nameInput,
-          signUpYear: year,
-        }}
+        params={
+          socialJoin
+            ? {
+                signUpName: nameInput,
+                signUpYear: year,
+                socialJoin: socialJoin,
+                _token: _token,
+              }
+            : {
+                signUpEmail: signUpEmail,
+                signUpPassword: signUpPassword,
+                signUpName: nameInput,
+                signUpYear: year,
+                socialJoin: socialJoin,
+              }
+        }
       >
         <TopBarBackArrowRightIcon />
         <Container>

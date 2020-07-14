@@ -161,7 +161,11 @@ const Join1 = () => {
         screen={'Join2'}
         isFilled={isFilled}
         // onPressFunction={_signup}
-        params={{ signUpEmail: emailInput, signUpPassword: passwordInput }}
+        params={{
+          signUpEmail: emailInput,
+          signUpPassword: passwordInput,
+          socialJoin: false,
+        }}
       >
         <Container>
           <TopBarWithIcon />
