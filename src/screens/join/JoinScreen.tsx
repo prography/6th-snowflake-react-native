@@ -42,6 +42,7 @@ interface Props {
 const JoinScreen = ({ navigation }: Props) => {
   const _signInWithKakao = async () => {
     //카카오로 accessToken을 받으면
+    console.log('🥎, 카카오 가입을 해보자');
     const accessToken = '';
     try {
       const response = await fetch(
@@ -51,20 +52,16 @@ const JoinScreen = ({ navigation }: Props) => {
         }
       );
 
-      console.log('🥇카카오 로그인,', response);
+      console.log('🥎카카오 가입,', response);
 
       await navigation.navigate('JoinStack', {
-        screen: 'SocialJoin1',
+        screen: 'Join2',
         params: { _token: response, socialJoin: true },
       });
     } catch (error) {
       console.log();
     }
   };
-
-  // const _setToken = (tk: any) => {
-  //   setToken(tk);
-  // };
 
   const joinArray = [
     {
@@ -79,7 +76,7 @@ const JoinScreen = ({ navigation }: Props) => {
       guideText: '카카오로 가입하기',
       guide: 'kakao',
       screen: 'JoinWithKakao',
-      function: _signInWithKakao(),
+      function: _signInWithKakao,
       img: 'kakao',
       key: 1,
     },
@@ -105,7 +102,7 @@ const JoinScreen = ({ navigation }: Props) => {
                 onPress={() => {
                   join.function === 'none'
                     ? navigation.navigate('JoinStack', { screen: join.screen })
-                    : join.function;
+                    : console.log(join.function());
                 }}
               >
                 <JoinText guide={join.guide}>{join.guideText}</JoinText>
