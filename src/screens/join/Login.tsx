@@ -13,6 +13,7 @@ import LinePurpleWhenFocused from '~/components/universal/line/LinePurpleWhenFoc
 import MarginWide from '~/components/universal/margin/MarginWide';
 import MarginNarrow from '~/components/universal/margin/MarginNarrow';
 import { StackActions } from '@react-navigation/native';
+import { llog2 } from '~/utils/functions';
 
 const Container = styled.View`
   margin: 0 ${l.mR}px;
@@ -48,7 +49,7 @@ const Login = ({ navigation }) => {
     userEmail && userPassword ? setIsFilled(true) : setIsFilled(false);
   }, [userEmail, userPassword]);
   const _login = (email: string, password: string) => {
-    console.log('😸5... 로그인 액션 호출', userEmail);
+    llog2('😸5... 로그인 액션 호출', userEmail);
     dispatch(requestLogin(userEmail, userPassword));
   };
 
@@ -80,7 +81,7 @@ const Login = ({ navigation }) => {
     >
       <Container>
         <TopBarWithIcon />
-        {LoginInputArry.map((data) => {
+        {LoginInputArry.map((data, index: number) => {
           return (
             <>
               <InputContainer>

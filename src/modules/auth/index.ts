@@ -1,3 +1,7 @@
+import AsyncStorage from "@react-native-community/async-storage";
+
+import { AsyncAccessToken } from "~/utils/asyncStorage";
+
 export interface State {
   isLoggedin: boolean;
 }
@@ -31,6 +35,17 @@ const authReducer = (state = initialState, action) => {
       return { ...state, isLoggedin: action.isLoggedin };
     default:
       return state;
+  }
+};
+
+export const manageLoginLogout = (dispatch, value: boolean, jwt?: string) => {
+  // 이걸로 로그인도 하고 로그아웃도 할거야
+  dispatch(setIsLoggedin(value));
+  if (value === true && jwt) {
+    AsyncStorage.setItem(AsyncAccessToken, jwt);
+  }
+  if (value === false) {
+    AsyncStorage.removeItem(AsyncAccessToken);
   }
 };
 

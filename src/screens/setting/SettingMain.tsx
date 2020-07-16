@@ -21,6 +21,7 @@ import TopBarLeftIcon from '~/components/universal/topBar/TopBarLeftIcon';
 import MyGenderColor from '~/containers/setting/MyGenderColor';
 import LineGrayRightLong from '~/components/universal/line/LineGrayRightLong';
 import MarginMedium from '~/components/universal/margin/MarginMedium';
+import { llog2 } from '~/utils/functions';
 
 const Container = styled.View``;
 
@@ -38,9 +39,9 @@ const SettingMain = () => {
     try {
       const token = await AsyncStorage.getItem(AsyncAccessToken);
       _setToken(token);
-      console.log('1.🐹 store에서 토큰 불러옴:', _token);
+      llog2('1.🐹 store에서 토큰 불러옴:', _token);
     } catch (e) {
-      console.error('안 가져와');
+      console.error('안 가져와', e);
     }
   };
 
@@ -54,31 +55,31 @@ const SettingMain = () => {
         <Container>
           <TopBarLeftIcon />
 
-          {_isLoggedin ? (
+          {_token !== null && _isLoggedin ? (
             <>
               <MyProfile token={_token} />
               <MarginWide />
               <Likes token={_token} />
             </>
           ) : (
-            <>
-              <LoginContainer>
-                <MarginMedium />
-                <TextTitleDarkPurpleLink
-                  title={'로그인'}
-                  buttonText={'LOGIN'}
-                  stack={'JoinStack'}
-                  screen={'Login'}
-                />
-                <TextTitleDarkPurpleLink
-                  title={'회원가입'}
-                  buttonText={'JOIN'}
-                  stack={'JoinStack'}
-                  screen={'JoinScreen'}
-                />
-              </LoginContainer>
-            </>
-          )}
+              <>
+                <LoginContainer>
+                  <MarginMedium />
+                  <TextTitleDarkPurpleLink
+                    title={'로그인'}
+                    buttonText={'LOGIN'}
+                    stack={'JoinStack'}
+                    screen={'Login'}
+                  />
+                  <TextTitleDarkPurpleLink
+                    title={'회원가입'}
+                    buttonText={'JOIN'}
+                    stack={'JoinStack'}
+                    screen={'JoinScreen'}
+                  />
+                </LoginContainer>
+              </>
+            )}
           <MarginWide />
           <LineGrayRightLong />
           <MarginWide />

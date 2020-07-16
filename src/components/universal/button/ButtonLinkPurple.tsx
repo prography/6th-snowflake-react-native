@@ -5,9 +5,10 @@ import { withNavigation } from '@react-navigation/compat';
 
 interface Props {
   buttonText: string;
-  stack: string;
-  screen: string;
+  stack?: string;
+  screen?: string;
   navigation: any;
+  onPress?: () => void;
 }
 
 const Container = styled.TouchableOpacity`
@@ -33,11 +34,11 @@ const TriangleArrow = styled.Image`
   margin-left: ${d.px * 5}px;
 `;
 
-const ButtonLinkPurple = ({ buttonText, stack, screen, navigation }: Props) => {
+const ButtonLinkPurple = ({ buttonText, stack, screen, navigation, onPress }: Props) => {
   return (
     <Container
       activeOpacity={1}
-      onPress={() => {
+      onPress={onPress ? onPress : () => {
         navigation.navigate(stack, { screen: screen });
       }}
     >
