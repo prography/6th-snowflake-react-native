@@ -2,6 +2,8 @@ import * as React from 'react';
 import styled from 'styled-components/native';
 import { useState } from 'react';
 import { withNavigation } from '@react-navigation/compat';
+import analytics from '@react-native-firebase/analytics';
+
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RootTabParamList } from '~/navigation/RootTabNavigation';
 import { d, c, l } from '~/utils/constant';
@@ -88,6 +90,8 @@ const NavBar = ({ children, navigation, selectedStack }: Props) => {
               activeOpacity={1}
               onPress={() => {
                 navigation.navigate(tab.stackNameEng);
+                analytics().logEvent(`press_tab_${tab.stackNameEng}`);
+                analytics().setCurrentScreen(`${tab.stackNameEng}`);
               }}
             >
               {selectedStack === tab.stackNameEng ? <SelectedCircle /> : null}

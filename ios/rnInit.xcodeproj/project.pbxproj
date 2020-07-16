@@ -27,7 +27,8 @@
 		CC47724678E1AABE4BED3CA5 /* libPods-rnInit-rnInitTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C2A623C82AD171B3E6766A9C /* libPods-rnInit-rnInitTests.a */; };
 		CF1F4A59F423764F305FF4DC /* libPods-rnInit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 93BF63EF13CD33E4909D8CEE /* libPods-rnInit.a */; };
 		DEAD981CA3BA7B76C6F80DD7 /* libPods-rnInit-tvOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6C8C2B711C7009B6A3915FA4 /* libPods-rnInit-tvOSTests.a */; };
-		F4FB493924BDC58A003578BA /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F4FB493824BDC58A003578BA /* GoogleService-Info.plist */; };
+		F409345B24C0B00700FAC035 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F409345724C0AD9B00FAC035 /* GoogleService-Info.plist */; };
+		F409345E24C0B12B00FAC035 /* GoogleService-Info-debug.plist in Resources */ = {isa = PBXBuildFile; fileRef = F409345D24C0B12B00FAC035 /* GoogleService-Info-debug.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -56,7 +57,6 @@
 		0D34D775E40E489C86D3BF77 /* Jost-Medium.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Jost-Medium.otf"; path = "../src/assets/fonts/Jost-Medium.otf"; sourceTree = "<group>"; };
 		1161EDD488944217B61DD3F1 /* Jost-Black.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Jost-Black.otf"; path = "../src/assets/fonts/Jost-Black.otf"; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* rnInit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = rnInit.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = rnInit/AppDelegate.h; sourceTree = "<group>"; };
 		13B07FB01A68108700A75B9A /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = rnInit/AppDelegate.m; sourceTree = "<group>"; };
 		13B07FB21A68108700A75B9A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = rnInit/Images.xcassets; sourceTree = "<group>"; };
@@ -82,7 +82,8 @@
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		ED2971642150620600B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS12.0.sdk/System/Library/Frameworks/JavaScriptCore.framework; sourceTree = DEVELOPER_DIR; };
 		F030A1820DEE433DA324D26B /* Jost-Bold.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Jost-Bold.otf"; path = "../src/assets/fonts/Jost-Bold.otf"; sourceTree = "<group>"; };
-		F4FB493824BDC58A003578BA /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
+		F409345724C0AD9B00FAC035 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		F409345D24C0B12B00FAC035 /* GoogleService-Info-debug.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info-debug.plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -141,10 +142,10 @@
 		13B07FAE1A68108700A75B9A /* rnInit */ = {
 			isa = PBXGroup;
 			children = (
-				F4FB493824BDC58A003578BA /* GoogleService-Info.plist */,
 				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
-				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
+				F409345724C0AD9B00FAC035 /* GoogleService-Info.plist */,
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
+				F409345D24C0B12B00FAC035 /* GoogleService-Info-debug.plist */,
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
 				13B07FB61A68108700A75B9A /* Info.plist */,
 				13B07FB11A68108700A75B9A /* LaunchScreen.xib */,
@@ -376,14 +377,15 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F409345B24C0B00700FAC035 /* GoogleService-Info.plist in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
+				F409345E24C0B12B00FAC035 /* GoogleService-Info-debug.plist in Resources */,
 				BA76CC5A3F5B433EA9A5B657 /* Jost-Black.otf in Resources */,
 				9A0CDE381B04449A8DA1C787 /* Jost-Bold.otf in Resources */,
 				B8E1E34B224745D5895A21E7 /* Jost-Book.otf in Resources */,
 				2B39DAF00B994F438323EAB7 /* Jost-Heavy.otf in Resources */,
 				C39083C441A54932AFA0E4FA /* Jost-Light.otf in Resources */,
-				F4FB493924BDC58A003578BA /* GoogleService-Info.plist in Resources */,
 				90A31ACB36944234AC636E75 /* Jost-Medium.otf in Resources */,
 				4BE13D709AE043CD94EBF036 /* Jost-Semi.otf in Resources */,
 			);
