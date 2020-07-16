@@ -48,7 +48,7 @@ interface Props {
 }
 
 const JoinScreen = ({ navigation }: Props) => {
-  const signInWithKakao = () => {};
+  const signInWithKakao = () => { };
   const joinArray = [
     {
       guideText: '이메일로 가입하기',
@@ -79,10 +79,11 @@ const JoinScreen = ({ navigation }: Props) => {
     <>
       <Container>
         <TopBarBackArrowRightIcon />
-        {joinArray.map((join) => {
+        {joinArray.map((join, index: number) => {
           return (
             <JoinContainer>
               <JoinBox
+                key={index}
                 guide={join.guide}
                 activeOpacity={1}
                 onPress={() => {

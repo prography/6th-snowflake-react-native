@@ -29,19 +29,20 @@ const ColorCircles4 = () => {
     womanColor === null
       ? setWomanColor(cColor)
       : manColor === null
-      ? womanColor === cColor
-        ? alert('다른 색을 골라주세요')
-        : setManColor(cColor)
-      : [setManColor(null), setWomanColor(cColor)];
+        ? womanColor === cColor
+          ? alert('다른 색을 골라주세요')
+          : setManColor(cColor)
+        : [setManColor(null), setWomanColor(cColor)];
   };
 
   return (
     <>
       {/* 고쳐야함... for문 안 먹어 ㅠㅠ...... */}
       <OneLine>
-        {circleColor4.map((circle) => {
+        {circleColor4.map((circle, index: number) => {
           return (
             <TouchableOpacity
+              key={index}
               onPress={() => {
                 setColor(circle.cColor);
                 console.log('바뀐 womanColor:', womanColor, 'man', manColor);

@@ -49,9 +49,9 @@ const HomeCardDefaultContentPurpleButton = ({
         <ButtonLinkPurpleLarge buttonText={btnText} link={link} />
         <MarginMedium />
         <TagContainer>
-          {tag.map((tag) => {
+          {tag.map((tag, index: number) => {
             return (
-              <TagBox>
+              <TagBox key={index}>
                 <TextTag tag={tag} />
               </TagBox>
             );

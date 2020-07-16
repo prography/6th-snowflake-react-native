@@ -72,16 +72,16 @@ const SelectCircle = styled.View`
     props.gender === 'WOMAN'
       ? props.womanColor || c.extraLightGray
       : props.gender === 'MAN'
-      ? props.manColor || c.extraLightGray
-      : c.extraLightGray};
+        ? props.manColor || c.extraLightGray
+        : c.extraLightGray};
   justify-content: center;
   align-items: center;
   opacity: ${(props) =>
     props.selectedGender === 'NONE'
       ? 0.3
       : props.selectedGender === props.gender
-      ? 0.9
-      : 0.3};
+        ? 0.9
+        : 0.3};
 `;
 const GenderText = styled.Text`
   position: absolute;
@@ -203,9 +203,10 @@ const ProductInfoReviewFilter = ({ setReviewArray, productId }: Props) => {
               <FilterSelectionText>작성자 성별:</FilterSelectionText>
 
               <GenderSelectContainer>
-                {genderFilterList.map((filter) => {
+                {genderFilterList.map((filter, index: number) => {
                   return (
                     <SelectCircleTouchArea
+                      key={index}
                       onPress={() => {
                         setGenderParam(filter.genderEnum);
                       }}
@@ -226,9 +227,10 @@ const ProductInfoReviewFilter = ({ setReviewArray, productId }: Props) => {
             <FilterSelectWrapper>
               <FilterSelectionText>파트너 성별:</FilterSelectionText>
               <GenderSelectContainer>
-                {partnerFilterList.map((filter) => {
+                {partnerFilterList.map((filter, index: number) => {
                   return (
                     <SelectCircleTouchArea
+                      key={index + 100}
                       onPress={() => {
                         setPartnerParam(filter.partnerEnum);
                       }}

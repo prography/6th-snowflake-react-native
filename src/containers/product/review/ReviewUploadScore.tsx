@@ -56,8 +56,8 @@ const Star = styled.Text`
     props.givenScore === null
       ? c.lightGray
       : props.selfScore > props.givenScore
-      ? c.lightGray
-      : c.purple};
+        ? c.lightGray
+        : c.purple};
 `;
 const StarTouchArea = styled.TouchableOpacity`
   width: ${TOUCH_AREA}px;
@@ -123,10 +123,11 @@ const ReviewUploadScore = () => {
           </SelectedTextContainer>
 
           <StarContainer>
-            {oneToFive.map((star) => {
+            {oneToFive.map((star, index: number) => {
               return (
                 <>
                   <StarTouchArea
+                    key={index}
                     onPress={() => {
                       _setScore(star.score);
                     }}

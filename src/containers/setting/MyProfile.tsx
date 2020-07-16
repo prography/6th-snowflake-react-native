@@ -63,11 +63,11 @@ const MyProfile = ({ token }: Props) => {
             </ProfileContainer>
           </>
         ) : (
-          <TextTitlePurpleRight title={'로딩☁️'} />
-        )
+            <TextTitlePurpleRight title={'로딩☁️'} />
+          )
       ) : (
-        <TextTitlePurpleRight title={'Please join us! ☁️'} />
-      )}
+          <TextTitlePurpleRight title={'Please join us! ☁️'} />
+        )}
     </Container>
   );
 };

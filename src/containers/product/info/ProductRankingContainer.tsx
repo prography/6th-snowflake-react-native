@@ -56,8 +56,8 @@ const FilterBox = styled.TouchableOpacity`
     props.showOrderFilter
       ? c.purple
       : props.selectedOrder === ''
-      ? 'white'
-      : c.mint};
+        ? 'white'
+        : c.mint};
 `;
 
 const FilterText = styled.Text`
@@ -219,9 +219,10 @@ const ProductRankingContainer = () => {
 
       <CategoryWrapper>
         <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
-          {categoryList.map((category) => {
+          {categoryList.map((category, index: number) => {
             return (
               <Category
+                key={index}
                 first={category.first}
                 last={category.last}
                 onPress={() => {
@@ -256,9 +257,10 @@ const ProductRankingContainer = () => {
       </FilterWrapper>
       {showOrderFilter && (
         <OrderFilterWrapper>
-          {orderFilterList.map((filter) => {
+          {orderFilterList.map((filter, index: number) => {
             return (
               <OrderFilterBox
+                key={index + 100}
                 onPress={() => {
                   setOrderParam(filter.orderEnum);
                   setOrderText(filter.orderText);
@@ -287,9 +289,10 @@ const ProductRankingContainer = () => {
       >
         <Container>
           {_rankingList ? (
-            _rankingList.map((product) => {
+            _rankingList.map((product, index: number) => {
               return (
                 <RankBar
+                  key={index + 200}
                   rankNum={_rankingList.indexOf(product) + 1}
                   productCompany={product.manufacturer_kor}
                   productName={product.name_kor}
@@ -300,8 +303,8 @@ const ProductRankingContainer = () => {
               );
             })
           ) : (
-            <TextTitlePurpleRight title={'Loading...'} />
-          )}
+              <TextTitlePurpleRight title={'Loading...'} />
+            )}
         </Container>
       </ScrollView>
 

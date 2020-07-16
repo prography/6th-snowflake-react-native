@@ -84,9 +84,10 @@ const NavBar = ({ children, navigation, selectedStack }: Props) => {
     <Screen>
       {children}
       <Container>
-        {tabArray.map((tab) => {
+        {tabArray.map((tab, index: number) => {
           return (
             <Tab
+              key={index}
               activeOpacity={1}
               onPress={() => {
                 navigation.navigate(tab.stackNameEng);

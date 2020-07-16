@@ -133,8 +133,8 @@ const Join4 = ({ navigation, route }) => {
         <MarginNarrow />
         <NoiceTitleText>다음 내용을 반드시 숙지해주세요.</NoiceTitleText>
         <MarginWide />
-        {noticeList.map((notice) => {
-          return <NoticeText>{notice}</NoticeText>;
+        {noticeList.map((notice, index: number) => {
+          return <NoticeText key={index}>{notice}</NoticeText>;
         })}
       </BottomBtnCollectData>
     </>

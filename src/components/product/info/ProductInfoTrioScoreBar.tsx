@@ -98,9 +98,9 @@ const ProductInfoTrioScoreBar = ({
       rightDescription: '촉촉해요',
     },
   ];
-  return trioScore.map((score) => {
+  return trioScore.map((score, index: number) => {
     return (
-      <Container>
+      <Container key={index}>
         <TrioNameContainer>
           <TrioName score={score.score}>{score.trioName}</TrioName>
         </TrioNameContainer>

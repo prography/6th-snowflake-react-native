@@ -36,9 +36,9 @@ const HomeCardNoticePurple = ({ tag, title, content }: Props) => {
         <TextContentDarkRight content={content} />
         <MarginWide />
         <TagContainer>
-          {tag.map((tag) => {
+          {tag.map((tag, index: number) => {
             return (
-              <TagBox>
+              <TagBox key={index}>
                 <TextTag tag={tag} />
               </TagBox>
             );
