@@ -156,7 +156,7 @@ const Join1 = () => {
   ];
 
   useEffect(() => {
-    analytics().setCurrentScreen('Join1');
+    analytics().setCurrentScreen('Join1_Email_Password');
   }, []);
 
   return (

@@ -1,20 +1,22 @@
 import * as React from 'react';
+import { useEffect, useState } from 'react';
 import styled from 'styled-components/native';
 import { ScrollView } from 'react-native';
 import { WebView } from 'react-native-webview';
 import { useSelector } from 'react-redux';
-import { useEffect, useState } from 'react';
-import NavBar from '~/screens/NavBar';
+import analytics from "@react-native-firebase/analytics";
 import { withNavigation } from '@react-navigation/compat';
+import AsyncStorage, {
+  useAsyncStorage,
+} from '@react-native-community/async-storage';
+
+import NavBar from '~/screens/NavBar';
 import TextTitleDarkPurpleLink from '~/components/universal/text/TextTitleDarkPurpleLink';
 import { c, d, l } from '~/utils/constant';
 import TopBarWithIcon from '~/components/universal/topBar/TopBarRightIcon';
 import MyProfile from '~/containers/setting/MyProfile';
 import MarginWide from '~/components/universal/margin/MarginWide';
 import Likes from '~/containers/setting/Likes';
-import AsyncStorage, {
-  useAsyncStorage,
-} from '@react-native-community/async-storage';
 import { UserId, AsyncAccessToken, UserName } from '~/utils/asyncStorage';
 import Blinder from '~/components/product/Blinder';
 import TopBarLeftIcon from '~/components/universal/topBar/TopBarLeftIcon';
@@ -47,6 +49,7 @@ const SettingMain = () => {
 
   useEffect(() => {
     _getToken();
+    analytics().setCurrentScreen("SettingMain");
   }, []);
 
   return (

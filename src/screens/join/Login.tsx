@@ -1,18 +1,20 @@
 import * as React from 'react';
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { c, d, l, BASE_URL } from '~/utils/constant';
-import { requestLogin } from '~/modules/auth/index';
 import { View, Text } from 'react-native';
 import styled from 'styled-components/native';
+import analytics from "@react-native-firebase/analytics";
+import { withNavigation } from '@react-navigation/compat';
+import { StackActions } from '@react-navigation/native';
+
 import BottomBtnCollectData from '~/components/universal/bottomBar/BottomBtnCollectData';
+import { c, d, l, BASE_URL } from '~/utils/constant';
+import { requestLogin } from '~/modules/auth/index';
 import TopBarBackArrowRightIcon from '~/components/universal/topBar/TopBarBackArrowRightIcon';
 import TopBarWithIcon from '~/components/universal/topBar/TopBarRightIcon';
-import { withNavigation } from '@react-navigation/compat';
 import LinePurpleWhenFocused from '~/components/universal/line/LinePurpleWhenFocused';
 import MarginWide from '~/components/universal/margin/MarginWide';
 import MarginNarrow from '~/components/universal/margin/MarginNarrow';
-import { StackActions } from '@react-navigation/native';
 import { llog2 } from '~/utils/functions';
 
 const Container = styled.View`
@@ -73,6 +75,11 @@ const Login = ({ navigation }) => {
       isPassword: true,
     },
   ];
+
+  React.useEffect(() => {
+    analytics().setCurrentScreen("Login");
+  }, []);
+
   return (
     <BottomBtnCollectData
       btnText={'로그인'}

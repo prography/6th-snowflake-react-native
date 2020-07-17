@@ -3,6 +3,9 @@ import { View, Text } from 'react-native';
 import styled from 'styled-components/native';
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import analytics from "@react-native-firebase/analytics";
+import { TouchableOpacity } from 'react-native-gesture-handler';
+
 import { d, c, l } from '~/utils/constant';
 import {
   State,
@@ -21,7 +24,6 @@ import TopBarWithIcon from '~/components/universal/topBar/TopBarRightIcon';
 import TopBarBackArrow from '~/components/universal/topBar/TopBarBackArrow';
 import TopBarBackArrowRightIcon from '~/components/universal/topBar/TopBarBackArrowRightIcon';
 import GenderCircle from '~/components/universal/profile/GenderCircle';
-import { TouchableOpacity } from 'react-native-gesture-handler';
 import MarginMedium from '~/components/universal/margin/MarginMedium';
 const Container = styled.View`
   margin: 0 ${l.mR}px;
@@ -82,8 +84,8 @@ const Join3 = ({ navigation, route }) => {
     _userGender === null
       ? _setUserGender(selectedGender)
       : _userPartnerGender === null
-      ? _setUserPartnerGender(selectedGender)
-      : [_setUserPartnerGender(null), _setUserGender(selectedGender)];
+        ? _setUserPartnerGender(selectedGender)
+        : [_setUserPartnerGender(null), _setUserGender(selectedGender)];
   };
 
   // const [genderInput, setGenderInput] = useState('');
@@ -103,6 +105,10 @@ const Join3 = ({ navigation, route }) => {
 
   const [bothColor, setBothColor] = useState(c.purple);
   const [noneColor, setNoneColor] = useState(c.black);
+
+  React.useEffect(() => {
+    analytics().setCurrentScreen("Join3_UerGender");
+  }, []);
 
   return (
     <>

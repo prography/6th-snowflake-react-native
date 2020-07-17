@@ -1,14 +1,16 @@
 import * as React from 'react';
+import { Text } from 'react-native';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components/native';
+import analytics from "@react-native-firebase/analytics";
+import { withNavigation } from '@react-navigation/compat';
+
 import { d, c } from '~/utils/constant';
 import TextMiddleTitleDark from '~/components/universal/text/TextMiddleTitleDark';
 import TextProductCompany from '~/components/universal/text/product/TextProductCompany';
 import TextProductName from '~/components/universal/text/product/TextProductName';
 import MarginNarrow from '~/components/universal/margin/MarginNarrow';
-import { Text } from 'react-native';
 import TextLink from '~/components/universal/text/TextLink';
-import { withNavigation } from '@react-navigation/compat';
 
 const Container = styled.View`
   width: ${(d.width - d.px * 70) / 2}px;
@@ -66,8 +68,8 @@ const TrioBox = ({
             blindState
               ? require('~/img/doodle/doodleCdBoxCrownFilledMint.png')
               : imageUri === null
-              ? require('~/img/icon/imageNull.png')
-              : { uri: imageUri }
+                ? require('~/img/icon/imageNull.png')
+                : { uri: imageUri }
           }
         />
         <TextWrapper>
@@ -79,6 +81,7 @@ const TrioBox = ({
       <Link
         activeOpacity={0.5}
         onPress={() => {
+          analytics().logEvent("press_go_to_ranking", { from: title });
           navigation.navigate('Ranking');
         }}
       >

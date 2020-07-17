@@ -3,6 +3,9 @@ import { View, Text } from 'react-native';
 import styled from 'styled-components/native';
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import analytics from "@react-native-firebase/analytics";
+import { Picker } from '@react-native-community/picker';
+
 import { d, c, l, BASE_URL } from '~/utils/constant';
 import {
   State,
@@ -20,7 +23,6 @@ import TopBarLeftIcon from '~/components/universal/topBar/TopBarLeftIcon';
 import TopBarWithIcon from '~/components/universal/topBar/TopBarRightIcon';
 import TopBarBackArrow from '~/components/universal/topBar/TopBarBackArrow';
 import TopBarBackArrowRightIcon from '~/components/universal/topBar/TopBarBackArrowRightIcon';
-import { Picker } from '@react-native-community/picker';
 
 const Container = styled.View`
   margin: 0 ${l.mR}px;
@@ -118,6 +120,10 @@ const Join2 = ({ route }) => {
   };
 
   const [year, setYear] = useState('1995');
+
+  React.useEffect(() => {
+    analytics().setCurrentScreen("Join2_Nickname_Birthyear");
+  }, []);
 
   return (
     <>

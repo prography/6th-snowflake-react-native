@@ -1,10 +1,16 @@
 import * as React from 'react';
 import styled from 'styled-components/native';
 import { useEffect, useState } from 'react';
-import { BASE_URL } from '~/utils/constant';
 import { all, fork, takeLatest, call, put, take } from 'redux-saga/effects';
 import { Text, ScrollView } from 'react-native';
+import analytics from "@react-native-firebase/analytics";
 import { useSelector, useDispatch } from 'react-redux';
+import AsyncStorage, {
+  useAsyncStorage,
+} from '@react-native-community/async-storage';
+import { TouchableOpacity } from 'react-native-gesture-handler';
+
+import { BASE_URL } from '~/utils/constant';
 import {
   State,
   resetReviewUploadStore,
@@ -16,11 +22,7 @@ import ProductBarForReviewUpload from '~/components/product/review/ProductBarFor
 import MarginMedium from '~/components/universal/margin/MarginMedium';
 import ReviewUploadContent from '~/containers/product/review/ReviewUploadContent';
 import BottomBtnCollectData from '~/components/universal/bottomBar/BottomBtnCollectData';
-import AsyncStorage, {
-  useAsyncStorage,
-} from '@react-native-community/async-storage';
 import { AsyncAccessToken } from '~/utils/asyncStorage';
-import { TouchableOpacity } from 'react-native-gesture-handler';
 
 const Container = styled.View`
   flex-direction: column;
@@ -113,6 +115,7 @@ const ReviewUpload3 = ({ navigation }) => {
 
   useEffect(() => {
     _getToken();
+    analytics().setCurrentScreen("ReviewUpload3_Write_Review");
   }, []);
 
   return (

@@ -1,15 +1,17 @@
 import * as React from 'react';
 import { useState, useEffect } from 'react';
+import { Alert } from 'react-native';
 import styled from 'styled-components/native';
 import { withNavigation } from '@react-navigation/compat';
 import { StackNavigationProp } from '@react-navigation/stack';
+import analytics from "@react-native-firebase/analytics";
+import AsyncStorage from '@react-native-community/async-storage';
+
 import { RootTabParamList } from '~/navigation/RootTabNavigation';
 import { d, c, l } from '~/utils/constant';
-import AsyncStorage from '@react-native-community/async-storage';
 import { UserId, AsyncAccessToken } from '~/utils/asyncStorage';
 import { BASE_URL } from '~/utils/constant';
 import { useSelector } from 'react-redux';
-import { Alert } from 'react-native';
 import { llog1, llog2 } from '~/utils/functions';
 
 interface Props {
@@ -140,14 +142,20 @@ const ProductInfoBar = ({ children, navigation, productId }: Props) => {
       <Container>
         <Tab
           onPress={() => {
-            _isLoggedin
-              ? isLiked
-                ? _deleteLiked()
-                : _likeProduct()
-              : Alert.alert(
+            if (_isLoggedin) {
+              if (isLiked) {
+                analytics().logEvent("press_delete_like", { productId });
+                _deleteLiked()
+              } else {
+                analytics().logEvent("press_like", { productId });
+                _likeProduct()
+              }
+            } else {
+              Alert.alert(
                 '❄️',
                 '마이 탭에서 회원 가입 후 \n 찜 기능을 이용해보세요!'
               );
+            }
           }}
         >
           <HeartIcon
@@ -164,12 +172,15 @@ const ProductInfoBar = ({ children, navigation, productId }: Props) => {
         </Tab> */}
         <Tab
           onPress={() => {
-            _isLoggedin
-              ? navigation.navigate('ReviewUpload1', { productId: productId })
-              : Alert.alert(
+            if (_isLoggedin) {
+              analytics().logEvent("press_review_upload", { productId });
+              navigation.navigate('ReviewUpload1', { productId });
+            } else {
+              Alert.alert(
                 '❄️',
                 '마이 탭에서 회원 가입 후 \n 리뷰 작성 부탁드려요!'
               );
+            }
           }}
         >
           <Title>리뷰 쓰러 가기</Title>

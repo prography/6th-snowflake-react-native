@@ -7,6 +7,7 @@ import LinePurpleWhenFocused from '~/components/universal/line/LinePurpleWhenFoc
 import { validateEmail, validatePassword } from '~/utils/validator';
 import MarginNarrow from '~/components/universal/margin/MarginNarrow';
 import { d, c, l, BASE_URL } from '~/utils/constant';
+import analytics from "@react-native-firebase/analytics";
 
 import BottomBtnCollectData from '~/components/universal/bottomBar/BottomBtnCollectData';
 import MarginWide from '~/components/universal/margin/MarginWide';
@@ -75,6 +76,11 @@ const JoinScreen = ({ navigation }: Props) => {
       key: 2,
     },
   ];
+
+  React.useEffect(() => {
+    analytics().setCurrentScreen("JoinScreen");
+  }, []);
+
   return (
     <>
       <Container>

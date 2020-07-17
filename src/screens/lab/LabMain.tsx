@@ -1,6 +1,8 @@
 import * as React from 'react';
 import { ScrollView } from 'react-native';
 import styled from 'styled-components/native';
+import analytics from "@react-native-firebase/analytics";
+
 import { d, c } from '~/utils/constant';
 import NavBar from '~/screens/NavBar';
 import TopBarLeftIcon from '~/components/universal/topBar/TopBarLeftIcon';
@@ -12,6 +14,11 @@ const Container = styled.View`
 `;
 //backback
 const LabMain = () => {
+
+  React.useEffect(() => {
+    analytics().setCurrentScreen("LabMain");
+  }, []);
+
   return (
     <>
       <NavBar selectedStack={'LabStack'}>

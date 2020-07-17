@@ -3,6 +3,9 @@ import { View, Text } from 'react-native';
 import styled from 'styled-components/native';
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import analytics from "@react-native-firebase/analytics";
+import { StackActions } from '@react-navigation/native';
+
 import { requestLogin } from '~/modules/auth';
 import { d, c, l, BASE_URL } from '~/utils/constant';
 import BottomBtnCollectData from '~/components/universal/bottomBar/BottomBtnCollectData';
@@ -10,7 +13,6 @@ import MarginWide from '~/components/universal/margin/MarginWide';
 import TopBarBackArrowRightIcon from '~/components/universal/topBar/TopBarBackArrowRightIcon';
 import MarginNarrow from '~/components/universal/margin/MarginNarrow';
 import MarginMedium from '~/components/universal/margin/MarginMedium';
-import { StackActions } from '@react-navigation/native';
 
 const Container = styled.View`
   margin: 0 ${l.mR}px;
@@ -116,6 +118,10 @@ const Join4 = ({ navigation, route }) => {
       console.log('😸. /accounts 회원가입 오류 catch.. ', error);
     }
   };
+
+  React.useEffect(() => {
+    analytics().setCurrentScreen("Join4_Our_Statement");
+  }, []);
 
   return (
     <>
