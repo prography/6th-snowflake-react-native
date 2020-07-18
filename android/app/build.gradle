@@ -136,7 +136,7 @@ android {
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
-        versionName "1.2.0"
+        versionName "1.2.1"
         multiDexEnabled true // The number of method references in a .dex file cannot exceed 64K. 에러 나서 추가한거
     }
     splits {

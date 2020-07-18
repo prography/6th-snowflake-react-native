@@ -35,7 +35,6 @@ const ProductMain = ({ navigation }) => {
   useEffect(() => {
     _getCondomList();
     analytics().setCurrentScreen("ProductMain");
-    navigation.navigate('Ranking')
   }, []);
   return (
     <>
