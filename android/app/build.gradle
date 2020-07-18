@@ -135,8 +135,8 @@ android {
         applicationId "com.snowflake.safelove"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 1
-        versionName "1.2.1"
+        versionCode 5000123
+        versionName "1.2.3"
         multiDexEnabled true // The number of method references in a .dex file cannot exceed 64K. 에러 나서 추가한거
     }
     splits {
