@@ -84,6 +84,7 @@
 		F030A1820DEE433DA324D26B /* Jost-Bold.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Jost-Bold.otf"; path = "../src/assets/fonts/Jost-Bold.otf"; sourceTree = "<group>"; };
 		F409345724C0AD9B00FAC035 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		F409345D24C0B12B00FAC035 /* GoogleService-Info-debug.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info-debug.plist"; sourceTree = "<group>"; };
+		F41BE80624CABCF300C25BFA /* rnInit.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = rnInit.entitlements; path = rnInit/rnInit.entitlements; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -142,6 +143,7 @@
 		13B07FAE1A68108700A75B9A /* rnInit */ = {
 			isa = PBXGroup;
 			children = (
+				F41BE80624CABCF300C25BFA /* rnInit.entitlements */,
 				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
 				F409345724C0AD9B00FAC035 /* GoogleService-Info.plist */,
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
@@ -785,6 +787,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = rnInit/rnInit.entitlements;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 6W8GXTT2F9;
 				ENABLE_BITCODE = NO;
@@ -814,6 +817,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = rnInit/rnInit.entitlements;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 6W8GXTT2F9;
 				INFOPLIST_FILE = rnInit/Info.plist;

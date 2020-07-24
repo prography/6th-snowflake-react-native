@@ -93,7 +93,7 @@ const Join4 = ({ navigation, route }: Props) => {
         }),
       });
       const json = await response.json();
-      console.log('2.🥎 social token 으로 user 정보 업데이트 결과는?', json);
+      console.log('2.🥎 social token 으로 user 정보 업데이트 결과는?', response, json);
     } catch (error) {
       console.log('🥎🥎. social token 유저 정보 업데이트 실패', error);
     }
