@@ -9,7 +9,12 @@
     "test": "jest",
     "lint": "eslint .",
     "pod": "cd ios && pod install && cd ..",
-    "key": "adb shell input keyevent 82"
+    "key": "adb shell input keyevent 82",
+    "cplsi": "code-push deployment ls snowflake-ios",
+    "cplsa": "code-push deployment ls snowflake-android",
+    "cplski": "code-push deployment ls snowflake-ios -k",
+    "cplska": "code-push deployment ls snowflake-android -k",
+    "clean": "rm -rf node_modules package-lock.json ios/Pods ios/Podfile.lock android/app/build"
   },
   "dependencies": {
     "@invertase/react-native-apple-authentication": "^1.1.2",
@@ -28,7 +33,7 @@
     "axios": "^0.19.2",
     "react": "16.11.0",
     "react-native": "0.62.0",
-    "react-native-code-push": "^6.2.1",
+    "react-native-code-push": "6.3.0",
     "react-native-gesture-handler": "1.6.1",
     "react-native-reanimated": "1.8.0",
     "react-native-safe-area-context": "0.7.3",

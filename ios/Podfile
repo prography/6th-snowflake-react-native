@@ -63,8 +63,6 @@ target 'rnInit' do
   # add pods for any other desired Firebase products
   # https://firebase.google.com/docs/ios/setup#available-pods
 
-  pod 'CodePush', :path => '../node_modules/react-native-code-push'
-
   target 'rnInitTests' do
     inherit! :complete
     # Pods for testing
