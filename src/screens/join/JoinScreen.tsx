@@ -149,22 +149,22 @@ const JoinScreen = ({ navigation }: Props) => {
       img: 'none',
       key: 0,
     },
-    {
-      guideText: '카카오로 가입하기',
-      guide: 'kakao',
-      screen: 'JoinWithKakao',
-      function: _signInWithKakao,
-      img: 'kakao',
-      key: 1,
-    },
-    {
-      guideText: '애플 로그인으로 가입하기',
-      guide: 'apple',
-      screen: 'JoinWithApple',
-      function: _signInWithApple,
-      img: 'apple',
-      key: 2,
-    },
+    // {
+    //   guideText: '카카오로 가입하기',
+    //   guide: 'kakao',
+    //   screen: 'JoinWithKakao',
+    //   function: _signInWithKakao,
+    //   img: 'kakao',
+    //   key: 1,
+    // },
+    // {
+    //   guideText: '애플 로그인으로 가입하기',
+    //   guide: 'apple',
+    //   screen: 'JoinWithApple',
+    //   function: _signInWithApple,
+    //   img: 'apple',
+    //   key: 2,
+    // },
   ];
 
   React.useEffect(() => {

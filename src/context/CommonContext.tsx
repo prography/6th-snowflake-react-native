@@ -7,6 +7,7 @@ import remoteConfig, {
 
 import { verNums } from '~/utils/version';
 import { llog2, llog1 } from '~/utils/functions';
+import { isAndroid } from '~/utils/constant';
 
 export const CommonContext = createContext();
 
@@ -18,7 +19,8 @@ export enum APP_VERSION_STATE {
 }
 
 export interface RemoteConfigs extends FirebaseRemoteConfigTypes.ConfigValues {
-  code_push_version: FirebaseRemoteConfigTypes.ConfigValue;
+  ios_code_push_version: FirebaseRemoteConfigTypes.ConfigValue;
+  android_code_push_version: FirebaseRemoteConfigTypes.ConfigValue;
   android_update_link: FirebaseRemoteConfigTypes.ConfigValue;
   ios_update_link: FirebaseRemoteConfigTypes.ConfigValue;
   feedback_link: FirebaseRemoteConfigTypes.ConfigValue;
@@ -60,7 +62,12 @@ export const CommonProvider = ({ children }) => {
         llog2('👾 allConfigs 👾', allConfigs);
 
         // App Version State 설정
-        const cpVer = allConfigs.code_push_version.asString();
+        let cpVer;
+        if (isAndroid) {
+          cpVer = allConfigs.android_code_push_version.asString();
+        } else {
+          cpVer = allConfigs.ios_code_push_version.asString();
+        }
         const cpVerNums = [
           parseInt(cpVer[1]),
           parseInt(cpVer[3]),
