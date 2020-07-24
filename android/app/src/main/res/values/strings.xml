@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">눈송이</string>
     <string moduleConfig="true" name="CodePushDeploymentKey">ou5dvg6QlTyfd-AVI2rsZZ8SFKeXSS272Ic1d</string>
+    <string name="kakao_app_key">df066c1a98bfc2f1818639aa1daff45a</string>
 </resources>

@@ -11,7 +11,44 @@ import SettingMain from '~/screens/setting/SettingMain';
 import Feedback from '~/screens/setting/Feedback';
 import ProductInfo from '~/screens/product/ProductInfo';
 
-const Stack = createStackNavigator();
+export type Join2Params = {
+  signUpEmail?: string;
+  signUpPassword?: string;
+  socialJoin: boolean;
+  _token?: string;
+};
+export type Join3Params = {
+  signUpEmail?: string;
+  signUpPassword?: string;
+  socialJoin: boolean;
+  _token?: string;
+  signUpName: string;
+  signUpYear: number;
+};
+export type Join4Params = {
+  signUpEmail?: string;
+  signUpPassword?: string;
+  socialJoin: boolean;
+  _token?: string;
+  signUpName: string;
+  signUpYear: number;
+  signUpGender: string;
+  signUpPartnerGender: string;
+};
+export type JoinStackParamList = {
+  SettimgMain: undefined;
+  JoinScreen: undefined;
+  Join1: undefined;
+  Join2: Join2Params;
+  Join3: Join3Params;
+  Join4: Join4Params;
+  Login: undefined;
+  Feedback: undefined;
+  GenderColor: undefined;
+  ProductInfo: undefined;
+};
+
+const Stack = createStackNavigator<JoinStackParamList>();
 
 export default () => {
   return (

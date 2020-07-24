@@ -56,7 +56,7 @@
 		037417D8DD1F48278F1A0855 /* Jost-Light.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Jost-Light.otf"; path = "../src/assets/fonts/Jost-Light.otf"; sourceTree = "<group>"; };
 		0D34D775E40E489C86D3BF77 /* Jost-Medium.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Jost-Medium.otf"; path = "../src/assets/fonts/Jost-Medium.otf"; sourceTree = "<group>"; };
 		1161EDD488944217B61DD3F1 /* Jost-Black.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Jost-Black.otf"; path = "../src/assets/fonts/Jost-Black.otf"; sourceTree = "<group>"; };
-		13B07F961A680F5B00A75B9A /* rnInit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = rnInit.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		13B07F961A680F5B00A75B9A /* 눈송이.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "눈송이.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FB01A68108700A75B9A /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = rnInit/AppDelegate.m; sourceTree = "<group>"; };
 		13B07FB21A68108700A75B9A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = rnInit/Images.xcassets; sourceTree = "<group>"; };
@@ -84,6 +84,7 @@
 		F030A1820DEE433DA324D26B /* Jost-Bold.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Jost-Bold.otf"; path = "../src/assets/fonts/Jost-Bold.otf"; sourceTree = "<group>"; };
 		F409345724C0AD9B00FAC035 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		F409345D24C0B12B00FAC035 /* GoogleService-Info-debug.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info-debug.plist"; sourceTree = "<group>"; };
+		F41BE80624CABCF300C25BFA /* rnInit.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = rnInit.entitlements; path = rnInit/rnInit.entitlements; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -142,6 +143,7 @@
 		13B07FAE1A68108700A75B9A /* rnInit */ = {
 			isa = PBXGroup;
 			children = (
+				F41BE80624CABCF300C25BFA /* rnInit.entitlements */,
 				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
 				F409345724C0AD9B00FAC035 /* GoogleService-Info.plist */,
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
@@ -222,7 +224,7 @@
 		83CBBA001A601CBA00E9B192 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				13B07F961A680F5B00A75B9A /* rnInit.app */,
+				13B07F961A680F5B00A75B9A /* 눈송이.app */,
 				00E356EE1AD99517003FC87E /* rnInitTests.xctest */,
 				2D02E47B1E0B4A5D006451C7 /* rnInit-tvOS.app */,
 				2D02E4901E0B4A5D006451C7 /* rnInit-tvOSTests.xctest */,
@@ -272,7 +274,7 @@
 			);
 			name = rnInit;
 			productName = rnInit;
-			productReference = 13B07F961A680F5B00A75B9A /* rnInit.app */;
+			productReference = 13B07F961A680F5B00A75B9A /* 눈송이.app */;
 			productType = "com.apple.product-type.application";
 		};
 		2D02E47A1E0B4A5D006451C7 /* rnInit-tvOS */ = {
@@ -785,6 +787,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = rnInit/rnInit.entitlements;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 6W8GXTT2F9;
 				ENABLE_BITCODE = NO;
@@ -801,7 +804,7 @@
 					"-lc++",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.snowflake.safelove;
-				PRODUCT_NAME = rnInit;
+				PRODUCT_NAME = "눈송이";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -814,6 +817,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = rnInit/rnInit.entitlements;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 6W8GXTT2F9;
 				INFOPLIST_FILE = rnInit/Info.plist;
@@ -825,7 +829,7 @@
 					"-lc++",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.snowflake.safelove;
-				PRODUCT_NAME = rnInit;
+				PRODUCT_NAME = "눈송이";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
