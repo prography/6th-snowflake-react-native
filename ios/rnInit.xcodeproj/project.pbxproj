@@ -56,7 +56,7 @@
 		037417D8DD1F48278F1A0855 /* Jost-Light.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Jost-Light.otf"; path = "../src/assets/fonts/Jost-Light.otf"; sourceTree = "<group>"; };
 		0D34D775E40E489C86D3BF77 /* Jost-Medium.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Jost-Medium.otf"; path = "../src/assets/fonts/Jost-Medium.otf"; sourceTree = "<group>"; };
 		1161EDD488944217B61DD3F1 /* Jost-Black.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Jost-Black.otf"; path = "../src/assets/fonts/Jost-Black.otf"; sourceTree = "<group>"; };
-		13B07F961A680F5B00A75B9A /* rnInit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = rnInit.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		13B07F961A680F5B00A75B9A /* 눈송이.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "눈송이.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FB01A68108700A75B9A /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = rnInit/AppDelegate.m; sourceTree = "<group>"; };
 		13B07FB21A68108700A75B9A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = rnInit/Images.xcassets; sourceTree = "<group>"; };
@@ -222,7 +222,7 @@
 		83CBBA001A601CBA00E9B192 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				13B07F961A680F5B00A75B9A /* rnInit.app */,
+				13B07F961A680F5B00A75B9A /* 눈송이.app */,
 				00E356EE1AD99517003FC87E /* rnInitTests.xctest */,
 				2D02E47B1E0B4A5D006451C7 /* rnInit-tvOS.app */,
 				2D02E4901E0B4A5D006451C7 /* rnInit-tvOSTests.xctest */,
@@ -272,7 +272,7 @@
 			);
 			name = rnInit;
 			productName = rnInit;
-			productReference = 13B07F961A680F5B00A75B9A /* rnInit.app */;
+			productReference = 13B07F961A680F5B00A75B9A /* 눈송이.app */;
 			productType = "com.apple.product-type.application";
 		};
 		2D02E47A1E0B4A5D006451C7 /* rnInit-tvOS */ = {
@@ -801,7 +801,7 @@
 					"-lc++",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.snowflake.safelove;
-				PRODUCT_NAME = rnInit;
+				PRODUCT_NAME = "눈송이";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -825,7 +825,7 @@
 					"-lc++",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.snowflake.safelove;
-				PRODUCT_NAME = rnInit;
+				PRODUCT_NAME = "눈송이";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
