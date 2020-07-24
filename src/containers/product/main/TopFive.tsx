@@ -41,19 +41,20 @@ const TopFive = () => {
         {_topFiveList === null ? (
           <TextTitlePurpleRight title={'Loading...'} />
         ) : (
-          _topFiveList.map((product) => {
-            return (
-              <RankBar
-                rankNum={_topFiveList.indexOf(product) + 1}
-                productCompany={product.manufacturer_kor}
-                productName={product.name_kor}
-                imageUri={product.thumbnail}
-                score={product.score}
-                id={product.id}
-              />
-            );
-          })
-        )}
+            _topFiveList.map((product, index: number) => {
+              return (
+                <RankBar
+                  key={index}
+                  rankNum={_topFiveList.indexOf(product) + 1}
+                  productCompany={product.manufacturer_kor}
+                  productName={product.name_kor}
+                  imageUri={product.thumbnail}
+                  score={product.score}
+                  id={product.id}
+                />
+              );
+            })
+          )}
       </Container>
     </>
   );

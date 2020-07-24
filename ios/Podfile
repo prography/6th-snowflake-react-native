@@ -57,6 +57,14 @@ target 'rnInit' do
 
   pod 'react-native-webview', :path => '../node_modules/react-native-webview'
 
+  # add the Firebase pod for Google Analytics
+  pod 'Firebase/Analytics'
+  pod 'Firebase/Crashlytics'
+  # add pods for any other desired Firebase products
+  # https://firebase.google.com/docs/ios/setup#available-pods
+
+  pod 'CodePush', :path => '../node_modules/react-native-code-push'
+
   target 'rnInitTests' do
     inherit! :complete
     # Pods for testing

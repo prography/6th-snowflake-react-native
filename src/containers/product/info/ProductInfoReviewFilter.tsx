@@ -2,12 +2,14 @@ import * as React from 'react';
 import { useEffect, useState } from 'react';
 import { Text, View, TouchableOpacity } from 'react-native';
 import styled from 'styled-components/native';
+import analytics from "@react-native-firebase/analytics";
+import { useSelector, useDispatch } from 'react-redux';
+
 import { d, l, BASE_URL, c } from '~/utils/constant';
 import TextProductMiddleBar from '~/components/universal/text/product/info/TextProductMiddleBar';
 import ReviewCardContainer from '../review/ReviewCardContainer';
 import MarginWide from '~/components/universal/margin/MarginWide';
 import GenderLoop from '~/components/universal/profile/GenderLoop';
-import { useSelector, useDispatch } from 'react-redux';
 import LineGrayMiddle from '~/components/universal/line/LineGrayMiddle';
 import MarginNarrow from '~/components/universal/margin/MarginNarrow';
 import MarginMedium from '~/components/universal/margin/MarginMedium';
@@ -72,16 +74,16 @@ const SelectCircle = styled.View`
     props.gender === 'WOMAN'
       ? props.womanColor || c.extraLightGray
       : props.gender === 'MAN'
-      ? props.manColor || c.extraLightGray
-      : c.extraLightGray};
+        ? props.manColor || c.extraLightGray
+        : c.extraLightGray};
   justify-content: center;
   align-items: center;
   opacity: ${(props) =>
     props.selectedGender === 'NONE'
       ? 0.3
       : props.selectedGender === props.gender
-      ? 0.9
-      : 0.3};
+        ? 0.9
+        : 0.3};
 `;
 const GenderText = styled.Text`
   position: absolute;
@@ -174,6 +176,7 @@ const ProductInfoReviewFilter = ({ setReviewArray, productId }: Props) => {
           showFilter={showGenderPartnerFilter}
           selected={genderParam === 'NONE' && partnerParam === 'NONE' && ''}
           onPress={() => {
+            analytics().logEvent("press_show_gender_partner_filter", { to: !showGenderPartnerFilter });
             setShowGenderPartnerFilter(!showGenderPartnerFilter);
           }}
         >
@@ -203,10 +206,12 @@ const ProductInfoReviewFilter = ({ setReviewArray, productId }: Props) => {
               <FilterSelectionText>작성자 성별:</FilterSelectionText>
 
               <GenderSelectContainer>
-                {genderFilterList.map((filter) => {
+                {genderFilterList.map((filter, index: number) => {
                   return (
                     <SelectCircleTouchArea
+                      key={index}
                       onPress={() => {
+                        analytics().logEvent("press_write_gender_select", { to: filter.genderEnum });
                         setGenderParam(filter.genderEnum);
                       }}
                     >
@@ -226,10 +231,12 @@ const ProductInfoReviewFilter = ({ setReviewArray, productId }: Props) => {
             <FilterSelectWrapper>
               <FilterSelectionText>파트너 성별:</FilterSelectionText>
               <GenderSelectContainer>
-                {partnerFilterList.map((filter) => {
+                {partnerFilterList.map((filter, index: number) => {
                   return (
                     <SelectCircleTouchArea
+                      key={index + 100}
                       onPress={() => {
+                        analytics().logEvent("press_partner_gender_select", { to: filter.partnerEnum });
                         setPartnerParam(filter.partnerEnum);
                       }}
                     >

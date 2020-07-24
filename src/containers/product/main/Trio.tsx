@@ -77,9 +77,10 @@ const Trio = () => {
       <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
         <TrioContainer>
           {_trioList &&
-            _trioList.thickness.map((product) => {
+            _trioList.thickness.map((product, index: number) => {
               return (
                 <TrioBox
+                  key={index}
                   id={product.id}
                   title={'얇기'}
                   productCompany={product.manufacturer_kor}
@@ -89,9 +90,10 @@ const Trio = () => {
               );
             })}
           {_trioList &&
-            _trioList.durability.map((product) => {
+            _trioList.durability.map((product, index: number) => {
               return (
                 <TrioBox
+                  key={index + 100}
                   id={product.id}
                   title={'내구성'}
                   productCompany={product.manufacturer_kor}
@@ -101,9 +103,10 @@ const Trio = () => {
               );
             })}
           {_trioList &&
-            _trioList.oily.map((product) => {
+            _trioList.oily.map((product, index: number) => {
               return (
                 <TrioBox
+                  key={index + 200}
                   id={product.id}
                   title={'윤활제'}
                   productCompany={product.manufacturer_kor}

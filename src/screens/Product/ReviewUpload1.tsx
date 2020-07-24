@@ -2,12 +2,13 @@ import * as React from 'react';
 import { useEffect } from 'react';
 import styled from 'styled-components/native';
 import { Text, ScrollView } from 'react-native';
+import analytics from "@react-native-firebase/analytics";
+import { useSelector, useDispatch } from 'react-redux';
+
 import {
   State,
   setReviewUProductId,
 } from '~/modules/product/reviewUpload/reviewUploadReducer';
-import { useSelector, useDispatch } from 'react-redux';
-
 import Blinder from '~/components/product/Blinder';
 import TopBarBackArrow from '~/components/universal/topBar/TopBarBackArrow';
 import LineGrayMiddle from '~/components/universal/line/LineGrayMiddle';
@@ -35,6 +36,11 @@ const ReviewUpload1 = ({ route }) => {
   useEffect(() => {
     productId === null ? null : [_setReviewUploadProductId(productId)];
   });
+
+  React.useEffect(() => {
+    analytics().setCurrentScreen("ReviewUpload1_Triple");
+  }, []);
+
   return (
     <>
       <BottomBtnCollectData

@@ -1,9 +1,15 @@
 import * as React from 'react';
 import styled from 'styled-components/native';
 import { Text } from 'react-native';
-import { d, c, l } from '~/utils/constant';
+import analytics from "@react-native-firebase/analytics";
 import { withNavigation } from '@react-navigation/compat';
 import { WebView } from 'react-native-webview';
+
+import { d, c, l } from '~/utils/constant';
+import { useRemoteConfigs } from '~/context/CommonContext';
+
+const feedbackLink = 'https://docs.google.com/forms/d/e/1FAIpQLSc7Xar8USMoiSKfV2ucJtlkAw8eZ47MdXSCEk3knbmg1KuyFw/viewform'; // remote config 못불러올 수도 있으니까
+
 const Container = styled.TouchableOpacity`
   height: ${l.bottomBar}px;
   width: ${d.width}px;
@@ -19,9 +25,13 @@ interface Props {
   navigation: any;
 }
 const Feedback = ({ navigation }: Props) => {
+  const { remoteConfigs } = useRemoteConfigs();
+  React.useEffect(() => {
+    analytics().setCurrentScreen("Feedback");
+  }, []);
   return (
     <>
-      <WebView source={{ uri: 'https://forms.gle/yNtUDaCnWTq9b7Eu5' }} />
+      <WebView source={{ uri: remoteConfigs.feedback_link?.asString() || feedbackLink }} />
       <Container
         activeOpacity={1}
         onPress={() => {

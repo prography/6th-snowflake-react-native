@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">눈송이</string>
+    <string moduleConfig="true" name="CodePushDeploymentKey">ou5dvg6QlTyfd-AVI2rsZZ8SFKeXSS272Ic1d</string>
 </resources>

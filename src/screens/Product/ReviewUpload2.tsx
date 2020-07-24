@@ -1,8 +1,10 @@
 import * as React from 'react';
 import styled from 'styled-components/native';
 import { Text, ScrollView } from 'react-native';
-import { d, l } from '~/utils/constant';
 import { useSelector } from 'react-redux';
+import analytics from "@react-native-firebase/analytics";
+
+import { d, l } from '~/utils/constant';
 import { State } from '~/modules/product/reviewUpload/reviewUploadReducer';
 import ProductInfoBar from '~/components/universal/bottomBar/product/ProductInfoBar';
 import Blinder from '~/components/product/Blinder';
@@ -32,6 +34,10 @@ const ReviewUpload2 = () => {
   const _reviewUploadProductId = useSelector(
     (state: State) => state.reviewUploadReducer.reviewUploadProductId
   );
+
+  React.useEffect(() => {
+    analytics().setCurrentScreen("ReviewUpload2_Recommend_Gener");
+  }, []);
 
   return (
     <>

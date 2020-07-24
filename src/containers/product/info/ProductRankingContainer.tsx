@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { useState, useEffect } from 'react';
 import { ScrollView, Text } from 'react-native';
+import analytics from "@react-native-firebase/analytics";
 
 import { d, BASE_URL, c, l } from '~/utils/constant';
 import TextTitlePurpleRight from '~/components/universal/text/TextTitlePurpleRight';
@@ -11,6 +12,7 @@ import MarginBottom from '~/components/universal/margin/MarginBottom';
 import LineGrayMiddle from '~/components/universal/line/LineGrayMiddle';
 import LineGrayRightLong from '~/components/universal/line/LineGrayRightLong';
 import MarginNarrow from '~/components/universal/margin/MarginNarrow';
+import { llog2 } from '~/utils/functions';
 
 const NARROW_MARGIN = d.px * 9;
 const TEXT_HEIGHT = d.px * 16;
@@ -56,8 +58,8 @@ const FilterBox = styled.TouchableOpacity`
     props.showOrderFilter
       ? c.purple
       : props.selectedOrder === ''
-      ? 'white'
-      : c.mint};
+        ? 'white'
+        : c.mint};
 `;
 
 const FilterText = styled.Text`
@@ -135,9 +137,9 @@ const ProductRankingContainer = () => {
 
       const json = await response.json();
       _setRankingList(json.results);
-      console.log('🧤Ranking List - success!', _rankingList);
+      llog2('🧤Ranking List - success!', _rankingList);
     } catch (error) {
-      console.log('🧤Ranking List - error', error);
+      llog2('🧤Ranking List - error', error);
     }
   };
 
@@ -219,14 +221,16 @@ const ProductRankingContainer = () => {
 
       <CategoryWrapper>
         <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
-          {categoryList.map((category) => {
+          {categoryList.map((category, index: number) => {
             return (
               <Category
+                key={index}
                 first={category.first}
                 last={category.last}
                 onPress={() => {
-                  setCategoryParam(category.categoryEnum),
-                    setSelectedCategory(category.categoryEnum);
+                  analytics().logEvent("press_category_in_ranking", { category: category.categoryEnum });
+                  setCategoryParam(category.categoryEnum);
+                  setSelectedCategory(category.categoryEnum);
                 }}
               >
                 <CategoryText
@@ -248,6 +252,7 @@ const ProductRankingContainer = () => {
           selectedOrder={selectedOrder}
           showOrderFilter={showOrderFilter}
           onPress={() => {
+            analytics().logEvent("press_show_order_filter", { to: !showOrderFilter });
             setShowOrderFilter(!showOrderFilter);
           }}
         >
@@ -256,10 +261,13 @@ const ProductRankingContainer = () => {
       </FilterWrapper>
       {showOrderFilter && (
         <OrderFilterWrapper>
-          {orderFilterList.map((filter) => {
+          {orderFilterList.map((filter, index: number) => {
             return (
               <OrderFilterBox
+                key={index + 100}
                 onPress={() => {
+                  analytics().logEvent("press_order_in_ranking", { order: filter.orderEnum });
+
                   setOrderParam(filter.orderEnum);
                   setOrderText(filter.orderText);
                   setSelectedOrder(filter.orderEnum);
@@ -287,9 +295,10 @@ const ProductRankingContainer = () => {
       >
         <Container>
           {_rankingList ? (
-            _rankingList.map((product) => {
+            _rankingList.map((product, index: number) => {
               return (
                 <RankBar
+                  key={index + 200}
                   rankNum={_rankingList.indexOf(product) + 1}
                   productCompany={product.manufacturer_kor}
                   productName={product.name_kor}
@@ -300,8 +309,8 @@ const ProductRankingContainer = () => {
               );
             })
           ) : (
-            <TextTitlePurpleRight title={'Loading...'} />
-          )}
+              <TextTitlePurpleRight title={'Loading...'} />
+            )}
         </Container>
       </ScrollView>
 

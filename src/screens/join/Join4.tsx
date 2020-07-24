@@ -3,6 +3,9 @@ import { View, Text } from 'react-native';
 import styled from 'styled-components/native';
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import analytics from "@react-native-firebase/analytics";
+import { StackActions } from '@react-navigation/native';
+
 import { requestLogin } from '~/modules/auth';
 import { d, c, l, BASE_URL } from '~/utils/constant';
 import BottomBtnCollectData from '~/components/universal/bottomBar/BottomBtnCollectData';
@@ -152,6 +155,10 @@ const Join4 = ({ navigation, route }: Props) => {
     }
   };
 
+  React.useEffect(() => {
+    analytics().setCurrentScreen("Join4_Our_Statement");
+  }, []);
+
   return (
     <>
       <BottomBtnCollectData
@@ -168,8 +175,8 @@ const Join4 = ({ navigation, route }: Props) => {
         <MarginNarrow />
         <NoiceTitleText>다음 내용을 반드시 숙지해주세요.</NoiceTitleText>
         <MarginWide />
-        {noticeList.map((notice) => {
-          return <NoticeText>{notice}</NoticeText>;
+        {noticeList.map((notice, index: number) => {
+          return <NoticeText key={index}>{notice}</NoticeText>;
         })}
       </BottomBtnCollectData>
     </>

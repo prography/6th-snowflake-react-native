@@ -3,9 +3,10 @@ import { REQUEST_LOGIN, setIsLoggedin } from "~/modules/auth";
 import { BASE_URL } from "~/utils/constant";
 import { useAsyncStorage } from "@react-native-community/async-storage";
 import { AsyncAccessToken } from "~/utils/asyncStorage";
+import { llog3, llog2 } from "~/utils/functions";
 
 function* loginAPI(email: string, password: string) {
-  console.log("😸9. loginAPI called", email, password);
+  llog3("😸9. loginAPI called", email, password);
   const response = yield fetch(`${BASE_URL}/api/token/`, {
     method: "POST",
     headers: {
@@ -19,12 +20,13 @@ function* loginAPI(email: string, password: string) {
   });
 
   const json = yield response.json();
+  llog2("😸9-1. loginAPI json", json);
   return json.access;
 }
 
 function* login(email: string, password: string) {
   try {
-    console.log("😸8. login called", email, password);
+    llog3("😸8. login called", email, password);
 
     // 1. loginAPI 호출
     const accessToken = yield call(() => loginAPI(email, password));

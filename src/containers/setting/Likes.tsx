@@ -136,8 +136,8 @@ const Likes = ({ token, navigation }: Props) => {
                                   blindState
                                     ? require('~/img/doodle/doodleCdBoxMint.png')
                                     : product.object_detail.thumbnail === null
-                                    ? require('~/img/icon/imageNull.png')
-                                    : { uri: product.object_detail.thumbnail }
+                                      ? require('~/img/icon/imageNull.png')
+                                      : { uri: product.object_detail.thumbnail }
                                 }
                               />
                             </ImageWrapper>
@@ -154,16 +154,16 @@ const Likes = ({ token, navigation }: Props) => {
                       );
                     })
                   ) : (
-                    <TextTitlePurpleRight title={'Loading...'} />
-                  )}
+                      <TextTitlePurpleRight title={'Loading...'} />
+                    )}
                 </Container>
               )}
             </ScrollView>
           </ProfileContainer>
         </>
       ) : (
-        <TextTitlePurpleRight title={'로그인 안 됨'} />
-      )}
+          <TextTitlePurpleRight title={'로그인 안 됨'} />
+        )}
     </>
   );
 };

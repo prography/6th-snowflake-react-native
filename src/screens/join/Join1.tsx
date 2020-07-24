@@ -3,6 +3,8 @@ import { View, Text } from 'react-native';
 import styled from 'styled-components/native';
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import analytics from '@react-native-firebase/analytics';
+
 import LinePurpleWhenFocused from '~/components/universal/line/LinePurpleWhenFocused';
 import { validateEmail, validatePassword } from '~/utils/validator';
 import MarginNarrow from '~/components/universal/margin/MarginNarrow';
@@ -60,8 +62,8 @@ const Join1 = () => {
       emailInput === '' || passwordInput === '' || checkPasswordInput === ''
         ? false
         : emailWarnigText !== null
-        ? false
-        : !checkPasswordWarning
+          ? false
+          : !checkPasswordWarning
     );
   }, [
     emailInput,
@@ -98,20 +100,20 @@ const Join1 = () => {
     emailInput === ''
       ? setEmailWarningText(null)
       : validateEmail(emailInput)
-      ? isDuplicate
-        ? setEmailWarningText('* 이미 가입된 메일입니다')
-        : setEmailWarningText(null)
-      : setEmailWarningText('* 올바른 메일을 입력해주세요');
+        ? isDuplicate
+          ? setEmailWarningText('* 이미 가입된 메일입니다')
+          : setEmailWarningText(null)
+        : setEmailWarningText('* 올바른 메일을 입력해주세요');
   };
 
   const checkPassword = () => {
     passwordInput === ''
       ? setCheckPasswordWarning(false)
       : checkPasswordInput === ''
-      ? setCheckPasswordWarning(false)
-      : passwordInput === checkPasswordInput
-      ? setCheckPasswordWarning(false)
-      : setCheckPasswordWarning(true);
+        ? setCheckPasswordWarning(false)
+        : passwordInput === checkPasswordInput
+          ? setCheckPasswordWarning(false)
+          : setCheckPasswordWarning(true);
   };
 
   useEffect(() => {
@@ -152,6 +154,10 @@ const Join1 = () => {
       warning: checkPasswordWarning,
     },
   ];
+
+  useEffect(() => {
+    analytics().setCurrentScreen('Join1_Email_Password');
+  }, []);
 
   return (
     <>

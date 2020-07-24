@@ -2,6 +2,8 @@ import * as React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { View, SafeAreaView } from 'react-native';
 import styled from 'styled-components/native';
+import analytics from "@react-native-firebase/analytics";
+
 import { d, c, circleColor1 } from '~/utils/constant';
 import TopBarWithIcon from '~/components/universal/topBar/TopBarRightIcon';
 import { TouchableOpacity } from 'react-native-gesture-handler';
@@ -58,6 +60,11 @@ const GenderColor = () => {
   );
   console.log('womanColor:', womanColor);
   console.log('manColor:', manColor);
+
+  React.useEffect(() => {
+    analytics().setCurrentScreen("Select_GenderColor");
+  }, []);
+
   return (
     <ButtonGenderColor>
       <Container>

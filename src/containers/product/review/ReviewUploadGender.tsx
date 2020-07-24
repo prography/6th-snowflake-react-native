@@ -136,8 +136,8 @@ const ReviewUploadGender = () => {
     _myGender === null
       ? _setMyGender(selectedGender)
       : _partnerGender === null
-      ? _setPartnerGender(selectedGender)
-      : [_setPartnerGender(null), _setMyGender(selectedGender)];
+        ? _setPartnerGender(selectedGender)
+        : [_setPartnerGender(null), _setMyGender(selectedGender)];
   };
   const selection = [
     { selection: '여성', gender: 'WOMAN' },
@@ -174,9 +174,10 @@ const ReviewUploadGender = () => {
         </GuideTextContainer>
         <MarginMedium />
         <GenderSelectContainer>
-          {selection.map((circle) => {
+          {selection.map((circle, index: number) => {
             return (
               <SelectCircleTouchArea
+                key={index}
                 onPress={() => {
                   [setGender(circle.gender), console.log(circle.gender)];
                 }}

@@ -38,9 +38,9 @@ const HomeCardDefaultPurpleButton = ({ tag, title, btnText, link }: Props) => {
         <ButtonLinkPurpleLarge buttonText={btnText} link={link} />
         <MarginNarrow />
         <TagContainer>
-          {tag.map((tag) => {
+          {tag.map((tag, index: number) => {
             return (
-              <TagBox>
+              <TagBox key={index}>
                 <TextTag tag={tag.tag} />
               </TagBox>
             );

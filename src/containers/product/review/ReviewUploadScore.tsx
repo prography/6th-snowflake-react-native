@@ -1,12 +1,14 @@
 import * as React from 'react';
 import { useState } from 'react';
 import { Text } from 'react-native';
+import analytics from "@react-native-firebase/analytics";
+import styled from 'styled-components/native';
+import { useSelector, useDispatch } from 'react-redux';
+
 import {
   State,
   setScore,
 } from '~/modules/product/reviewUpload/reviewUploadReducer';
-import styled from 'styled-components/native';
-import { useSelector, useDispatch } from 'react-redux';
 import { d, c, l } from '~/utils/constant';
 import MarginMedium from '~/components/universal/margin/MarginMedium';
 import TextMiddleTitleDark from '~/components/universal/text/TextMiddleTitleDark';
@@ -56,8 +58,8 @@ const Star = styled.Text`
     props.givenScore === null
       ? c.lightGray
       : props.selfScore > props.givenScore
-      ? c.lightGray
-      : c.purple};
+        ? c.lightGray
+        : c.purple};
 `;
 const StarTouchArea = styled.TouchableOpacity`
   width: ${TOUCH_AREA}px;
@@ -123,10 +125,11 @@ const ReviewUploadScore = () => {
           </SelectedTextContainer>
 
           <StarContainer>
-            {oneToFive.map((star) => {
+            {oneToFive.map((star, index: number) => {
               return (
                 <>
                   <StarTouchArea
+                    key={index}
                     onPress={() => {
                       _setScore(star.score);
                     }}
@@ -150,12 +153,16 @@ const ReviewUploadScore = () => {
 
       <CheckBoxTouchArea
         activeOpacity={1}
-        onPress={() => [
-          setChecked(!checked),
-          checked
-            ? _setScore(Math.round(_trioAverage))
-            : _setScore(_trioAverage),
-        ]}
+        onPress={() => {
+          if (checked) {
+            analytics().logEvent("set_score_to_custom_average");
+            _setScore(Math.round(_trioAverage));
+          } else {
+            analytics().logEvent("set_score_to_trio_average");
+            _setScore(_trioAverage)
+          }
+          setChecked(!checked);
+        }}
       >
         <CheckBox checked={checked} />
         <CheckText checked={checked}>

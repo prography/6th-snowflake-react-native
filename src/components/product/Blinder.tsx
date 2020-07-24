@@ -1,8 +1,11 @@
 import * as React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { d, c, l } from '~/utils/constant';
+import analytics from "@react-native-firebase/analytics";
 import { SafeAreaView, Text, ScrollView } from 'react-native';
 import styled from 'styled-components/native';
+
+import { d, c, l } from '~/utils/constant';
+import { llog2 } from '~/utils/functions';
 
 const Container = styled.View`
   width: ${d.px * l.tB}px;
@@ -26,12 +29,13 @@ const BlinderTouchable = styled.TouchableOpacity`
 const Blinder = () => {
   const dispatch = useDispatch();
   const blindState = useSelector(
-    (state: State) => state.blindReducer.blindState
+    (state) => state.blindReducer.blindState
   );
-  console.log('blindState:', blindState);
+  llog2('blindState:', blindState);
 
   const setBlinder = () => {
-    dispatch({ type: 'SET_BLINDER', blindState: blindState });
+    analytics().logEvent(`blinder_to_${blindState ? 'hidden' : 'show'}`);
+    dispatch({ type: 'SET_BLINDER', blindState });
   };
 
   return (

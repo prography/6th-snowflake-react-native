@@ -1,7 +1,9 @@
 import * as React from 'react';
 import styled from 'styled-components/native';
-import { d, c } from '~/utils/constant';
 import { withNavigation } from '@react-navigation/compat';
+import analytics from "@react-native-firebase/analytics";
+
+import { d, c } from '~/utils/constant';
 import TextBottomBtn from '../text/TextBottomBtn';
 
 interface Props {
@@ -40,12 +42,13 @@ const ButtonLinkPurpleLarge = ({ buttonText, link, navigation }: Props) => {
     <Container
       activeOpacity={1}
       onPress={() => {
+        analytics().logEvent("press_btn_in_home", { link });
         navigation.navigate(link);
       }}
     >
       <TextBottomBtn btnName={buttonText} />
       <TriangleArrow
-        style={{ resizeMode: 'contain' }}
+        resizeMode="contain"
         source={require('~/img/triangleArrow.png')}
       />
     </Container>

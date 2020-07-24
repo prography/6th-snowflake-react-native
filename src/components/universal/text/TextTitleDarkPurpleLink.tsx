@@ -5,9 +5,10 @@ import ButtonLinkPurple from '~/components/universal/button/ButtonLinkPurple';
 
 interface Props {
   title: string;
-  stack: string;
-  screen: string;
+  stack?: string;
+  screen?: string;
   buttonText: string;
+  onPress?: () => void;
 }
 
 const Container = styled.View`
@@ -29,11 +30,12 @@ const TextTitleDarkPurpleLink = ({
   stack,
   screen,
   buttonText,
+  onPress,
 }: Props) => {
   return (
     <Container>
       <TextStyle>{title}</TextStyle>
-      <ButtonLinkPurple buttonText={buttonText} stack={stack} screen={screen} />
+      <ButtonLinkPurple buttonText={buttonText} stack={stack} screen={screen} onPress={onPress} />
     </Container>
   );
 };

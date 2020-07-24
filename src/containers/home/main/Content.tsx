@@ -31,32 +31,34 @@ const Content = () => {
           <TextTitlePurpleRight title={'Loading...'} />
         </View>
       ) : (
-        contentArray.map((card) => {
-          switch (card.design_type) {
-            case 'default':
-              return (
-                <HomeCardDefaultContentPurpleButton
-                  tag={card.tag_txt.split(',')}
-                  title={card.title}
-                  btnText={card.button_txt}
-                  content={card.description}
-                  link={'ProductStack'}
-                />
-              );
-            //임시로 productStack 고쳐야함
-            case 'notice':
-              return (
-                <HomeCardNoticePurple
-                  tag={card.tag_txt.split(',')}
-                  title={card.title}
-                  content={card.description}
-                />
-              );
-            default:
-              return <Text>😭무언가 잘 못 되었음</Text>;
-          }
-        })
-      )}
+          contentArray.map((card, index: number) => {
+            switch (card.design_type) {
+              case 'default':
+                return (
+                  <HomeCardDefaultContentPurpleButton
+                    key={index}
+                    tag={card.tag_txt.split(',')}
+                    title={card.title}
+                    btnText={card.button_txt}
+                    content={card.description}
+                    link={'ProductStack'}
+                  />
+                );
+              //임시로 productStack 고쳐야함
+              case 'notice':
+                return (
+                  <HomeCardNoticePurple
+                    key={index}
+                    tag={card.tag_txt.split(',')}
+                    title={card.title}
+                    content={card.description}
+                  />
+                );
+              default:
+                return <Text>😭무언가 잘 못 되었음</Text>;
+            }
+          })
+        )}
     </ScrollView>
   );
 };

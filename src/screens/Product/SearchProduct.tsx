@@ -3,12 +3,14 @@ import { ScrollView } from 'react-native';
 import { useState, useEffect } from 'react';
 import styled from 'styled-components/native';
 import { Text } from 'react-native';
+import analytics from "@react-native-firebase/analytics";
+import { useSelector } from 'react-redux';
+
 import { d, l, c, BASE_URL } from '~/utils/constant';
 import TextTitlePurpleRight from '~/components/universal/text/TextTitlePurpleRight';
 import TextProductCompany from '~/components/universal/text/product/TextProductCompany';
 import TextProductName from '~/components/universal/text/product/TextProductName';
 import Blinder from '~/components/product/Blinder';
-import { useSelector } from 'react-redux';
 import MarginWide from '~/components/universal/margin/MarginWide';
 const Container = styled.View`
   flex: 1;
@@ -88,6 +90,11 @@ const SearchProduct = ({ navigation }: Props) => {
   useEffect(() => {
     _searchProduct();
   }, [searchInput]);
+
+  useEffect(() => {
+    analytics().setCurrentScreen("SearchProduct");
+  }, []);
+
   return (
     <Container>
       <TopBarContainer>
@@ -108,39 +115,39 @@ const SearchProduct = ({ navigation }: Props) => {
             {_searchResult && _searchResult.length === 0 ? (
               <WarningText>검색 결과가 없습니다</WarningText>
             ) : (
-              _searchResult.map((product) => {
-                return (
-                  <>
-                    <ProductContainer
-                      onPress={() => {
-                        navigation.navigate('ProductStack', {
-                          screen: 'ProductInfo',
-                          params: { productId: product.id },
-                        });
-                      }}
-                      key={_searchResult.indexOf(product) + 1}
-                    >
-                      <ImageWrapper>
-                        <ProductImage
-                          style={{ resizeMode: 'contain' }}
-                          source={
-                            blindState
-                              ? require('~/img/doodle/doodleCdBoxMint.png')
-                              : product.thumbnail === null
-                              ? require('~/img/icon/imageNull.png')
-                              : { uri: product.thumbnail }
-                          }
+                _searchResult.map((product) => {
+                  return (
+                    <>
+                      <ProductContainer
+                        onPress={() => {
+                          navigation.navigate('ProductStack', {
+                            screen: 'ProductInfo',
+                            params: { productId: product.id },
+                          });
+                        }}
+                        key={_searchResult.indexOf(product) + 1}
+                      >
+                        <ImageWrapper>
+                          <ProductImage
+                            style={{ resizeMode: 'contain' }}
+                            source={
+                              blindState
+                                ? require('~/img/doodle/doodleCdBoxMint.png')
+                                : product.thumbnail === null
+                                  ? require('~/img/icon/imageNull.png')
+                                  : { uri: product.thumbnail }
+                            }
+                          />
+                        </ImageWrapper>
+                        <TextProductCompany
+                          productCompany={product.manufacturer_kor}
                         />
-                      </ImageWrapper>
-                      <TextProductCompany
-                        productCompany={product.manufacturer_kor}
-                      />
-                      <TextProductName productName={product.name_kor} />
-                    </ProductContainer>
-                  </>
-                );
-              })
-            )}
+                        <TextProductName productName={product.name_kor} />
+                      </ProductContainer>
+                    </>
+                  );
+                })
+              )}
           </ResultContainer>
         </ScrollView>
       ) : null}

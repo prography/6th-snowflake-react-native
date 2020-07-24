@@ -3,6 +3,8 @@
 #import <React/RCTBridge.h>
 #import <React/RCTBundleURLProvider.h>
 #import <React/RCTRootView.h>
+#import <Firebase.h>
+#import <CodePush/CodePush.h>
 
 #if DEBUG
 #import <FlipperKit/FlipperClient.h>
@@ -30,6 +32,19 @@ static void InitializeFlipper(UIApplication *application) {
 #if DEBUG
   InitializeFlipper(application);
 #endif
+  
+  
+  NSString *filePath;
+  #ifdef DEBUG
+    NSLog(@"[FIREBASE] Development mode.");
+    filePath = [[NSBundle mainBundle] pathForResource:@"GoogleService-Info-debug" ofType:@"plist"];
+  #else
+    NSLog(@"[FIREBASE] Production mode.");
+    filePath = [[NSBundle mainBundle] pathForResource:@"GoogleService-Info" ofType:@"plist"];
+  #endif
+    
+  FIROptions *options = [[FIROptions alloc] initWithContentsOfFile:filePath];
+  [FIRApp configureWithOptions:options];
 
   RCTBridge *bridge = [[RCTBridge alloc] initWithDelegate:self launchOptions:launchOptions];
   RCTRootView *rootView = [[RCTRootView alloc] initWithBridge:bridge
@@ -51,7 +66,7 @@ static void InitializeFlipper(UIApplication *application) {
 #if DEBUG
   return [[RCTBundleURLProvider sharedSettings] jsBundleURLForBundleRoot:@"index" fallbackResource:nil];
 #else
-  return [[NSBundle mainBundle] URLForResource:@"main" withExtension:@"jsbundle"];
+  return [CodePush bundleURL];
 #endif
 }
 

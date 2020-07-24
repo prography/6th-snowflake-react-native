@@ -1,15 +1,18 @@
 import * as React from 'react';
 import { useState, useEffect } from 'react';
+import { Alert } from 'react-native';
 import styled from 'styled-components/native';
 import { withNavigation } from '@react-navigation/compat';
 import { StackNavigationProp } from '@react-navigation/stack';
+import analytics from "@react-native-firebase/analytics";
+import AsyncStorage from '@react-native-community/async-storage';
+
 import { RootTabParamList } from '~/navigation/RootTabNavigation';
 import { d, c, l } from '~/utils/constant';
-import AsyncStorage from '@react-native-community/async-storage';
 import { UserId, AsyncAccessToken } from '~/utils/asyncStorage';
 import { BASE_URL } from '~/utils/constant';
 import { useSelector } from 'react-redux';
-import { Alert } from 'react-native';
+import { llog1, llog2 } from '~/utils/functions';
 
 interface Props {
   children: React.ReactNode;
@@ -45,22 +48,21 @@ const Title = styled.Text`
 const HeartIcon = styled.Image`
   width: ${d.px * 30}px;
   height: ${d.px * 20}px;
-  resize-mode: contain;
 `;
 
 const ProductInfoBar = ({ children, navigation, productId }: Props) => {
   const [isLiked, setIsLiked] = useState(false);
   const [likedId, setLikedId] = useState(null);
   const _isLoggedin = useSelector((state) => state.authReducer.isLoggedin);
-  console.log('hihihi');
+  llog1('hihihi');
   const _likeProduct = async () => {
     try {
       const _token = await AsyncStorage.getItem(AsyncAccessToken);
       const model = 'product';
       const object_id = productId;
       const user = await AsyncStorage.getItem(UserId);
-      console.log('1-1.🍊like 생성 위한 token 잘 가져옴 ', _token);
-      console.log('1-2.🍊userId도...', user);
+      llog2('1-1.🍊like 생성 위한 token 잘 가져옴 ', _token);
+      llog2('1-2.🍊userId도...', user);
       const response = await fetch(`${BASE_URL}/likes/`, {
         method: 'POST',
         headers: {
@@ -74,11 +76,11 @@ const ProductInfoBar = ({ children, navigation, productId }: Props) => {
           user,
         }),
       });
-      console.log('2. 🍊like post 성공! ', response);
+      llog2('2. 🍊like post 성공! ', response);
 
       await _checkIsLiked();
     } catch (error) {
-      console.log('🍊like 생성 에러 ', error);
+      llog2('🍊like 생성 에러 ', error);
     }
   };
 
@@ -95,11 +97,11 @@ const ProductInfoBar = ({ children, navigation, productId }: Props) => {
         },
       });
 
-      console.log('4. 🍊like 삭제 ', delteLike);
-      console.log('productid:', productId);
+      llog2('4. 🍊like 삭제 ', delteLike);
+      llog2('productid:', productId);
       await _checkIsLiked();
     } catch (error) {
-      console.log('🍊like 에러 ', error);
+      llog2('🍊like 에러 ', error);
     }
   };
   const _checkIsLiked = async () => {
@@ -127,7 +129,7 @@ const ProductInfoBar = ({ children, navigation, productId }: Props) => {
         ? setLikedId(null)
         : setLikedId(responseIsLikedJson.results[0].id);
     } catch (error) {
-      console.log('🍊like 에러 ', error);
+      llog2('🍊like 에러 ', error);
     }
   };
 
@@ -140,17 +142,24 @@ const ProductInfoBar = ({ children, navigation, productId }: Props) => {
       <Container>
         <Tab
           onPress={() => {
-            _isLoggedin
-              ? isLiked
-                ? _deleteLiked()
-                : _likeProduct()
-              : Alert.alert(
-                  '❄️',
-                  '마이 탭에서 회원 가입 후 \n 찜 기능을 이용해보세요!'
-                );
+            if (_isLoggedin) {
+              if (isLiked) {
+                analytics().logEvent("press_delete_like", { productId });
+                _deleteLiked()
+              } else {
+                analytics().logEvent("press_like", { productId });
+                _likeProduct()
+              }
+            } else {
+              Alert.alert(
+                '❄️',
+                '마이 탭에서 회원 가입 후 \n 찜 기능을 이용해보세요!'
+              );
+            }
           }}
         >
           <HeartIcon
+            resizeMode="contain"
             source={
               isLiked
                 ? require('~/img/icon/iconHeartBlack.png')
@@ -163,12 +172,15 @@ const ProductInfoBar = ({ children, navigation, productId }: Props) => {
         </Tab> */}
         <Tab
           onPress={() => {
-            _isLoggedin
-              ? navigation.navigate('ReviewUpload1', { productId: productId })
-              : Alert.alert(
-                  '❄️',
-                  '마이 탭에서 회원 가입 후 \n 리뷰 작성 부탁드려요!'
-                );
+            if (_isLoggedin) {
+              analytics().logEvent("press_review_upload", { productId });
+              navigation.navigate('ReviewUpload1', { productId });
+            } else {
+              Alert.alert(
+                '❄️',
+                '마이 탭에서 회원 가입 후 \n 리뷰 작성 부탁드려요!'
+              );
+            }
           }}
         >
           <Title>리뷰 쓰러 가기</Title>

@@ -1,8 +1,9 @@
 import * as React from 'react';
-
 import { useState, useEffect } from 'react';
 import { SafeAreaView, Text, ScrollView, View } from 'react-native';
 import styled from 'styled-components/native';
+import analytics from "@react-native-firebase/analytics";
+
 import { d, c, BASE_URL } from '~/utils/constant';
 import NavBar from '~/screens/NavBar';
 import TopBarLeftIcon from '~/components/universal/topBar/TopBarLeftIcon';
@@ -20,7 +21,7 @@ const Container = styled.View`
   align-items: flex-start;
 `;
 
-const ProductMain = () => {
+const ProductMain = ({ navigation }) => {
   const _getCondomList = async () => {
     try {
       const response = await fetch(`${BASE_URL}/products/condom/`);
@@ -33,6 +34,7 @@ const ProductMain = () => {
   //제품 리스트에 현재 id 안 오고 있음
   useEffect(() => {
     _getCondomList();
+    analytics().setCurrentScreen("ProductMain");
   }, []);
   return (
     <>

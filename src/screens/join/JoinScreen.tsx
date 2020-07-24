@@ -4,6 +4,12 @@ import styled from 'styled-components/native';
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { d, c, l, BASE_URL } from '~/utils/constant';
+import analytics from "@react-native-firebase/analytics";
+
+import BottomBtnCollectData from '~/components/universal/bottomBar/BottomBtnCollectData';
+import MarginWide from '~/components/universal/margin/MarginWide';
+import TopBarLeftIcon from '~/components/universal/topBar/TopBarLeftIcon';
+import TopBarWithIcon from '~/components/universal/topBar/TopBarRightIcon';
 import { withNavigation } from '@react-navigation/compat';
 import TopBarBackArrowRightIcon from '~/components/universal/topBar/TopBarBackArrowRightIcon';
 
@@ -89,14 +95,20 @@ const JoinScreen = ({ navigation }: Props) => {
       key: 2,
     },
   ];
+
+  React.useEffect(() => {
+    analytics().setCurrentScreen("JoinScreen");
+  }, []);
+
   return (
     <>
       <Container>
         <TopBarBackArrowRightIcon />
-        {joinArray.map((join) => {
+        {joinArray.map((join, index: number) => {
           return (
             <JoinContainer>
               <JoinBox
+                key={index}
                 guide={join.guide}
                 activeOpacity={1}
                 onPress={() => {

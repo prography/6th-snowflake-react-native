@@ -1,10 +1,12 @@
 import * as React from 'react';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components/native';
+import analytics from "@react-native-firebase/analytics";
+import { withNavigation } from '@react-navigation/compat';
+
 import { d, c } from '~/utils/constant';
 import TextProductCompany from '~/components/universal/text/product/TextProductCompany';
 import TextProductName from '~/components/universal/text/product/TextProductName';
-import { withNavigation } from '@react-navigation/compat';
 import TextRankNum from '~/components/universal/text/product/TextRankNum';
 import TextProductScore from '~/components/universal/text/product/TextProductScore';
 
@@ -62,6 +64,7 @@ const RankBar = ({
     <Container
       activeOpacity={1}
       onPress={() => {
+        analytics().logEvent("press_product", { productId: id });
         navigation.navigate('ProductInfo', { productId: id });
       }}
     >
@@ -74,8 +77,8 @@ const RankBar = ({
                 ? require('~/img/doodle/doodleCdBoxPurple.png')
                 : require('~/img/doodle/doodleCdBoxMint.png')
               : imageUri === null
-              ? require('~/img/icon/imageNull.png')
-              : { uri: imageUri }
+                ? require('~/img/icon/imageNull.png')
+                : { uri: imageUri }
           }
         />
       </ImageWrapper>

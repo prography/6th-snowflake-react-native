@@ -1,26 +1,29 @@
 import * as React from 'react';
+import { useEffect, useState } from 'react';
 import styled from 'styled-components/native';
 import { ScrollView } from 'react-native';
 import { WebView } from 'react-native-webview';
 import { useSelector } from 'react-redux';
-import { useEffect, useState } from 'react';
-import NavBar from '~/screens/NavBar';
+import analytics from "@react-native-firebase/analytics";
 import { withNavigation } from '@react-navigation/compat';
+import AsyncStorage, {
+  useAsyncStorage,
+} from '@react-native-community/async-storage';
+
+import NavBar from '~/screens/NavBar';
 import TextTitleDarkPurpleLink from '~/components/universal/text/TextTitleDarkPurpleLink';
 import { c, d, l } from '~/utils/constant';
 import TopBarWithIcon from '~/components/universal/topBar/TopBarRightIcon';
 import MyProfile from '~/containers/setting/MyProfile';
 import MarginWide from '~/components/universal/margin/MarginWide';
 import Likes from '~/containers/setting/Likes';
-import AsyncStorage, {
-  useAsyncStorage,
-} from '@react-native-community/async-storage';
 import { UserId, AsyncAccessToken, UserName } from '~/utils/asyncStorage';
 import Blinder from '~/components/product/Blinder';
 import TopBarLeftIcon from '~/components/universal/topBar/TopBarLeftIcon';
 import MyGenderColor from '~/containers/setting/MyGenderColor';
 import LineGrayRightLong from '~/components/universal/line/LineGrayRightLong';
 import MarginMedium from '~/components/universal/margin/MarginMedium';
+import { llog2 } from '~/utils/functions';
 
 const Container = styled.View``;
 
@@ -38,14 +41,15 @@ const SettingMain = () => {
     try {
       const token = await AsyncStorage.getItem(AsyncAccessToken);
       _setToken(token);
-      console.log('1.🐹 store에서 토큰 불러옴:', _token);
+      llog2('1.🐹 store에서 토큰 불러옴:', _token);
     } catch (e) {
-      console.error('안 가져와');
+      console.error('안 가져와', e);
     }
   };
 
   useEffect(() => {
     _getToken();
+    analytics().setCurrentScreen("SettingMain");
   }, []);
 
   return (
@@ -54,31 +58,31 @@ const SettingMain = () => {
         <Container>
           <TopBarLeftIcon />
 
-          {_isLoggedin ? (
+          {_token !== null && _isLoggedin ? (
             <>
               <MyProfile token={_token} />
               <MarginWide />
               <Likes token={_token} />
             </>
           ) : (
-            <>
-              <LoginContainer>
-                <MarginMedium />
-                <TextTitleDarkPurpleLink
-                  title={'로그인'}
-                  buttonText={'LOGIN'}
-                  stack={'JoinStack'}
-                  screen={'Login'}
-                />
-                <TextTitleDarkPurpleLink
-                  title={'회원가입'}
-                  buttonText={'JOIN'}
-                  stack={'JoinStack'}
-                  screen={'JoinScreen'}
-                />
-              </LoginContainer>
-            </>
-          )}
+              <>
+                <LoginContainer>
+                  <MarginMedium />
+                  <TextTitleDarkPurpleLink
+                    title={'로그인'}
+                    buttonText={'LOGIN'}
+                    stack={'JoinStack'}
+                    screen={'Login'}
+                  />
+                  <TextTitleDarkPurpleLink
+                    title={'회원가입'}
+                    buttonText={'JOIN'}
+                    stack={'JoinStack'}
+                    screen={'JoinScreen'}
+                  />
+                </LoginContainer>
+              </>
+            )}
           <MarginWide />
           <LineGrayRightLong />
           <MarginWide />

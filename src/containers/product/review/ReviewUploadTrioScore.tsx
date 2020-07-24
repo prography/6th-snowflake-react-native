@@ -92,21 +92,21 @@ const PurpleIndicator = styled.View`
     props.givenNum === null
       ? BIG_INDICATOR
       : props.givenNum === props.selfNum
-      ? BIG_INDICATOR
-      : SMALL_INDICATOR}px;
+        ? BIG_INDICATOR
+        : SMALL_INDICATOR}px;
   height: ${(props) =>
     props.givenNum === null
       ? BIG_INDICATOR
       : props.givenNum === props.selfNum
-      ? BIG_INDICATOR
-      : SMALL_INDICATOR}px;
+        ? BIG_INDICATOR
+        : SMALL_INDICATOR}px;
   background-color: ${c.purple};
   opacity: ${(props) =>
     props.givenNum === null
       ? 1
       : props.givenNum === props.selfNum
-      ? 1
-      : LIGHT_OPACITY};
+        ? 1
+        : LIGHT_OPACITY};
 `;
 
 const DescriptionContainer = styled.View`
@@ -237,9 +237,10 @@ const ReviewUploadTrioScore = () => {
               <MintBar score={question.score} />
             </BarWrapper>
             <PurpleIndicatorContainer>
-              {oneToFive.map((bar) => {
+              {oneToFive.map((bar, index: number) => {
                 return (
                   <PurpleIndicatorTouchArea
+                    key={index}
                     onPress={() => {
                       switch (question.type) {
                         case thickness:
