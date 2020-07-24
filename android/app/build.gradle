@@ -210,6 +210,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-crashlytics:17.1.0'
 
     implementation project(':react-native-code-push')
+    implementation project(':react-native-seoul-kakao-login')
 
     debugImplementation("com.facebook.flipper:flipper:${FLIPPER_VERSION}") {
       exclude group:'com.facebook.fbjni'

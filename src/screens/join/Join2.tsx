@@ -5,6 +5,8 @@ import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import analytics from "@react-native-firebase/analytics";
 import { Picker } from '@react-native-community/picker';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { RouteProp } from '@react-navigation/native';
 
 import { d, c, l, BASE_URL } from '~/utils/constant';
 import {
@@ -23,10 +25,7 @@ import TopBarLeftIcon from '~/components/universal/topBar/TopBarLeftIcon';
 import TopBarWithIcon from '~/components/universal/topBar/TopBarRightIcon';
 import TopBarBackArrow from '~/components/universal/topBar/TopBarBackArrow';
 import TopBarBackArrowRightIcon from '~/components/universal/topBar/TopBarBackArrowRightIcon';
-import { Picker } from '@react-native-community/picker';
-import { RouteProp } from '@react-navigation/native';
 import { JoinStackParamList } from '~/navigation/tabs/JoinStack';
-import { StackNavigationProp } from '@react-navigation/stack';
 
 const Container = styled.View`
   margin: 0 ${l.mR}px;
@@ -144,18 +143,18 @@ const Join2 = ({ navigation, route }: Props) => {
         params={
           socialJoin
             ? {
-                signUpName: nameInput,
-                signUpYear: year,
-                socialJoin: socialJoin,
-                _token: _token,
-              }
+              signUpName: nameInput,
+              signUpYear: year,
+              socialJoin: socialJoin,
+              _token: _token,
+            }
             : {
-                signUpEmail: signUpEmail,
-                signUpPassword: signUpPassword,
-                signUpName: nameInput,
-                signUpYear: year,
-                socialJoin: socialJoin,
-              }
+              signUpEmail: signUpEmail,
+              signUpPassword: signUpPassword,
+              signUpName: nameInput,
+              signUpYear: year,
+              socialJoin: socialJoin,
+            }
         }
       >
         <TopBarBackArrowRightIcon />

@@ -5,6 +5,9 @@ import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import analytics from "@react-native-firebase/analytics";
 import { StackActions } from '@react-navigation/native';
+import AsyncStorage, {
+  useAsyncStorage,
+} from '@react-native-community/async-storage';
 
 import { requestLogin } from '~/modules/auth';
 import { d, c, l, BASE_URL } from '~/utils/constant';
@@ -13,10 +16,6 @@ import MarginWide from '~/components/universal/margin/MarginWide';
 import TopBarBackArrowRightIcon from '~/components/universal/topBar/TopBarBackArrowRightIcon';
 import MarginNarrow from '~/components/universal/margin/MarginNarrow';
 import MarginMedium from '~/components/universal/margin/MarginMedium';
-import { StackActions } from '@react-navigation/native';
-import AsyncStorage, {
-  useAsyncStorage,
-} from '@react-native-community/async-storage';
 import { UserName } from '~/utils/asyncStorage';
 const Container = styled.View`
   margin: 0 ${l.mR}px;
