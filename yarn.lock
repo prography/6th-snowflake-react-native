@@ -823,6 +823,11 @@
   dependencies:
     "@hapi/hoek" "^8.3.0"
 
+"@invertase/react-native-apple-authentication@^1.1.2":
+  version "1.1.2"
+  resolved "https://registry.yarnpkg.com/@invertase/react-native-apple-authentication/-/react-native-apple-authentication-1.1.2.tgz#cf86364d89030f0b9970d04468fde2d204cab5df"
+  integrity sha512-eRwLOyxPtAP0ZEy1iaBf+Sle7upBnyqOkeXgScWNKLKsb4r6+6I6CvMuHNdMZ9ObSdUfAVgAbj5L09TbJRw0hQ==
+
 "@jest/console@^24.7.1", "@jest/console@^24.9.0":
   version "24.9.0"
   resolved "https://registry.yarnpkg.com/@jest/console/-/console-24.9.0.tgz#79b1bc06fb74a8cfb01cbdedf945584b1b9707f0"
@@ -1132,6 +1137,13 @@
   version "8.0.0"
   resolved "https://registry.yarnpkg.com/@react-native-firebase/remote-config/-/remote-config-8.0.0.tgz#2fc474de05907af535ea97e5807c336a58845f6b"
   integrity sha512-Kc373ipRqzjdl92s+uVMGOePI2jtu4IKQfDgnj8DqBayojlgbT78DvJLN4/LzsaO64eHji4vjAfTK+OcAyHEeg==
+
+"@react-native-seoul/kakao-login@2.4.1":
+  version "2.4.1"
+  resolved "https://registry.yarnpkg.com/@react-native-seoul/kakao-login/-/kakao-login-2.4.1.tgz#126230af58c96c63295d8afd8344d7bd248aec1f"
+  integrity sha512-L+YKQADyZxBLAUWEs3izxqMnBC2dK1iQ5a5Zd7e+xWUzoxOK53VMYLzxoohO/+h/ASe9lvdt9Qg5F/bGGdwCkg==
+  dependencies:
+    dooboolab-welcome "^1.1.0"
 
 "@react-navigation/bottom-tabs@5.3.4":
   version "5.3.4"
@@ -2593,6 +2605,11 @@ domexception@^1.0.1:
   integrity sha512-raigMkn7CJNNo6Ihro1fzG7wr3fHuYVytzquZKX5n0yizGsTcYgzdIUwj1X9pK0VvjeihV+XiclP+DjwbsSKug==
   dependencies:
     webidl-conversions "^4.0.2"
+
+dooboolab-welcome@^1.1.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/dooboolab-welcome/-/dooboolab-welcome-1.2.0.tgz#295818ce85a8e97dc90c0ec0510b4008e2d722dc"
+  integrity sha512-XgEbjJHAsKLge/e8jtuHsv84Ovg1Gx0GvnOTOmOlVGV1643nduTAkT3fyo/mxKbzvyXBr47RHaJAY4R2toI0UA==
 
 ecc-jsbn@~0.1.1:
   version "0.1.2"

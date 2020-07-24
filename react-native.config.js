@@ -7,5 +7,10 @@ module.exports = {
         ios: null,
       },
     },
+    "@react-native-seoul/kakao-login": {
+      platforms: {
+        android: null,
+      },
+    },
   },
 };
