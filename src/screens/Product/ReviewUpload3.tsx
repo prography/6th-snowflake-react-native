@@ -2,12 +2,10 @@ import * as React from 'react';
 import styled from 'styled-components/native';
 import { useEffect, useState } from 'react';
 import { all, fork, takeLatest, call, put, take } from 'redux-saga/effects';
-import { Text, ScrollView } from 'react-native';
+import { Text, ScrollView, Alert } from 'react-native';
 import analytics from "@react-native-firebase/analytics";
 import { useSelector, useDispatch } from 'react-redux';
-import AsyncStorage, {
-  useAsyncStorage,
-} from '@react-native-community/async-storage';
+import { useAsyncStorage } from '@react-native-community/async-storage';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
 import { BASE_URL } from '~/utils/constant';
@@ -57,21 +55,12 @@ const ReviewUpload3 = ({ navigation }) => {
   );
 
   const _score = useSelector((state: State) => state.reviewUploadReducer.score);
-  const [token, setToken] = useState(null);
 
   const _resetReviewUploadStore = () => {
     dispatch(resetReviewUploadStore());
   };
 
-  const _getToken = async () => {
-    try {
-      const _token = await AsyncStorage.getItem(AsyncAccessToken);
-      setToken(_token);
-      console.log(token);
-    } catch (e) {
-      console.error('안 가져와');
-    }
-  };
+  const { getItem: getTokenItem } = useAsyncStorage(AsyncAccessToken);
 
   const _reviewUpload = async () => {
     console.log('🎃1_reviewUpload 호출');
@@ -85,7 +74,10 @@ const ReviewUpload3 = ({ navigation }) => {
     const content = _reviewContent;
 
     try {
+      const token = await getTokenItem();
       console.log('🎃2_reviews 업로드 api 호출 with token:', token);
+      if (!token) { Alert.alert('❄️', '로그인 후 이용해주세요!'); return; }
+
       const response = await fetch(`${BASE_URL}/reviews/`, {
         method: 'POST',
         headers: {
@@ -114,7 +106,6 @@ const ReviewUpload3 = ({ navigation }) => {
   };
 
   useEffect(() => {
-    _getToken();
     analytics().setCurrentScreen("ReviewUpload3_Write_Review");
   }, []);
 

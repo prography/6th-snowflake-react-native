@@ -20,7 +20,12 @@ function* loginAPI(email: string, password: string) {
   });
 
   const json = yield response.json();
-  llog2("😸9-1. loginAPI json", json);
+  llog3("😸9-1. loginAPI response json", response, json);
+
+  if (response.status !== 200) {
+    llog2("response error", response.status);
+    return null;
+  }
   return json.access;
 }
 
@@ -32,11 +37,14 @@ function* login(email: string, password: string) {
     const accessToken = yield call(() => loginAPI(email, password));
     console.log("😸10. loginAPI 에서 accesToken 받아오기", accessToken);
 
+    if (accessToken === null) {
+      alert("정보가 올바르지 않습니다. 다시 입력해주세요.");
+      return;
+    }
+
     // 2. accessToken을 AsyncStorage에 저장
-    const { setItem, getItem } = useAsyncStorage(AsyncAccessToken);
+    const { setItem } = useAsyncStorage(AsyncAccessToken);
     yield setItem(accessToken);
-    const accessTokenFS = yield getItem(); // FS: From asyncStorage
-    console.log("😸11. AsyncStorage에 잘 저장됐나 확인", accessTokenFS);
 
     // 3. isLoggedin 설정
     yield put(setIsLoggedin(true));

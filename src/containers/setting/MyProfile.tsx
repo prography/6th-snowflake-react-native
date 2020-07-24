@@ -1,12 +1,12 @@
 import * as React from 'react';
 import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import AsyncStorage from '@react-native-community/async-storage';
+import AsyncStorage, { useAsyncStorage } from '@react-native-community/async-storage';
 import styled from 'styled-components/native';
 
 import { d, BASE_URL, c, l } from '~/utils/constant';
 import TextTitlePurpleRight from '~/components/universal/text/TextTitlePurpleRight';
-import { UserId, UserName } from '~/utils/asyncStorage';
+import { AsyncAccessToken } from '~/utils/asyncStorage';
 import TextTitleDarkPurpleLink from '~/components/universal/text/TextTitleDarkPurpleLink';
 import { manageLoginLogout } from '~/modules/auth';
 import MarginNarrow from '~/components/universal/margin/MarginNarrow';
@@ -17,17 +17,18 @@ const Container = styled.View`
   margin-left: ${l.mL}px;
   margin-right: ${l.mR}px;
 `;
-interface Props {
-  token: any;
-}
-const MyProfile = ({ token }: Props) => {
+const MyProfile = () => {
   const dispatch = useDispatch();
   const _isLoggedin = useSelector((state) => state.authReducer.isLoggedin);
+  const { getItem: getTokenItem } = useAsyncStorage(AsyncAccessToken);
 
   const [userInfoArray, setUserInfoArray] = useState(null);
 
   const _getUserInfo = async () => {
     try {
+      const token = await getTokenItem();
+      if (!token) { return }
+
       const response = await fetch(`${BASE_URL}/accounts/`, {
         method: 'GET',
         headers: {
@@ -37,13 +38,6 @@ const MyProfile = ({ token }: Props) => {
       const json = await response.json();
       llog2('2.🐹User info 불러옴 - 성공!', json);
       setUserInfoArray(json);
-
-      await AsyncStorage.setItem(UserId, String(json.id));
-      await AsyncStorage.setItem(UserName, String(json.username));
-      const _userIdFS = await AsyncStorage.getItem(UserId);
-      const _userNameFS = await AsyncStorage.getItem(UserName);
-      llog2('3-1.🐹store 안의 userId 받아오나요:', _userIdFS);
-      llog2('3-2.🐹store 안의 userName 받아오나요:', _userNameFS);
     } catch (error) {
       llog2('🐹store 저장 에러', error);
     }
