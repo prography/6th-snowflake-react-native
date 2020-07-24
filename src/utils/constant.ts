@@ -1,6 +1,8 @@
-import * as React from 'react';
-import { Dimensions } from 'react-native';
-import styled from 'styled-components/native';
+import * as React from "react";
+import { Dimensions, Platform } from "react-native";
+import styled from "styled-components/native";
+
+export const isAndroid = Platform.OS === "android";
 
 export const BASE_URL =
   'http://snowflakeproduction-env.eba-qnph52vm.ap-northeast-2.elasticbeanstalk.com';

@@ -34,7 +34,7 @@ const Blinder = () => {
   llog2('blindState:', blindState);
 
   const setBlinder = () => {
-    analytics().logEvent(`blinder_to_${blindState ? 'hidden' : 'show'}`);
+    analytics().logEvent(`blinder_to_${blindState ? 'show' : 'hidden'}`);
     dispatch({ type: 'SET_BLINDER', blindState });
   };
 

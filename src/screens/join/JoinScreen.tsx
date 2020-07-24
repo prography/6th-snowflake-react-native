@@ -3,7 +3,7 @@ import { View, Text, Alert } from 'react-native';
 import styled from 'styled-components/native';
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { d, c, l, BASE_URL } from '~/utils/constant';
+import { d, c, l, BASE_URL, isAndroid } from '~/utils/constant';
 import KakaoLogins from '@react-native-seoul/kakao-login';
 import analytics from "@react-native-firebase/analytics";
 
@@ -120,6 +120,10 @@ const JoinScreen = ({ navigation }: Props) => {
       <Container>
         <TopBarBackArrowRightIcon />
         {joinArray.map((join, index: number) => {
+          // apple login은 iOS 기기에만 보여준다
+          if (join.guide === 'apple' && isAndroid) {
+            return null
+          }
           return (
             <JoinContainer key={index}>
               <JoinBox
