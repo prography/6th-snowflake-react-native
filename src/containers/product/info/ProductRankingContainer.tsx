@@ -13,6 +13,7 @@ import LineGrayMiddle from '~/components/universal/line/LineGrayMiddle';
 import LineGrayRightLong from '~/components/universal/line/LineGrayRightLong';
 import MarginNarrow from '~/components/universal/margin/MarginNarrow';
 import { llog2 } from '~/utils/functions';
+import { RankingParamList } from '~/navigation/tabs/ProductStack';
 
 const NARROW_MARGIN = d.px * 9;
 const TEXT_HEIGHT = d.px * 16;
@@ -92,7 +93,7 @@ const SelectedCircle = styled.View`
   background-color: ${c.purple};
   border-radius: 1000px;
 `;
-enum CategoryEnum {
+export enum CategoryEnum {
   NONE = '',
   NORMAL = 'NORMAL',
   SLIM = 'SLIM',
@@ -101,7 +102,7 @@ enum CategoryEnum {
   GGOKJI = 'GGOKJI',
   DELAY = 'DELAY',
 }
-enum OrderEnum {
+export enum OrderEnum {
   NONE = '',
   num_of_reviews = 'num_of_reviews',
   avg_oily = 'avg_oily',
@@ -109,21 +110,92 @@ enum OrderEnum {
   avg_durability = 'avg_durability',
 }
 
-const ProductRankingContainer = () => {
+const categoryList = [
+  {
+    categoryEnum: CategoryEnum.NONE,
+    categoryText: '전체',
+    first: true,
+    last: false,
+  },
+  {
+    categoryEnum: CategoryEnum.NORMAL,
+    categoryText: '일반형',
+    first: false,
+    last: false,
+  },
+  {
+    categoryEnum: CategoryEnum.CHOBAK,
+    categoryText: '초박형',
+    first: false,
+    last: false,
+  },
+  {
+    categoryEnum: CategoryEnum.DOLCHUL,
+    categoryText: '돌출형',
+    first: false,
+    last: false,
+  },
+  {
+    categoryEnum: CategoryEnum.SLIM,
+    categoryText: '슬림형',
+    first: false,
+    last: false,
+  },
+  {
+    categoryEnum: CategoryEnum.GGOKJI,
+    categoryText: '꼭지형',
+    first: false,
+    last: false,
+  },
+  {
+    categoryEnum: CategoryEnum.DELAY,
+    categoryText: '사전지연형',
+    first: false,
+    last: true,
+  },
+];
+
+const orderFilterList = [
+  {
+    orderEnum: OrderEnum.NONE,
+    orderText: '총점순',
+  },
+  {
+    orderEnum: OrderEnum.num_of_reviews,
+    orderText: '리뷰 개수순',
+  },
+  {
+    orderEnum: OrderEnum.avg_thickness,
+    orderText: '얇기순',
+  },
+  {
+    orderEnum: OrderEnum.avg_durability,
+    orderText: '내구성순',
+  },
+  {
+    orderEnum: OrderEnum.avg_oily,
+    orderText: '윤활제순',
+  },
+];
+
+interface Props {
+  serverParams: RankingParamList;
+}
+
+const ProductRankingContainer = ({ serverParams }: Props) => {
   const [_rankingList, _setRankingList] = useState(null);
-  const [categoryParam, setCategoryParam] = useState(CategoryEnum.NONE);
-  const [orderParam, setOrderParam] = useState(OrderEnum.NONE);
-  const [orderText, setOrderText] = useState('총점순');
+  const [orderText, setOrderText] = useState(orderFilterList[0].orderText);
   const [selectedCategory, setSelectedCategory] = useState(CategoryEnum.NONE);
   const [showOrderFilter, setShowOrderFilter] = useState(false);
   const [selectedOrder, setSelectedOrder] = useState(OrderEnum.NONE);
+
   const _getRankingList = async () => {
     let url = `${BASE_URL}/products/condom?`;
-    if (categoryParam !== CategoryEnum.NONE) {
-      url += `category=${categoryParam}&`;
+    if (selectedCategory !== CategoryEnum.NONE) {
+      url += `category=${selectedCategory}&`;
     }
-    if (orderParam !== OrderEnum.NONE) {
-      url += `order=${orderParam}&`;
+    if (selectedOrder !== OrderEnum.NONE) {
+      url += `order=${selectedOrder}&`;
     }
 
     // url의 끝에 ?나 &가 있으면
@@ -137,83 +209,24 @@ const ProductRankingContainer = () => {
 
       const json = await response.json();
       _setRankingList(json.results);
-      llog2('🧤Ranking List - success!', _rankingList);
+      // llog2('🧤Ranking List - success!', _rankingList);
     } catch (error) {
       llog2('🧤Ranking List - error', error);
     }
   };
 
   useEffect(() => {
+    llog2('🦨 serverParams', serverParams);
+    if (serverParams) {
+      setSelectedCategory(serverParams.category);
+      setSelectedOrder(serverParams.order);
+    }
+
+  }, [serverParams])
+
+  useEffect(() => {
     _getRankingList();
-  }, [categoryParam, orderParam]);
-
-  const categoryList = [
-    {
-      categoryEnum: CategoryEnum.NONE,
-      categoryText: '전체',
-      first: true,
-      last: false,
-    },
-    {
-      categoryEnum: CategoryEnum.NORMAL,
-      categoryText: '일반형',
-      first: false,
-      last: false,
-    },
-    {
-      categoryEnum: CategoryEnum.CHOBAK,
-      categoryText: '초박형',
-      first: false,
-      last: false,
-    },
-    {
-      categoryEnum: CategoryEnum.DOLCHUL,
-      categoryText: '돌출형',
-      first: false,
-      last: false,
-    },
-    {
-      categoryEnum: CategoryEnum.SLIM,
-      categoryText: '슬림형',
-      first: false,
-      last: false,
-    },
-    {
-      categoryEnum: CategoryEnum.GGOKJI,
-      categoryText: '꼭지형',
-      first: false,
-      last: false,
-    },
-    {
-      categoryEnum: CategoryEnum.DELAY,
-      categoryText: '사전지연형',
-      first: false,
-      last: true,
-    },
-  ];
-
-  const orderFilterList = [
-    {
-      orderEnum: OrderEnum.NONE,
-      orderText: '총점순',
-    },
-    {
-      orderEnum: OrderEnum.num_of_reviews,
-      orderText: '리뷰 개수순',
-    },
-    {
-      orderEnum: OrderEnum.avg_thickness,
-      orderText: '얇기순',
-    },
-    {
-      orderEnum: OrderEnum.avg_durability,
-      orderText: '내구성순',
-    },
-    {
-      orderEnum: OrderEnum.avg_oily,
-      orderText: '윤활제순',
-    },
-  ];
+  }, [selectedCategory, selectedOrder]);
 
   return (
     <>
@@ -229,7 +242,6 @@ const ProductRankingContainer = () => {
                 last={category.last}
                 onPress={() => {
                   analytics().logEvent("press_category_in_ranking", { category: category.categoryEnum });
-                  setCategoryParam(category.categoryEnum);
                   setSelectedCategory(category.categoryEnum);
                 }}
               >
@@ -268,7 +280,6 @@ const ProductRankingContainer = () => {
                 onPress={() => {
                   analytics().logEvent("press_order_in_ranking", { order: filter.orderEnum });
 
-                  setOrderParam(filter.orderEnum);
                   setOrderText(filter.orderText);
                   setSelectedOrder(filter.orderEnum);
                 }}
