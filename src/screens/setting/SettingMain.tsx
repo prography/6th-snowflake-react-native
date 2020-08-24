@@ -2,28 +2,30 @@ import * as React from 'react';
 import { useEffect, useState } from 'react';
 import styled from 'styled-components/native';
 import { ScrollView } from 'react-native';
-import { WebView } from 'react-native-webview';
 import { useSelector } from 'react-redux';
 import analytics from "@react-native-firebase/analytics";
 import { withNavigation } from '@react-navigation/compat';
-import AsyncStorage, {
-  useAsyncStorage,
-} from '@react-native-community/async-storage';
+import AsyncStorage from '@react-native-community/async-storage';
+import { StackNavigationProp } from '@react-navigation/stack';
 
 import NavBar from '~/screens/NavBar';
 import TextTitleDarkPurpleLink from '~/components/universal/text/TextTitleDarkPurpleLink';
 import { c, d, l } from '~/utils/constant';
-import TopBarWithIcon from '~/components/universal/topBar/TopBarRightIcon';
 import MyProfile from '~/containers/setting/MyProfile';
 import MarginWide from '~/components/universal/margin/MarginWide';
 import Likes from '~/containers/setting/Likes';
-import { UserId, AsyncAccessToken, UserName } from '~/utils/asyncStorage';
+import { AsyncAccessToken } from '~/utils/asyncStorage';
 import Blinder from '~/components/product/Blinder';
 import TopBarLeftIcon from '~/components/universal/topBar/TopBarLeftIcon';
 import MyGenderColor from '~/containers/setting/MyGenderColor';
 import LineGrayRightLong from '~/components/universal/line/LineGrayRightLong';
 import MarginMedium from '~/components/universal/margin/MarginMedium';
-import { llog2 } from '~/utils/functions';
+import { llog2, llog1 } from '~/utils/functions';
+import { JoinStackParamList } from '~/navigation/tabs/JoinStack';
+
+interface Props {
+  navigation: StackNavigationProp<JoinStackParamList, 'SettimgMain'>;
+}
 
 const Container = styled.View``;
 
@@ -32,10 +34,10 @@ const LoginContainer = styled.View`
   margin-right: ${l.mR}px;
 `;
 
-const SettingMain = () => {
+const SettingMain = ({ navigation }: Props) => {
   const [_token, _setToken] = useState(null);
   const _isLoggedin = useSelector((state) => state.authReducer.isLoggedin);
-  console.log('로그인됨?', _isLoggedin);
+  llog2('로그인됨?', _isLoggedin);
 
   const _getToken = async () => {
     try {
@@ -58,11 +60,11 @@ const SettingMain = () => {
         <Container>
           <TopBarLeftIcon />
 
-          {_token !== null && _isLoggedin ? (
+          {_isLoggedin ? (
             <>
-              <MyProfile token={_token} />
+              <MyProfile />
               <MarginWide />
-              <Likes token={_token} />
+              <Likes />
             </>
           ) : (
               <>

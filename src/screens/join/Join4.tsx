@@ -5,6 +5,9 @@ import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import analytics from "@react-native-firebase/analytics";
 import { StackActions } from '@react-navigation/native';
+import AsyncStorage, {
+  useAsyncStorage,
+} from '@react-native-community/async-storage';
 
 import { requestLogin } from '~/modules/auth';
 import { d, c, l, BASE_URL } from '~/utils/constant';
@@ -13,7 +16,6 @@ import MarginWide from '~/components/universal/margin/MarginWide';
 import TopBarBackArrowRightIcon from '~/components/universal/topBar/TopBarBackArrowRightIcon';
 import MarginNarrow from '~/components/universal/margin/MarginNarrow';
 import MarginMedium from '~/components/universal/margin/MarginMedium';
-
 const Container = styled.View`
   margin: 0 ${l.mR}px;
 `;
@@ -41,8 +43,10 @@ const NoticeText = styled.Text`
   font-size: ${d.px * 15}px;
   color: ${c.darkGray};
 `;
-
-const Join4 = ({ navigation, route }) => {
+interface Props {
+  route: RouteProp<JoinStackParamList, 'Join4'>;
+}
+const Join4 = ({ navigation, route }: Props) => {
   const {
     signUpEmail,
     signUpPassword,
@@ -50,6 +54,8 @@ const Join4 = ({ navigation, route }) => {
     signUpYear,
     signUpGender,
     signUpPartnerGender,
+    _token,
+    socialJoin,
   } = route.params;
 
   const noticeList = ['눈송이 성명서 coming soon...'];
@@ -64,6 +70,33 @@ const Join4 = ({ navigation, route }) => {
   // useEffect(() => {
   //   _isLoggedin ? navigation.navigate('HomeStack') : null;
   // }, [_isLoggedin]);
+
+  const _socialSignup = async () => {
+    console.log('1.🥎 social token 으로 user 정보 업데이트 호출');
+    const username = signUpName;
+    const birth_year = signUpYear;
+    const gender = signUpGender;
+    const partner_gender = signUpPartnerGender;
+
+    try {
+      const response = await fetch(`${BASE_URL}/accounts/`, {
+        method: 'PATCH',
+        headers: {
+          Authorization: `Bearer ${_token}`,
+        },
+        body: JSON.stringify({
+          username,
+          birth_year,
+          gender,
+          partner_gender,
+        }),
+      });
+      const json = await response.json();
+      console.log('2.🥎 social token 으로 user 정보 업데이트 결과는?', response, json);
+    } catch (error) {
+      console.log('🥎🥎. social token 유저 정보 업데이트 실패', error);
+    }
+  };
 
   const _signup = async () => {
     console.log('😸1. _signup 호출됨');
@@ -130,7 +163,7 @@ const Join4 = ({ navigation, route }) => {
         stack={'HomeStack'}
         screen={'HomeMain'}
         isFilled={true}
-        onPressFunction={_signup}
+        onPressFunction={socialJoin ? _socialSignup : _signup}
       >
         <TopBarBackArrowRightIcon />
         <WelcomeText>{signUpName}님, 환영합니다.</WelcomeText>

@@ -1,12 +1,16 @@
 import * as React from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, Alert } from 'react-native';
 import styled from 'styled-components/native';
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import LinePurpleWhenFocused from '~/components/universal/line/LinePurpleWhenFocused';
-import { validateEmail, validatePassword } from '~/utils/validator';
-import MarginNarrow from '~/components/universal/margin/MarginNarrow';
-import { d, c, l, BASE_URL } from '~/utils/constant';
+import { d, c, l, BASE_URL, isAndroid } from '~/utils/constant';
+import KakaoLogins from '@react-native-seoul/kakao-login';
+import appleAuth, {
+  AppleAuthRequestOperation,
+  AppleAuthRequestScope,
+  AppleAuthCredentialState,
+  AppleAuthRequestResponse,
+} from '@invertase/react-native-apple-authentication';
 import analytics from "@react-native-firebase/analytics";
 
 import BottomBtnCollectData from '~/components/universal/bottomBar/BottomBtnCollectData';
@@ -15,6 +19,10 @@ import TopBarLeftIcon from '~/components/universal/topBar/TopBarLeftIcon';
 import TopBarWithIcon from '~/components/universal/topBar/TopBarRightIcon';
 import { withNavigation } from '@react-navigation/compat';
 import TopBarBackArrowRightIcon from '~/components/universal/topBar/TopBarBackArrowRightIcon';
+import { llog2, llog1, llog3 } from '~/utils/functions';
+import { KakaoLoginResponse } from '~/utils/interface';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { JoinStackParamList } from '~/navigation/tabs/JoinStack';
 
 const JOIN_BOX_HEIGHT = d.px * 50;
 const Container = styled.View`
@@ -45,11 +53,93 @@ const JoinText = styled.Text`
 `;
 
 interface Props {
-  navigation: any;
+  navigation: StackNavigationProp<JoinStackParamList, 'JoinScreen'>;
 }
 
 const JoinScreen = ({ navigation }: Props) => {
-  const signInWithKakao = () => { };
+  const _signInWithKakao = async () => {
+    try {
+      analytics().logEvent("press_kakao_login_btn");
+      llog1('🥎 카카오 가입을 해보자');
+      const result: KakaoLoginResponse = await KakaoLogins.login();
+      llog2('🥎 카카오 서버와 통신', result);
+
+      //카카오로 accessToken을 받으면
+      if (result) {
+        const response = await fetch(
+          `${BASE_URL}/accounts/social/kakao-login-callback?access_token=${result.accessToken}`,
+          {
+            method: 'POST',
+          }
+        );
+
+        const json = await response.json();
+        llog2('🥎 카카오 가입 response,', response);
+        llog2('🥎 카카오 가입 api,', json);
+
+
+        // TODO: json 에서 성공이면
+
+
+        navigation.navigate('JoinStack', {
+          screen: 'Join2',
+          params: { _token: json.access, socialJoin: true },
+        });
+      } else {
+        throw Error;
+      }
+    } catch (error) {
+      llog2('💢 kakao error', error);
+      Alert.alert('오류', '카카오 로그인 실패');
+    }
+  };
+
+  const _signInWithApple = async () => {
+    try {
+      analytics().logEvent("press_apple_login_btn");
+      const appleAuthRequestResponse: AppleAuthRequestResponse = await appleAuth.performRequest(
+        {
+          requestedOperation: AppleAuthRequestOperation.LOGIN,
+          requestedScopes: [AppleAuthRequestScope.FULL_NAME],
+        },
+      );
+
+      llog3(
+        '🐒 appleLogin appleAuthRequestResponse',
+        appleAuthRequestResponse,
+        appleAuthRequestResponse.identityToken,
+      );
+      const credentialState = await appleAuth.getCredentialStateForUser(
+        appleAuthRequestResponse.user,
+      );
+
+      if (credentialState === AppleAuthCredentialState.AUTHORIZED) {
+        const accessToken = appleAuthRequestResponse.identityToken;
+        llog1('🐒 Apple AUTHORIZED~~');
+        const response = await fetch(`${BASE_URL}/accounts/social/apple-login-callback?identify_token=${accessToken}`,
+          {
+            method: 'POST',
+          });
+
+        const json = await response.json();
+        llog2('🐒 Apple 가입 response,', response);
+        llog2('🐒 Apple 가입 api,', json);
+
+        // TODO: json 에서 성공이면
+
+        navigation.navigate('JoinStack', {
+          screen: 'Join2',
+          params: { _token: json.access, socialJoin: true },
+        });
+      } else {
+        throw Error;
+      }
+    } catch (e) {
+      llog2('💢 apple error', e);
+      Alert.alert('오류', '애플 로그인 실패');
+    }
+  };
+
   const joinArray = [
     {
       guideText: '이메일로 가입하기',
@@ -59,22 +149,22 @@ const JoinScreen = ({ navigation }: Props) => {
       img: 'none',
       key: 0,
     },
-    {
-      guideText: '카카오로 가입하기',
-      guide: 'kakao',
-      screen: 'JoinWithKakao',
-      function: signInWithKakao,
-      img: 'kakao',
-      key: 1,
-    },
-    {
-      guideText: '애플 로그인으로 가입하기',
-      guide: 'apple',
-      screen: 'JoinWithApple',
-      function: 'signInWithApple',
-      img: 'apple',
-      key: 2,
-    },
+    // {
+    //   guideText: '카카오로 가입하기',
+    //   guide: 'kakao',
+    //   screen: 'JoinWithKakao',
+    //   function: _signInWithKakao,
+    //   img: 'kakao',
+    //   key: 1,
+    // },
+    // {
+    //   guideText: '애플 로그인으로 가입하기',
+    //   guide: 'apple',
+    //   screen: 'JoinWithApple',
+    //   function: _signInWithApple,
+    //   img: 'apple',
+    //   key: 2,
+    // },
   ];
 
   React.useEffect(() => {
@@ -86,16 +176,19 @@ const JoinScreen = ({ navigation }: Props) => {
       <Container>
         <TopBarBackArrowRightIcon />
         {joinArray.map((join, index: number) => {
+          // apple login은 iOS 기기에만 보여준다
+          if (join.guide === 'apple' && isAndroid) {
+            return null
+          }
           return (
-            <JoinContainer>
+            <JoinContainer key={index}>
               <JoinBox
-                key={index}
                 guide={join.guide}
                 activeOpacity={1}
                 onPress={() => {
                   join.function === 'none'
                     ? navigation.navigate('JoinStack', { screen: join.screen })
-                    : join.function;
+                    : join.function();
                 }}
               >
                 <JoinText guide={join.guide}>{join.guideText}</JoinText>

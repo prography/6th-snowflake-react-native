@@ -9,6 +9,7 @@ import { theme } from '~/utils/constant';
 import { Provider } from 'react-redux';
 import store from '~/store';
 import NavController from '~/screens/NavController';
+import {CommonProvider} from '~/context/CommonContext';
 
 // settingIsLoggedin(in NavController)은 store가 있어야 하는 작업이라 <Provider> 하위, <RootTabNavigation> 보다는 위에 있어야 하므로 NavController를 만들었음.
 const App = () => {
@@ -16,9 +17,11 @@ const App = () => {
     <Provider store={store}>
       <ThemeProvider theme={theme}>
         <SafeAreaView style={{ backgroundColor: 'white', flex: 1 }}>
-          <NavigationContainer>
-            <NavController />
-          </NavigationContainer>
+          <CommonProvider>
+            <NavigationContainer>
+              <NavController />
+            </NavigationContainer>
+          </CommonProvider>
         </SafeAreaView>
       </ThemeProvider>
     </Provider>

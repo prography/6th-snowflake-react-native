@@ -1,6 +1,7 @@
 import AsyncStorage from "@react-native-community/async-storage";
 
 import { AsyncAccessToken } from "~/utils/asyncStorage";
+import { llog2, llog1 } from "~/utils/functions";
 
 export interface State {
   isLoggedin: boolean;
@@ -14,7 +15,7 @@ export const REQUEST_LOGIN = "REQUEST_LOGIN";
 export const SET_IS_LOGGEDIN = "SET_IS_LOGGEDIN";
 
 export const requestLogin = (email: string, password: string) => {
-  console.log("😸6. requestLogin 액션 dispatch");
+  llog1("😸6. requestLogin 액션 dispatch");
   return {
     type: REQUEST_LOGIN,
     email,
@@ -22,7 +23,7 @@ export const requestLogin = (email: string, password: string) => {
   };
 };
 export const setIsLoggedin = (isLoggedin: boolean) => {
-  console.log("😸12. isLoggedin에 저장!", isLoggedin);
+  llog2("😸12. isLoggedin에 저장!", isLoggedin);
   return {
     type: SET_IS_LOGGEDIN,
     isLoggedin,

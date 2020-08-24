@@ -7,17 +7,14 @@ import styled from 'styled-components/native';
 import AsyncStorage, {
   useAsyncStorage,
 } from '@react-native-community/async-storage';
-import { UserId, AsyncAccessToken, UserName } from '~/utils/asyncStorage';
 import RankBar from '~/components/product/ranking/RankBar';
-import { ScrollView } from 'react-native';
-import Blinder from '~/components/product/Blinder';
-import TextMiddleTitleDark from '~/components/universal/text/TextMiddleTitleDark';
+import { ScrollView, Alert } from 'react-native';
 import TextTitleDarkLeft from '~/components/universal/text/TextTitleDarkLeft';
 import { withNavigation } from '@react-navigation/compat';
 import { Text } from 'react-native';
-import MarginNarrow from '~/components/universal/margin/MarginNarrow';
 import TextProductCompany from '~/components/universal/text/product/TextProductCompany';
 import TextProductName from '~/components/universal/text/product/TextProductName';
+import { AsyncAccessToken } from '~/utils/asyncStorage';
 
 interface Props {
   token: any;
@@ -62,14 +59,19 @@ const ProductImage = styled.Image`
   height: ${d.px * 50}px;
 `;
 
-const Likes = ({ token, navigation }: Props) => {
+const Likes = ({ navigation }: Props) => {
   const blindState = useSelector((state) => state.blindReducer.blindState);
   const _isLoggedin = useSelector((state) => state.authReducer.isLoggedin);
 
   const [_rankingList, _setRankingList] = useState(null);
   const [showLikes, setShowLikes] = useState(false);
+
+  const { getItem: getTokenItem } = useAsyncStorage(AsyncAccessToken);
   const _getLikes = async () => {
     try {
+      const token = await getTokenItem();
+      if (!token) { return; }
+
       const response = await fetch(
         `${BASE_URL}/likes/?model=product&is_product_detail=true`,
         {
@@ -116,41 +118,39 @@ const Likes = ({ token, navigation }: Props) => {
               {showLikes && (
                 <Container>
                   {_rankingList ? (
-                    _rankingList.map((product) => {
+                    _rankingList.map((product, index: number) => {
                       return (
-                        <>
-                          <LikeProductContainer
-                            onPress={() => {
-                              navigation.navigate('JoinStack', {
-                                screen: 'ProductInfo',
-                                params: { productId: product.object_detail.id },
-                              });
-                            }}
-                            // stack, { screen: screen, params: params }
-                            key={_rankingList.indexOf(product) + 1}
-                          >
-                            <ImageWrapper>
-                              <ProductImage
-                                style={{ resizeMode: 'contain' }}
-                                source={
-                                  blindState
-                                    ? require('~/img/doodle/doodleCdBoxMint.png')
-                                    : product.object_detail.thumbnail === null
-                                      ? require('~/img/icon/imageNull.png')
-                                      : { uri: product.object_detail.thumbnail }
-                                }
-                              />
-                            </ImageWrapper>
-                            <TextProductCompany
-                              productCompany={
-                                product.object_detail.manufacturer_kor
+                        <LikeProductContainer
+                          onPress={() => {
+                            navigation.navigate('JoinStack', {
+                              screen: 'ProductInfo',
+                              params: { productId: product.object_detail.id },
+                            });
+                          }}
+                          // stack, { screen: screen, params: params }
+                          key={index}
+                        >
+                          <ImageWrapper>
+                            <ProductImage
+                              style={{ resizeMode: 'contain' }}
+                              source={
+                                blindState
+                                  ? require('~/img/doodle/doodleCdBoxMint.png')
+                                  : product.object_detail.thumbnail === null
+                                    ? require('~/img/icon/imageNull.png')
+                                    : { uri: product.object_detail.thumbnail }
                               }
                             />
-                            <TextProductName
-                              productName={product.object_detail.name_kor}
-                            />
-                          </LikeProductContainer>
-                        </>
+                          </ImageWrapper>
+                          <TextProductCompany
+                            productCompany={
+                              product.object_detail.manufacturer_kor
+                            }
+                          />
+                          <TextProductName
+                            productName={product.object_detail.name_kor}
+                          />
+                        </LikeProductContainer>
                       );
                     })
                   ) : (

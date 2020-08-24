@@ -1,10 +1,9 @@
 module.exports = {
   assets: ["./src/assets/fonts"],
   dependencies: {
-    "react-native-code-push": {
+    "@react-native-seoul/kakao-login": {
       platforms: {
-        android: null, // disable Android platform, other platforms will still autolink if provided
-        ios: null,
+        android: null,
       },
     },
   },

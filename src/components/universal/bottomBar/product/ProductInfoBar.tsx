@@ -5,11 +5,11 @@ import styled from 'styled-components/native';
 import { withNavigation } from '@react-navigation/compat';
 import { StackNavigationProp } from '@react-navigation/stack';
 import analytics from "@react-native-firebase/analytics";
-import AsyncStorage from '@react-native-community/async-storage';
+import AsyncStorage, { useAsyncStorage } from '@react-native-community/async-storage';
 
 import { RootTabParamList } from '~/navigation/RootTabNavigation';
 import { d, c, l } from '~/utils/constant';
-import { UserId, AsyncAccessToken } from '~/utils/asyncStorage';
+import { AsyncAccessToken } from '~/utils/asyncStorage';
 import { BASE_URL } from '~/utils/constant';
 import { useSelector } from 'react-redux';
 import { llog1, llog2 } from '~/utils/functions';
@@ -55,25 +55,30 @@ const ProductInfoBar = ({ children, navigation, productId }: Props) => {
   const [likedId, setLikedId] = useState(null);
   const _isLoggedin = useSelector((state) => state.authReducer.isLoggedin);
   llog1('hihihi');
+
+  const { getItem: getTokenItem } = useAsyncStorage(AsyncAccessToken);
+
   const _likeProduct = async () => {
     try {
-      const _token = await AsyncStorage.getItem(AsyncAccessToken);
+      const token = await getTokenItem();
+      if (!token) { Alert.alert('❄️', '로그인 후 이용해주세요!'); return; }
+
       const model = 'product';
       const object_id = productId;
-      const user = await AsyncStorage.getItem(UserId);
-      llog2('1-1.🍊like 생성 위한 token 잘 가져옴 ', _token);
-      llog2('1-2.🍊userId도...', user);
+      // const user = await AsyncStorage.getItem(UserId);
+      llog2('1-1.🍊like 생성 위한 token 잘 가져옴 ', token);
+      // llog2('1-2.🍊userId도...', user);
       const response = await fetch(`${BASE_URL}/likes/`, {
         method: 'POST',
         headers: {
           Accept: 'application/json',
           'Content-Type': 'application/json',
-          Authorization: `Bearer ${_token}`,
+          Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify({
           model,
           object_id,
-          user,
+          // user,
         }),
       });
       llog2('2. 🍊like post 성공! ', response);
@@ -86,14 +91,15 @@ const ProductInfoBar = ({ children, navigation, productId }: Props) => {
 
   const _deleteLiked = async () => {
     try {
-      const _token = await AsyncStorage.getItem(AsyncAccessToken);
+      const token = await getTokenItem();
+      if (!token) { Alert.alert('❄️', '로그인 후 이용해주세요!'); return; }
 
       const url = `${BASE_URL}/likes/${likedId}/`;
       const delteLike = await fetch(url, {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',
-          Authorization: `Bearer ${_token}`,
+          Authorization: `Bearer ${token}`,
         },
       });
 
@@ -106,13 +112,15 @@ const ProductInfoBar = ({ children, navigation, productId }: Props) => {
   };
   const _checkIsLiked = async () => {
     try {
-      const _token = await AsyncStorage.getItem(AsyncAccessToken);
+      const token = await getTokenItem();
+      if (!token) { Alert.alert('❄️', '로그인 후 이용해주세요!'); return; }
+
       const responseIsLiked = await fetch(
         `${BASE_URL}/likes/?model=product&object_id=${productId}`,
         {
           method: 'GET',
           headers: {
-            Authorization: `Bearer ${_token}`,
+            Authorization: `Bearer ${token}`,
           },
         }
       );
