@@ -130,7 +130,7 @@ const ProductRankingContainer = () => {
     if (url[url.length - 1] === '&' || url[url.length - 1] === '?') {
       url = url.substring(0, url.length - 1);
     }
-    console.log('🍎 url', url);
+    llog2('🍎 url', url);
 
     try {
       const response = await fetch(url);
