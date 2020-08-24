@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
+
 import ProductMain from '~/screens/product/ProductMain';
 import ProductInfo from '~/screens/product/ProductInfo';
 import Ranking from '~/screens/product/Ranking';
@@ -13,7 +14,32 @@ import Join3 from '~/screens/join/Join3';
 import Join4 from '~/screens/join/Join4';
 import SettingMain from '~/screens/setting/SettingMain';
 import HomeMain from '~/screens/home/HomeMain';
-const Stack = createStackNavigator();
+
+import { CategoryEnum, OrderEnum } from '~/containers/product/info/ProductRankingContainer';
+
+export interface RankingParamList {
+  category?: CategoryEnum
+  order?: OrderEnum
+}
+
+// TODO param 정리
+export type ProductStackParamList = {
+  ProductMain: undefined;
+  ProductInfo: undefined;
+  ReviewUpload1: undefined;
+  ReviewUpload2: undefined;
+  ReviewUpload3: undefined;
+  Ranking: RankingParamList;
+  SearchProduct: undefined;
+  Join1: undefined;
+  Join2: undefined;
+  Join3: undefined;
+  Join4: undefined;
+  SettimgMain: undefined;
+  HomeMain: undefined;
+}
+
+const Stack = createStackNavigator<ProductStackParamList>();
 
 export default () => {
   return (

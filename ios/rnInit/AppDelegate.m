@@ -6,6 +6,7 @@
 #import <Firebase.h>
 #import <CodePush/CodePush.h>
 #import <KakaoOpenSDK/KakaoOpenSDK.h>
+#import <React/RCTLinkingManager.h>
 
 #if DEBUG
 #import <FlipperKit/FlipperClient.h>
@@ -94,7 +95,7 @@ static void InitializeFlipper(UIApplication *application) {
         return [KOSession handleOpenURL:url];
     }
 
-    return false;
+    return [RCTLinkingManager application:application openURL:url options:options];
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application
