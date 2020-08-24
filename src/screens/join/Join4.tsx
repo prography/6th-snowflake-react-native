@@ -43,6 +43,10 @@ const NoticeText = styled.Text`
   font-size: ${d.px * 15}px;
   color: ${c.darkGray};
 `;
+
+const LeftMargin = styled.View`
+  margin-left: ${l.mR}px;
+`;
 interface Props {
   route: RouteProp<JoinStackParamList, 'Join4'>;
 }
@@ -165,7 +169,9 @@ const Join4 = ({ navigation, route }: Props) => {
         isFilled={true}
         onPressFunction={socialJoin ? _socialSignup : _signup}
       >
-        <TopBarBackArrowRightIcon />
+        <LeftMargin>
+          <TopBarBackArrowRightIcon />
+        </LeftMargin>
         <WelcomeText>{signUpName}님, 환영합니다.</WelcomeText>
         <MarginMedium />
         <NoiceTitleText>서로 존중하는 깨끗한 눈송이 문화를 위해</NoiceTitleText>

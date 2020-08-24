@@ -44,6 +44,10 @@ const CircleContainer = styled.View`
   justify-content: center;
 `;
 
+const LeftMargin = styled.View`
+  margin-left: ${l.mR}px;
+`;
+
 const CircleTextContatiner = styled.View``;
 interface Props {
   navigation: StackNavigationProp<JoinStackParamList, 'Join4'>;
@@ -137,7 +141,9 @@ const Join3 = ({ navigation, route }: Props) => {
               }
         }
       >
-        <TopBarBackArrowRightIcon />
+        <LeftMargin>
+          <TopBarBackArrowRightIcon />
+        </LeftMargin>
         <Container>
           <OneLineWrapper>
             <GuideText>{signUpName}님은</GuideText>

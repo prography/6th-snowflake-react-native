@@ -41,6 +41,10 @@ const LoginInfoInput = styled.TextInput`
   color: ${c.darkGray};
 `;
 
+const HeaderContainer = styled.View`
+  margin-left: ${d.px * 3}px;
+`;
+
 // 다희 로그인: d@d.com / aaa111
 const Login = ({ navigation }: Props) => {
   const dispatch = useDispatch();
@@ -138,7 +142,9 @@ const Login = ({ navigation }: Props) => {
       isFilled={isFilled}
     >
       <Container>
-        <TopBarWithIcon />
+        <HeaderContainer>
+          <TopBarBackArrowRightIcon />
+        </HeaderContainer>
         {LoginInputArry.map((data, index: number) => {
           return (
             <InputContainer key={index}>
