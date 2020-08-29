@@ -17,6 +17,9 @@ import HomeMain from '~/screens/home/HomeMain';
 
 import { CategoryEnum, OrderEnum } from '~/containers/product/info/ProductRankingContainer';
 
+export interface ProductInfoParamList {
+  productId: number;
+}
 export interface RankingParamList {
   category?: CategoryEnum
   order?: OrderEnum
@@ -25,7 +28,7 @@ export interface RankingParamList {
 // TODO param 정리
 export type ProductStackParamList = {
   ProductMain: undefined;
-  ProductInfo: undefined;
+  ProductInfo: ProductInfoParamList;
   ReviewUpload1: undefined;
   ReviewUpload2: undefined;
   ReviewUpload3: undefined;

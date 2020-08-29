@@ -9,6 +9,7 @@ interface Props {
   screen?: string;
   navigation: any;
   onPress?: () => void;
+  params?: {} | undefined;
 }
 
 const Container = styled.TouchableOpacity`
@@ -34,12 +35,12 @@ const TriangleArrow = styled.Image`
   margin-left: ${d.px * 5}px;
 `;
 
-const ButtonLinkPurple = ({ buttonText, stack, screen, navigation, onPress }: Props) => {
+const ButtonLinkPurple = ({ buttonText, stack, screen, navigation, onPress, params }: Props) => {
   return (
     <Container
       activeOpacity={1}
       onPress={onPress ? onPress : () => {
-        navigation.navigate(stack, { screen: screen });
+        navigation.navigate(stack, { screen, params });
       }}
     >
       <TextStyle>{buttonText}</TextStyle>

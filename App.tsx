@@ -12,20 +12,34 @@ import store from '~/store';
 import NavController from '~/screens/NavController';
 import { CommonProvider } from '~/context/CommonContext';
 
+// 문서: https://reactnavigation.org/docs/configuring-links
 const config = {
   screens: {
     HomeStack: {
       initialRouteName: 'HomeMain',
       screens: {
         HomeMain: {
-          path: '',
+          // path: '/homemain', // 첨부터 홈메인 들어오니까 필요 없긴 함
         }
       }
     },
     ProductStack: {
       initialRouteName: 'ProductMain',
       screens: {
-        Ranking: 'ranking/:category?/:order?',
+        ProductInfo: {
+          path: 'productInfo/:productId',
+          parse: {
+            productId: Number,
+          },
+        },
+        Ranking: 'ranking/:category?/:order?', // deep link로 이렇게 세팅해놓은 스크린은 딥링크로 한 번 들어오면 이 param이 계속 설정되어 있어서 딥링크로 들어가지 않고, 그 스크린에 param이 항상 필요 없다면 꼭 params: undefined로 해줘야 함.
+      }
+    },
+    JoinStack: {
+      screens: {
+        Login: {
+          path: 'login',
+        }
       }
     },
     // NotFound: '*',

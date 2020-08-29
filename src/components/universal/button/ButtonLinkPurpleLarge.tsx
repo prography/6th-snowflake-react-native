@@ -2,6 +2,7 @@ import * as React from 'react';
 import styled from 'styled-components/native';
 import { withNavigation } from '@react-navigation/compat';
 import analytics from "@react-native-firebase/analytics";
+import { useLinkTo } from '@react-navigation/native';
 
 import { d, c } from '~/utils/constant';
 import TextBottomBtn from '../text/TextBottomBtn';
@@ -38,12 +39,18 @@ const TriangleArrow = styled.Image`
 `;
 
 const ButtonLinkPurpleLarge = ({ buttonText, link, navigation }: Props) => {
+  const linkTo = useLinkTo();
   return (
     <Container
       activeOpacity={1}
       onPress={() => {
         analytics().logEvent("press_btn_in_home", { link });
         navigation.navigate(link);
+
+        // 딥링크 테스트용 코드
+        // linkTo('/ranking?category=&order=')
+        // linkTo('/ranking?category=DELAY&order=num_of_reviews')
+        // linkTo('/productInfo/42')
       }}
     >
       <TextBottomBtn btnName={buttonText} />

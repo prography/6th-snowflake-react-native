@@ -206,4 +206,4 @@ const JoinScreen = ({ navigation }: Props) => {
   );
 };
 
-export default withNavigation(JoinScreen);
+export default JoinScreen;

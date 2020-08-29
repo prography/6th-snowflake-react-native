@@ -12,7 +12,7 @@ import MarginBottom from '~/components/universal/margin/MarginBottom';
 import LineGrayMiddle from '~/components/universal/line/LineGrayMiddle';
 import LineGrayRightLong from '~/components/universal/line/LineGrayRightLong';
 import MarginNarrow from '~/components/universal/margin/MarginNarrow';
-import { llog2 } from '~/utils/functions';
+import { llog2, llog3 } from '~/utils/functions';
 import { RankingParamList } from '~/navigation/tabs/ProductStack';
 
 const NARROW_MARGIN = d.px * 9;
@@ -110,7 +110,13 @@ export enum OrderEnum {
   avg_durability = 'avg_durability',
 }
 
-const categoryList = [
+interface CategoryObj {
+  categoryEnum: CategoryEnum;
+  categoryText: string;
+  first: boolean;
+  last: boolean;
+}
+const categoryList: CategoryObj[] = [
   {
     categoryEnum: CategoryEnum.NONE,
     categoryText: '전체',
@@ -155,7 +161,11 @@ const categoryList = [
   },
 ];
 
-const orderFilterList = [
+interface OrderFilter {
+  orderEnum: OrderEnum;
+  orderText: string;
+}
+const orderFilterList: OrderFilter[] = [
   {
     orderEnum: OrderEnum.NONE,
     orderText: '총점순',
@@ -183,11 +193,11 @@ interface Props {
 }
 
 const ProductRankingContainer = ({ serverParams }: Props) => {
+  llog2('🦨 serverParams', serverParams);
   const [_rankingList, _setRankingList] = useState(null);
-  const [orderText, setOrderText] = useState(orderFilterList[0].orderText);
-  const [selectedCategory, setSelectedCategory] = useState(CategoryEnum.NONE);
+  const [selectedCategory, setSelectedCategory] = useState<CategoryEnum>(CategoryEnum.NONE);
   const [showOrderFilter, setShowOrderFilter] = useState(false);
-  const [selectedOrder, setSelectedOrder] = useState(OrderEnum.NONE);
+  const [selectedOrder, setSelectedOrder] = useState<OrderEnum>(OrderEnum.NONE);
 
   const _getRankingList = async () => {
     let url = `${BASE_URL}/products/condom?`;
@@ -215,8 +225,13 @@ const ProductRankingContainer = ({ serverParams }: Props) => {
     }
   };
 
+  const _getOrderTextBySelectedOrder = () => {
+    const found = orderFilterList.find((orderFilter: OrderFilter) => orderFilter.orderEnum === selectedOrder);
+    llog3('😎😎😎😎 selectedOrder found', selectedOrder, found)
+    return found?.orderText;
+  };
+
   useEffect(() => {
-    llog2('🦨 serverParams', serverParams);
     if (serverParams) {
       setSelectedCategory(serverParams.category);
       setSelectedOrder(serverParams.order);
@@ -268,7 +283,7 @@ const ProductRankingContainer = ({ serverParams }: Props) => {
             setShowOrderFilter(!showOrderFilter);
           }}
         >
-          <FilterText showOrderFilter={showOrderFilter}>{orderText}</FilterText>
+          <FilterText showOrderFilter={showOrderFilter}>{_getOrderTextBySelectedOrder()}</FilterText>
         </FilterBox>
       </FilterWrapper>
       {showOrderFilter && (
@@ -279,8 +294,6 @@ const ProductRankingContainer = ({ serverParams }: Props) => {
                 key={index + 100}
                 onPress={() => {
                   analytics().logEvent("press_order_in_ranking", { order: filter.orderEnum });
-
-                  setOrderText(filter.orderText);
                   setSelectedOrder(filter.orderEnum);
                 }}
                 selectedOrder={selectedOrder}

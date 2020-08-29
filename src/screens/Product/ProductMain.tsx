@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import { SafeAreaView, Text, ScrollView, View } from 'react-native';
 import styled from 'styled-components/native';
 import analytics from "@react-native-firebase/analytics";
+import { useLinkTo } from '@react-navigation/native';
 
 import { d, c, BASE_URL } from '~/utils/constant';
 import NavBar from '~/screens/NavBar';
@@ -22,6 +23,8 @@ const Container = styled.View`
 `;
 
 const ProductMain = ({ navigation }) => {
+  const linkTo = useLinkTo();
+
   const _getCondomList = async () => {
     try {
       const response = await fetch(`${BASE_URL}/products/condom/`);
@@ -35,6 +38,13 @@ const ProductMain = ({ navigation }) => {
   useEffect(() => {
     _getCondomList();
     analytics().setCurrentScreen("ProductMain");
+
+    // 딥링크 테스트용 코드
+    // setTimeout(() => { // 이거 없으면 가끔 안넘어감
+    // linkTo('/ranking?category=DELAY&order=num_of_reviews')
+    // linkTo('/productInfo/42')
+    // linkTo('/login')
+    // }, 1000)
   }, []);
   return (
     <>
