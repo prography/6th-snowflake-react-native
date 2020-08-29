@@ -10,6 +10,7 @@ import { StackActions } from '@react-navigation/native';
 
 import { useAsyncStorage } from '@react-native-community/async-storage';
 import { WomanColor, ManColor } from '~/utils/asyncStorage';
+import { setWomanColor, setManColor } from '~/modules/join/genderColorReducer';
 
 interface Props {
   children: React.ReactNode;
@@ -41,15 +42,6 @@ const ButtonGenderColor = ({ children, navigation }: Props) => {
     (state: State) => state.genderColorReducer.manColor
   );
 
-  const setWomanColor = (cColor) => {
-    dispatch({ type: 'SET_WOMAN_COLOR', womanColor: cColor });
-  };
-  const setManColor = (cColor) => {
-    dispatch({ type: 'SET_MAN_COLOR', manColor: cColor });
-  };
-
-
-
   const { setItem: setWomanColorAS } = useAsyncStorage(WomanColor);
   const { setItem: setManColorAS } = useAsyncStorage(ManColor);
 
@@ -59,12 +51,12 @@ const ButtonGenderColor = ({ children, navigation }: Props) => {
 
   const pressFunc = async () => {
     womanColor && manColor && navigation.dispatch(StackActions.popToTop())
-    
+
     await setWomanColorAS(womanColor);
     await setManColorAS(manColor);
 
-    setWomanColor(womanColor);
-    setManColor(manColor);
+    dispatch(setWomanColor(womanColor));
+    dispatch(setManColor(womanColor));
   }
 
   return (

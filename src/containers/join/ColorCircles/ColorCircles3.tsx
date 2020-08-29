@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import styled from 'styled-components/native';
 import { d, c, circleColor3 } from '~/utils/constant';
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import { setWomanColor, setManColor } from '~/modules/join/genderColorReducer';
 
 const OneLine = styled.View`
   flex-direction: row;
@@ -18,21 +19,14 @@ const ColorCircles3 = () => {
     (state: State) => state.genderColorReducer.manColor
   );
 
-  const setWomanColor = (cColor) => {
-    dispatch({ type: 'SET_WOMAN_COLOR', womanColor: cColor });
-  };
-  const setManColor = (cColor) => {
-    dispatch({ type: 'SET_MAN_COLOR', manColor: cColor });
-  };
-
   const setColor = (cColor) => {
     womanColor === null
-      ? setWomanColor(cColor)
+      ? dispatch(setWomanColor(cColor))
       : manColor === null
         ? womanColor === cColor
           ? alert('다른 색을 골라주세요')
-          : setManColor(cColor)
-        : [setManColor(null), setWomanColor(cColor)];
+          : dispatch(setManColor(cColor))
+        : [dispatch(setManColor(null)), dispatch(setWomanColor(cColor))];
   };
 
   return (
