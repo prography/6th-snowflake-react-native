@@ -12,6 +12,8 @@ import TextProductCompany from '~/components/universal/text/product/TextProductC
 import TextProductName from '~/components/universal/text/product/TextProductName';
 import Blinder from '~/components/product/Blinder';
 import MarginWide from '~/components/universal/margin/MarginWide';
+import BackButton from '~/components/universal/button/BackButton';
+
 const Container = styled.View`
   flex: 1;
   background-color: white;
@@ -26,10 +28,11 @@ const TopBarContainer = styled.View`
   justify-content: flex-start;
   background-color: transparent;
 `;
+
 const SearchInput = styled.TextInput`
   background-color: ${c.mint};
   height: ${d.px * 40}px;
-  width: ${d.px * 260}px;
+  width: ${d.px * 240}px;
   padding: ${d.px * 5}px ${d.px * 10}px;
   font-family: Jost-Book;
   font-size: ${d.px * 17}px;
@@ -98,6 +101,7 @@ const SearchProduct = ({ navigation }: Props) => {
   return (
     <Container>
       <TopBarContainer>
+        <BackButton/>
         <SearchInput
           placeholderTextColor={c.lightGray}
           placeholder={'검색어를 입력해주세요'}

@@ -16,6 +16,8 @@ import MarginWide from '~/components/universal/margin/MarginWide';
 import TopBarBackArrowRightIcon from '~/components/universal/topBar/TopBarBackArrowRightIcon';
 import GenderCircle from '~/components/universal/profile/GenderCircle';
 import MarginMedium from '~/components/universal/margin/MarginMedium';
+import { useAsyncStorage } from '@react-native-community/async-storage';
+import { WomanColor, ManColor } from '~/utils/asyncStorage';
 const Container = styled.View`
   margin: 0 ${l.mR}px;
 `;
@@ -44,6 +46,10 @@ const CircleContainer = styled.View`
   justify-content: center;
 `;
 
+const LeftMargin = styled.View`
+  margin-left: ${l.mR}px;
+`;
+
 const CircleTextContatiner = styled.View``;
 interface Props {
   navigation: StackNavigationProp<JoinStackParamList, 'Join4'>;
@@ -61,6 +67,10 @@ const Join3 = ({ navigation, route }: Props) => {
   console.log('🍊', route.params);
   const [isFilled, setIsFilled] = useState(false);
 
+  const { setItem: setWomanColor } = useAsyncStorage(WomanColor);
+  const { setItem: setManColor } = useAsyncStorage(ManColor);
+
+  
   const dispatch = useDispatch();
 
   const _userGender = useSelector(
@@ -137,7 +147,9 @@ const Join3 = ({ navigation, route }: Props) => {
               }
         }
       >
-        <TopBarBackArrowRightIcon />
+        <LeftMargin>
+          <TopBarBackArrowRightIcon />
+        </LeftMargin>
         <Container>
           <OneLineWrapper>
             <GuideText>{signUpName}님은</GuideText>

@@ -14,6 +14,7 @@ import BottomBtnCollectData from '~/components/universal/bottomBar/BottomBtnColl
 import MarginWide from '~/components/universal/margin/MarginWide';
 import TopBarLeftIcon from '~/components/universal/topBar/TopBarLeftIcon';
 import TopBarWithIcon from '~/components/universal/topBar/TopBarRightIcon';
+import TopBarBackArrowRightIcon from '~/components/universal/topBar/TopBarBackArrowRightIcon';
 const Container = styled.View`
   margin: 0 ${l.mR}px;
 `;
@@ -174,7 +175,7 @@ const Join1 = () => {
         }}
       >
         <Container>
-          <TopBarWithIcon />
+          <TopBarBackArrowRightIcon />
           {JoinInputArray.map((data) => {
             return (
               <>

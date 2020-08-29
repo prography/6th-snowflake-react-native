@@ -52,6 +52,9 @@ const JoinText = styled.Text`
   line-height: ${JOIN_BOX_HEIGHT}px;
 `;
 
+const LeftMargin = styled.View`
+  margin-left: ${l.mR}px;
+`;
 interface Props {
   navigation: StackNavigationProp<JoinStackParamList, 'JoinScreen'>;
 }
@@ -174,7 +177,9 @@ const JoinScreen = ({ navigation }: Props) => {
   return (
     <>
       <Container>
-        <TopBarBackArrowRightIcon />
+        <LeftMargin>
+          <TopBarBackArrowRightIcon />
+        </LeftMargin>
         {joinArray.map((join, index: number) => {
           // apple login은 iOS 기기에만 보여준다
           if (join.guide === 'apple' && isAndroid) {

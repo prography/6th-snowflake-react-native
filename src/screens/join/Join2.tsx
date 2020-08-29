@@ -75,6 +75,10 @@ const WarningText = styled.Text`
   height: ${d.px * 20}px;
 `;
 
+const LeftMargin = styled.View`
+  margin-left: ${l.mR}px;
+`;
+
 interface Props {
   navigation: StackNavigationProp<JoinStackParamList, 'Join3'>;
   route: RouteProp<JoinStackParamList, 'Join2'>;
@@ -157,7 +161,9 @@ const Join2 = ({ navigation, route }: Props) => {
             }
         }
       >
-        <TopBarBackArrowRightIcon />
+        <LeftMargin>
+          <TopBarBackArrowRightIcon />
+        </LeftMargin>
         <Container>
           <OneLineWrapper>
             <GuideContainer>

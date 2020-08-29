@@ -19,6 +19,7 @@ import MarginBottom from '~/components/universal/margin/MarginBottom';
 import MarginMedium from '~/components/universal/margin/MarginMedium';
 import ButtonGenderColor from '~/containers/join/ColorCircles/ButtonGenderColor';
 import GenderCircle from '~/components/universal/profile/GenderCircle';
+import TopBarBackArrowRightIcon from '~/components/universal/topBar/TopBarBackArrowRightIcon';
 
 const Container = styled.View`
   flex-direction: column;
@@ -68,7 +69,7 @@ const GenderColor = () => {
   return (
     <ButtonGenderColor>
       <Container>
-        <TopBarWithIcon />
+        <TopBarBackArrowRightIcon />
         <TextContainer>
           <OneTextLine>
             <TextTitleDarkLeft title={'나는 여성은'} />

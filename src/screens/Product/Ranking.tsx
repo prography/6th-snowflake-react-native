@@ -5,7 +5,6 @@ import analytics from "@react-native-firebase/analytics";
 
 import { d } from '~/utils/constant';
 import ProductRankingContainer from '~/containers/product/info/ProductRankingContainer';
-import TopBarBackArrowRightIcon from '~/components/universal/topBar/TopBarBackArrowRightIcon';
 import TopBarBackArrow from '~/components/universal/topBar/TopBarBackArrow';
 import TopBarBackArrowSearchBar from '~/components/universal/topBar/TopBarBackArrowSearchBar';
 
