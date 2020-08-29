@@ -2,6 +2,7 @@ import * as React from 'react';
 import styled from 'styled-components/native';
 import { d, c } from '~/utils/constant';
 import ButtonLinkPurple from '~/components/universal/button/ButtonLinkPurple';
+import { RankingParamList } from '~/navigation/tabs/ProductStack';
 
 interface Props {
   title: string;
@@ -9,6 +10,7 @@ interface Props {
   screen?: string;
   buttonText: string;
   onPress?: () => void;
+  params?: {} | undefined;
 }
 
 const Container = styled.View`
@@ -31,11 +33,12 @@ const TextTitleDarkPurpleLink = ({
   screen,
   buttonText,
   onPress,
+  params,
 }: Props) => {
   return (
     <Container>
       <TextStyle>{title}</TextStyle>
-      <ButtonLinkPurple buttonText={buttonText} stack={stack} screen={screen} onPress={onPress} />
+      <ButtonLinkPurple buttonText={buttonText} stack={stack} screen={screen} onPress={onPress} params={params} />
     </Container>
   );
 };

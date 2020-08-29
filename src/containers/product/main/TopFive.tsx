@@ -36,6 +36,7 @@ const TopFive = () => {
           buttonText={'모든 제품 보기'}
           stack={'ProductStack'}
           screen={'Ranking'}
+          params={undefined}
         />
         <MarginMedium />
         {_topFiveList === null ? (

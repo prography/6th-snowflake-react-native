@@ -17,6 +17,7 @@ import ProductInfoReview from '~/containers/product/info/ProductInfoReview';
 import TopBarBackArrow from '~/components/universal/topBar/TopBarBackArrow';
 import ProductInfoBar from '~/components/universal/bottomBar/product/ProductInfoBar';
 import TextTitlePurpleRight from '~/components/universal/text/TextTitlePurpleRight';
+import { llog2 } from '~/utils/functions';
 
 const Container = styled.View`
   flex-direction: column;
@@ -25,6 +26,7 @@ const Container = styled.View`
 
 const ProductInfo = ({ route, navigation }) => {
   const { productId } = route.params;
+  llog2('🍒🍒productId', productId)
 
   const [productInfo, setProductInfo] = useState(null);
 
