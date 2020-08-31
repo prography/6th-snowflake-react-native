@@ -22,7 +22,7 @@ const Container = styled.View`
   align-items: flex-start;
 `;
 
-const ProductMain = ({ navigation }) => {
+const ProductMain = () => {
   const linkTo = useLinkTo();
 
   const _getCondomList = async () => {

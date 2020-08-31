@@ -16,8 +16,12 @@ import SettingMain from '~/screens/setting/SettingMain';
 import HomeMain from '~/screens/home/HomeMain';
 
 import { CategoryEnum, OrderEnum } from '~/containers/product/info/ProductRankingContainer';
+import { Join2Params, Join3Params, Join4Params } from './JoinStack';
 
 export interface ProductInfoParamList {
+  productId: number;
+}
+export interface ReviewUpload1ParamList {
   productId: number;
 }
 export interface RankingParamList {
@@ -29,15 +33,15 @@ export interface RankingParamList {
 export type ProductStackParamList = {
   ProductMain: undefined;
   ProductInfo: ProductInfoParamList;
-  ReviewUpload1: undefined;
+  ReviewUpload1: ReviewUpload1ParamList;
   ReviewUpload2: undefined;
   ReviewUpload3: undefined;
   Ranking: RankingParamList;
   SearchProduct: undefined;
   Join1: undefined;
-  Join2: undefined;
-  Join3: undefined;
-  Join4: undefined;
+  Join2: Join2Params;
+  Join3: Join3Params;
+  Join4: Join4Params;
   SettimgMain: undefined;
   HomeMain: undefined;
 }

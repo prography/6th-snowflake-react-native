@@ -5,19 +5,24 @@ import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import analytics from "@react-native-firebase/analytics";
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import { useAsyncStorage } from '@react-native-community/async-storage';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { RouteProp } from '@react-navigation/native';
 
 import { d, c, l } from '~/utils/constant';
 import {
   setUserGender,
   setUserPartnerGender,
-} from '~/modules/join/userInfoReducer';
+} from '~/store/modules/join/userInfo';
 import BottomBtnCollectData from '~/components/universal/bottomBar/BottomBtnCollectData';
 import MarginWide from '~/components/universal/margin/MarginWide';
 import TopBarBackArrowRightIcon from '~/components/universal/topBar/TopBarBackArrowRightIcon';
 import GenderCircle from '~/components/universal/profile/GenderCircle';
 import MarginMedium from '~/components/universal/margin/MarginMedium';
-import { useAsyncStorage } from '@react-native-community/async-storage';
 import { WomanColor, ManColor } from '~/utils/asyncStorage';
+import { RootState } from '~/store/modules';
+import { JoinStackParamList } from '~/navigation/tabs/JoinStack';
+
 const Container = styled.View`
   margin: 0 ${l.mR}px;
 `;
@@ -64,52 +69,34 @@ const Join3 = ({ navigation, route }: Props) => {
     socialJoin,
     _token,
   } = route.params;
-  console.log('🍊', route.params);
   const [isFilled, setIsFilled] = useState(false);
 
-  const { setItem: setWomanColor } = useAsyncStorage(WomanColor);
-  const { setItem: setManColor } = useAsyncStorage(ManColor);
-
-  
   const dispatch = useDispatch();
 
   const _userGender = useSelector(
-    (state: State) => state.userInfoReducer.userGender
+    (state: RootState) => state.join.userInfo.userGender,
   );
-  const _setUserGender = (userGender: State) => {
-    dispatch(setUserGender(userGender));
-  };
   const _userPartnerGender = useSelector(
-    (state: State) => state.userInfoReducer.userPartnerGender
+    (state: RootState) => state.join.userInfo.userPartnerGender,
   );
-  const _setUserPartnerGender = (userPartnerGender: State) => {
-    dispatch(setUserPartnerGender(userPartnerGender));
-  };
+
   useEffect(() => {
     setIsFilled(_userGender && _userPartnerGender ? true : false);
   }, [_userGender, _userPartnerGender]);
 
   const setGender = (selectedGender) => {
     _userGender === null
-      ? _setUserGender(selectedGender)
+      ? dispatch(setUserGender(selectedGender))
       : _userPartnerGender === null
-        ? _setUserPartnerGender(selectedGender)
-        : [_setUserPartnerGender(null), _setUserGender(selectedGender)];
+        ? dispatch(setUserPartnerGender(selectedGender))
+        : [dispatch(setUserPartnerGender(null)), dispatch(setUserGender(selectedGender))];
   };
 
-  // const [genderInput, setGenderInput] = useState('');
-  // const [genderPartnerInput, setGenderPartnerInput] = useState('');
-  interface State {
-    womanColor: string;
-    manColor: string;
-    genderColorReducer: string;
-  }
-
   const womanColor = useSelector(
-    (state: State) => state.genderColorReducer.womanColor
+    (state: RootState) => state.join.genderColor.womanColor,
   );
   const manColor = useSelector(
-    (state: State) => state.genderColorReducer.manColor
+    (state: RootState) => state.join.genderColor.manColor,
   );
 
   const [bothColor, setBothColor] = useState(c.purple);
@@ -129,22 +116,22 @@ const Join3 = ({ navigation, route }: Props) => {
         params={
           socialJoin
             ? {
-                signUpName: signUpName,
-                signUpYear: signUpYear,
-                signUpGender: _userGender,
-                signUpPartnerGender: _userPartnerGender,
-                socialJoin: socialJoin,
-                _token: _token,
-              }
+              signUpName: signUpName,
+              signUpYear: signUpYear,
+              signUpGender: _userGender,
+              signUpPartnerGender: _userPartnerGender,
+              socialJoin: socialJoin,
+              _token: _token,
+            }
             : {
-                signUpEmail: signUpEmail,
-                signUpPassword: signUpPassword,
-                signUpName: signUpName,
-                signUpYear: signUpYear,
-                signUpGender: _userGender,
-                signUpPartnerGender: _userPartnerGender,
-                socialJoin: socialJoin,
-              }
+              signUpEmail: signUpEmail,
+              signUpPassword: signUpPassword,
+              signUpName: signUpName,
+              signUpYear: signUpYear,
+              signUpGender: _userGender,
+              signUpPartnerGender: _userPartnerGender,
+              socialJoin: socialJoin,
+            }
         }
       >
         <LeftMargin>

@@ -1,17 +1,14 @@
 import * as React from 'react';
 import { useState } from 'react';
-import { Text } from 'react-native';
 import analytics from "@react-native-firebase/analytics";
 import styled from 'styled-components/native';
 import { useSelector, useDispatch } from 'react-redux';
 
-import {
-  State,
-  setScore,
-} from '~/modules/product/reviewUpload/reviewUploadReducer';
+import { setScore } from '~/store/modules/product/reviewUpload';
 import { d, c, l } from '~/utils/constant';
 import MarginMedium from '~/components/universal/margin/MarginMedium';
 import TextMiddleTitleDark from '~/components/universal/text/TextMiddleTitleDark';
+import { RootState } from '~/store/modules';
 
 const TOUCH_AREA = d.px * 40;
 const CHECKBOX_SIZE = d.px * 15;
@@ -94,12 +91,11 @@ const CheckText = styled.Text`
 const ReviewUploadScore = () => {
   const dispatch = useDispatch();
   const [checked, setChecked] = useState(false);
-  const _score = useSelector((state: State) => state.reviewUploadReducer.score);
-  const _setScore = (score: State) => {
-    dispatch(setScore(score));
-  };
+  const _score = useSelector(
+    (state: RootState) => state.product.reviewUpload.score,
+  );
   const _trioAverage = useSelector(
-    (state: State) => state.reviewUploadReducer.trioAverage
+    (state: RootState) => state.product.reviewUpload.trioAverage,
   );
 
   const oneToFive = [
@@ -131,7 +127,7 @@ const ReviewUploadScore = () => {
                   <StarTouchArea
                     key={index}
                     onPress={() => {
-                      _setScore(star.score);
+                      dispatch(setScore(star.score));
                     }}
                   >
                     <Star selfScore={star.score} givenScore={_score}>
@@ -156,10 +152,10 @@ const ReviewUploadScore = () => {
         onPress={() => {
           if (checked) {
             analytics().logEvent("set_score_to_custom_average");
-            _setScore(Math.round(_trioAverage));
+            dispatch(setScore(Math.round(_trioAverage)));
           } else {
             analytics().logEvent("set_score_to_trio_average");
-            _setScore(_trioAverage)
+            dispatch(setScore(_trioAverage));
           }
           setChecked(!checked);
         }}

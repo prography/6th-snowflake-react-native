@@ -1,8 +1,9 @@
 import * as React from 'react';
 import { useState, useEffect } from 'react';
-import { Text, Image, ScrollView } from 'react-native';
+import { ScrollView } from 'react-native';
 import analytics from "@react-native-firebase/analytics";
 import styled from 'styled-components/native';
+import { RouteProp } from '@react-navigation/native';
 
 import { BASE_URL } from '~/utils/constant';
 import MarginBottom from '~/components/universal/margin/MarginBottom';
@@ -18,13 +19,18 @@ import TopBarBackArrow from '~/components/universal/topBar/TopBarBackArrow';
 import ProductInfoBar from '~/components/universal/bottomBar/product/ProductInfoBar';
 import TextTitlePurpleRight from '~/components/universal/text/TextTitlePurpleRight';
 import { llog2 } from '~/utils/functions';
+import { ProductStackParamList } from '~/navigation/tabs/ProductStack';
 
 const Container = styled.View`
   flex-direction: column;
   align-items: flex-start;
 `;
 
-const ProductInfo = ({ route, navigation }) => {
+interface Props {
+  route: RouteProp<ProductStackParamList, 'ProductInfo'>;
+}
+
+const ProductInfo = ({ route }: Props) => {
   const { productId } = route.params;
   llog2('🍒🍒productId', productId)
 

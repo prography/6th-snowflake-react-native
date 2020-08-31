@@ -1,9 +1,9 @@
 import * as React from 'react';
-import { Text } from 'react-native';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components/native';
 import analytics from "@react-native-firebase/analytics";
 import { withNavigation } from '@react-navigation/compat';
+import { StackNavigationProp } from '@react-navigation/stack';
 
 import { d, c } from '~/utils/constant';
 import TextMiddleTitleDark from '~/components/universal/text/TextMiddleTitleDark';
@@ -11,6 +11,8 @@ import TextProductCompany from '~/components/universal/text/product/TextProductC
 import TextProductName from '~/components/universal/text/product/TextProductName';
 import MarginNarrow from '~/components/universal/margin/MarginNarrow';
 import TextLink from '~/components/universal/text/TextLink';
+import { RootState } from '~/store/modules';
+import { ProductStackParamList } from '~/navigation/tabs/ProductStack';
 
 const Container = styled.View`
   width: ${(d.width - d.px * 70) / 2}px;
@@ -39,7 +41,7 @@ interface Props {
   productCompany: string;
   productName: string;
   imageUri: string;
-  navigation: any;
+  navigation: StackNavigationProp<ProductStackParamList>;
 }
 const TrioBox = ({
   id,
@@ -50,7 +52,7 @@ const TrioBox = ({
   navigation,
 }: Props) => {
   const blindState = useSelector(
-    (state: State) => state.blindReducer.blindState
+    (state: RootState) => state.product.blind.blindState,
   );
   return (
     <Container>

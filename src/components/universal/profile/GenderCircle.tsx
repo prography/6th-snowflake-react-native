@@ -2,11 +2,12 @@ import * as React from 'react';
 import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import styled from 'styled-components/native';
-import { d, c } from '~/utils/constant';
-
 import { useAsyncStorage } from '@react-native-community/async-storage';
+
+import { d, c } from '~/utils/constant';
 import { WomanColor, ManColor } from '~/utils/asyncStorage';
-import { setWomanColor, setManColor } from '~/modules/join/genderColorReducer';
+import { setWomanColor, setManColor } from '~/store/modules/join/genderColor';
+import { RootState } from '~/store/modules';
 
 
 interface Props {
@@ -51,12 +52,11 @@ const GenderCircle = ({ gender, size, who }: Props) => {
   const dispatch = useDispatch();
 
   const womanColor = useSelector(
-    (state: State) => state.genderColorReducer.womanColor
+    (state: RootState) => state.join.genderColor.womanColor,
   );
   const manColor = useSelector(
-    (state: State) => state.genderColorReducer.manColor
+    (state: RootState) => state.join.genderColor.manColor,
   );
-
 
   const [woman, setWoman] = useState(null);
   const [man, setMan] = useState(null);
@@ -75,9 +75,6 @@ const GenderCircle = ({ gender, size, who }: Props) => {
     }
     getASColor();
   }, [])
-
-
-
 
   return (
     <>

@@ -1,18 +1,13 @@
 import * as React from 'react';
-import styled from 'styled-components/native';
-import { useEffect, useState } from 'react';
-import { all, fork, takeLatest, call, put, take } from 'redux-saga/effects';
-import { Text, ScrollView, Alert } from 'react-native';
+import { useEffect } from 'react';
+import { ScrollView, Alert } from 'react-native';
 import analytics from "@react-native-firebase/analytics";
 import { useSelector, useDispatch } from 'react-redux';
 import { useAsyncStorage } from '@react-native-community/async-storage';
-import { TouchableOpacity } from 'react-native-gesture-handler';
+import { StackNavigationProp } from '@react-navigation/stack';
 
 import { BASE_URL } from '~/utils/constant';
-import {
-  State,
-  resetReviewUploadStore,
-} from '~/modules/product/reviewUpload/reviewUploadReducer';
+import { resetReviewUploadStore } from '~/store/modules/product/reviewUpload';
 import Blinder from '~/components/product/Blinder';
 import TopBarBackArrow from '~/components/universal/topBar/TopBarBackArrow';
 import LineGrayMiddle from '~/components/universal/line/LineGrayMiddle';
@@ -21,44 +16,43 @@ import MarginMedium from '~/components/universal/margin/MarginMedium';
 import ReviewUploadContent from '~/containers/product/review/ReviewUploadContent';
 import BottomBtnCollectData from '~/components/universal/bottomBar/BottomBtnCollectData';
 import { AsyncAccessToken } from '~/utils/asyncStorage';
+import { RootState } from '~/store/modules';
+import { ProductStackParamList } from '~/navigation/tabs/ProductStack';
 
-const Container = styled.View`
-  flex-direction: column;
-  align-items: center;
-`;
+interface Props {
+  navigation: StackNavigationProp<ProductStackParamList, 'ReviewUpload3'>;
+}
 
-const ReviewUpload3 = ({ navigation }) => {
+const ReviewUpload3 = ({ navigation }: Props) => {
   const dispatch = useDispatch();
   const _isFilledReviewUpload3 = useSelector(
-    (state: State) => state.reviewUploadReducer.isFilledReviewUpload3
+    (state: RootState) => state.product.reviewUpload.isFilledReviewUpload3,
   );
   const _reviewUploadProductId = useSelector(
-    (state: State) => state.reviewUploadReducer.reviewUploadProductId
+    (state: RootState) => state.product.reviewUpload.reviewUploadProductId,
   );
   const _reviewContent = useSelector(
-    (state: State) => state.reviewUploadReducer.reviewContent
+    (state: RootState) => state.product.reviewUpload.reviewContent,
   );
   const _thicknessScore = useSelector(
-    (state: State) => state.reviewUploadReducer.thicknessScore
+    (state: RootState) => state.product.reviewUpload.thicknessScore,
   );
   const _durabilityScore = useSelector(
-    (state: State) => state.reviewUploadReducer.durabilityScore
+    (state: RootState) => state.product.reviewUpload.durabilityScore,
   );
   const _oilyScore = useSelector(
-    (state: State) => state.reviewUploadReducer.oilyScore
+    (state: RootState) => state.product.reviewUpload.oilyScore,
   );
   const _myGender = useSelector(
-    (state: State) => state.reviewUploadReducer.myGender
+    (state: RootState) => state.product.reviewUpload.myGender,
   );
   const _partnerGender = useSelector(
-    (state: State) => state.reviewUploadReducer.partnerGender
+    (state: RootState) => state.product.reviewUpload.partnerGender,
   );
 
-  const _score = useSelector((state: State) => state.reviewUploadReducer.score);
-
-  const _resetReviewUploadStore = () => {
-    dispatch(resetReviewUploadStore());
-  };
+  const _score = useSelector(
+    (state: RootState) => state.product.reviewUpload.score,
+  );
 
   const { getItem: getTokenItem } = useAsyncStorage(AsyncAccessToken);
 
@@ -98,8 +92,8 @@ const ReviewUpload3 = ({ navigation }) => {
       });
       const json = await response.json();
       console.log('🎃3_reviews 업로드도 반응이 오나요?', json);
-      await _resetReviewUploadStore();
-      await navigation.navigate('ProductStack', { screen: 'ProductMain' });
+      dispatch(resetReviewUploadStore());
+      navigation.navigate('ProductStack', { screen: 'ProductMain' });
     } catch (error) {
       console.log('🎃 review업로드 안 됐다리', error);
     }

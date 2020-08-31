@@ -13,6 +13,7 @@ import GenderLoop from '~/components/universal/profile/GenderLoop';
 import LineGrayMiddle from '~/components/universal/line/LineGrayMiddle';
 import MarginNarrow from '~/components/universal/margin/MarginNarrow';
 import MarginMedium from '~/components/universal/margin/MarginMedium';
+import { RootState } from '~/store/modules';
 
 const NARROW_MARGIN = d.px * 9;
 const TEXT_HEIGHT = d.px * 16;
@@ -115,10 +116,10 @@ const ProductInfoReviewFilter = ({ setReviewArray, productId }: Props) => {
   const [partnerParam, setPartnerParam] = useState(PartnerEnum.NONE);
   const [showGenderPartnerFilter, setShowGenderPartnerFilter] = useState(false);
   const womanColor = useSelector(
-    (state: State) => state.genderColorReducer.womanColor
+    (state: RootState) => state.join.genderColor.womanColor,
   );
   const manColor = useSelector(
-    (state: State) => state.genderColorReducer.manColor
+    (state: RootState) => state.join.genderColor.manColor,
   );
   const genderFilterList = [
     {

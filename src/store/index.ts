@@ -1,7 +1,8 @@
 import { createStore, Unsubscribe, applyMiddleware } from "redux";
-import rootReducer from "~/modules/index";
 import createSagaMiddleware from "redux-saga";
-import rootSaga from "~/saga";
+
+import rootSaga from "~/store/saga";
+import rootReducer from "./modules";
 
 // interface Store {
 //   dispatch: Dispatch<Action>;

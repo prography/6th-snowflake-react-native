@@ -1,8 +1,10 @@
 import * as React from 'react';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components/native';
-import { d, c, l } from '~/utils/constant';
 import { withNavigation } from '@react-navigation/compat';
+
+import { d, c, l } from '~/utils/constant';
+import { RootState } from '~/store/modules';
 
 const Container = styled.View`
   margin: 0 ${l.mR}px;
@@ -23,7 +25,7 @@ interface Props {
 }
 const ProductImageBox = ({ imageUri }: Props) => {
   const blindState = useSelector(
-    (state: State) => state.blindReducer.blindState
+    (state: RootState) => state.product.blind.blindState,
   );
   return (
     <Container>
@@ -33,8 +35,8 @@ const ProductImageBox = ({ imageUri }: Props) => {
           blindState
             ? require('~/img/doodle/doodleCdBoxMintPurpleHeart.png')
             : imageUri === null
-            ? require('~/img/icon/imageNull.png')
-            : { uri: imageUri }
+              ? require('~/img/icon/imageNull.png')
+              : { uri: imageUri }
         }
       />
     </Container>

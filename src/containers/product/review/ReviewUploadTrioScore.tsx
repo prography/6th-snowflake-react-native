@@ -7,13 +7,14 @@ import {
   setOilyScore,
   setIsFilledReviewUpload1,
   setTrioAverage,
-} from '~/modules/product/reviewUpload/reviewUploadReducer';
+} from '~/store/modules/product/reviewUpload';
 import styled from 'styled-components/native';
 import { useSelector, useDispatch } from 'react-redux';
 import { Text } from 'react-native';
 import { d, c, l } from '~/utils/constant';
 import MarginMedium from '~/components/universal/margin/MarginMedium';
 import TextMiddleTitleDark from '~/components/universal/text/TextMiddleTitleDark';
+import { RootState } from '~/store/modules';
 
 const BAR_HEIGHT = d.px * 4;
 const TOUCH_AREA = d.px * 50;
@@ -127,38 +128,22 @@ const ReviewUploadTrioScore = () => {
   const dispatch = useDispatch();
 
   const _thicknessScore = useSelector(
-    (state: State) => state.reviewUploadReducer.thicknessScore
+    (state: RootState) => state.product.reviewUpload.thicknessScore,
   );
   const _durabilityScore = useSelector(
-    (state: State) => state.reviewUploadReducer.durabilityScore
+    (state: RootState) => state.product.reviewUpload.durabilityScore,
   );
   const _oilyScore = useSelector(
-    (state: State) => state.reviewUploadReducer.oilyScore
+    (state: RootState) => state.product.reviewUpload.oilyScore,
   );
 
-  const _setThicknessScore = (thicknessScore: State) => {
-    dispatch(setThicknessScore(thicknessScore));
-  };
-  const _setDurablityScore = (durabilityScore: State) => {
-    dispatch(setDurabilityScore(durabilityScore));
-  };
-  const _setOilyScore = (oilyScore: State) => {
-    dispatch(setOilyScore(oilyScore));
-  };
-  const _setIsFilledReviewUpload1 = (isFilledReviewUpload1: State) => {
-    dispatch(setIsFilledReviewUpload1(isFilledReviewUpload1));
-  };
-  const _setTrioAverage = (trioAverage: State) => {
-    dispatch(setTrioAverage(trioAverage));
-  };
-
   useEffect(() => {
-    _setIsFilledReviewUpload1(
+    dispatch(setIsFilledReviewUpload1(
       _thicknessScore && _durabilityScore && _oilyScore ? true : false
-    );
-    _setTrioAverage(
+    ));
+    dispatch(setTrioAverage(
       Number(((_thicknessScore + _oilyScore + _durabilityScore) / 3).toFixed(2))
-    );
+    ));
   }, [_thicknessScore, _oilyScore, _durabilityScore]);
 
   const trioScore = [
@@ -244,16 +229,13 @@ const ReviewUploadTrioScore = () => {
                     onPress={() => {
                       switch (question.type) {
                         case thickness:
-                          _setThicknessScore(bar.score);
-
+                          dispatch(setThicknessScore(bar.score));
                           return;
                         case durability:
-                          _setDurablityScore(bar.score);
-
+                          dispatch(setDurabilityScore(bar.score));
                           return;
                         case oily:
-                          _setOilyScore(bar.score);
-
+                          dispatch(setOilyScore(bar.score));
                           return;
                         default:
                           return;

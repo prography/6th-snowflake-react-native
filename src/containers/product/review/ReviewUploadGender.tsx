@@ -4,7 +4,7 @@ import {
   setMyGender,
   setPartnerGender,
   setIsFilledReviewUpload2,
-} from '~/modules/product/reviewUpload/reviewUploadReducer';
+} from '~/store/modules/product/reviewUpload';
 import { useState, useEffect } from 'react';
 import styled from 'styled-components/native';
 import { useSelector, useDispatch } from 'react-redux';
@@ -14,6 +14,7 @@ import TextMiddleTitleDark from '~/components/universal/text/TextMiddleTitleDark
 import TextMiddleTitleDarkCenter from '~/components/universal/text/TextMiddleTitleDarkCenter';
 import GenderLoop from '~/components/universal/profile/GenderLoop';
 import GenderCircle from '~/components/universal/profile/GenderCircle';
+import { RootState } from '~/store/modules';
 
 const TOUCH_AREA = d.px * 40;
 const CHECKBOX_SIZE = d.px * 15;
@@ -106,38 +107,32 @@ const ReviewUploadGender = () => {
   const [checked, setChecked] = useState(false);
   const dispatch = useDispatch();
   const _myGender = useSelector(
-    (state: State) => state.reviewUploadReducer.myGender
+    (state: RootState) => state.product.reviewUpload.myGender,
   );
   const _partnerGender = useSelector(
-    (state: State) => state.reviewUploadReducer.partnerGender
+    (state: RootState) => state.product.reviewUpload.partnerGender,
   );
-  const _score = useSelector((state: State) => state.reviewUploadReducer.score);
+  const _score = useSelector(
+    (state: RootState) => state.product.reviewUpload.score,
+  );
   const womanColor = useSelector(
-    (state: State) => state.genderColorReducer.womanColor
+    (state: RootState) => state.join.genderColor.womanColor,
   );
   const manColor = useSelector(
-    (state: State) => state.genderColorReducer.manColor
+    (state: RootState) => state.join.genderColor.manColor,
   );
-  const _setMyGender = (myGender: State) => {
-    dispatch(setMyGender(myGender));
-  };
-  const _setPartnerGender = (partnerGender: State) => {
-    dispatch(setPartnerGender(partnerGender));
-  };
-  const _setIsFilledReviewUpload2 = (isFilledReviewUpload2: State) => {
-    dispatch(setIsFilledReviewUpload2(isFilledReviewUpload2));
-  };
+
   useEffect(() => {
-    _setIsFilledReviewUpload2(
+    dispatch(setIsFilledReviewUpload2(
       _myGender && _partnerGender && _score ? true : false
-    );
+    ));
   }, [_myGender, _partnerGender, _score]);
   const setGender = (selectedGender) => {
     _myGender === null
-      ? _setMyGender(selectedGender)
+      ? dispatch(setMyGender(selectedGender))
       : _partnerGender === null
-        ? _setPartnerGender(selectedGender)
-        : [_setPartnerGender(null), _setMyGender(selectedGender)];
+        ? dispatch(setPartnerGender(selectedGender))
+        : [dispatch(setPartnerGender(null)), dispatch(setMyGender(selectedGender))];
   };
   const selection = [
     { selection: '여성', gender: 'WOMAN' },

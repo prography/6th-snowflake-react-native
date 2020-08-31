@@ -1,9 +1,9 @@
-export interface State {
+export type GenderColorState = {
   womanColor: string;
   manColor: string;
-}
+};
 
-const initialState: State = {
+const initialState: GenderColorState = {
   womanColor: "#F46CF1",
   manColor: "#3CB7D3",
 };
@@ -11,16 +11,16 @@ const initialState: State = {
 export const SET_WOMAN_COLOR = "SET_WOMAN_COLOR";
 export const SET_MAN_COLOR = "SET_MAN_COLOR";
 
-export const setWomanColor = (cColor) => ({
+export const setWomanColor = (cColor: string) => ({
   type: SET_WOMAN_COLOR,
   womanColor: cColor,
 });
-export const setManColor = (cColor) => ({
+export const setManColor = (cColor: string) => ({
   type: SET_MAN_COLOR,
   manColor: cColor,
 });
 
-const genderColorReducer = (state = initialState, action) => {
+const GenderColorReducer = (state = initialState, action) => {
   switch (action.type) {
     case SET_WOMAN_COLOR:
       return { ...state, womanColor: action.womanColor };
@@ -32,4 +32,4 @@ const genderColorReducer = (state = initialState, action) => {
   }
 };
 
-export default genderColorReducer;
+export default GenderColorReducer;

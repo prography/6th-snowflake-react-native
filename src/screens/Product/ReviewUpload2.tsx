@@ -1,38 +1,27 @@
 import * as React from 'react';
-import styled from 'styled-components/native';
-import { Text, ScrollView } from 'react-native';
+import { ScrollView } from 'react-native';
 import { useSelector } from 'react-redux';
 import analytics from "@react-native-firebase/analytics";
 
 import { d, l } from '~/utils/constant';
-import { State } from '~/modules/product/reviewUpload/reviewUploadReducer';
-import ProductInfoBar from '~/components/universal/bottomBar/product/ProductInfoBar';
 import Blinder from '~/components/product/Blinder';
-import RankBar from '~/components/product/ranking/RankBar';
 import TopBarBackArrow from '~/components/universal/topBar/TopBarBackArrow';
 import LineGrayMiddle from '~/components/universal/line/LineGrayMiddle';
 import ProductBarForReviewUpload from '~/components/product/review/ProductBarForReviewUpload';
 import MarginMedium from '~/components/universal/margin/MarginMedium';
-import ReviewUploadTrioScore from '~/containers/product/review/ReviewUploadTrioScore';
 import MarginBottom from '~/components/universal/margin/MarginBottom';
-import ProductReviewBar2 from '~/components/universal/bottomBar/product/ProductReviewBar2';
-import ReviewUploadScoreGender from '~/containers/product/review/ReviewUploadScore';
 import ReviewUploadScore from '~/containers/product/review/ReviewUploadScore';
 import ReviewUploadGender from '~/containers/product/review/ReviewUploadGender';
 import MarginNarrow from '~/components/universal/margin/MarginNarrow';
 import BottomBtnCollectData from '~/components/universal/bottomBar/BottomBtnCollectData';
-
-const Container = styled.View`
-  flex-direction: column;
-  align-items: center;
-`;
+import { RootState } from '~/store/modules';
 
 const ReviewUpload2 = () => {
   const _isFilledReviewUpload2 = useSelector(
-    (state: State) => state.reviewUploadReducer.isFilledReviewUpload2
+    (state: RootState) => state.product.reviewUpload.isFilledReviewUpload2,
   );
   const _reviewUploadProductId = useSelector(
-    (state: State) => state.reviewUploadReducer.reviewUploadProductId
+    (state: RootState) => state.product.reviewUpload.reviewUploadProductId,
   );
 
   React.useEffect(() => {

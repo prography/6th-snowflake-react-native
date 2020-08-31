@@ -18,7 +18,7 @@ import {
   setUserBirthYear,
   setUserGender,
   setUserPartnerGender,
-} from '~/modules/join/userInfoReducer';
+} from '~/store/modules/join/userInfo';
 import BottomBtnCollectData from '~/components/universal/bottomBar/BottomBtnCollectData';
 import MarginWide from '~/components/universal/margin/MarginWide';
 import TopBarLeftIcon from '~/components/universal/topBar/TopBarLeftIcon';

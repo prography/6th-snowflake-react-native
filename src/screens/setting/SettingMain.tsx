@@ -4,7 +4,6 @@ import styled from 'styled-components/native';
 import { ScrollView } from 'react-native';
 import { useSelector } from 'react-redux';
 import analytics from "@react-native-firebase/analytics";
-import { withNavigation } from '@react-navigation/compat';
 import AsyncStorage from '@react-native-community/async-storage';
 import { StackNavigationProp } from '@react-navigation/stack';
 
@@ -20,8 +19,9 @@ import TopBarLeftIcon from '~/components/universal/topBar/TopBarLeftIcon';
 import MyGenderColor from '~/containers/setting/MyGenderColor';
 import LineGrayRightLong from '~/components/universal/line/LineGrayRightLong';
 import MarginMedium from '~/components/universal/margin/MarginMedium';
-import { llog2, llog1 } from '~/utils/functions';
+import { llog2 } from '~/utils/functions';
 import { JoinStackParamList } from '~/navigation/tabs/JoinStack';
+import { RootState } from '~/store/modules';
 
 interface Props {
   navigation: StackNavigationProp<JoinStackParamList, 'SettimgMain'>;
@@ -36,7 +36,7 @@ const LoginContainer = styled.View`
 
 const SettingMain = ({ navigation }: Props) => {
   const [_token, _setToken] = useState(null);
-  const _isLoggedin = useSelector((state) => state.authReducer.isLoggedin);
+  const _isLoggedin = useSelector((state: RootState) => state.auth.isLoggedin);
   llog2('로그인됨?', _isLoggedin);
 
   const _getToken = async () => {
@@ -107,4 +107,4 @@ const SettingMain = ({ navigation }: Props) => {
   );
 };
 
-export default withNavigation(SettingMain);
+export default SettingMain;

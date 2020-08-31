@@ -3,11 +3,11 @@ import AsyncStorage from "@react-native-community/async-storage";
 import { AsyncAccessToken } from "~/utils/asyncStorage";
 import { llog2, llog1 } from "~/utils/functions";
 
-export interface State {
+export type AuthState = {
   isLoggedin: boolean;
-}
+};
 
-const initialState: State = {
+const initialState: AuthState = {
   isLoggedin: null,
 };
 
@@ -30,7 +30,7 @@ export const setIsLoggedin = (isLoggedin: boolean) => {
   };
 };
 
-const authReducer = (state = initialState, action) => {
+const AuthReducer = (state = initialState, action) => {
   switch (action.type) {
     case SET_IS_LOGGEDIN:
       return { ...state, isLoggedin: action.isLoggedin };
@@ -50,4 +50,4 @@ export const manageLoginLogout = (dispatch, value: boolean, jwt?: string) => {
   }
 };
 
-export default authReducer;
+export default AuthReducer;

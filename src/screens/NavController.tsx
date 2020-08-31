@@ -5,11 +5,12 @@ import { useSelector, useDispatch } from 'react-redux';
 import RootTabNavigation from '~/navigation/RootTabNavigation';
 import { AsyncAccessToken } from '~/utils/asyncStorage';
 import { llog2, llog1 } from '~/utils/functions';
-import { manageLoginLogout } from '~/modules/auth';
+import { manageLoginLogout } from '~/store/modules/auth';
+import { RootState } from '~/store/modules';
 
 export default () => {
   const dispatch = useDispatch();
-  const _isLoggedin = useSelector((state) => state.authReducer.isLoggedin);
+  const _isLoggedin = useSelector((state: RootState) => state.auth.isLoggedin);
   llog2('💜 _isLoggedin', _isLoggedin)
 
   const { getItem } = useAsyncStorage(AsyncAccessToken);

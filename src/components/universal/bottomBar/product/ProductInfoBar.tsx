@@ -13,6 +13,7 @@ import { AsyncAccessToken } from '~/utils/asyncStorage';
 import { BASE_URL } from '~/utils/constant';
 import { useSelector } from 'react-redux';
 import { llog1, llog2 } from '~/utils/functions';
+import { RootState } from '~/store/modules';
 
 interface Props {
   children: React.ReactNode;
@@ -53,8 +54,7 @@ const HeartIcon = styled.Image`
 const ProductInfoBar = ({ children, navigation, productId }: Props) => {
   const [isLiked, setIsLiked] = useState(false);
   const [likedId, setLikedId] = useState(null);
-  const _isLoggedin = useSelector((state) => state.authReducer.isLoggedin);
-  llog1('hihihi');
+  const _isLoggedin = useSelector((state: RootState) => state.auth.isLoggedin);
 
   const { getItem: getTokenItem } = useAsyncStorage(AsyncAccessToken);
 

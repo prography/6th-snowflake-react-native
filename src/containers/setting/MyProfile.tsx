@@ -8,9 +8,11 @@ import { d, BASE_URL, c, l } from '~/utils/constant';
 import TextTitlePurpleRight from '~/components/universal/text/TextTitlePurpleRight';
 import { AsyncAccessToken } from '~/utils/asyncStorage';
 import TextTitleDarkPurpleLink from '~/components/universal/text/TextTitleDarkPurpleLink';
-import { manageLoginLogout } from '~/modules/auth';
+import { manageLoginLogout } from '~/store/modules/auth';
+
 import MarginNarrow from '~/components/universal/margin/MarginNarrow';
 import { llog2 } from '~/utils/functions';
+import { RootState } from '~/store/modules';
 
 const ProfileContainer = styled.View``;
 const Container = styled.View`
@@ -19,7 +21,7 @@ const Container = styled.View`
 `;
 const MyProfile = () => {
   const dispatch = useDispatch();
-  const _isLoggedin = useSelector((state) => state.authReducer.isLoggedin);
+  const _isLoggedin = useSelector((state: RootState) => state.auth.isLoggedin);
   const { getItem: getTokenItem } = useAsyncStorage(AsyncAccessToken);
 
   const [userInfoArray, setUserInfoArray] = useState(null);

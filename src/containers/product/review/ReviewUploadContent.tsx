@@ -1,19 +1,17 @@
 import * as React from 'react';
 import { useState } from 'react';
-import { Text } from 'react-native';
+import styled from 'styled-components/native';
+import { useSelector, useDispatch } from 'react-redux';
+
 import {
-  State,
   setReviewContent,
   reviewUploadContentPlaceholder,
   setIsFilledReviewUpload3,
-} from '~/modules/product/reviewUpload/reviewUploadReducer';
-import styled from 'styled-components/native';
-import { useSelector, useDispatch } from 'react-redux';
+} from '~/store/modules/product/reviewUpload';
 import { d, c, l } from '~/utils/constant';
-import MarginWide from '~/components/universal/margin/MarginWide';
 import TextMiddleTitleDark from '~/components/universal/text/TextMiddleTitleDark';
 import MarginMedium from '~/components/universal/margin/MarginMedium';
-import { TouchableOpacity } from 'react-native-gesture-handler';
+import { RootState } from '~/store/modules';
 
 const REVIEW_MINIMUM_LENGTH = 15;
 const TitleContainer = styled.View`
@@ -39,15 +37,9 @@ const AnswerInput = styled.TextInput`
 const ReviewUploadContent = () => {
   const [reviewLength, setReviewLength] = useState(0);
   const dispatch = useDispatch();
-  const _setReviewContent = (reviewContent: State) => {
-    dispatch(setReviewContent(reviewContent));
-  };
-  const _setIsFilledReviewUpload3 = (isFilledReviewUpload3: State) => {
-    dispatch(setIsFilledReviewUpload3(isFilledReviewUpload3));
-  };
 
   const _reviewContent = useSelector(
-    (state: State) => state.reviewUploadReducer.reviewContent
+    (state: RootState) => state.product.reviewUpload.reviewContent,
   );
 
   return (
@@ -62,11 +54,11 @@ const ReviewUploadContent = () => {
           placeholderTextColor={c.lightGray}
           placeholder={reviewUploadContentPlaceholder}
           onChangeText={(text) => [
-            _setReviewContent(text),
+            dispatch(setReviewContent(text)),
             setReviewLength(text.length),
-            _setIsFilledReviewUpload3(
+            dispatch(setIsFilledReviewUpload3(
               reviewLength < REVIEW_MINIMUM_LENGTH ? false : true
-            ),
+            )),
           ]}
           multiline={true}
           clearTextOnFocus={_reviewContent ? false : true}

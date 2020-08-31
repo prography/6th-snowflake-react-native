@@ -4,18 +4,20 @@ import styled from 'styled-components/native';
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import analytics from "@react-native-firebase/analytics";
-import { StackActions } from '@react-navigation/native';
+import { StackActions, RouteProp } from '@react-navigation/native';
 import AsyncStorage, {
   useAsyncStorage,
 } from '@react-native-community/async-storage';
 
-import { requestLogin } from '~/modules/auth';
+import { requestLogin } from '~/store/modules/auth';
 import { d, c, l, BASE_URL } from '~/utils/constant';
 import BottomBtnCollectData from '~/components/universal/bottomBar/BottomBtnCollectData';
 import MarginWide from '~/components/universal/margin/MarginWide';
 import TopBarBackArrowRightIcon from '~/components/universal/topBar/TopBarBackArrowRightIcon';
 import MarginNarrow from '~/components/universal/margin/MarginNarrow';
 import MarginMedium from '~/components/universal/margin/MarginMedium';
+import { JoinStackParamList } from '~/navigation/tabs/JoinStack';
+import { StackNavigationProp } from '@react-navigation/stack';
 const Container = styled.View`
   margin: 0 ${l.mR}px;
 `;
@@ -48,6 +50,7 @@ const LeftMargin = styled.View`
   margin-left: ${l.mR}px;
 `;
 interface Props {
+  navigation: StackNavigationProp<JoinStackParamList, 'Join4'>;
   route: RouteProp<JoinStackParamList, 'Join4'>;
 }
 const Join4 = ({ navigation, route }: Props) => {
@@ -69,11 +72,6 @@ const Join4 = ({ navigation, route }: Props) => {
     console.log('😸5. 회원가입 성공 후 로그인 액션 호출');
     dispatch(requestLogin(email, password));
   };
-
-  // const _isLoggedin = useSelector((state) => state.authReducer.isLoggedin);
-  // useEffect(() => {
-  //   _isLoggedin ? navigation.navigate('HomeStack') : null;
-  // }, [_isLoggedin]);
 
   const _socialSignup = async () => {
     console.log('1.🥎 social token 으로 user 정보 업데이트 호출');

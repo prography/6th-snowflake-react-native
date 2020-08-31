@@ -1,15 +1,19 @@
 import * as React from 'react';
 import { useState, useEffect } from 'react';
-import { BASE_URL } from '~/utils/constant';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components/native';
+import { StackNavigationProp } from '@react-navigation/stack';
+
+import { BASE_URL } from '~/utils/constant';
 import { d, c, l } from '~/utils/constant';
 import TextProductCompany from '~/components/universal/text/product/TextProductCompany';
 import TextProductName from '~/components/universal/text/product/TextProductName';
+import { RootState } from '~/store/modules';
+import { ProductStackParamList } from '~/navigation/tabs/ProductStack';
 
 interface Props {
   productId: number;
-  navigation: any;
+  navigation: StackNavigationProp<ProductStackParamList>;
 }
 
 const Container = styled.View`
@@ -52,7 +56,7 @@ const ProductBarForReviewUpload = ({ productId }: Props) => {
   }, []);
 
   const blindState = useSelector(
-    (state: State) => state.blindReducer.blindState
+    (state: RootState) => state.product.blind.blindState,
   );
   return (
     <Container>
@@ -64,8 +68,8 @@ const ProductBarForReviewUpload = ({ productId }: Props) => {
               blindState
                 ? require('~/img/doodle/doodleCdBoxMintPurpleHeart.png')
                 : _productInfo.image === null
-                ? require('~/img/icon/imageNull.png')
-                : { uri: _productInfo.image }
+                  ? require('~/img/icon/imageNull.png')
+                  : { uri: _productInfo.image }
             }
           />
         )}

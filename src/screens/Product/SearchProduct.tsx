@@ -2,17 +2,17 @@ import * as React from 'react';
 import { ScrollView } from 'react-native';
 import { useState, useEffect } from 'react';
 import styled from 'styled-components/native';
-import { Text } from 'react-native';
 import analytics from "@react-native-firebase/analytics";
 import { useSelector } from 'react-redux';
+import { StackNavigationProp } from '@react-navigation/stack';
 
 import { d, l, c, BASE_URL } from '~/utils/constant';
-import TextTitlePurpleRight from '~/components/universal/text/TextTitlePurpleRight';
 import TextProductCompany from '~/components/universal/text/product/TextProductCompany';
 import TextProductName from '~/components/universal/text/product/TextProductName';
 import Blinder from '~/components/product/Blinder';
-import MarginWide from '~/components/universal/margin/MarginWide';
 import BackButton from '~/components/universal/button/BackButton';
+import { RootState } from '~/store/modules';
+import { ProductStackParamList } from '~/navigation/tabs/ProductStack';
 
 const Container = styled.View`
   flex: 1;
@@ -67,12 +67,14 @@ const ProductImage = styled.Image`
 `;
 
 interface Props {
-  navigation: any;
+  navigation: StackNavigationProp<ProductStackParamList, 'SearchProduct'>;
 }
 const SearchProduct = ({ navigation }: Props) => {
   const [searchInput, setSearchInput] = useState(null);
   const [_searchResult, _setSearchResult] = useState(null);
-  const blindState = useSelector((state) => state.blindReducer.blindState);
+  const blindState = useSelector(
+    (state: RootState) => state.product.blind.blindState,
+  );
   const _searchProduct = async () => {
     try {
       const _searchInput = searchInput ? searchInput.replace(/(\s*)/g, '') : '';
@@ -101,7 +103,7 @@ const SearchProduct = ({ navigation }: Props) => {
   return (
     <Container>
       <TopBarContainer>
-        <BackButton/>
+        <BackButton />
         <SearchInput
           placeholderTextColor={c.lightGray}
           placeholder={'검색어를 입력해주세요'}

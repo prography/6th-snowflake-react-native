@@ -20,6 +20,7 @@ import MarginMedium from '~/components/universal/margin/MarginMedium';
 import ButtonGenderColor from '~/containers/join/ColorCircles/ButtonGenderColor';
 import GenderCircle from '~/components/universal/profile/GenderCircle';
 import TopBarBackArrowRightIcon from '~/components/universal/topBar/TopBarBackArrowRightIcon';
+import { RootState } from '~/store/modules';
 
 const Container = styled.View`
   flex-direction: column;
@@ -46,21 +47,13 @@ const ColorContainer = styled.View`
   width: 100%;
 `;
 
-interface State {
-  womanColor: string;
-  manColor: string;
-  genderColorReducer: string;
-}
-
 const GenderColor = () => {
   const womanColor = useSelector(
-    (state: State) => state.genderColorReducer.womanColor
+    (state: RootState) => state.join.genderColor.womanColor,
   );
   const manColor = useSelector(
-    (state: State) => state.genderColorReducer.manColor
+    (state: RootState) => state.join.genderColor.manColor,
   );
-  console.log('womanColor:', womanColor);
-  console.log('manColor:', manColor);
 
   React.useEffect(() => {
     analytics().setCurrentScreen("Select_GenderColor");

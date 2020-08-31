@@ -15,6 +15,7 @@ import { Text } from 'react-native';
 import TextProductCompany from '~/components/universal/text/product/TextProductCompany';
 import TextProductName from '~/components/universal/text/product/TextProductName';
 import { AsyncAccessToken } from '~/utils/asyncStorage';
+import { RootState } from '~/store/modules';
 
 interface Props {
   token: any;
@@ -60,8 +61,10 @@ const ProductImage = styled.Image`
 `;
 
 const Likes = ({ navigation }: Props) => {
-  const blindState = useSelector((state) => state.blindReducer.blindState);
-  const _isLoggedin = useSelector((state) => state.authReducer.isLoggedin);
+  const blindState = useSelector(
+    (state: RootState) => state.product.blind.blindState,
+  );
+  const _isLoggedin = useSelector((state: RootState) => state.auth.isLoggedin);
 
   const [_rankingList, _setRankingList] = useState(null);
   const [showLikes, setShowLikes] = useState(false);

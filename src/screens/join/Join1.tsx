@@ -1,8 +1,6 @@
 import * as React from 'react';
-import { View, Text } from 'react-native';
 import styled from 'styled-components/native';
 import { useState, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import analytics from '@react-native-firebase/analytics';
 
 import LinePurpleWhenFocused from '~/components/universal/line/LinePurpleWhenFocused';
@@ -12,8 +10,6 @@ import { d, c, l, BASE_URL } from '~/utils/constant';
 
 import BottomBtnCollectData from '~/components/universal/bottomBar/BottomBtnCollectData';
 import MarginWide from '~/components/universal/margin/MarginWide';
-import TopBarLeftIcon from '~/components/universal/topBar/TopBarLeftIcon';
-import TopBarWithIcon from '~/components/universal/topBar/TopBarRightIcon';
 import TopBarBackArrowRightIcon from '~/components/universal/topBar/TopBarBackArrowRightIcon';
 const Container = styled.View`
   margin: 0 ${l.mR}px;
@@ -48,7 +44,6 @@ const JoinInfoInput = styled.TextInput`
 `;
 
 const Join1 = () => {
-  const dispatch = useDispatch();
   const [isFilled, setIsFilled] = useState(false);
   const [emailInput, setEmailInput] = useState('');
   const [emailWarnigText, setEmailWarningText] = useState(null);

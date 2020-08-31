@@ -3,12 +3,15 @@ import { useSelector } from 'react-redux';
 import styled from 'styled-components/native';
 import analytics from "@react-native-firebase/analytics";
 import { withNavigation } from '@react-navigation/compat';
+import { StackNavigationProp } from '@react-navigation/stack';
 
 import { d, c } from '~/utils/constant';
 import TextProductCompany from '~/components/universal/text/product/TextProductCompany';
 import TextProductName from '~/components/universal/text/product/TextProductName';
 import TextRankNum from '~/components/universal/text/product/TextRankNum';
 import TextProductScore from '~/components/universal/text/product/TextProductScore';
+import { RootState } from '~/store/modules';
+import { ProductStackParamList } from '~/navigation/tabs/ProductStack';
 
 interface Props {
   rankNum: number;
@@ -16,7 +19,7 @@ interface Props {
   productCompany: string;
   productName: string;
   imageUri: string;
-  navigation: any;
+  navigation: StackNavigationProp<ProductStackParamList, 'Ranking'>;
   id: number;
 }
 
@@ -58,7 +61,7 @@ const RankBar = ({
   navigation,
 }: Props) => {
   const blindState = useSelector(
-    (state: State) => state.blindReducer.blindState
+    (state: RootState) => state.product.blind.blindState,
   );
   return (
     <Container

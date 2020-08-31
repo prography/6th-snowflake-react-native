@@ -1,9 +1,11 @@
 import * as React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import styled from 'styled-components/native';
-import { d, c, circleColor4 } from '~/utils/constant';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import { setWomanColor, setManColor } from '~/modules/join/genderColorReducer';
+
+import { d, c, circleColor4 } from '~/utils/constant';
+import { setWomanColor, setManColor } from '~/store/modules/join/genderColor';
+import { RootState } from '~/store/modules';
 
 const OneLine = styled.View`
   flex-direction: row;
@@ -13,10 +15,10 @@ const OneLine = styled.View`
 const ColorCircles4 = () => {
   const dispatch = useDispatch();
   const womanColor = useSelector(
-    (state: State) => state.genderColorReducer.womanColor
+    (state: RootState) => state.join.genderColor.womanColor,
   );
   const manColor = useSelector(
-    (state: State) => state.genderColorReducer.manColor
+    (state: RootState) => state.join.genderColor.manColor,
   );
 
   const setColor = (cColor) => {

@@ -1,4 +1,4 @@
-export interface State {
+export interface UserInfoState {
   userEmail: string;
   userPassword1: string;
   userPassword2: string;
@@ -8,7 +8,7 @@ export interface State {
   userPartnerGender: string;
 }
 
-const initialState: State = {
+const initialState: UserInfoState = {
   userEmail: null,
   userPassword1: null,
   userPassword2: null,
@@ -18,58 +18,58 @@ const initialState: State = {
   userPartnerGender: null,
 };
 
-const SET_USER_EMAIL = 'SET_USER_EMAIL';
-const SET_USER_PASSWORD1 = 'SET_PASSWORD1';
-const SET_USER_PASSWORD2 = 'SET_PASSWORD2';
-const SET_USER_NAME = 'SET_USERNAME';
-const SET_USER_BIRTHYEAR = 'SET_BIRTHYEAR';
-const SET_USER_GENDER = 'SET_GENDER';
-const SET_USER_PARTNER_GENDER = 'SET_PARTNER_GENDER';
+const SET_USER_EMAIL = "SET_USER_EMAIL";
+const SET_USER_PASSWORD1 = "SET_PASSWORD1";
+const SET_USER_PASSWORD2 = "SET_PASSWORD2";
+const SET_USER_NAME = "SET_USERNAME";
+const SET_USER_BIRTHYEAR = "SET_BIRTHYEAR";
+const SET_USER_GENDER = "SET_GENDER";
+const SET_USER_PARTNER_GENDER = "SET_PARTNER_GENDER";
 
-export const setUserEmail = (userEmail: State) => {
+export const setUserEmail = (userEmail: string) => {
   return {
     type: SET_USER_EMAIL,
     userEmail: userEmail,
   };
 };
-export const setUserPassword1 = (userPassword1: State) => {
+export const setUserPassword1 = (userPassword1: string) => {
   return {
     type: SET_USER_PASSWORD1,
     userPassword1: userPassword1,
   };
 };
-export const setUserPassword2 = (userPassword2: State) => {
+export const setUserPassword2 = (userPassword2: string) => {
   return {
     type: SET_USER_PASSWORD2,
     userPassword2: userPassword2,
   };
 };
-export const setUserName = (userName: State) => {
+export const setUserName = (userName: string) => {
   return {
     type: SET_USER_NAME,
     userName: userName,
   };
 };
-export const setUserBirthYear = (userBirthYear: State) => {
+export const setUserBirthYear = (userBirthYear: number) => {
   return {
     type: SET_USER_BIRTHYEAR,
     userBirthYear: userBirthYear,
   };
 };
-export const setUserGender = (userGender: State) => {
+export const setUserGender = (userGender: string) => {
   return {
     type: SET_USER_GENDER,
     userGender: userGender,
   };
 };
-export const setUserPartnerGender = (userPartnerGender: State) => {
+export const setUserPartnerGender = (userPartnerGender: string) => {
   return {
     type: SET_USER_PARTNER_GENDER,
     userPartnerGender: userPartnerGender,
   };
 };
 
-const userInfoReducer = (state = initialState, action) => {
+const UserInfoReducer = (state = initialState, action) => {
   switch (action.type) {
     case SET_USER_EMAIL:
       return { ...state, userEmail: action.userEmail };
@@ -91,4 +91,4 @@ const userInfoReducer = (state = initialState, action) => {
   }
 };
 
-export default userInfoReducer;
+export default UserInfoReducer;

@@ -10,6 +10,7 @@ import Join4 from '~/screens/join/Join4';
 import SettingMain from '~/screens/setting/SettingMain';
 import Feedback from '~/screens/setting/Feedback';
 import ProductInfo from '~/screens/product/ProductInfo';
+import { ProductInfoParamList } from './ProductStack';
 
 export type Join2Params = {
   signUpEmail?: string;
@@ -45,7 +46,7 @@ export type JoinStackParamList = {
   Login: undefined;
   Feedback: undefined;
   GenderColor: undefined;
-  ProductInfo: undefined;
+  ProductInfo: ProductInfoParamList;
 };
 
 const Stack = createStackNavigator<JoinStackParamList>();

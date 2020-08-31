@@ -1,5 +1,5 @@
 // blindState 타입 설정
-export interface State {
+export type ReviewUploadState = {
   thicknessScore: number;
   durabilityScore: number;
   oilyScore: number;
@@ -12,12 +12,12 @@ export interface State {
   isFilledReviewUpload2: boolean;
   isFilledReviewUpload3: boolean;
   reviewUploadProductId: number;
-}
+};
 
 export const reviewUploadContentPlaceholder =
-  '눈송이는 차별과 혐오를 지양하고\n서로를 존중하는 깨끗한 공간입니다.\n\n자극적인 어투 대신\n누구나 편하게 볼 수 있는\n진솔한 후기를 부탁드립니다.\n\n눈송이 문화에 동참해주세요* :)';
+  "눈송이는 차별과 혐오를 지양하고\n서로를 존중하는 깨끗한 공간입니다.\n\n자극적인 어투 대신\n누구나 편하게 볼 수 있는\n진솔한 후기를 부탁드립니다.\n\n눈송이 문화에 동참해주세요* :)";
 // blindState의 초기값 설정
-const initialState: State = {
+const initialState: ReviewUploadState = {
   thicknessScore: null,
   durabilityScore: null,
   oilyScore: null,
@@ -32,92 +32,92 @@ const initialState: State = {
   reviewUploadProductId: null,
 };
 
-const SET_THICKNESS_SCORE = 'SET_THICKNESS_SCORE';
-const SET_DURABILITY_SCORE = 'SET_DURABILITY_SCORE';
-const SET_OILY_SCORE = 'SET_OILY_SCORE';
-const SET_TRIO_AVERAGE = 'SET_TRIO_AVERAGE';
-const SET_SCORE = 'SET_SCORE';
-const SET_MY_GENDER = 'SET_MY_GENDER';
-const SET_PARTNER_GENDER = 'SET_PARTNER_GENDER';
-const SET_REVIEW_CONTENT = 'SET_REVIEW_CONTENT';
-const SET_IS_FILLED_REVIEW_UPLOAD1 = 'SET_IS_FILLED_REVIEW_UPLOAD1';
-const SET_IS_FILLED_REVIEW_UPLOAD2 = 'SET_IS_FILLED_REVIEW_UPLOAD2';
-const SET_IS_FILLED_REVIEW_UPLOAD3 = 'SET_IS_FILLED_REVIEW_UPLOAD3';
-const SET_REVIEW_UPLOAD_PRODUCT_ID = 'SET_REVIEW_UPLOAD_PRODUCT_ID';
-const RESET_REVIEW_UPLOAD_STORE = 'RESET_REVIEW_UPLOAD_STORE';
+const SET_THICKNESS_SCORE = "SET_THICKNESS_SCORE";
+const SET_DURABILITY_SCORE = "SET_DURABILITY_SCORE";
+const SET_OILY_SCORE = "SET_OILY_SCORE";
+const SET_TRIO_AVERAGE = "SET_TRIO_AVERAGE";
+const SET_SCORE = "SET_SCORE";
+const SET_MY_GENDER = "SET_MY_GENDER";
+const SET_PARTNER_GENDER = "SET_PARTNER_GENDER";
+const SET_REVIEW_CONTENT = "SET_REVIEW_CONTENT";
+const SET_IS_FILLED_REVIEW_UPLOAD1 = "SET_IS_FILLED_REVIEW_UPLOAD1";
+const SET_IS_FILLED_REVIEW_UPLOAD2 = "SET_IS_FILLED_REVIEW_UPLOAD2";
+const SET_IS_FILLED_REVIEW_UPLOAD3 = "SET_IS_FILLED_REVIEW_UPLOAD3";
+const SET_REVIEW_UPLOAD_PRODUCT_ID = "SET_REVIEW_UPLOAD_PRODUCT_ID";
+const RESET_REVIEW_UPLOAD_STORE = "RESET_REVIEW_UPLOAD_STORE";
 
-export const setThicknessScore = (thicknessScore: State) => {
+export const setThicknessScore = (thicknessScore: number) => {
   return {
     type: SET_THICKNESS_SCORE,
     thicknessScore: thicknessScore,
   };
 };
 
-export const setDurabilityScore = (durabilityScore: State) => {
+export const setDurabilityScore = (durabilityScore: number) => {
   return {
     type: SET_DURABILITY_SCORE,
     durabilityScore,
   };
 };
 
-export const setOilyScore = (oilyScore: State) => {
+export const setOilyScore = (oilyScore: number) => {
   return {
     type: SET_OILY_SCORE,
     oilyScore,
   };
 };
-export const setTrioAverage = (trioAverage: State) => {
+export const setTrioAverage = (trioAverage: number) => {
   return {
     type: SET_TRIO_AVERAGE,
     trioAverage,
   };
 };
 
-export const setScore = (score: State) => {
+export const setScore = (score: number) => {
   return {
     type: SET_SCORE,
     score,
   };
 };
 
-export const setMyGender = (myGender: State) => {
+export const setMyGender = (myGender: string) => {
   return {
     type: SET_MY_GENDER,
     myGender,
   };
 };
-export const setPartnerGender = (partnerGender: State) => {
+export const setPartnerGender = (partnerGender: string) => {
   return {
     type: SET_PARTNER_GENDER,
     partnerGender,
   };
 };
-export const setReviewContent = (reviewContent: State) => {
+export const setReviewContent = (reviewContent: string) => {
   return {
     type: SET_REVIEW_CONTENT,
     reviewContent,
   };
 };
-export const setIsFilledReviewUpload1 = (isFilledReviewUpload1: State) => {
+export const setIsFilledReviewUpload1 = (isFilledReviewUpload1: boolean) => {
   return {
     type: SET_IS_FILLED_REVIEW_UPLOAD1,
     isFilledReviewUpload1,
   };
 };
-export const setIsFilledReviewUpload2 = (isFilledReviewUpload2: State) => {
+export const setIsFilledReviewUpload2 = (isFilledReviewUpload2: boolean) => {
   return {
     type: SET_IS_FILLED_REVIEW_UPLOAD2,
     isFilledReviewUpload2,
   };
 };
-export const setIsFilledReviewUpload3 = (isFilledReviewUpload3: State) => {
+export const setIsFilledReviewUpload3 = (isFilledReviewUpload3: boolean) => {
   return {
     type: SET_IS_FILLED_REVIEW_UPLOAD3,
     isFilledReviewUpload3,
   };
 };
 
-export const setReviewUProductId = (reviewUploadProductId: State) => {
+export const setReviewUProductId = (reviewUploadProductId: number) => {
   return {
     type: SET_REVIEW_UPLOAD_PRODUCT_ID,
     reviewUploadProductId,
@@ -130,7 +130,7 @@ export const resetReviewUploadStore = () => {
   };
 };
 
-const reviewUploadReducer = (state = initialState, action) => {
+const ReviewUploadReducer = (state = initialState, action) => {
   switch (action.type) {
     case SET_THICKNESS_SCORE:
       return { ...state, thicknessScore: action.thicknessScore };
@@ -178,4 +178,4 @@ const reviewUploadReducer = (state = initialState, action) => {
   }
 };
 
-export default reviewUploadReducer;
+export default ReviewUploadReducer;

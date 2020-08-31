@@ -9,7 +9,7 @@ import { StackActions } from '@react-navigation/native';
 
 import BottomBtnCollectData from '~/components/universal/bottomBar/BottomBtnCollectData';
 import { c, d, l, BASE_URL } from '~/utils/constant';
-import { requestLogin, setIsLoggedin } from '~/modules/auth/index';
+import { requestLogin, setIsLoggedin } from '~/store/modules/auth/index';
 import TopBarBackArrowRightIcon from '~/components/universal/topBar/TopBarBackArrowRightIcon';
 import TopBarWithIcon from '~/components/universal/topBar/TopBarRightIcon';
 import LinePurpleWhenFocused from '~/components/universal/line/LinePurpleWhenFocused';
@@ -20,6 +20,7 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import { JoinStackParamList } from '~/navigation/tabs/JoinStack';
 import { useAsyncStorage } from '@react-native-community/async-storage';
 import { AsyncAccessToken } from '~/utils/asyncStorage';
+import { RootState } from '~/store/modules';
 
 interface Props {
   navigation: StackNavigationProp<JoinStackParamList, 'Login'>;
@@ -56,7 +57,7 @@ const Login = ({ navigation }: Props) => {
 
   const [emailFocus, handleEmailFocus] = useState(false);
   const [passwordFocus, handlePasswordFocus] = useState(false);
-  const _isLoggedin = useSelector((state) => state.authReducer.isLoggedin);
+  const _isLoggedin = useSelector((state: RootState) => state.auth.isLoggedin);
   llog2('_loggedin', _isLoggedin);
 
   useEffect(() => {

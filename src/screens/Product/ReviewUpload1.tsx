@@ -1,14 +1,11 @@
 import * as React from 'react';
 import { useEffect } from 'react';
-import styled from 'styled-components/native';
-import { Text, ScrollView } from 'react-native';
+import { ScrollView } from 'react-native';
 import analytics from "@react-native-firebase/analytics";
 import { useSelector, useDispatch } from 'react-redux';
+import { RouteProp } from '@react-navigation/native';
 
-import {
-  State,
-  setReviewUProductId,
-} from '~/modules/product/reviewUpload/reviewUploadReducer';
+import { setReviewUProductId } from '~/store/modules/product/reviewUpload';
 import Blinder from '~/components/product/Blinder';
 import TopBarBackArrow from '~/components/universal/topBar/TopBarBackArrow';
 import LineGrayMiddle from '~/components/universal/line/LineGrayMiddle';
@@ -17,24 +14,22 @@ import MarginMedium from '~/components/universal/margin/MarginMedium';
 import ReviewUploadTrioScore from '~/containers/product/review/ReviewUploadTrioScore';
 import MarginBottom from '~/components/universal/margin/MarginBottom';
 import BottomBtnCollectData from '~/components/universal/bottomBar/BottomBtnCollectData';
+import { RootState } from '~/store/modules';
+import { ProductStackParamList } from '~/navigation/tabs/ProductStack';
 
-const Container = styled.View`
-  flex-direction: column;
-  align-items: center;
-`;
+interface Props {
+  route: RouteProp<ProductStackParamList, 'ReviewUpload1'>;
+}
 
-const ReviewUpload1 = ({ route }) => {
+const ReviewUpload1 = ({ route }: Props) => {
   const { productId } = route.params;
   const dispatch = useDispatch();
   const _isFilledReviewUpload1 = useSelector(
-    (state: State) => state.reviewUploadReducer.isFilledReviewUpload1
+    (state: RootState) => state.product.reviewUpload.isFilledReviewUpload1,
   );
-  const _setReviewUploadProductId = (reviewUploadProductId: State) => {
-    dispatch(setReviewUProductId(reviewUploadProductId));
-  };
 
   useEffect(() => {
-    productId === null ? null : [_setReviewUploadProductId(productId)];
+    productId === null ? null : [dispatch(setReviewUProductId(productId))];
   });
 
   React.useEffect(() => {

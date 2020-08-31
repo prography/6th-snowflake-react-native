@@ -6,6 +6,8 @@ import styled from 'styled-components/native';
 
 import { d, c, l } from '~/utils/constant';
 import { llog2 } from '~/utils/functions';
+import { setBlinder } from '~/store/modules/product/blind';
+import { RootState } from '~/store/modules';
 
 const Container = styled.View`
   width: ${d.px * l.tB}px;
@@ -29,19 +31,19 @@ const BlinderTouchable = styled.TouchableOpacity`
 const Blinder = () => {
   const dispatch = useDispatch();
   const blindState = useSelector(
-    (state) => state.blindReducer.blindState
+    (state: RootState) => state.product.blind.blindState,
   );
   llog2('blindState:', blindState);
 
-  const setBlinder = () => {
+  const onPress = () => {
     analytics().logEvent(`blinder_to_${blindState ? 'show' : 'hidden'}`);
-    dispatch({ type: 'SET_BLINDER', blindState });
+    dispatch(setBlinder(blindState));
   };
 
   return (
     <Container>
       <BlinderTouchable
-        onPress={setBlinder}
+        onPress={onPress}
         blinderColor={blindState ? c.purple : c.mint}
       >
         {blindState ? <Text>😎</Text> : <Text>🌞</Text>}
