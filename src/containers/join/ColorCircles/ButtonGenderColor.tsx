@@ -56,7 +56,7 @@ const ButtonGenderColor = ({ children, navigation }: Props) => {
     await setManColorAS(manColor);
 
     dispatch(setWomanColor(womanColor));
-    dispatch(setManColor(womanColor));
+    dispatch(setManColor(manColor));
   }
 
   return (

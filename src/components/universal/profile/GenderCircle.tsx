@@ -71,7 +71,7 @@ const GenderCircle = ({ gender, size, who }: Props) => {
       dispatch(setWomanColor(womanTemp));
       const manTemp = await getManColor();
       console.log('AsyncStorage manColor', manTemp);
-      dispatch(setManColor(womanTemp));
+      dispatch(setManColor(manTemp));
     }
     getASColor();
   }, [])
