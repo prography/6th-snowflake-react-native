@@ -46,10 +46,14 @@ const HomeMain = () => {
     _getUserInfo();
   }, []);
 
-  if (userInfoArray) {
-    dispatch(setMyGender(userInfoArray.gender))
-    dispatch(setPartnerGender(userInfoArray.partner_gender))
-  }
+
+  useEffect(() => {
+    if (userInfoArray) {
+      dispatch(setMyGender(userInfoArray.gender))
+      dispatch(setPartnerGender(userInfoArray.partner_gender))
+    }
+  }, [userInfoArray])
+
 
 
   return (
