@@ -22,7 +22,11 @@ const initialState: UserInfoState = {
   userGender: null,
   userPartnerGender: null,
 
-  userInfo: null,
+  userInfo: {
+    loading: false,
+    data: null,
+    error: null,
+  },
 };
 
 const SET_USER_EMAIL = "SET_USER_EMAIL";

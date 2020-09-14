@@ -1,61 +1,35 @@
 import * as React from 'react';
-import { useState, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import analytics from "@react-native-firebase/analytics";
-import { useAsyncStorage } from '@react-native-community/async-storage';
 
 import Content from '../../containers/home/main/Content';
 import TopBarLeftIcon from '~/components/universal/topBar/TopBarLeftIcon';
 import NavBar from '~/screens/NavBar';
 import MarginBottom from '~/components/universal/margin/MarginBottom';
-import { AsyncAccessToken } from '~/utils/asyncStorage';
-import { BASE_URL } from '~/utils/constant';
-import { llog2 } from '~/utils/functions';
 import { setMyGender, setPartnerGender } from '~/store/modules/product/reviewUpload';
+import { getUserInfoRequest } from '~/store/modules/join/userInfo';
+import { RootState } from '~/store/modules';
 
 const HomeMain = () => {
+  // redux
   const dispatch = useDispatch();
+  const { loading, data: userInfo, error } = useSelector((state: RootState) => state.join.userInfo.userInfo);
 
   React.useEffect(() => {
     analytics().setCurrentScreen("HomeMain");
   }, []);
 
-  const { getItem: getTokenItem } = useAsyncStorage(AsyncAccessToken);
-
-  const [userInfoArray, setUserInfoArray] = useState(null);
-
-  const _getUserInfo = async () => {
-    try {
-      const token = await getTokenItem();
-      if (!token) { return }
-
-      const response = await fetch(`${BASE_URL}/accounts/`, {
-        method: 'GET',
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      const json = await response.json();
-      llog2('2.🐹User info 불러옴 - 성공!', json);
-      setUserInfoArray(json);
-    } catch (error) {
-      llog2('🐹store 저장 에러', error);
-    }
-  };
-
   useEffect(() => {
-    _getUserInfo();
+    dispatch(getUserInfoRequest())
   }, []);
 
-
   useEffect(() => {
-    if (userInfoArray) {
-      dispatch(setMyGender(userInfoArray.gender))
-      dispatch(setPartnerGender(userInfoArray.partner_gender))
+    if (userInfo) {
+      dispatch(setMyGender(userInfo.gender))
+      dispatch(setPartnerGender(userInfo.partner_gender))
     }
-  }, [userInfoArray])
-
-
+  }, [userInfo])
 
   return (
     <NavBar selectedStack={'HomeStack'}>
