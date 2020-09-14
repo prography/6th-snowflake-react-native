@@ -1,15 +1,16 @@
 import * as React from 'react';
 import { useState, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import analytics from "@react-native-firebase/analytics";
+import { useAsyncStorage } from '@react-native-community/async-storage';
+
 import Content from '../../containers/home/main/Content';
 import TopBarLeftIcon from '~/components/universal/topBar/TopBarLeftIcon';
 import NavBar from '~/screens/NavBar';
 import MarginBottom from '~/components/universal/margin/MarginBottom';
-import analytics from "@react-native-firebase/analytics";
 import { AsyncAccessToken } from '~/utils/asyncStorage';
-import { useAsyncStorage } from '@react-native-community/async-storage';
 import { BASE_URL } from '~/utils/constant';
 import { llog2 } from '~/utils/functions';
-import { useDispatch } from 'react-redux';
 import { setMyGender, setPartnerGender } from '~/store/modules/product/reviewUpload';
 
 const HomeMain = () => {
