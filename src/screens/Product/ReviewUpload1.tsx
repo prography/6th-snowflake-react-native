@@ -5,7 +5,7 @@ import analytics from "@react-native-firebase/analytics";
 import { useSelector, useDispatch } from 'react-redux';
 import { RouteProp } from '@react-navigation/native';
 
-import { setReviewUProductId } from '~/store/modules/product/reviewUpload';
+import { setReviewUProductId, setScoreTemp } from '~/store/modules/product/reviewUpload';
 import Blinder from '~/components/product/Blinder';
 import TopBarBackArrow from '~/components/universal/topBar/TopBarBackArrow';
 import LineGrayMiddle from '~/components/universal/line/LineGrayMiddle';
@@ -27,6 +27,25 @@ const ReviewUpload1 = ({ route }: Props) => {
   const _isFilledReviewUpload1 = useSelector(
     (state: RootState) => state.product.reviewUpload.isFilledReviewUpload1,
   );
+
+  const _thicknessScore = useSelector(
+    (state: RootState) => state.product.reviewUpload.thicknessScore,
+  );
+  const _durabilityScore = useSelector(
+    (state: RootState) => state.product.reviewUpload.durabilityScore,
+  );
+  const _oilyScore = useSelector(
+    (state: RootState) => state.product.reviewUpload.oilyScore,
+  );
+
+  // const _pressFunc = () => {
+  //   dispatch(setScoreTemp(
+  //     productId,
+  //     _thicknessScore,
+  //     _durabilityScore,
+  //     _oilyScore
+  //   ))
+  // }
 
   useEffect(() => {
     productId === null ? null : [dispatch(setReviewUProductId(productId))];
