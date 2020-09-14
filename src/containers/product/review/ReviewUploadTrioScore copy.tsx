@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import {
   State,
   setThicknessScore,
@@ -7,18 +7,14 @@ import {
   setOilyScore,
   setIsFilledReviewUpload1,
   setTrioAverage,
-  setScoreTemp,
 } from '~/store/modules/product/reviewUpload';
 import styled from 'styled-components/native';
 import { useSelector, useDispatch } from 'react-redux';
+import { Text } from 'react-native';
 import { d, c, l } from '~/utils/constant';
 import MarginMedium from '~/components/universal/margin/MarginMedium';
 import TextMiddleTitleDark from '~/components/universal/text/TextMiddleTitleDark';
 import { RootState } from '~/store/modules';
-
-interface Props {
-  productId: number;
-}
 
 const BAR_HEIGHT = d.px * 4;
 const TOUCH_AREA = d.px * 50;
@@ -128,26 +124,18 @@ const Description = styled.Text`
   top: ${(TOUCH_AREA / 3) * 2}px;
 `;
 
-const ReviewUploadTrioScore = ({productId}: Props) => {
-  console.log('이거는 productId',productId)
+const ReviewUploadTrioScore = () => {
   const dispatch = useDispatch();
 
-  const payload = useSelector(
-    (state: RootState) => state.product.reviewUpload.scoreTemp
+  const _thicknessScore = useSelector(
+    (state: RootState) => state.product.reviewUpload.thicknessScore,
   );
-
-  // const _thicknessScore = useSelector(
-  //   (state: RootState) => state.product.reviewUpload.thicknessScore,
-  // );
-  // const _durabilityScore = useSelector(
-  //   (state: RootState) => state.product.reviewUpload.durabilityScore,
-  // );
-  // const _oilyScore = useSelector(
-  //   (state: RootState) => state.product.reviewUpload.oilyScore,
-  // );
-  const [_thicknessScore, setThicknessScore] = useState(0)
-  const [_durabilityScore, setDurabilityScore] = useState(0)
-  const [_oilyScore, setOilyScore] = useState(0)
+  const _durabilityScore = useSelector(
+    (state: RootState) => state.product.reviewUpload.durabilityScore,
+  );
+  const _oilyScore = useSelector(
+    (state: RootState) => state.product.reviewUpload.oilyScore,
+  );
 
   useEffect(() => {
     dispatch(setIsFilledReviewUpload1(
@@ -157,42 +145,6 @@ const ReviewUploadTrioScore = ({productId}: Props) => {
       Number(((_thicknessScore + _oilyScore + _durabilityScore) / 3).toFixed(2))
     ));
   }, [_thicknessScore, _oilyScore, _durabilityScore]);
-
-
-
-
-  console.log(typeof productId)
-  // console.log('으아', payload.find((item) => item.key === productId));
-
-  useEffect(() => {
-    console.log('진입했다.')
-    if (!payload) {
-      console.log('되나?')
-      const scoreTempArr = payload.find((item) => item.key === productId).value;
-      console.log('scoretmeparr', scoreTempArr)
-      
-      setThicknessScore(scoreTempArr[0]);
-      setDurabilityScore(scoreTempArr[1]);
-      setOilyScore(scoreTempArr[2]);
-    }
-    // return () => {
-    //   dispatch(setThicknessScore(0));
-    //   dispatch(setDurabilityScore(0));
-    //   dispatch(setOilyScore(0));
-    // }
-  }, [])
-  console.log('페이로드', payload)
-
-
-
-
-  useEffect(() => {
-    dispatch(setScoreTemp({ key: productId, value: [_thicknessScore, _durabilityScore, _oilyScore] }))
-  }, [_thicknessScore, _durabilityScore, _oilyScore])
-
-
-
-
 
   const trioScore = [
     {
@@ -248,7 +200,6 @@ const ReviewUploadTrioScore = ({productId}: Props) => {
   ];
 
   return trioScore.map((question) => {
-    // console.log('퀘스천', question)
     return (
       <>
         <TitleContainer>
@@ -256,9 +207,9 @@ const ReviewUploadTrioScore = ({productId}: Props) => {
         </TitleContainer>
         <MarginMedium />
         <SelectedTextContainer>
-          {/* {question.score && (
+          {question.score && (
             <SelectedText>{question.selectedText[question.score]}</SelectedText>
-          )} */}
+          )}
         </SelectedTextContainer>
         <Container>
           <DescriptionContainer>
@@ -278,13 +229,13 @@ const ReviewUploadTrioScore = ({productId}: Props) => {
                     onPress={() => {
                       switch (question.type) {
                         case thickness:
-                          setThicknessScore(bar.score);
+                          dispatch(setThicknessScore(bar.score));
                           return;
                         case durability:
-                          setDurabilityScore(bar.score);
+                          dispatch(setDurabilityScore(bar.score));
                           return;
                         case oily:
-                          setOilyScore(bar.score);
+                          dispatch(setOilyScore(bar.score));
                           return;
                         default:
                           return;
@@ -310,4 +261,3 @@ const ReviewUploadTrioScore = ({productId}: Props) => {
 };
 
 export default ReviewUploadTrioScore;
-

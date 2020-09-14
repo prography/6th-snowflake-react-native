@@ -3,6 +3,7 @@ export type ReviewUploadState = {
   thicknessScore: number;
   durabilityScore: number;
   oilyScore: number;
+  scoreTemp: [object];
   trioAverage: number;
   score: number;
   myGender: string;
@@ -21,6 +22,10 @@ const initialState: ReviewUploadState = {
   thicknessScore: null,
   durabilityScore: null,
   oilyScore: null,
+  scoreTemp: [{
+    key:null,
+    value:[0, 0, 0]
+  }],
   trioAverage: null,
   score: null,
   myGender: null,
@@ -35,6 +40,7 @@ const initialState: ReviewUploadState = {
 const SET_THICKNESS_SCORE = "SET_THICKNESS_SCORE";
 const SET_DURABILITY_SCORE = "SET_DURABILITY_SCORE";
 const SET_OILY_SCORE = "SET_OILY_SCORE";
+const SET_SCORE_TEMP = "SET_SCORE_TEMP";
 const SET_TRIO_AVERAGE = "SET_TRIO_AVERAGE";
 const SET_SCORE = "SET_SCORE";
 const SET_MY_GENDER = "SET_MY_GENDER";
@@ -66,6 +72,23 @@ export const setOilyScore = (oilyScore: number) => {
     oilyScore,
   };
 };
+
+// export const setScoreTemp = (productId: number, _thicknessScore: number, _durabilityScore: number, _oilyScore: number) => {
+//   return {
+//     type: SET_SCORE_TEMP,
+//     scoreTemp: [productId, _thicknessScore, _durabilityScore, _oilyScore]
+//   }
+// }
+
+export const setScoreTemp = (payload: object) => {
+  return {
+    type: SET_SCORE_TEMP,
+    payload,
+  }
+}
+
+
+
 export const setTrioAverage = (trioAverage: number) => {
   return {
     type: SET_TRIO_AVERAGE,
@@ -138,6 +161,29 @@ const ReviewUploadReducer = (state = initialState, action) => {
       return { ...state, durabilityScore: action.durabilityScore };
     case SET_OILY_SCORE:
       return { ...state, oilyScore: action.oilyScore };
+
+    // case SET_SCORE_TEMP:
+    //   return {
+    //     ...state,
+    //     scoreTemp: [...state.scoreTemp, action.scoreTemp]
+    //   }
+
+    case SET_SCORE_TEMP:
+      const obj = state.scoreTemp.find((item) => item.key === action.payload.key);
+      if(obj){
+        return{
+          ...state, 
+          scoreTemp: [
+            ...state.scoreTemp.filter((item) => item.key!== action.payload.key),
+            action.payload,
+          ]
+        }
+      }else{
+        return {
+          ...state,
+          scoreTemp: [...state.scoreTemp, action.payload]
+        }
+      }
     case SET_TRIO_AVERAGE:
       return { ...state, trioAverage: action.trioAverage };
 
