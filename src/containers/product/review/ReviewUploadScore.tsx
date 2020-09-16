@@ -114,7 +114,7 @@ const ReviewUploadScore = ({productId}: Props) => {
       if (scoreInfo) {
         setScore(scoreInfo.score);
       }
-    }리뷰 작성 중 중단 시 스토어 제품별 저장으로 분리
+    }
 
     if(reviewInfo2_average) {
       const averageInfo = reviewInfo2_average.find((item) => item.productId === productId);
