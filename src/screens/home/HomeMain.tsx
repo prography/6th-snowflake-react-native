@@ -10,7 +10,7 @@ import { useAsyncStorage } from '@react-native-community/async-storage';
 import { BASE_URL } from '~/utils/constant';
 import { llog2 } from '~/utils/functions';
 import { useDispatch } from 'react-redux';
-import { setMyGender, setPartnerGender } from '~/store/modules/product/reviewUpload';
+import { setUserGender, setUserPartnerGender } from '~/store/modules/join/userInfo';
 
 const HomeMain = () => {
   const dispatch = useDispatch();
@@ -49,8 +49,8 @@ const HomeMain = () => {
 
   useEffect(() => {
     if (userInfoArray) {
-      dispatch(setMyGender(userInfoArray.gender))
-      dispatch(setPartnerGender(userInfoArray.partner_gender))
+      dispatch(setUserGender(userInfoArray.gender))
+      dispatch(setUserPartnerGender(userInfoArray.partner_gender))
     }
   }, [userInfoArray])
 

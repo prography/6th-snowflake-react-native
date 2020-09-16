@@ -1,13 +1,9 @@
 import * as React from 'react';
 import { useEffect, useState } from 'react';
 import {
-  State,
-  setThicknessScore,
-  setDurabilityScore,
-  setOilyScore,
   setIsFilledReviewUpload1,
-  setTrioAverage,
-  setScoreTemp,
+  setReviewInfo1,
+  setReviewInfo2_average
 } from '~/store/modules/product/reviewUpload';
 import styled from 'styled-components/native';
 import { useSelector, useDispatch } from 'react-redux';
@@ -129,75 +125,47 @@ const Description = styled.Text`
 `;
 
 const ReviewUploadTrioScore = ({productId}: Props) => {
-  console.log('이거는 productId',productId)
   const dispatch = useDispatch();
 
-  const payload = useSelector(
-    (state: RootState) => state.product.reviewUpload.scoreTemp
-  );
+  const [thicknessScore, setThicknessScore] = useState(0)
+  const [durabilityScore, setDurabilityScore] = useState(0)
+  const [oilyScore, setOilyScore] = useState(0)
 
-  // const _thicknessScore = useSelector(
-  //   (state: RootState) => state.product.reviewUpload.thicknessScore,
-  // );
-  // const _durabilityScore = useSelector(
-  //   (state: RootState) => state.product.reviewUpload.durabilityScore,
-  // );
-  // const _oilyScore = useSelector(
-  //   (state: RootState) => state.product.reviewUpload.oilyScore,
-  // );
-  const [_thicknessScore, setThicknessScore] = useState(0)
-  const [_durabilityScore, setDurabilityScore] = useState(0)
-  const [_oilyScore, setOilyScore] = useState(0)
+
+  const reviewInfo1 = useSelector(
+    (state: RootState) => state.product.reviewUpload.reviewInfo1
+  )
+
+  useEffect(() => {
+    console.log('reviewInfo1', reviewInfo1)
+    if (reviewInfo1) {
+      const trio = reviewInfo1.find((item) => item.productId === productId);
+      if (trio) {
+        setThicknessScore(trio.thicknessScore);
+        setDurabilityScore(trio.durabilityScore);
+        setOilyScore(trio.oilyScore);
+      }
+    }
+  }, [])
 
   useEffect(() => {
     dispatch(setIsFilledReviewUpload1(
-      _thicknessScore && _durabilityScore && _oilyScore ? true : false
+      thicknessScore && durabilityScore && oilyScore ? true : false
     ));
-    dispatch(setTrioAverage(
-      Number(((_thicknessScore + _oilyScore + _durabilityScore) / 3).toFixed(2))
+    dispatch(setReviewInfo2_average(
+      {productId, average: Number(((thicknessScore + oilyScore + durabilityScore) / 3).toFixed(2))}
     ));
-  }, [_thicknessScore, _oilyScore, _durabilityScore]);
-
-
-
-
-  console.log(typeof productId)
-  // console.log('으아', payload.find((item) => item.key === productId));
-
-  useEffect(() => {
-    console.log('진입했다.')
-    if (!payload) {
-      console.log('되나?')
-      const scoreTempArr = payload.find((item) => item.key === productId).value;
-      console.log('scoretmeparr', scoreTempArr)
-      
-      setThicknessScore(scoreTempArr[0]);
-      setDurabilityScore(scoreTempArr[1]);
-      setOilyScore(scoreTempArr[2]);
-    }
-    // return () => {
-    //   dispatch(setThicknessScore(0));
-    //   dispatch(setDurabilityScore(0));
-    //   dispatch(setOilyScore(0));
-    // }
-  }, [])
-  console.log('페이로드', payload)
-
-
+  }, [thicknessScore, oilyScore, durabilityScore]);
 
 
   useEffect(() => {
-    dispatch(setScoreTemp({ key: productId, value: [_thicknessScore, _durabilityScore, _oilyScore] }))
-  }, [_thicknessScore, _durabilityScore, _oilyScore])
-
-
-
-
+    dispatch(setReviewInfo1({productId, thicknessScore, durabilityScore, oilyScore}))
+  }, [thicknessScore, durabilityScore, oilyScore])
 
   const trioScore = [
     {
       type: thickness,
-      score: _thicknessScore,
+      score: thicknessScore,
       question: '얇기는 어떠셨나요?',
       leftDescription: '두꺼워요',
       rightDescription: '얇아요',
@@ -211,7 +179,7 @@ const ReviewUploadTrioScore = ({productId}: Props) => {
     },
     {
       type: durability,
-      score: _durabilityScore,
+      score: durabilityScore,
       question: '내구성은 어떠셨나요?',
       leftDescription: '약해요',
       rightDescription: '튼튼해요',
@@ -225,7 +193,7 @@ const ReviewUploadTrioScore = ({productId}: Props) => {
     },
     {
       type: oily,
-      score: _oilyScore,
+      score: oilyScore,
       question: '윤활제는 충분했나요?',
       leftDescription: '건조해요',
       rightDescription: '촉촉해요',
@@ -256,9 +224,9 @@ const ReviewUploadTrioScore = ({productId}: Props) => {
         </TitleContainer>
         <MarginMedium />
         <SelectedTextContainer>
-          {/* {question.score && (
+          {question.score ? (
             <SelectedText>{question.selectedText[question.score]}</SelectedText>
-          )} */}
+          ) : null}
         </SelectedTextContainer>
         <Container>
           <DescriptionContainer>
