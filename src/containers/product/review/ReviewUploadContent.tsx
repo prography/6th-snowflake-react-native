@@ -61,8 +61,6 @@ const ReviewUploadContent = ({productId}: Props) => {
     dispatch(setReviewInfo3({productId, reviewContent}))
   }, [reviewContent])
 
-  console.log('🏄🏻‍♂️이건 reviewContent', reviewContent)
-
   return (
     <>
       <TitleContainer>

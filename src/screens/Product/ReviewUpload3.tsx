@@ -113,8 +113,6 @@ const ReviewUpload3 = ({ navigation, route }: Props) => {
     }
   }, [reviewInfo3])
 
-console.log('🎹나와라', myGender, reviewContent)
-
   const { getItem: getTokenItem } = useAsyncStorage(AsyncAccessToken);
 
   const _reviewUpload = async () => {

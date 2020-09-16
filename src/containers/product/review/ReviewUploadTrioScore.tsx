@@ -137,7 +137,6 @@ const ReviewUploadTrioScore = ({productId}: Props) => {
   )
 
   useEffect(() => {
-    console.log('reviewInfo1', reviewInfo1)
     if (reviewInfo1) {
       const trio = reviewInfo1.find((item) => item.productId === productId);
       if (trio) {
@@ -216,7 +215,6 @@ const ReviewUploadTrioScore = ({productId}: Props) => {
   ];
 
   return trioScore.map((question) => {
-    // console.log('퀘스천', question)
     return (
       <>
         <TitleContainer>

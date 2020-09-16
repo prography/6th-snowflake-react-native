@@ -181,10 +181,6 @@ const ReviewUploadGender = ({productId}: Props) => {
 
 
   useEffect(() => {
-    console.log('🤽‍♂️score', score)
-    console.log('🤽‍♂️myGender', myGender)
-    console.log('🤽‍♂️partnerGender', partnerGender)
-    console.log('🤽‍♂️🚣🏼‍♂️', aa)
     dispatch(setIsFilledReviewUpload2(
       (score && myGender && partnerGender) ? true : false
     ));
@@ -198,10 +194,6 @@ const ReviewUploadGender = ({productId}: Props) => {
         ? setPartnerGender(selectedGender)
         : setMyGender(selectedGender)
   };
-
-console.log('rewqqwvdsav', reviewInfo2_score, reviewInfo2_myGender, reviewInfo2_partnerGender)
-
-
 
   const selection = [
     { selection: '여성', gender: 'WOMAN' },

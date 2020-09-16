@@ -13,6 +13,7 @@ import { manageLoginLogout } from '~/store/modules/auth';
 import MarginNarrow from '~/components/universal/margin/MarginNarrow';
 import { llog2 } from '~/utils/functions';
 import { RootState } from '~/store/modules';
+import { getUserInfoRequest } from '~/store/modules/join/userInfo';
 
 const ProfileContainer = styled.View``;
 const Container = styled.View`
@@ -20,43 +21,23 @@ const Container = styled.View`
   margin-right: ${l.mR}px;
 `;
 const MyProfile = () => {
+  // redux
   const dispatch = useDispatch();
   const _isLoggedin = useSelector((state: RootState) => state.auth.isLoggedin);
-  const { getItem: getTokenItem } = useAsyncStorage(AsyncAccessToken);
-
-  const [userInfoArray, setUserInfoArray] = useState(null);
-
-  const _getUserInfo = async () => {
-    try {
-      const token = await getTokenItem();
-      if (!token) { return }
-
-      const response = await fetch(`${BASE_URL}/accounts/`, {
-        method: 'GET',
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      const json = await response.json();
-      llog2('2.🐹User info 불러옴 - 성공!', json);
-      setUserInfoArray(json);
-    } catch (error) {
-      llog2('🐹store 저장 에러', error);
-    }
-  };
+  const { loading, data: userInfo, error } = useSelector((state: RootState) => state.join.userInfo.userInfo);
 
   useEffect(() => {
-    _getUserInfo();
+    dispatch(getUserInfoRequest());
   }, []);
 
   return (
     <Container>
       {_isLoggedin ? (
-        userInfoArray ? (
+        userInfo ? (
           <>
             <ProfileContainer>
               <TextTitlePurpleRight
-                title={userInfoArray.username + '님, 반가워요 ☀️'}
+                title={userInfo.username + '님, 반가워요 ☀️'}
               />
             </ProfileContainer>
             <MarginNarrow />
