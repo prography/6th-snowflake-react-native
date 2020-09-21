@@ -127,42 +127,26 @@ const Description = styled.Text`
   top: ${(TOUCH_AREA / 3) * 2}px;
 `;
 
-const ReviewUploadTrioScore = ({productId}: Props) => {
+const ReviewUploadTrioScore = ({ productId }: Props) => {
   const dispatch = useDispatch();
-
-  const [thicknessScore, setThicknessScore] = useState(0)
-  const [durabilityScore, setDurabilityScore] = useState(0)
-  const [oilyScore, setOilyScore] = useState(0)
-
 
   const reviewInfo1 = useSelector(
     (state: RootState) => state.product.reviewUpload.reviewInfo1
   )
+  const { thicknessScore, durabilityScore, oilyScore } = reviewInfo1.find((item) => item.productId === productId);
 
   useEffect(() => {
-    if (reviewInfo1) {
-      const trio = reviewInfo1.find((item) => item.productId === productId);
-      if (trio) {
-        setThicknessScore(trio.thicknessScore);
-        setDurabilityScore(trio.durabilityScore);
-        setOilyScore(trio.oilyScore);
-      }
-    }
-  }, [])
-
-  useEffect(() => {
+    // reviewInfo1의 요소들 저장
+    dispatch(setReviewInfo1({ productId, thicknessScore, durabilityScore, oilyScore }))
+    // 버튼 색깔
     dispatch(setIsFilledReviewUpload1(
       thicknessScore && durabilityScore && oilyScore ? true : false
     ));
+    // reviewInfo2거를 미리 해줌 (사실 필요없지만)
     dispatch(setReviewInfo2_average(
-      {productId, average: Number(((thicknessScore + oilyScore + durabilityScore) / 3).toFixed(2))}
+      { productId, average: Number(((thicknessScore + oilyScore + durabilityScore) / 3).toFixed(2)) }
     ));
   }, [thicknessScore, oilyScore, durabilityScore]);
-
-
-  useEffect(() => {
-    dispatch(setReviewInfo1({productId, thicknessScore, durabilityScore, oilyScore}))
-  }, [thicknessScore, durabilityScore, oilyScore])
 
   const trioScore = [
     {
@@ -247,7 +231,7 @@ const ReviewUploadTrioScore = ({productId}: Props) => {
                     onPress={() => {
                       switch (question.type) {
                         case thickness:
-                          setThicknessScore(bar.score);
+                          dispatch(setReviewInfo1({ productId, thicknessScore, durabilityScore, oilyScore }))
                           return;
                         case durability:
                           setDurabilityScore(bar.score);
