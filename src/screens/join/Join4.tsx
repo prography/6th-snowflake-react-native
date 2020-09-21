@@ -85,6 +85,8 @@ const Join4 = ({ navigation, route }: Props) => {
         method: 'PATCH',
         headers: {
           Authorization: `Bearer ${_token}`,
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
         },
         body: JSON.stringify({
           username,
@@ -95,6 +97,13 @@ const Join4 = ({ navigation, route }: Props) => {
       });
       const json = await response.json();
       console.log('2.🥎 social token 으로 user 정보 업데이트 결과는?', response, json);
+      switch (response.status) {
+        case 200:
+          navigation.navigate('SettimgMain');
+        default:
+          alert('회원가입 처리중 오류가 발생했어요');
+          return;
+      }
     } catch (error) {
       console.log('🥎🥎. social token 유저 정보 업데이트 실패', error);
     }

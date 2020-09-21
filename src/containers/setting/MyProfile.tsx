@@ -43,7 +43,7 @@ const MyProfile = () => {
             <MarginNarrow />
             <TextTitleDarkPurpleLink
               title={''}
-              buttonText={'로그아웃'}
+              buttonText={'LOGOUT'}
               onPress={() => manageLoginLogout(dispatch, false)}
             />
           </>
