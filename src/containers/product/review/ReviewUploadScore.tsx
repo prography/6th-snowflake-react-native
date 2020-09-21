@@ -18,6 +18,10 @@ const CHECKBOX_SIZE = d.px * 15;
 const ANSWER_TEXT_HEIGHT = d.px * 25;
 const SMALL_MARGIN = d.px * 8;
 
+
+const LargeContainer = styled.View`
+`;
+
 const TitleContainer = styled.View`
   align-items: center;
   width: 100%;
@@ -158,9 +162,8 @@ const ReviewUploadScore = ({productId}: Props) => {
           <StarContainer>
             {oneToFive.map((star, index: number) => {
               return (
-                <>
+                <LargeContainer key={index}>
                   <StarTouchArea
-                    key={index}
                     onPress={() => {
                       setScore(star.score);
                     }}
@@ -169,7 +172,7 @@ const ReviewUploadScore = ({productId}: Props) => {
                       ★
                     </Star>
                   </StarTouchArea>
-                </>
+                </LargeContainer>
               );
             })}
           </StarContainer>

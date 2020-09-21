@@ -26,6 +26,9 @@ const thickness = 'thickness';
 const durability = 'durability';
 const oily = 'oily';
 
+const LargeConatiner = styled.View`
+`;
+
 const TitleContainer = styled.View`
   align-items: center;
   width: 100%;
@@ -214,9 +217,9 @@ const ReviewUploadTrioScore = ({productId}: Props) => {
     { score: 5 },
   ];
 
-  return trioScore.map((question) => {
+  return trioScore.map((question, i) => {
     return (
-      <>
+      <LargeConatiner key={i}>
         <TitleContainer>
           <TextMiddleTitleDark title={question.question} />
         </TitleContainer>
@@ -270,7 +273,7 @@ const ReviewUploadTrioScore = ({productId}: Props) => {
 
           <MarginMedium />
         </Container>
-      </>
+      </LargeConatiner>
     );
   });
 };
