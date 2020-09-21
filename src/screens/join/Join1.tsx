@@ -11,6 +11,9 @@ import { d, c, l, BASE_URL } from '~/utils/constant';
 import BottomBtnCollectData from '~/components/universal/bottomBar/BottomBtnCollectData';
 import MarginWide from '~/components/universal/margin/MarginWide';
 import TopBarBackArrowRightIcon from '~/components/universal/topBar/TopBarBackArrowRightIcon';
+
+import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scrollview'
+
 const Container = styled.View`
   margin: 0 ${l.mR}px;
 `;
@@ -169,8 +172,10 @@ const Join1 = () => {
           socialJoin: false,
         }}
       >
+        <KeyboardAwareScrollView showsVerticalScrollIndicator={false}>
         <Container>
           <TopBarBackArrowRightIcon />
+          
           {JoinInputArray.map((data) => {
             return (
               <>
@@ -210,6 +215,7 @@ const Join1 = () => {
             );
           })}
         </Container>
+        </KeyboardAwareScrollView>
       </BottomBtnCollectData>
     </>
   );
