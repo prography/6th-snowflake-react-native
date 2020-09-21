@@ -1,17 +1,21 @@
 import * as React from 'react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import styled from 'styled-components/native';
 import { useSelector, useDispatch } from 'react-redux';
 
 import {
-  setReviewContent,
   reviewUploadContentPlaceholder,
   setIsFilledReviewUpload3,
+  setReviewInfo3,
 } from '~/store/modules/product/reviewUpload';
 import { d, c, l } from '~/utils/constant';
 import TextMiddleTitleDark from '~/components/universal/text/TextMiddleTitleDark';
 import MarginMedium from '~/components/universal/margin/MarginMedium';
 import { RootState } from '~/store/modules';
+
+interface Props {
+  productId: number;
+}
 
 const REVIEW_MINIMUM_LENGTH = 15;
 const TitleContainer = styled.View`
@@ -34,13 +38,28 @@ const AnswerInput = styled.TextInput`
   line-height: ${d.px * 25}px;
   color: ${c.black};
 `;
-const ReviewUploadContent = () => {
+const ReviewUploadContent = ({productId}: Props) => {
   const [reviewLength, setReviewLength] = useState(0);
   const dispatch = useDispatch();
 
-  const _reviewContent = useSelector(
-    (state: RootState) => state.product.reviewUpload.reviewContent,
-  );
+  const reviewInfo3 = useSelector(
+    (state: RootState) => state.product.reviewUpload.reviewInfo3
+  )
+
+  const [reviewContent, setReviewContent] = useState("")
+
+  useEffect(() => {
+    if (reviewInfo3) {
+      const content = reviewInfo3.find((item) => item.productId === productId);
+      if (content) {
+        setReviewContent(content.reviewContent);
+      }
+    }
+  }, [])
+
+  useEffect(() => {
+    dispatch(setReviewInfo3({productId, reviewContent}))
+  }, [reviewContent])
 
   return (
     <>
@@ -54,16 +73,16 @@ const ReviewUploadContent = () => {
           placeholderTextColor={c.lightGray}
           placeholder={reviewUploadContentPlaceholder}
           onChangeText={(text) => [
-            dispatch(setReviewContent(text)),
+            setReviewContent(text),
             setReviewLength(text.length),
             dispatch(setIsFilledReviewUpload3(
               reviewLength < REVIEW_MINIMUM_LENGTH ? false : true
             )),
           ]}
           multiline={true}
-          clearTextOnFocus={_reviewContent ? false : true}
+          clearTextOnFocus={reviewContent ? false : true}
         >
-          {_reviewContent}
+          {reviewContent}
         </AnswerInput>
       </AnswerContainer>
     </>

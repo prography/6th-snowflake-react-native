@@ -13,6 +13,8 @@ import MarginNarrow from '~/components/universal/margin/MarginNarrow';
 import TextLink from '~/components/universal/text/TextLink';
 import { RootState } from '~/store/modules';
 import { ProductStackParamList } from '~/navigation/tabs/ProductStack';
+import TextProductFlowName from '~/components/universal/text/product/TextProductFlowName';
+
 
 const Container = styled.View`
   width: ${(d.width - d.px * 70) / 2}px;
@@ -31,7 +33,9 @@ const ProductImage = styled.Image`
   width: ${d.px * 40}px;
   height: ${d.px * 65}px;
 `;
-const TextWrapper = styled.View``;
+const TextWrapper = styled.View`
+  width: ${(d.width - d.px * 70) / 2 - d.px * 60}px;
+`;
 
 const Link = styled.TouchableOpacity``;
 
@@ -76,7 +80,7 @@ const TrioBox = ({
         />
         <TextWrapper>
           <TextProductCompany productCompany={productCompany} />
-          <TextProductName productName={productName} />
+          <TextProductFlowName productName={productName} />
         </TextWrapper>
       </ProductBox>
       <MarginNarrow />

@@ -121,10 +121,11 @@ const SearchProduct = ({ navigation }: Props) => {
             {_searchResult && _searchResult.length === 0 ? (
               <WarningText>검색 결과가 없습니다</WarningText>
             ) : (
-                _searchResult.map((product) => {
+                _searchResult.map((product, index: number) => {
                   return (
                     <>
                       <ProductContainer
+                        key={index}
                         onPress={() => {
                           navigation.navigate('ProductStack', {
                             screen: 'ProductInfo',
