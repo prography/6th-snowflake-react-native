@@ -77,7 +77,7 @@ const JoinScreen = ({ navigation }: Props) => {
       // 카카오로 accessToken을 받으면
       if (result) {
         const response = await fetch(
-          `${BASE_URL}/accounts/social/kakao-login-callback?access_token=${result.accessToken}`,
+          `${BASE_URL}/accounts/social/kakao-login-callback`,
           requestOptions,
         );
 
@@ -103,10 +103,9 @@ const JoinScreen = ({ navigation }: Props) => {
           case 400: // accessToken을 잘못 보냈을 때
           // access_token이 존재하지 않습니다.
           default:
-            alert(`${json.message}`);
+            alert(`${response.status} / ${json.message}`);
             break;
         }
-
       } else {
         throw Error;
       }
@@ -136,23 +135,45 @@ const JoinScreen = ({ navigation }: Props) => {
       );
 
       if (credentialState === AppleAuthCredentialState.AUTHORIZED) {
-        const accessToken = appleAuthRequestResponse.identityToken;
-        llog1('🐒 Apple AUTHORIZED~~');
-        const response = await fetch(`${BASE_URL}/accounts/social/apple-login-callback?identify_token=${accessToken}`,
-          {
-            method: 'POST',
-          });
+        const { identityToken } = appleAuthRequestResponse;
+        llog2('🐒 Apple AUTHORIZED~~', identityToken);
+
+        // login 관련만 이렇게 FormData를 넣기!
+        const formdata = new FormData();
+        formdata.append("identity_token", identityToken);
+        const requestOptions = {
+          method: 'POST',
+          body: formdata,
+        };
+        // "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjAxMzAyMjA3LCJqdGkiOiI5YzExNWZhM2FhMjc0MjUwYWM4Yjc1M2RlZTE1NGIzOSIsInVzZXJfaWQiOjEwNywidXNlcm5hbWUiOiJcdWM1NjBcdWQ1MGNcdWIyZTQiLCJzb2NpYWwiOiJBUFBMRSIsImJpcnRoX3llYXIiOjE5OTgsImdlbmRlciI6IldPTUFOIn0.j-436cd7lT6kYcTaWsUKPjGTfZnetjo1fjHuVE7oa54"
+        // eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90e…FOIn0.ZsnpxrtM2oJ-Mm5zLH_wmv8s4wGcm3pRE0sf6mCnw04
+        const response = await fetch(`${BASE_URL}/accounts/social/apple-login-callback`, requestOptions);
 
         const json = await response.json();
         llog2('🐒 Apple 가입 response,', response);
         llog2('🐒 Apple 가입 api,', json);
 
-        // TODO: json 에서 성공이면
-
-        navigation.navigate('JoinStack', {
-          screen: 'Join2',
-          params: { _token: json.access, socialJoin: true },
-        });
+        switch (response.status) {
+          case 200: // 이미 가입된 유저
+            alert('이미 가입되어 있는 유저입니다 / 로그인 완료');
+            // 바로 토큰 가지고 로그인 처리, stack top으로 이동
+            // dispatch(manageLoginLogout(dispatch, true, accessToken));
+            // navigation.dispatch(StackActions.popToTop());
+            // toast도 메세지 준대
+            // toast(`${json.message}`);
+            break;
+          case 201: // 새로 회원가입
+            // TODO 이 Token은 어디 저장을 하나? 아니면 새로 나중에 회원가입 완료할 때 다시 하나?
+            navigation.navigate('Join2', {
+              _token: json.access, socialJoin: true,
+            });
+            break;
+          case 400: // accessToken을 잘못 보냈을 때
+          // access_token이 존재하지 않습니다.
+          default:
+            alert(`${response.status} / ${json.message}`);
+            break;
+        }
       } else {
         throw Error;
       }

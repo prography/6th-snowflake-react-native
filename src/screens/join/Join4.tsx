@@ -100,6 +100,7 @@ const Join4 = ({ navigation, route }: Props) => {
       switch (response.status) {
         case 200:
           navigation.navigate('SettimgMain');
+          return;
         default:
           alert('회원가입 처리중 오류가 발생했어요');
           return;
