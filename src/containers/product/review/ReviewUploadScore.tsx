@@ -112,7 +112,7 @@ const ReviewUploadScore = ({productId}: Props) => {
 
 const info2_score = reviewInfo2_score.find((item) => item.productId === productId);
 const score = info2_score?.score || 0;
-console.log('😇score', score)
+
 const info2_average = reviewInfo2_average.find((item) => item.productId === productId);
 const average = info2_average?.average || 0;
 

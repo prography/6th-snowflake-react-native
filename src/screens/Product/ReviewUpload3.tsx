@@ -34,25 +34,14 @@ const ReviewUpload3 = ({ navigation, route }: Props) => {
   );
 
   //ReviewUpload1
-  const [thicknessScore, setThicknessScore] = useState(0)
-  const [durabilityScore, setDurabilityScore] = useState(0)
-  const [oilyScore, setOilyScore] = useState(0)
-
-
   const reviewInfo1 = useSelector(
     (state: RootState) => state.product.reviewUpload.reviewInfo1
   )
 
-  useEffect(() => {
-    if (reviewInfo1) {
-      const trio = reviewInfo1.find((item) => item.productId === productId);
-      if (trio) {
-        setThicknessScore(trio.thicknessScore);
-        setDurabilityScore(trio.durabilityScore);
-        setOilyScore(trio.oilyScore);
-      }
-    }
-  }, [])
+  const info1 = reviewInfo1.find((item) => item.productId === productId);
+  const thicknessScore = info1?.thicknessScore || 0;
+  const durabilityScore = info1?.durabilityScore || 0;
+  const oilyScore = info1?.oilyScore || 0;
 
 
   //ReviewUpload2
@@ -60,41 +49,21 @@ const ReviewUpload3 = ({ navigation, route }: Props) => {
     (state: RootState) => state.product.reviewUpload.reviewInfo2_score,
   );
 
+  const info2_score = reviewInfo2_score.find((item) => item.productId === productId);
+  const score = info2_score?.score || 0;
+
   const reviewInfo2_myGender = useSelector(
     (state: RootState) => state.product.reviewUpload.reviewInfo2_myGender,
   );
 
+  const info2_myGender = reviewInfo2_myGender.find((item) => item.productId === productId);
+  const myGender = info2_myGender?.myGender || null;
+
   const reviewInfo2_partnerGender = useSelector(
     (state: RootState) => state.product.reviewUpload.reviewInfo2_partnerGender,
   );
-
-  const [score, setScore] = useState(null)
-  const [myGender, setMyGender] = useState(null)
-  const [partnerGender, setPartnerGender] = useState(null)
-
-
-  useEffect(() => {
-    if (reviewInfo2_score) {
-      const scoreInfo = reviewInfo2_score.find((item) => item.productId === productId);
-      if (scoreInfo) {
-        setScore(scoreInfo.score);
-      }
-    }
-
-    if (reviewInfo2_myGender) {
-      const myGenderInfo = reviewInfo2_myGender.find((item) => item.productId === productId);
-      if (myGenderInfo) {
-        setMyGender(myGenderInfo.myGender);
-      }
-    }
-
-    if (reviewInfo2_partnerGender) {
-      const partnerGenderInfo = reviewInfo2_partnerGender.find((item) => item.productId === productId);
-      if (partnerGenderInfo) {
-        setPartnerGender(partnerGenderInfo.partnerGender);
-      }
-    }
-  }, [])
+  const info2_partnerGender = reviewInfo2_partnerGender.find((item) => item.productId === productId);
+  const partnerGender = info2_partnerGender?.partnerGender || null;
 
 
 //ReviewUpload3
@@ -102,16 +71,8 @@ const ReviewUpload3 = ({ navigation, route }: Props) => {
     (state: RootState) => state.product.reviewUpload.reviewInfo3
   )
 
-  const [reviewContent, setReviewContent] = useState(null)
-
-  useEffect(() => {
-    if (reviewInfo3) {
-      const content = reviewInfo3.find((item) => item.productId === productId);
-      if (content) {
-        setReviewContent(content.reviewContent);
-      }
-    }
-  }, [reviewInfo3])
+  const info3 = reviewInfo3.find((item) => item.productId === productId);
+  const reviewContent = info3?.reviewContent || ""
 
   const { getItem: getTokenItem } = useAsyncStorage(AsyncAccessToken);
 
