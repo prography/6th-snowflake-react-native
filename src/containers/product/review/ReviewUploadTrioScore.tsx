@@ -133,11 +133,15 @@ const ReviewUploadTrioScore = ({ productId }: Props) => {
   const reviewInfo1 = useSelector(
     (state: RootState) => state.product.reviewUpload.reviewInfo1
   )
-  const { thicknessScore, durabilityScore, oilyScore } = reviewInfo1.find((item) => item.productId === productId);
+
+
+  const info1 = reviewInfo1.find((item) => item.productId === productId);
+  const thicknessScore = info1?.thicknessScore || 0;
+  const durabilityScore = info1?.durabilityScore || 0;
+  const oilyScore = info1?.oilyScore || 0;
+
 
   useEffect(() => {
-    // reviewInfo1의 요소들 저장
-    dispatch(setReviewInfo1({ productId, thicknessScore, durabilityScore, oilyScore }))
     // 버튼 색깔
     dispatch(setIsFilledReviewUpload1(
       thicknessScore && durabilityScore && oilyScore ? true : false
@@ -231,13 +235,13 @@ const ReviewUploadTrioScore = ({ productId }: Props) => {
                     onPress={() => {
                       switch (question.type) {
                         case thickness:
-                          dispatch(setReviewInfo1({ productId, thicknessScore, durabilityScore, oilyScore }))
+                          dispatch(setReviewInfo1({ productId, thicknessScore: bar.score, durabilityScore, oilyScore }))
                           return;
                         case durability:
-                          setDurabilityScore(bar.score);
+                          dispatch(setReviewInfo1({ productId, thicknessScore, durabilityScore: bar.score, oilyScore }))
                           return;
                         case oily:
-                          setOilyScore(bar.score);
+                          dispatch(setReviewInfo1({ productId, thicknessScore, durabilityScore, oilyScore: bar.score }))
                           return;
                         default:
                           return;

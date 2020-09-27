@@ -96,8 +96,7 @@ const CheckText = styled.Text`
 `;
 
 const ReviewUploadScore = ({productId}: Props) => {
-  const [score, setScore] = useState(0)
-  const [average, setAverage] = useState(0)
+
   const [checked, setChecked] = useState(false);
   const dispatch = useDispatch();
 
@@ -111,30 +110,42 @@ const ReviewUploadScore = ({productId}: Props) => {
     (state: RootState) => state.product.reviewUpload.reviewInfo2_average,
   );
 
+const info2_score = reviewInfo2_score.find((item) => item.productId === productId);
+console.log('info2_score', info2_score);
+const score = info2_score?.score || 0;
+console.log('😇score', score)
+const info2_average = reviewInfo2_average.find((item) => item.productId === productId);
+const average = info2_average?.average || 0;
+console.log('😇average', average)
 
+
+  // useEffect(() => {
+  //   if (reviewInfo2_score) {
+  //     const scoreInfo = reviewInfo2_score.find((item) => item.productId === productId);
+  //     if (scoreInfo) {
+  //       setScore(scoreInfo.score);
+  //     }
+  //   }
+
+  //   if(reviewInfo2_average) {
+  //     const averageInfo = reviewInfo2_average.find((item) => item.productId === productId);
+  //     if(averageInfo){
+  //       setAverage(averageInfo.average)
+  //     }
+  //   }
+  // }, [])
+
+  // useEffect(() => {
+  //   dispatch(setReviewInfo2_score({productId, score}))
+  // }, [score])
+
+  // useEffect(() => {
+  //   dispatch(setReviewInfo2_average({productId, average}))
+  // }, [average])
   useEffect(() => {
-    if (reviewInfo2_score) {
-      const scoreInfo = reviewInfo2_score.find((item) => item.productId === productId);
-      if (scoreInfo) {
-        setScore(scoreInfo.score);
-      }
-    }
-
-    if(reviewInfo2_average) {
-      const averageInfo = reviewInfo2_average.find((item) => item.productId === productId);
-      if(averageInfo){
-        setAverage(averageInfo.average)
-      }
-    }
-  }, [])
-
-  useEffect(() => {
-    dispatch(setReviewInfo2_score({productId, score}))
+    console.log('asfdsaasd',score)
   }, [score])
 
-  useEffect(() => {
-    dispatch(setReviewInfo2_average({productId, average}))
-  }, [average])
 
 
   const oneToFive = [
@@ -165,7 +176,7 @@ const ReviewUploadScore = ({productId}: Props) => {
                 <LargeContainer key={index}>
                   <StarTouchArea
                     onPress={() => {
-                      setScore(star.score);
+                      dispatch(setReviewInfo2_score({productId, score:star.score}))
                     }}
                   >
                     <Star selfScore={star.score} givenScore={score}>
@@ -190,10 +201,10 @@ const ReviewUploadScore = ({productId}: Props) => {
         onPress={() => {
           if (checked) {
             analytics().logEvent("set_score_to_custom_average");
-            setAverage(Math.round(average));
+            dispatch(setReviewInfo2_average({productId, average:Math.round(average)}))
           } else {
             analytics().logEvent("set_score_to_trio_average");
-            setAverage(average);
+            dispatch(setReviewInfo2_average({productId, average}))
           }
           setChecked(!checked);
         }}
