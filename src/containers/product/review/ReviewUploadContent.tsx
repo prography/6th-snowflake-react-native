@@ -46,20 +46,9 @@ const ReviewUploadContent = ({productId}: Props) => {
     (state: RootState) => state.product.reviewUpload.reviewInfo3
   )
 
-  const [reviewContent, setReviewContent] = useState("")
-
-  useEffect(() => {
-    if (reviewInfo3) {
-      const content = reviewInfo3.find((item) => item.productId === productId);
-      if (content) {
-        setReviewContent(content.reviewContent);
-      }
-    }
-  }, [])
-
-  useEffect(() => {
-    dispatch(setReviewInfo3({productId, reviewContent}))
-  }, [reviewContent])
+const info3 = reviewInfo3.find((item) => item.productId === productId);
+const reviewContent = info3?.reviewContent || ""
+  
 
   return (
     <>
@@ -73,7 +62,7 @@ const ReviewUploadContent = ({productId}: Props) => {
           placeholderTextColor={c.lightGray}
           placeholder={reviewUploadContentPlaceholder}
           onChangeText={(text) => [
-            setReviewContent(text),
+            dispatch(setReviewInfo3({productId, reviewContent:text})),
             setReviewLength(text.length),
             dispatch(setIsFilledReviewUpload3(
               reviewLength < REVIEW_MINIMUM_LENGTH ? false : true

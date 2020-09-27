@@ -112,6 +112,10 @@ const ReviewUploadGender = ({productId}: Props) => {
     (state: RootState) => state.product.reviewUpload.reviewInfo2_score,
   );
 
+  const reviewInfo2_average = useSelector(
+    (state: RootState) => state.product.reviewUpload.reviewInfo2_average,
+  );
+
   const reviewInfo2_myGender = useSelector(
     (state: RootState) => state.product.reviewUpload.reviewInfo2_myGender,
   );
@@ -119,34 +123,21 @@ const ReviewUploadGender = ({productId}: Props) => {
   const reviewInfo2_partnerGender = useSelector(
     (state: RootState) => state.product.reviewUpload.reviewInfo2_partnerGender,
   );
+  
+  const info2_score = reviewInfo2_score.find((item) => item.productId === productId)
+  const score = info2_score?.score || 0
 
-  const [score, setScore] = useState(1)
-  const [myGender, setMyGender] = useState(null)
-  const [partnerGender, setPartnerGender] = useState(null)
+  const info2_average = reviewInfo2_average.find((item) => item.productId === productId)
+  const average = info2_average?.average || 0
 
 
-  useEffect(() => {
-    if (reviewInfo2_score) {
-      const scoreInfo = reviewInfo2_score.find((item) => item.productId === productId);
-      if (scoreInfo) {
-        setScore(scoreInfo.score);
-      }
-    }
+  const info2_myGender = reviewInfo2_myGender.find((item) => item.productId === productId);
+  const myGender = info2_myGender?.myGender || null;
 
-    if (reviewInfo2_myGender) {
-      const myGenderInfo = reviewInfo2_myGender.find((item) => item.productId === productId);
-      if (myGenderInfo) {
-        setMyGender(myGenderInfo.myGender);
-      }
-    }
 
-    if (reviewInfo2_partnerGender) {
-      const partnerGenderInfo = reviewInfo2_partnerGender.find((item) => item.productId === productId);
-      if (partnerGenderInfo) {
-        setPartnerGender(partnerGenderInfo.partnerGender);
-      }
-    }
-  }, [])
+  const info2_partnerGender = reviewInfo2_partnerGender.find((item) => item.productId === productId);
+  const partnerGender = info2_partnerGender?.partnerGender || null;
+
 
   
   const womanColor = useSelector(
@@ -156,43 +147,20 @@ const ReviewUploadGender = ({productId}: Props) => {
     (state: RootState) => state.join.genderColor.manColor,
   );
 
-  
-  useEffect(() => {
-    dispatch(setReviewInfo2_score({productId, score}))
-  }, [score])
-
-  useEffect(() => {
-    dispatch(setReviewInfo2_myGender({productId, myGender}))
-  }, [myGender])
-
-  useEffect(() => {
-    dispatch(setReviewInfo2_partnerGender({productId, partnerGender}))
-  }, [partnerGender])
-
-
-
-
-
-
-  const aa = useSelector(
-    (state: RootState) => state.product.reviewUpload.isFilledReviewUpload2,
-  );
-
 
 
   useEffect(() => {
     dispatch(setIsFilledReviewUpload2(
-      (score && myGender && partnerGender) ? true : false
+      ((score || average) && myGender && partnerGender) ? true : false
     ));
   }, [score, myGender, partnerGender]);
 
- 
   const setGender = (selectedGender) => {
     myGender === null
-      ? setMyGender(selectedGender)
+      ?  dispatch(setReviewInfo2_myGender({productId, myGender:selectedGender}))
       : partnerGender === null
-        ? setPartnerGender(selectedGender)
-        : setMyGender(selectedGender)
+        ? dispatch(setReviewInfo2_partnerGender({productId, partnerGender:selectedGender}))
+        : [dispatch(setReviewInfo2_myGender({productId, myGender:selectedGender})), dispatch(setReviewInfo2_partnerGender({productId, partnerGender:null}))]
   };
 
   const selection = [
