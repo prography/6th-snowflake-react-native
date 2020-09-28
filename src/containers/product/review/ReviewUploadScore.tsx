@@ -7,7 +7,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { d, c, l } from '~/utils/constant';
 import TextMiddleTitleDark from '~/components/universal/text/TextMiddleTitleDark';
 import { RootState } from '~/store/modules';
-import { setReviewInfo2_score, setReviewInfo2_average } from '~/store/modules/product/reviewUpload';
+import { setReviewInfo2_score, setReviewInfo2_average, InitalReviewInfo } from '~/store/modules/product/reviewUpload';
 
 interface Props {
   productId: number;
@@ -95,26 +95,15 @@ const CheckText = styled.Text`
   color: ${(props) => (props.checked ? c.darkGray : c.lightGray)};
 `;
 
-const ReviewUploadScore = ({productId}: Props) => {
-
+const ReviewUploadScore = ({ productId }: Props) => {
   const [checked, setChecked] = useState(false);
   const dispatch = useDispatch();
 
-
-  const reviewInfo2_score = useSelector(
-    (state: RootState) => state.product.reviewUpload.reviewInfo2_score,
+  const { reviewInfo2_score, reviewInfo2_average } = useSelector(
+    (state: RootState) => state.product.reviewUpload,
   );
-
-
-  const reviewInfo2_average = useSelector(
-    (state: RootState) => state.product.reviewUpload.reviewInfo2_average,
-  );
-
-const info2_score = reviewInfo2_score.find((item) => item.productId === productId);
-const score = info2_score?.score || 0;
-
-const info2_average = reviewInfo2_average.find((item) => item.productId === productId);
-const average = info2_average?.average || 0;
+  const { score } = reviewInfo2_score.find((item) => item.productId === productId) || InitalReviewInfo._2_score;
+  const { average } = reviewInfo2_average.find((item) => item.productId === productId) || InitalReviewInfo._2_average;
 
   const oneToFive = [
     { score: 1, text: '별로예요' },
@@ -135,7 +124,7 @@ const average = info2_average?.average || 0;
           <SelectedTextContainer>
             {score ? (
               <SelectedText>{oneToFive[score - 1].text}</SelectedText>
-            ):null}
+            ) : null}
           </SelectedTextContainer>
 
           <StarContainer>
@@ -144,7 +133,7 @@ const average = info2_average?.average || 0;
                 <LargeContainer key={index}>
                   <StarTouchArea
                     onPress={() => {
-                      dispatch(setReviewInfo2_score({productId, score:star.score}))
+                      dispatch(setReviewInfo2_score({ productId, score: star.score }))
                     }}
                   >
                     <Star selfScore={star.score} givenScore={score}>
@@ -169,10 +158,10 @@ const average = info2_average?.average || 0;
         onPress={() => {
           if (checked) {
             analytics().logEvent("set_score_to_custom_average");
-            dispatch(setReviewInfo2_average({productId, average:Math.round(average)}))
+            dispatch(setReviewInfo2_average({ productId, average: Math.round(average) }))
           } else {
             analytics().logEvent("set_score_to_trio_average");
-            dispatch(setReviewInfo2_average({productId, average}))
+            dispatch(setReviewInfo2_average({ productId, average }))
           }
           setChecked(!checked);
         }}

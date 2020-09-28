@@ -3,7 +3,8 @@ import { useEffect, useState } from 'react';
 import {
   setIsFilledReviewUpload1,
   setReviewInfo1,
-  setReviewInfo2_average
+  setReviewInfo2_average,
+  InitalReviewInfo
 } from '~/store/modules/product/reviewUpload';
 import styled from 'styled-components/native';
 import { useSelector, useDispatch } from 'react-redux';
@@ -134,12 +135,11 @@ const ReviewUploadTrioScore = ({ productId }: Props) => {
     (state: RootState) => state.product.reviewUpload.reviewInfo1
   )
 
-
-  const info1 = reviewInfo1.find((item) => item.productId === productId);
-  const thicknessScore = info1?.thicknessScore || 0;
-  const durabilityScore = info1?.durabilityScore || 0;
-  const oilyScore = info1?.oilyScore || 0;
-
+  const {
+    thicknessScore,
+    durabilityScore,
+    oilyScore,
+  } = reviewInfo1.find((item) => item.productId === productId) || InitalReviewInfo._1;
 
   useEffect(() => {
     // 버튼 색깔
