@@ -7,7 +7,11 @@ import Content from '../../containers/home/main/Content';
 import TopBarLeftIcon from '~/components/universal/topBar/TopBarLeftIcon';
 import NavBar from '~/screens/NavBar';
 import MarginBottom from '~/components/universal/margin/MarginBottom';
-import { setMyGender, setPartnerGender } from '~/store/modules/product/reviewUpload';
+import { AsyncAccessToken } from '~/utils/asyncStorage';
+import { useAsyncStorage } from '@react-native-community/async-storage';
+import { BASE_URL } from '~/utils/constant';
+import { llog2 } from '~/utils/functions';
+import { setUserGender, setUserPartnerGender } from '~/store/modules/join/userInfo';
 import { getUserInfoRequest } from '~/store/modules/join/userInfo';
 import { RootState } from '~/store/modules';
 
@@ -26,8 +30,8 @@ const HomeMain = () => {
 
   useEffect(() => {
     if (userInfo) {
-      dispatch(setMyGender(userInfo.gender))
-      dispatch(setPartnerGender(userInfo.partner_gender))
+      dispatch(setUserGender(userInfo.gender))
+      dispatch(setUserPartnerGender(userInfo.partner_gender))
     }
   }, [userInfo])
 

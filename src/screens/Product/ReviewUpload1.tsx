@@ -1,11 +1,9 @@
 import * as React from 'react';
-import { useEffect } from 'react';
 import { ScrollView } from 'react-native';
 import analytics from "@react-native-firebase/analytics";
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { RouteProp } from '@react-navigation/native';
 
-import { setReviewUProductId } from '~/store/modules/product/reviewUpload';
 import Blinder from '~/components/product/Blinder';
 import TopBarBackArrow from '~/components/universal/topBar/TopBarBackArrow';
 import LineGrayMiddle from '~/components/universal/line/LineGrayMiddle';
@@ -23,14 +21,9 @@ interface Props {
 
 const ReviewUpload1 = ({ route }: Props) => {
   const { productId } = route.params;
-  const dispatch = useDispatch();
   const _isFilledReviewUpload1 = useSelector(
     (state: RootState) => state.product.reviewUpload.isFilledReviewUpload1,
   );
-
-  useEffect(() => {
-    productId === null ? null : [dispatch(setReviewUProductId(productId))];
-  });
 
   React.useEffect(() => {
     analytics().setCurrentScreen("ReviewUpload1_Triple");

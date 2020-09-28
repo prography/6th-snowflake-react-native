@@ -11,6 +11,9 @@ import { d, c, l, BASE_URL } from '~/utils/constant';
 import BottomBtnCollectData from '~/components/universal/bottomBar/BottomBtnCollectData';
 import MarginWide from '~/components/universal/margin/MarginWide';
 import TopBarBackArrowRightIcon from '~/components/universal/topBar/TopBarBackArrowRightIcon';
+
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scrollview'
+
 const Container = styled.View`
   margin: 0 ${l.mR}px;
 `;
@@ -55,7 +58,7 @@ const Join1 = () => {
   const [checkPasswordWarning, setCheckPasswordWarning] = useState(false);
   useEffect(() => {
     setIsFilled(
-      emailInput === '' || passwordInput === '' || checkPasswordInput === ''
+      emailInput === '' || passwordInput === '' || checkPasswordInput === '' || !validatePassword(passwordInput)
         ? false
         : emailWarnigText !== null
           ? false
@@ -169,47 +172,50 @@ const Join1 = () => {
           socialJoin: false,
         }}
       >
-        <Container>
-          <TopBarBackArrowRightIcon />
-          {JoinInputArray.map((data) => {
-            return (
-              <>
-                <InputContainer>
-                  <GuideTextWrapper>
-                    <JoinGuideText focused={data.focused}>
-                      {data.guideText}
-                    </JoinGuideText>
-                    {data.warning ? (
-                      <WarningText>{data.warningText}</WarningText>
-                    ) : null}
-                  </GuideTextWrapper>
-                  <MarginNarrow />
-                  <JoinInfoInput
-                    placeholder={data.placeholder}
-                    placeholderTextColor={c.extraLightGray}
-                    autoCapitalize={'none'}
-                    autoCorrect={false}
-                    secureTextEntry={data.isPassword}
-                    onChangeText={(text) => {
-                      data.onChangeTextFunction(text);
-                    }}
-                    onFocus={() => {
-                      data.handleFocusFunction(true);
-                    }}
-                    onBlur={() => {
-                      data.handleFocusFunction(false);
-                    }}
-                  >
-                    {data.inputContent}
-                  </JoinInfoInput>
-                  <LinePurpleWhenFocused focused={data.focused} />
-                </InputContainer>
-                <MarginWide />
-                <MarginWide />
-              </>
-            );
-          })}
-        </Container>
+        <KeyboardAwareScrollView showsVerticalScrollIndicator={false}>
+          <Container>
+            <TopBarBackArrowRightIcon />
+
+            {JoinInputArray.map((data) => {
+              return (
+                <>
+                  <InputContainer>
+                    <GuideTextWrapper>
+                      <JoinGuideText focused={data.focused}>
+                        {data.guideText}
+                      </JoinGuideText>
+                      {data.warning ? (
+                        <WarningText>{data.warningText}</WarningText>
+                      ) : null}
+                    </GuideTextWrapper>
+                    <MarginNarrow />
+                    <JoinInfoInput
+                      placeholder={data.placeholder}
+                      placeholderTextColor={c.extraLightGray}
+                      autoCapitalize={'none'}
+                      autoCorrect={false}
+                      secureTextEntry={data.isPassword}
+                      onChangeText={(text) => {
+                        data.onChangeTextFunction(text);
+                      }}
+                      onFocus={() => {
+                        data.handleFocusFunction(true);
+                      }}
+                      onBlur={() => {
+                        data.handleFocusFunction(false);
+                      }}
+                    >
+                      {data.inputContent}
+                    </JoinInfoInput>
+                    <LinePurpleWhenFocused focused={data.focused} />
+                  </InputContainer>
+                  <MarginWide />
+                  <MarginWide />
+                </>
+              );
+            })}
+          </Container>
+        </KeyboardAwareScrollView>
       </BottomBtnCollectData>
     </>
   );

@@ -24,6 +24,14 @@ export interface ProductInfoParamList {
 export interface ReviewUpload1ParamList {
   productId: number;
 }
+
+export interface ReviewUpload2ParamList {
+  productId: number;
+}
+
+export interface ReviewUpload3ParamList {
+  productId: number;
+}
 export interface RankingParamList {
   category?: CategoryEnum
   order?: OrderEnum
@@ -34,8 +42,8 @@ export type ProductStackParamList = {
   ProductMain: undefined;
   ProductInfo: ProductInfoParamList;
   ReviewUpload1: ReviewUpload1ParamList;
-  ReviewUpload2: undefined;
-  ReviewUpload3: undefined;
+  ReviewUpload2: ReviewUpload2ParamList;
+  ReviewUpload3: ReviewUpload3ParamList;
   Ranking: RankingParamList;
   SearchProduct: undefined;
   Join1: undefined;
