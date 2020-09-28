@@ -36,8 +36,8 @@ const TitleWrapper = styled.View`
   align-items: center;
 `;
 const ShowLikesButton = styled.TouchableOpacity`
-  width: ${d.px * 30};
-  height: ${d.px * 30};
+  width: ${d.px * 30}px;
+  height: ${d.px * 30}px;
   align-items: center;
   justify-content: center;
 `;

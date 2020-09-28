@@ -29,7 +29,7 @@ const ProductMain = () => {
     try {
       const response = await fetch(`${BASE_URL}/products/condom/`);
       const json = await response.json();
-      console.log('🍕product - condom list success!', json);
+      // console.log('🍕product - condom list success!', json);
     } catch (error) {
       console.log('🍕product - condom list error', error);
     }

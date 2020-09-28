@@ -1,11 +1,8 @@
 import * as React from 'react';
-import {
-  State,
-  setMyGender,
-  setPartnerGender,
-  setIsFilledReviewUpload2,
-} from '~/store/modules/product/reviewUpload';
 import { useState, useEffect } from 'react';
+import {
+  setIsFilledReviewUpload2, setReviewInfo2_partnerGender, setReviewInfo2_myGender, setReviewInfo2_score,
+} from '~/store/modules/product/reviewUpload';
 import styled from 'styled-components/native';
 import { useSelector, useDispatch } from 'react-redux';
 import { d, c, l } from '~/utils/constant';
@@ -15,6 +12,10 @@ import TextMiddleTitleDarkCenter from '~/components/universal/text/TextMiddleTit
 import GenderLoop from '~/components/universal/profile/GenderLoop';
 import GenderCircle from '~/components/universal/profile/GenderCircle';
 import { RootState } from '~/store/modules';
+
+interface Props {
+  productId: number;
+}
 
 const TOUCH_AREA = d.px * 40;
 const CHECKBOX_SIZE = d.px * 15;
@@ -103,18 +104,42 @@ const CheckText = styled.Text`
   color: ${(props) => (props.checked ? c.darkGray : c.lightGray)};
 `;
 
-const ReviewUploadGender = () => {
+const ReviewUploadGender = ({productId}: Props) => {
   const [checked, setChecked] = useState(false);
   const dispatch = useDispatch();
-  const _myGender = useSelector(
-    (state: RootState) => state.product.reviewUpload.myGender,
+
+  const reviewInfo2_score = useSelector(
+    (state: RootState) => state.product.reviewUpload.reviewInfo2_score,
   );
-  const _partnerGender = useSelector(
-    (state: RootState) => state.product.reviewUpload.partnerGender,
+
+  const reviewInfo2_average = useSelector(
+    (state: RootState) => state.product.reviewUpload.reviewInfo2_average,
   );
-  const _score = useSelector(
-    (state: RootState) => state.product.reviewUpload.score,
+
+  const reviewInfo2_myGender = useSelector(
+    (state: RootState) => state.product.reviewUpload.reviewInfo2_myGender,
   );
+
+  const reviewInfo2_partnerGender = useSelector(
+    (state: RootState) => state.product.reviewUpload.reviewInfo2_partnerGender,
+  );
+  
+  const info2_score = reviewInfo2_score.find((item) => item.productId === productId)
+  const score = info2_score?.score || 0
+
+  const info2_average = reviewInfo2_average.find((item) => item.productId === productId)
+  const average = info2_average?.average || 0
+
+
+  const info2_myGender = reviewInfo2_myGender.find((item) => item.productId === productId);
+  const myGender = info2_myGender?.myGender || null;
+
+
+  const info2_partnerGender = reviewInfo2_partnerGender.find((item) => item.productId === productId);
+  const partnerGender = info2_partnerGender?.partnerGender || null;
+
+
+  
   const womanColor = useSelector(
     (state: RootState) => state.join.genderColor.womanColor,
   );
@@ -122,18 +147,22 @@ const ReviewUploadGender = () => {
     (state: RootState) => state.join.genderColor.manColor,
   );
 
+
+
   useEffect(() => {
     dispatch(setIsFilledReviewUpload2(
-      _myGender && _partnerGender && _score ? true : false
+      ((score || average) && myGender && partnerGender) ? true : false
     ));
-  }, [_myGender, _partnerGender, _score]);
+  }, [score, myGender, partnerGender]);
+
   const setGender = (selectedGender) => {
-    _myGender === null
-      ? dispatch(setMyGender(selectedGender))
-      : _partnerGender === null
-        ? dispatch(setPartnerGender(selectedGender))
-        : [dispatch(setPartnerGender(null)), dispatch(setMyGender(selectedGender))];
+    myGender === null
+      ?  dispatch(setReviewInfo2_myGender({productId, myGender:selectedGender}))
+      : partnerGender === null
+        ? dispatch(setReviewInfo2_partnerGender({productId, partnerGender:selectedGender}))
+        : [dispatch(setReviewInfo2_myGender({productId, myGender:selectedGender})), dispatch(setReviewInfo2_partnerGender({productId, partnerGender:null}))]
   };
+
   const selection = [
     { selection: '여성', gender: 'WOMAN' },
     { selection: '남성', gender: 'MAN' },
@@ -151,18 +180,18 @@ const ReviewUploadGender = () => {
 
         <GenderLoopContainer>
           <GenderLoop
-            gender={_myGender}
-            partnerGender={_partnerGender}
+            gender={myGender}
+            partnerGender={partnerGender}
             size={LOOP_SIZE}
           />
         </GenderLoopContainer>
         <GuideTextContainer>
           <GuideText>저는 </GuideText>
-          <GenderCircle size={CIRCLE_SIZE} gender={_myGender} who={true} />
+          <GenderCircle size={CIRCLE_SIZE} gender={myGender} who={true} />
           <GuideText>이고, 파트너는 </GuideText>
           <GenderCircle
             size={CIRCLE_SIZE}
-            gender={_partnerGender}
+            gender={partnerGender}
             who={false}
           />
           <GuideText>이에요.</GuideText>

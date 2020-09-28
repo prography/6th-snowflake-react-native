@@ -1,20 +1,20 @@
 import * as React from 'react';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import {
-  State,
-  setThicknessScore,
-  setDurabilityScore,
-  setOilyScore,
   setIsFilledReviewUpload1,
-  setTrioAverage,
+  setReviewInfo1,
+  setReviewInfo2_average
 } from '~/store/modules/product/reviewUpload';
 import styled from 'styled-components/native';
 import { useSelector, useDispatch } from 'react-redux';
-import { Text } from 'react-native';
 import { d, c, l } from '~/utils/constant';
 import MarginMedium from '~/components/universal/margin/MarginMedium';
 import TextMiddleTitleDark from '~/components/universal/text/TextMiddleTitleDark';
 import { RootState } from '~/store/modules';
+
+interface Props {
+  productId: number;
+}
 
 const BAR_HEIGHT = d.px * 4;
 const TOUCH_AREA = d.px * 50;
@@ -25,6 +25,9 @@ const LIGHT_OPACITY = 0.5;
 const thickness = 'thickness';
 const durability = 'durability';
 const oily = 'oily';
+
+const LargeConatiner = styled.View`
+`;
 
 const TitleContainer = styled.View`
   align-items: center;
@@ -124,32 +127,35 @@ const Description = styled.Text`
   top: ${(TOUCH_AREA / 3) * 2}px;
 `;
 
-const ReviewUploadTrioScore = () => {
+const ReviewUploadTrioScore = ({ productId }: Props) => {
   const dispatch = useDispatch();
 
-  const _thicknessScore = useSelector(
-    (state: RootState) => state.product.reviewUpload.thicknessScore,
-  );
-  const _durabilityScore = useSelector(
-    (state: RootState) => state.product.reviewUpload.durabilityScore,
-  );
-  const _oilyScore = useSelector(
-    (state: RootState) => state.product.reviewUpload.oilyScore,
-  );
+  const reviewInfo1 = useSelector(
+    (state: RootState) => state.product.reviewUpload.reviewInfo1
+  )
+
+
+  const info1 = reviewInfo1.find((item) => item.productId === productId);
+  const thicknessScore = info1?.thicknessScore || 0;
+  const durabilityScore = info1?.durabilityScore || 0;
+  const oilyScore = info1?.oilyScore || 0;
+
 
   useEffect(() => {
+    // 버튼 색깔
     dispatch(setIsFilledReviewUpload1(
-      _thicknessScore && _durabilityScore && _oilyScore ? true : false
+      thicknessScore && durabilityScore && oilyScore ? true : false
     ));
-    dispatch(setTrioAverage(
-      Number(((_thicknessScore + _oilyScore + _durabilityScore) / 3).toFixed(2))
+    // reviewInfo2거를 미리 해줌 (사실 필요없지만)
+    dispatch(setReviewInfo2_average(
+      { productId, average: Number(((thicknessScore + oilyScore + durabilityScore) / 3).toFixed(2)) }
     ));
-  }, [_thicknessScore, _oilyScore, _durabilityScore]);
+  }, [thicknessScore, oilyScore, durabilityScore]);
 
   const trioScore = [
     {
       type: thickness,
-      score: _thicknessScore,
+      score: thicknessScore,
       question: '얇기는 어떠셨나요?',
       leftDescription: '두꺼워요',
       rightDescription: '얇아요',
@@ -163,7 +169,7 @@ const ReviewUploadTrioScore = () => {
     },
     {
       type: durability,
-      score: _durabilityScore,
+      score: durabilityScore,
       question: '내구성은 어떠셨나요?',
       leftDescription: '약해요',
       rightDescription: '튼튼해요',
@@ -177,7 +183,7 @@ const ReviewUploadTrioScore = () => {
     },
     {
       type: oily,
-      score: _oilyScore,
+      score: oilyScore,
       question: '윤활제는 충분했나요?',
       leftDescription: '건조해요',
       rightDescription: '촉촉해요',
@@ -199,17 +205,17 @@ const ReviewUploadTrioScore = () => {
     { score: 5 },
   ];
 
-  return trioScore.map((question) => {
+  return trioScore.map((question, i) => {
     return (
-      <>
+      <LargeConatiner key={i}>
         <TitleContainer>
           <TextMiddleTitleDark title={question.question} />
         </TitleContainer>
         <MarginMedium />
         <SelectedTextContainer>
-          {question.score && (
+          {question.score ? (
             <SelectedText>{question.selectedText[question.score]}</SelectedText>
-          )}
+          ) : null}
         </SelectedTextContainer>
         <Container>
           <DescriptionContainer>
@@ -229,13 +235,13 @@ const ReviewUploadTrioScore = () => {
                     onPress={() => {
                       switch (question.type) {
                         case thickness:
-                          dispatch(setThicknessScore(bar.score));
+                          dispatch(setReviewInfo1({ productId, thicknessScore: bar.score, durabilityScore, oilyScore }))
                           return;
                         case durability:
-                          dispatch(setDurabilityScore(bar.score));
+                          dispatch(setReviewInfo1({ productId, thicknessScore, durabilityScore: bar.score, oilyScore }))
                           return;
                         case oily:
-                          dispatch(setOilyScore(bar.score));
+                          dispatch(setReviewInfo1({ productId, thicknessScore, durabilityScore, oilyScore: bar.score }))
                           return;
                         default:
                           return;
@@ -255,9 +261,10 @@ const ReviewUploadTrioScore = () => {
 
           <MarginMedium />
         </Container>
-      </>
+      </LargeConatiner>
     );
   });
 };
 
 export default ReviewUploadTrioScore;
+

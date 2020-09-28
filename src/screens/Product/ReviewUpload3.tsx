@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { ScrollView, Alert } from 'react-native';
 import analytics from "@react-native-firebase/analytics";
 import { useSelector, useDispatch } from 'react-redux';
@@ -18,54 +18,74 @@ import BottomBtnCollectData from '~/components/universal/bottomBar/BottomBtnColl
 import { AsyncAccessToken } from '~/utils/asyncStorage';
 import { RootState } from '~/store/modules';
 import { ProductStackParamList } from '~/navigation/tabs/ProductStack';
+import { RouteProp } from '@react-navigation/native';
 
 interface Props {
   navigation: StackNavigationProp<ProductStackParamList, 'ReviewUpload3'>;
+  route: RouteProp<ProductStackParamList, 'ReviewUpload3'>;
 }
 
-const ReviewUpload3 = ({ navigation }: Props) => {
+const ReviewUpload3 = ({ navigation, route }: Props) => {
+  const { productId } = route.params;
+
   const dispatch = useDispatch();
   const _isFilledReviewUpload3 = useSelector(
     (state: RootState) => state.product.reviewUpload.isFilledReviewUpload3,
   );
-  const _reviewUploadProductId = useSelector(
-    (state: RootState) => state.product.reviewUpload.reviewUploadProductId,
-  );
-  const _reviewContent = useSelector(
-    (state: RootState) => state.product.reviewUpload.reviewContent,
-  );
-  const _thicknessScore = useSelector(
-    (state: RootState) => state.product.reviewUpload.thicknessScore,
-  );
-  const _durabilityScore = useSelector(
-    (state: RootState) => state.product.reviewUpload.durabilityScore,
-  );
-  const _oilyScore = useSelector(
-    (state: RootState) => state.product.reviewUpload.oilyScore,
-  );
-  const _myGender = useSelector(
-    (state: RootState) => state.product.reviewUpload.myGender,
-  );
-  const _partnerGender = useSelector(
-    (state: RootState) => state.product.reviewUpload.partnerGender,
+
+  //ReviewUpload1
+  const reviewInfo1 = useSelector(
+    (state: RootState) => state.product.reviewUpload.reviewInfo1
+  )
+
+  const info1 = reviewInfo1.find((item) => item.productId === productId);
+  const thicknessScore = info1?.thicknessScore || 0;
+  const durabilityScore = info1?.durabilityScore || 0;
+  const oilyScore = info1?.oilyScore || 0;
+
+
+  //ReviewUpload2
+  const reviewInfo2_score = useSelector(
+    (state: RootState) => state.product.reviewUpload.reviewInfo2_score,
   );
 
-  const _score = useSelector(
-    (state: RootState) => state.product.reviewUpload.score,
+  const info2_score = reviewInfo2_score.find((item) => item.productId === productId);
+  const score = info2_score?.score || 0;
+
+  const reviewInfo2_myGender = useSelector(
+    (state: RootState) => state.product.reviewUpload.reviewInfo2_myGender,
   );
+
+  const info2_myGender = reviewInfo2_myGender.find((item) => item.productId === productId);
+  const myGender = info2_myGender?.myGender || null;
+
+  const reviewInfo2_partnerGender = useSelector(
+    (state: RootState) => state.product.reviewUpload.reviewInfo2_partnerGender,
+  );
+  const info2_partnerGender = reviewInfo2_partnerGender.find((item) => item.productId === productId);
+  const partnerGender = info2_partnerGender?.partnerGender || null;
+
+
+//ReviewUpload3
+  const reviewInfo3 = useSelector(
+    (state: RootState) => state.product.reviewUpload.reviewInfo3
+  )
+
+  const info3 = reviewInfo3.find((item) => item.productId === productId);
+  const reviewContent = info3?.reviewContent || ""
 
   const { getItem: getTokenItem } = useAsyncStorage(AsyncAccessToken);
 
   const _reviewUpload = async () => {
     console.log('🎃1_reviewUpload 호출');
-    const product = _reviewUploadProductId;
-    const total = _score;
-    const oily = _oilyScore;
-    const thickness = _thicknessScore;
-    const durability = _durabilityScore;
-    const gender = _myGender;
-    const partner_gender = _partnerGender;
-    const content = _reviewContent;
+    const product = productId;
+    const total = score;
+    const oily = oilyScore;
+    const thickness = thicknessScore;
+    const durability = durabilityScore;
+    const gender = myGender;
+    const partner_gender = partnerGender;
+    const content = reviewContent;
 
     try {
       const token = await getTokenItem();
@@ -114,12 +134,12 @@ const ReviewUpload3 = ({ navigation }: Props) => {
         onPressFunction={_reviewUpload}
       >
         <TopBarBackArrow />
-        <ProductBarForReviewUpload productId={_reviewUploadProductId} />
+        <ProductBarForReviewUpload productId={productId} />
         <LineGrayMiddle />
         <MarginMedium />
 
         <ScrollView>
-          <ReviewUploadContent />
+          <ReviewUploadContent productId={productId}/>
         </ScrollView>
       </BottomBtnCollectData>
       <Blinder />

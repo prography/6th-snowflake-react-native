@@ -1,4 +1,5 @@
 import * as React from 'react';
+import {useState} from 'react';
 import { ScrollView } from 'react-native';
 import { useSelector } from 'react-redux';
 import analytics from "@react-native-firebase/analytics";
@@ -15,13 +16,18 @@ import ReviewUploadGender from '~/containers/product/review/ReviewUploadGender';
 import MarginNarrow from '~/components/universal/margin/MarginNarrow';
 import BottomBtnCollectData from '~/components/universal/bottomBar/BottomBtnCollectData';
 import { RootState } from '~/store/modules';
+import { ProductStackParamList } from '~/navigation/tabs/ProductStack';
+import { RouteProp } from '@react-navigation/native';
 
-const ReviewUpload2 = () => {
+interface Props {
+  route: RouteProp<ProductStackParamList, 'ReviewUpload2'>;
+}
+
+const ReviewUpload2 = ({ route }: Props) => {
+  const { productId } = route.params;
+  
   const _isFilledReviewUpload2 = useSelector(
     (state: RootState) => state.product.reviewUpload.isFilledReviewUpload2,
-  );
-  const _reviewUploadProductId = useSelector(
-    (state: RootState) => state.product.reviewUpload.reviewUploadProductId,
   );
 
   React.useEffect(() => {
@@ -36,17 +42,18 @@ const ReviewUpload2 = () => {
         stack={'ProductStack'}
         screen={'ReviewUpload3'}
         isFilled={_isFilledReviewUpload2}
+        params={{ productId: productId }}
       >
         <TopBarBackArrow />
-        <ProductBarForReviewUpload productId={_reviewUploadProductId} />
+        <ProductBarForReviewUpload productId={productId} />
         <LineGrayMiddle />
         <MarginMedium />
         <ScrollView>
-          <ReviewUploadScore />
+          <ReviewUploadScore productId={productId}/>
           <MarginNarrow />
           <LineGrayMiddle />
           <MarginMedium />
-          <ReviewUploadGender />
+          <ReviewUploadGender productId={productId}/>
           <MarginBottom />
         </ScrollView>
       </BottomBtnCollectData>
