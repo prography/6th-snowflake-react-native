@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { useState, useEffect } from 'react';
 import {
-  setIsFilledReviewUpload2, setReviewInfo2_partnerGender, setReviewInfo2_myGender, setReviewInfo2_score,
+  setIsFilledReviewUpload2, setReviewInfo2_partnerGender, setReviewInfo2_myGender, setReviewInfo2_score, InitalReviewInfo,
 } from '~/store/modules/product/reviewUpload';
 import styled from 'styled-components/native';
 import { useSelector, useDispatch } from 'react-redux';
@@ -115,10 +115,10 @@ const ReviewUploadGender = ({ productId }: Props) => {
     reviewInfo2_partnerGender,
   } = useSelector((state: RootState) => state.product.reviewUpload);
 
-  const { score } = reviewInfo2_score.find((item) => item.productId === productId) || { score: 0 };
-  const { average } = reviewInfo2_average.find((item) => item.productId === productId) || { average: 0 };
-  const { myGender } = reviewInfo2_myGender.find((item) => item.productId === productId) || { myGender: null };
-  const { partnerGender } = reviewInfo2_partnerGender.find((item) => item.productId === productId) || { partnerGender: null };
+  const { score } = reviewInfo2_score.find((item) => item.productId === productId) || InitalReviewInfo._2_score;
+  const { average } = reviewInfo2_average.find((item) => item.productId === productId) || InitalReviewInfo._2_average;
+  const { myGender } = reviewInfo2_myGender.find((item) => item.productId === productId) || InitalReviewInfo._2_myGender;
+  const { partnerGender } = reviewInfo2_partnerGender.find((item) => item.productId === productId) || InitalReviewInfo._2_partnerGender;
 
   const womanColor = useSelector(
     (state: RootState) => state.join.genderColor.womanColor,
