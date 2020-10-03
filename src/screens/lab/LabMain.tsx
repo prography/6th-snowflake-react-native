@@ -9,6 +9,8 @@ import TopBarLeftIcon from '~/components/universal/topBar/TopBarLeftIcon';
 import CardPurpleRight from '~/components/universal/card/CardPurpleRight';
 import LabNewCardsContainer from '~/containers/lab/main/LabNewCardsContainer';
 import LabIntroducecardsContainer from '~/containers/lab/main/LabIntroduceCardsContainer';
+import Blinder from '~/components/product/Blinder';
+import MarginBottom from '~/components/universal/margin/MarginBottom';
 
 const Container = styled.View`
   flex-direction: column;
@@ -29,9 +31,11 @@ const LabMain = () => {
           <Container>
             <LabNewCardsContainer />
             <LabIntroducecardsContainer />
+            <MarginBottom />
           </Container>
         </ScrollView>
       </NavBar>
+      <Blinder />
     </>
   );
 };
