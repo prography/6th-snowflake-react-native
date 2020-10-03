@@ -4,6 +4,7 @@ import { d, l } from '../../../utils/constant';
 import MarginNarrow from '~/components/universal/margin/MarginNarrow';
 import MarginWide from '~/components/universal/margin/MarginWide';
 import LineGrayRightLong from '../../universal/line/LineGrayRightLong';
+import MarginMedium from '~/components/universal/margin/MarginMedium';
 
 const Container = styled.View`
   margin-right: ${l.mR}px;
@@ -21,7 +22,8 @@ const LabIntroduceCard = () => {
         <TitleText>눈송수트라</TitleText>
         <DetailText>보라두리와 하늘이가 소개하는 다양한 체위!</DetailText>
       </Container>
-      <MarginNarrow />
+
+      <MarginMedium />
       <LineGrayRightLong />
       <MarginWide />
     </>
