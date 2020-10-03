@@ -1,11 +1,13 @@
 import * as React from 'react';
 import styled from 'styled-components/native';
 import { useState, useEffect } from 'react';
-import { d, BASE_URL } from '~/utils/constant';
+import { d } from '~/utils/constant';
 import TextTitleDarkPurpleLink from '~/components/universal/text/TextTitleDarkPurpleLink';
 import MarginMedium from '~/components/universal/margin/MarginMedium';
 import RankBar from '~/components/product/ranking/RankBar';
 import TextTitlePurpleRight from '~/components/universal/text/TextTitlePurpleRight';
+import { fetchAPI } from '~/api';
+import { llog } from '~/utils/functions';
 
 const Container = styled.View`
   width: ${d.width - d.px * 50}px;
@@ -16,12 +18,15 @@ const TopFive = () => {
   const [_topFiveList, _setTopFiveList] = useState(null);
   const _getTopFiveList = async () => {
     try {
-      const response = await fetch(`${BASE_URL}/products/condom/top-n/`);
-      const json = await response.json();
-      _setTopFiveList(json.results);
-      console.log('🍪top5 - success!', _topFiveList);
+      const { status, response } = await fetchAPI(`products/condom/top-n/`);
+      llog('🍪top5 - success!', response);
+      if (status === 200) {
+        const json = await response.json();
+        _setTopFiveList(json.results);
+        llog('🍪top5 - success!', _topFiveList);
+      }
     } catch (error) {
-      console.log('🍪top5 - error', error);
+      llog('🍪top5 - error', error);
     }
   };
   useEffect(() => {

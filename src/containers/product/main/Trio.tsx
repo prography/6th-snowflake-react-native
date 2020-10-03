@@ -1,12 +1,14 @@
 import * as React from 'react';
 import { useState, useEffect } from 'react';
 import styled from 'styled-components/native';
-import { d, BASE_URL } from '~/utils/constant';
+import { d } from '~/utils/constant';
 import { ScrollView } from 'react-native';
 import TextTitleDarkLeft from '~/components/universal/text/TextTitleDarkLeft';
 import TextContentLightLeft from '~/components/universal/text/TextContentLightLeft';
 import MarginMedium from '~/components/universal/margin/MarginMedium';
 import TrioBox from '~/components/product/main/TrioBox';
+import { fetchAPI } from '~/api';
+import { llog } from '~/utils/functions';
 
 const Container = styled.View`
   width: ${d.width - d.px * 50}px;
@@ -24,12 +26,15 @@ const Trio = () => {
 
   const _getTrioList = async () => {
     try {
-      const response = await fetch(`${BASE_URL}/products/condom/trio/`);
-      const json = await response.json();
-      _setTrioList(json);
-      console.log('🍡trio - success!', _trioList);
+      const { status, response } = await fetchAPI(`products/condom/trio/`);
+      llog('🍡trio - success!', response);
+
+      if (status === 200) {
+        const json = await response.json();
+        _setTrioList(json);
+      }
     } catch (error) {
-      console.log('🍡trio - error', error);
+      llog('🍡trio - error', error);
     }
   };
 

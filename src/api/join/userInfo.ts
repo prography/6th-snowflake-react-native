@@ -10,12 +10,11 @@ export const getUserInfo = async (): Promise<UserInfoRes> => {
     throw Error("client - no token");
   }
 
-  const response = await fetchAPI({
-    url: "accounts/",
-    token,
-  });
-
+  const { status, response } = await fetchAPI("accounts/", { token });
   const json: UserInfoRes = await response.json();
   llog("2.🐹User info 불러옴 - 성공!", json);
+  if (status !== 200) {
+    throw Error("회원정보를 불러오는 중 오류가 발생했어요");
+  }
   return json;
 };

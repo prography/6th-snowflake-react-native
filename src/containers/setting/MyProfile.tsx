@@ -3,7 +3,7 @@ import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import styled from 'styled-components/native';
 
-import { d, BASE_URL, c, l } from '~/utils/constant';
+import { d, c, l } from '~/utils/constant';
 import TextTitlePurpleRight from '~/components/universal/text/TextTitlePurpleRight';
 import TextTitleDarkPurpleLink from '~/components/universal/text/TextTitleDarkPurpleLink';
 import { manageLoginLogout } from '~/store/modules/join/auth';
@@ -20,7 +20,7 @@ const Container = styled.View`
 const MyProfile = () => {
   // redux
   const dispatch = useDispatch();
-  const _isLoggedin = useSelector((state: RootState) => state.auth.isLoggedin);
+  const _isLoggedin = useSelector((state: RootState) => state.join.auth.isLoggedin);
   const { loading, data: userInfo, error } = useSelector((state: RootState) => state.join.userInfo.userInfo);
 
   useEffect(() => {

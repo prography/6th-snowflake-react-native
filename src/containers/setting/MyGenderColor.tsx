@@ -1,9 +1,7 @@
 import * as React from 'react';
-import { View, Text } from 'react-native';
 import styled from 'styled-components/native';
-import { d, BASE_URL, c, l } from '~/utils/constant';
+import { d, c, l } from '~/utils/constant';
 import TextTitleDarkPurpleLink from '~/components/universal/text/TextTitleDarkPurpleLink';
-import GenderLoop from '~/components/universal/profile/GenderLoop';
 import GenderCircle from '~/components/universal/profile/GenderCircle';
 import MarginNarrow from '~/components/universal/margin/MarginNarrow';
 

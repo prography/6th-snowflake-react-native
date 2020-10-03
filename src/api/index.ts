@@ -1,16 +1,20 @@
 import { BASE_URL } from "~/utils/constant";
+import { ApiResponse } from "~/api/interface";
 
-export const fetchAPI = async ({
-  url,
-  method = "GET",
-  token,
-  params,
-}: {
-  url: string;
-  method?: "GET" | "POST" | "PATCH" | "PUT"; // 필요하면 더 추가
+interface Option {
+  method?: "GET" | "POST" | "PATCH" | "PUT" | "DELETE"; // 필요하면 더 추가
   token?: string; // token이 필요없는 api도 있어서
   params?: object;
-}): Promise<Response> => {
+}
+
+export const fetchAPI = async (
+  url: string,
+  option?: Option,
+): Promise<ApiResponse> => {
+  const method = option?.method || 'GET';
+  const token = option?.token;
+  const params = option?.params;
+
   const response = await fetch(`${BASE_URL}/${url}`, {
     method,
     headers: {
@@ -20,5 +24,6 @@ export const fetchAPI = async ({
     },
     body: params ? JSON.stringify(params) : null,
   });
-  return response;
+  const { status } = response;
+  return { status, response };
 };

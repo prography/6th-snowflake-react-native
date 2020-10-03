@@ -2,7 +2,7 @@ import * as React from 'react';
 import { useState, useEffect } from 'react';
 import styled from 'styled-components/native';
 import { Text } from 'react-native';
-import { d, l, BASE_URL } from '~/utils/constant';
+import { d, l } from '~/utils/constant';
 import ReviewCard from '~/components/product/review/ReviewCard';
 import TextTitlePurpleRight from '~/components/universal/text/TextTitlePurpleRight';
 

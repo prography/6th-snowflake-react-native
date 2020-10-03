@@ -52,7 +52,7 @@ const Login = ({ navigation }: Props) => {
 
   const [emailFocus, handleEmailFocus] = useState(false);
   const [passwordFocus, handlePasswordFocus] = useState(false);
-  const _isLoggedin = useSelector((state: RootState) => state.auth.isLoggedin);
+  const _isLoggedin = useSelector((state: RootState) => state.join.auth.isLoggedin);
   llog('_loggedin', _isLoggedin);
 
   useEffect(() => {

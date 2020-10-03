@@ -1,16 +1,12 @@
 import * as React from 'react';
-import { View, Text } from 'react-native';
 import styled from 'styled-components/native';
-import { useState, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import analytics from "@react-native-firebase/analytics";
 import { StackActions, RouteProp } from '@react-navigation/native';
-import AsyncStorage, {
-  useAsyncStorage,
-} from '@react-native-community/async-storage';
 
 import { loginAC } from '~/store/modules/join/auth';
-import { d, c, l, BASE_URL } from '~/utils/constant';
+import { d, c, l } from '~/utils/constant';
 import BottomBtnCollectData from '~/components/universal/bottomBar/BottomBtnCollectData';
 import MarginWide from '~/components/universal/margin/MarginWide';
 import TopBarBackArrowRightIcon from '~/components/universal/topBar/TopBarBackArrowRightIcon';
@@ -83,8 +79,7 @@ const Join4 = ({ navigation, route }: Props) => {
     const partner_gender = signUpPartnerGender;
 
     try {
-      const response = await fetchAPI({
-        url: 'accounts/',
+      const { status, response } = await fetchAPI('accounts/', {
         method: 'PATCH',
         token: _token,
         params: {
@@ -96,7 +91,7 @@ const Join4 = ({ navigation, route }: Props) => {
       });
       const json = await response.json();
       llog('2.🥎 social token 으로 user 정보 업데이트 결과는?', response, json);
-      switch (response.status) {
+      switch (status) {
         case 200:
           navigation.navigate('SettimgMain');
           return;
@@ -125,26 +120,22 @@ const Join4 = ({ navigation, route }: Props) => {
 
     try {
       llog('😸2. /accounts 회원가입 api 호출');
-      const response = await fetch(`${BASE_URL}/accounts/`, {
+      const { status, response } = await fetchAPI('accounts/', {
         // 뒤에 슬래시 꼭 붙여야함
         method: 'POST',
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
+        params: {
           email,
           password,
           username,
           birth_year,
           gender,
           partner_gender,
-        }),
+        },
       });
 
       const json = await response.json();
       llog('😸3. /accounts 회원가입 api 응답 확인');
-      switch (response.status) {
+      switch (status) {
         case 201:
           llog('😸4. /accounts 회원가입 성공!!', response.status, json);
           // 회원가입 성공하면 바로 로그인 ㄱㄱ
@@ -163,7 +154,7 @@ const Join4 = ({ navigation, route }: Props) => {
     }
   };
 
-  React.useEffect(() => {
+  useEffect(() => {
     analytics().setCurrentScreen("Join4_Our_Statement");
   }, []);
 

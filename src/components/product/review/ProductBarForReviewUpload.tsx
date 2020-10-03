@@ -10,6 +10,7 @@ import TextProductName from '~/components/universal/text/product/TextProductName
 import { RootState } from '~/store/modules';
 import { ProductStackParamList } from '~/navigation/tabs/ProductStack';
 import { fetchAPI } from '~/api';
+import { llog } from '~/utils/functions';
 
 interface Props {
   productId: number;
@@ -42,14 +43,14 @@ const ProductBarForReviewUpload = ({ productId }: Props) => {
 
   const _getProductInfo = async () => {
     try {
-      const response = await fetchAPI({
-        url: `products/condom/${productId}/`,
-      });
-      const json = await response.json();
-      console.log('🎃review upload - product info success', _productInfo);
-      _setProductInfo(json);
+      const { status, response } = await fetchAPI(`products/condom/${productId}/`);
+      if (status === 200) {
+        const json = await response.json();
+        llog('🎃review upload - product info success', response);
+        _setProductInfo(json);
+      }
     } catch (error) {
-      console.log('🎃review upload - product info error', error);
+      llog('🎃review upload - product info error', error);
     }
   };
 

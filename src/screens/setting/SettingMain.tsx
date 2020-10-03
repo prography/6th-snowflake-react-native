@@ -36,7 +36,7 @@ const LoginContainer = styled.View`
 
 const SettingMain = ({ navigation }: Props) => {
   const [_token, _setToken] = useState(null);
-  const _isLoggedin = useSelector((state: RootState) => state.auth.isLoggedin);
+  const _isLoggedin = useSelector((state: RootState) => state.join.auth.isLoggedin);
   llog('로그인됨?', _isLoggedin);
 
   const _getToken = async () => {
