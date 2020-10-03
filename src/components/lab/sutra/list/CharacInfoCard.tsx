@@ -6,6 +6,7 @@ import MarginMedium from '~/components/universal/margin/MarginMedium';
 import LineGrayMiddle from '~/components/universal/line/LineGrayMiddle';
 import MarginWide from '~/components/universal/margin/MarginWide';
 import MarginNarrow from '~/components/universal/margin/MarginNarrow';
+import { Img } from '~/img';
 
 const Container = styled.View`
   margin-right: ${l.mR}px;
@@ -49,7 +50,7 @@ const CharacInfoCard = () => {
         <PurpleArea>
           <PurpleCharac
             style={{ resizeMode: 'contain' }}
-            source={require('~/img/sample/purpleCharacSample.png')}
+            source={Img.sample.purpleCharac}
           />
           <PurpleDetailText>
             보라색 친구! 설명은 좀 더 정리가 필요하네용.
@@ -62,7 +63,7 @@ const CharacInfoCard = () => {
           </SkyDetailText>
           <SkyCharac
             style={{ resizeMode: 'contain' }}
-            source={require('~/img/sample/skyCharacSample.png')}
+            source={Img.sample.skyCharac}
           />
         </SkyArea>
       </Container>

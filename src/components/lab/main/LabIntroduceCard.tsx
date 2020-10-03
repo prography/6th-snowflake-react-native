@@ -5,6 +5,7 @@ import { d, l, c } from '~/utils/constant';
 import MarginNarrow from '~/components/universal/margin/MarginNarrow';
 import MarginWide from '~/components/universal/margin/MarginWide';
 import LineGrayRightLong from '~/components/universal/line/LineGrayRightLong';
+import { Img } from '~/img';
 
 const Container = styled.View`
   margin-right: ${l.mR}px;
@@ -51,7 +52,7 @@ const LabIntroduceCard = () => {
           <ArrowBox>
             <Arrow
               style={{ resizeMode: 'contain' }}
-              source={require('~/img/icon/iconArrowWhite.png')}
+              source={Img.icon.arrowWhite}
             />
           </ArrowBox>
         </TitleArea>
@@ -60,7 +61,7 @@ const LabIntroduceCard = () => {
         <MarginNarrow />
         <CardImage
           style={{ resizeMode: 'cover' }}
-          source={require('~/img/sample/sutraSample.jpg')}
+          source={Img.sample.sutra}
         />
       </Container>
       <MarginWide />

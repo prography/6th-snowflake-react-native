@@ -4,6 +4,7 @@ import styled from 'styled-components/native';
 import { View, Text } from 'react-native';
 
 import { d, l, c } from '~/utils/constant';
+import { Img } from '~/img';
 
 const Container = styled.View`
   margin-right: ${l.mR}px;
@@ -40,19 +41,19 @@ const SutraInfoGoodBad = () => {
         <ImageContainer>
           <SutraImage
             style={{ resizeMode: 'cover' }}
-            source={require('~/img/sample/sutraSample.jpg')}
+            source={Img.sample.sutra}
           />
           <BookmarkContainer activeOpacity={1}>
             {/* 찜했으면 보라색으로, 찜 안 한 건 하얀색으로 */}
             {bookmarked ? (
               <BookmarkImage
                 style={{ resizeMode: 'contain' }}
-                source={require('~/img/icon/iconBookmarkSelected.png')}
+                source={Img.icon.bookmarkSelected}
               />
             ) : (
                 <BookmarkImage
                   style={{ resizeMode: 'contain' }}
-                  source={require('~/img/icon/iconBookmarkUnselected.png')}
+                  source={Img.icon.bookmarkUnselected}
                 />
               )}
           </BookmarkContainer>
