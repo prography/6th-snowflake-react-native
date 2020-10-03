@@ -4,7 +4,7 @@ import TextTitleDarkRight from '../../universal/text/TextTitleDarkRight';
 import ButtonLinkPurpleLarge from '../../universal/button/ButtonLinkPurpleLarge';
 import LineGrayRightLong from '../../universal/line/LineGrayRightLong';
 import MarginWide from '../../universal/margin/MarginWide';
-import { d } from '../../../utils/constant';
+import { d, l } from '../../../utils/constant';
 import MarginNarrow from '../../universal/margin/MarginNarrow';
 import TextTag from '../../universal/text/TextTag';
 import MarginMedium from '~/components/universal/margin/MarginMedium';
@@ -19,8 +19,8 @@ interface Props {
 }
 
 const Container = styled.View`
-  margin-right: ${d.px * 20}px;
-  margin-left: ${d.px * 30}px;
+  margin-right: ${l.mR}px;
+  margin-left: ${l.mL}px;
 `;
 
 const TagContainer = styled.View`

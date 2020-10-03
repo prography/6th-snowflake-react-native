@@ -2,7 +2,7 @@ import * as React from 'react';
 import { useEffect } from 'react';
 import { ScrollView } from 'react-native';
 import styled from 'styled-components/native';
-import analytics from "@react-native-firebase/analytics";
+import analytics from '@react-native-firebase/analytics';
 import { useLinkTo } from '@react-navigation/native';
 
 import NavBar from '~/screens/NavBar';
