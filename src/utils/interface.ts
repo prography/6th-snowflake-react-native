@@ -1,8 +1,7 @@
-export interface RFetchResult<TData> {
-  // Redux Fetch Result
-  loading: boolean;
-  data: TData;
-  error: Error;
+export interface ApiAction {
+  REQUEST: string;
+  SUCCESS: string;
+  ERROR: string;
 }
 
 export interface KakaoLoginResponse {
@@ -48,17 +47,4 @@ export enum GenderEnum {
   NONE = "NONE",
   man = "MAN",
   woman = "WOMAN",
-}
-export interface UserInfoRes {
-  id: number;
-  birth_year: number;
-  color: string;
-  date_joined: string;
-  email: string;
-  gender: GenderEnum;
-  icon: string;
-  image: string;
-  partner_gender: GenderEnum;
-  social: string;
-  username: string;
 }

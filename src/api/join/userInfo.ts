@@ -1,7 +1,7 @@
 import { BASE_URL } from "~/utils/constant";
 import { getTokenItem } from "~/utils/asyncStorage";
 import { llog2 } from "~/utils/functions";
-import { UserInfoRes } from "~/utils/interface";
+import { UserInfoRes } from "~/api/interface";
 
 export const getUserInfo = async (): Promise<UserInfoRes> => {
   // try catch 하지 않음. saga에서 해주므로

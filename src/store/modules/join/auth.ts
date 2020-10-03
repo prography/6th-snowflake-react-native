@@ -1,49 +1,52 @@
 import AsyncStorage from "@react-native-community/async-storage";
 
 import { AsyncAccessToken } from "~/utils/asyncStorage";
-import { llog2, llog1 } from "~/utils/functions";
+import { llog } from "~/utils/functions";
+import { RFetchResult, LoginRes } from "~/api/interface";
+import {
+  getInitialFetchResult,
+  createAction,
+  getActionCreator,
+} from "~/utils/redux";
 
 export type AuthState = {
   isLoggedin: boolean;
+  login: RFetchResult<LoginRes>;
 };
 
 const initialState: AuthState = {
   isLoggedin: null,
+  login: getInitialFetchResult<LoginRes>(),
 };
 
-// deprecated
-export const REQUEST_LOGIN = "REQUEST_LOGIN";
+// action
 export const SET_IS_LOGGEDIN = "SET_IS_LOGGEDIN";
-// new
-export const LOGIN_REQUEST = "LOGIN_REQUEST";
-export const LOGIN_SUCCESS = "LOGIN_SUCCESS";
-export const LOGIN_ERROR = "LOGIN_ERROR";
+export const LOGIN = createAction("LOGIN");
 
-export const requestLogin = (email: string, password: string) => {
-  llog1("😸6. requestLogin 액션 dispatch");
-  return {
-    type: REQUEST_LOGIN,
-    email,
-    password,
-  };
-};
+// action creator
 export const setIsLoggedin = (isLoggedin: boolean) => {
-  llog2("😸12. isLoggedin에 저장!", isLoggedin);
+  llog("😸12. isLoggedin에 저장!", isLoggedin);
   return {
     type: SET_IS_LOGGEDIN,
     isLoggedin,
   };
 };
+export const loginAC = getActionCreator<LoginRes>(LOGIN);
 
-const AuthReducer = (state = initialState, action) => {
+export default (state = initialState, action): AuthState => {
   switch (action.type) {
     case SET_IS_LOGGEDIN:
       return { ...state, isLoggedin: action.isLoggedin };
+    case LOGIN.REQUEST:
+    case LOGIN.SUCCESS:
+    case LOGIN.ERROR:
+      return { ...state, login: action.login };
     default:
       return state;
   }
 };
 
+// TODD saga로 다 옮기면 삭제
 export const manageLoginLogout = (dispatch, value: boolean, jwt?: string) => {
   // 이걸로 로그인도 하고 로그아웃도 할거야
   dispatch(setIsLoggedin(value));
@@ -54,5 +57,3 @@ export const manageLoginLogout = (dispatch, value: boolean, jwt?: string) => {
     AsyncStorage.removeItem(AsyncAccessToken);
   }
 };
-
-export default AuthReducer;

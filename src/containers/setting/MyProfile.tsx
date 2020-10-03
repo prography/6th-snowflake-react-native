@@ -13,7 +13,7 @@ import { manageLoginLogout } from '~/store/modules/join/auth';
 import MarginNarrow from '~/components/universal/margin/MarginNarrow';
 import { llog2 } from '~/utils/functions';
 import { RootState } from '~/store/modules';
-import { getUserInfoRequest } from '~/store/modules/join/userInfo';
+import { getUserInfoAC } from '~/store/modules/join/userInfo';
 
 const ProfileContainer = styled.View``;
 const Container = styled.View`
@@ -27,7 +27,7 @@ const MyProfile = () => {
   const { loading, data: userInfo, error } = useSelector((state: RootState) => state.join.userInfo.userInfo);
 
   useEffect(() => {
-    dispatch(getUserInfoRequest());
+    dispatch(getUserInfoAC.request());
   }, []);
 
   return (

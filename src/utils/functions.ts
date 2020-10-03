@@ -1,3 +1,9 @@
+export const llog = (...params: any[]) => {
+  if (__DEV__) {
+    console.log(...params);
+  }
+};
+
 export const llog1 = (s: any) => {
   if (__DEV__) {
     console.log(s);

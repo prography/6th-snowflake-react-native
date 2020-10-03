@@ -9,7 +9,7 @@ import AsyncStorage, {
   useAsyncStorage,
 } from '@react-native-community/async-storage';
 
-import { requestLogin } from '~/store/modules/join/auth';
+import { loginAC } from '~/store/modules/join/auth';
 import { d, c, l, BASE_URL } from '~/utils/constant';
 import BottomBtnCollectData from '~/components/universal/bottomBar/BottomBtnCollectData';
 import MarginWide from '~/components/universal/margin/MarginWide';
@@ -70,7 +70,7 @@ const Join4 = ({ navigation, route }: Props) => {
   const dispatch = useDispatch();
   const _login = (email: string, password: string) => {
     console.log('😸5. 회원가입 성공 후 로그인 액션 호출');
-    dispatch(requestLogin(email, password));
+    dispatch(loginAC.request(email, password));
   };
 
   const _socialSignup = async () => {
