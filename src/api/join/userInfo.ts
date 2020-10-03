@@ -1,7 +1,7 @@
-import { BASE_URL } from "~/utils/constant";
 import { getTokenItem } from "~/utils/asyncStorage";
 import { llog } from "~/utils/functions";
 import { UserInfoRes } from "~/api/interface";
+import { fetchAPI } from "~/api";
 
 export const getUserInfo = async (): Promise<UserInfoRes> => {
   // try catch 하지 않음. saga에서 해주므로
@@ -10,11 +10,9 @@ export const getUserInfo = async (): Promise<UserInfoRes> => {
     throw Error("client - no token");
   }
 
-  const response = await fetch(`${BASE_URL}/accounts/`, {
-    method: "GET",
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
+  const response = await fetchAPI({
+    url: "accounts/",
+    token,
   });
 
   const json: UserInfoRes = await response.json();

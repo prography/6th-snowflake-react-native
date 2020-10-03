@@ -1,22 +1,19 @@
 import { llog } from "~/utils/functions";
-import { BASE_URL } from "~/utils/constant";
 import { LoginRes } from "~/api/interface";
+import { fetchAPI } from "~/api";
 
 export const login = async (
   email: string,
   password: string
 ): Promise<LoginRes> => {
   llog("😸9. loginAPI called", email, password);
-  const response = await fetch(`${BASE_URL}/api/token/`, {
+  const response = await fetchAPI({
+    url: "api/token/",
     method: "POST",
-    headers: {
-      Accept: "application/json",
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
+    params: {
       email,
       password,
-    }),
+    },
   });
 
   const json: LoginRes = await response.json();
