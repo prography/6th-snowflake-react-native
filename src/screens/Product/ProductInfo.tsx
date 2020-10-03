@@ -5,7 +5,6 @@ import analytics from "@react-native-firebase/analytics";
 import styled from 'styled-components/native';
 import { RouteProp } from '@react-navigation/native';
 
-import { BASE_URL } from '~/utils/constant';
 import MarginBottom from '~/components/universal/margin/MarginBottom';
 import Blinder from '~/components/product/Blinder';
 import ProductInfoImage from '~/containers/product/info/ProductInfoImage';
@@ -18,8 +17,9 @@ import ProductInfoReview from '~/containers/product/info/ProductInfoReview';
 import TopBarBackArrow from '~/components/universal/topBar/TopBarBackArrow';
 import ProductInfoBar from '~/components/universal/bottomBar/product/ProductInfoBar';
 import TextTitlePurpleRight from '~/components/universal/text/TextTitlePurpleRight';
-import { llog2 } from '~/utils/functions';
+import { llog } from '~/utils/functions';
 import { ProductStackParamList } from '~/navigation/tabs/ProductStack';
+import { fetchAPI } from '~/api';
 
 const Container = styled.View`
   flex-direction: column;
@@ -32,20 +32,22 @@ interface Props {
 
 const ProductInfo = ({ route }: Props) => {
   const { productId } = route.params;
-  llog2('🍒🍒productId', productId)
+  llog('🍒🍒productId', productId)
 
   const [productInfo, setProductInfo] = useState(null);
 
   const _getProductInfo = async () => {
     try {
-      const response = await fetch(
-        `${BASE_URL}/products/condom/${JSON.stringify(productId)}/`
+      const { status, response } = await fetchAPI(
+        `products/condom/${JSON.stringify(productId)}/`
       );
       const json = await response.json();
-      console.log('🍒 product info success', productInfo);
-      setProductInfo(json);
+      llog('🍒 product info success', json);
+      if (status === 200) {
+        setProductInfo(json);
+      }
     } catch (error) {
-      console.log('🍒product info error', error);
+      llog('🍒product info error', error);
     }
   };
 

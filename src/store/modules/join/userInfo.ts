@@ -1,4 +1,9 @@
-import { UserInfoRes, RFetchResult } from "~/utils/interface";
+import { RFetchResult, UserInfoRes } from "~/api/interface";
+import {
+  getInitialFetchResult,
+  getActionCreator,
+  createAction,
+} from "~/utils/redux";
 
 export interface UserInfoState {
   userEmail: string;
@@ -22,11 +27,7 @@ const initialState: UserInfoState = {
   userGender: null,
   userPartnerGender: null,
 
-  userInfo: {
-    loading: false,
-    data: null,
-    error: null,
-  },
+  userInfo: getInitialFetchResult<UserInfoRes>(),
 };
 
 const SET_USER_EMAIL = "SET_USER_EMAIL";
@@ -36,11 +37,7 @@ const SET_USER_NAME = "SET_USERNAME";
 const SET_USER_BIRTHYEAR = "SET_BIRTHYEAR";
 const SET_USER_GENDER = "SET_GENDER";
 const SET_USER_PARTNER_GENDER = "SET_PARTNER_GENDER";
-
-// saga
-export const GET_USER_INFO_REQUEST = "GET_USER_INFO_REQUEST"; // 요청 시작
-export const GET_USER_INFO_SUCCESS = "GET_USER_INFO_SUCCESS"; // 요청 성공
-export const GET_USER_INFO_ERROR = "GET_USER_INFO_ERROR"; // 요청 실패
+export const GET_USER_INFO = createAction("GET_USER_INFO");
 
 export const setUserEmail = (userEmail: string) => ({
   type: SET_USER_EMAIL,
@@ -70,41 +67,8 @@ export const setUserPartnerGender = (userPartnerGender: string) => ({
   type: SET_USER_PARTNER_GENDER,
   userPartnerGender: userPartnerGender,
 });
-
-// saga
-export const getUserInfoRequest = () => {
-  const fetchResult: RFetchResult<UserInfoRes> = {
-    loading: true,
-    data: null,
-    error: null,
-  };
-  return {
-    type: GET_USER_INFO_REQUEST,
-    userInfo: fetchResult,
-  };
-};
-export const getUserInfoSuccess = (userInfo: UserInfoRes) => {
-  const fetchResult: RFetchResult<UserInfoRes> = {
-    loading: false,
-    data: userInfo,
-    error: null,
-  };
-  return {
-    type: GET_USER_INFO_SUCCESS,
-    userInfo: fetchResult,
-  };
-};
-export const getUserInfoError = (error: Error) => {
-  const fetchResult: RFetchResult<UserInfoRes> = {
-    loading: false,
-    data: null,
-    error,
-  };
-  return {
-    type: GET_USER_INFO_ERROR,
-    userInfo: fetchResult,
-  };
-};
+// AC = Action Creator. not Action
+export const getUserInfoAC = getActionCreator<UserInfoRes>(GET_USER_INFO);
 
 export default (state = initialState, action): UserInfoState => {
   switch (action.type) {
@@ -124,9 +88,9 @@ export default (state = initialState, action): UserInfoState => {
       return { ...state, userPartnerGender: action.userPartnerGender };
 
     // saga
-    case GET_USER_INFO_REQUEST:
-    case GET_USER_INFO_SUCCESS:
-    case GET_USER_INFO_ERROR:
+    case GET_USER_INFO.REQUEST:
+    case GET_USER_INFO.SUCCESS:
+    case GET_USER_INFO.ERROR:
       return { ...state, userInfo: action.userInfo };
 
     default:

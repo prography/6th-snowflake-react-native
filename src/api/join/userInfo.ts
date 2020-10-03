@@ -1,7 +1,7 @@
-import { BASE_URL } from "~/utils/constant";
 import { getTokenItem } from "~/utils/asyncStorage";
-import { llog2 } from "~/utils/functions";
-import { UserInfoRes } from "~/utils/interface";
+import { llog } from "~/utils/functions";
+import { UserInfoRes } from "~/api/interface";
+import { fetchAPI } from "~/api";
 
 export const getUserInfo = async (): Promise<UserInfoRes> => {
   // try catch 하지 않음. saga에서 해주므로
@@ -10,14 +10,11 @@ export const getUserInfo = async (): Promise<UserInfoRes> => {
     throw Error("client - no token");
   }
 
-  const response = await fetch(`${BASE_URL}/accounts/`, {
-    method: "GET",
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  });
-
+  const { status, response } = await fetchAPI("accounts/", { token });
   const json: UserInfoRes = await response.json();
-  llog2("2.🐹User info 불러옴 - 성공!", json);
+  llog("2.🐹User info 불러옴 - 성공!", json);
+  if (status !== 200) {
+    throw Error("회원정보를 불러오는 중 오류가 발생했어요");
+  }
   return json;
 };

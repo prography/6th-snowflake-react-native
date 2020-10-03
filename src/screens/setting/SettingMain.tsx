@@ -19,7 +19,7 @@ import TopBarLeftIcon from '~/components/universal/topBar/TopBarLeftIcon';
 import MyGenderColor from '~/containers/setting/MyGenderColor';
 import LineGrayRightLong from '~/components/universal/line/LineGrayRightLong';
 import MarginMedium from '~/components/universal/margin/MarginMedium';
-import { llog2 } from '~/utils/functions';
+import { llog } from '~/utils/functions';
 import { JoinStackParamList } from '~/navigation/tabs/JoinStack';
 import { RootState } from '~/store/modules';
 
@@ -36,14 +36,14 @@ const LoginContainer = styled.View`
 
 const SettingMain = ({ navigation }: Props) => {
   const [_token, _setToken] = useState(null);
-  const _isLoggedin = useSelector((state: RootState) => state.auth.isLoggedin);
-  llog2('로그인됨?', _isLoggedin);
+  const _isLoggedin = useSelector((state: RootState) => state.join.auth.isLoggedin);
+  llog('로그인됨?', _isLoggedin);
 
   const _getToken = async () => {
     try {
       const token = await AsyncStorage.getItem(AsyncAccessToken);
       _setToken(token);
-      llog2('1.🐹 store에서 토큰 불러옴:', _token);
+      llog('1.🐹 store에서 토큰 불러옴:', _token);
     } catch (e) {
       console.error('안 가져와', e);
     }

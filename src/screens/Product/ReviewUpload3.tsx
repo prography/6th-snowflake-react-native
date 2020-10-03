@@ -1,12 +1,11 @@
 import * as React from 'react';
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import { ScrollView, Alert } from 'react-native';
 import analytics from "@react-native-firebase/analytics";
 import { useSelector, useDispatch } from 'react-redux';
 import { useAsyncStorage } from '@react-native-community/async-storage';
 import { StackNavigationProp } from '@react-navigation/stack';
 
-import { BASE_URL } from '~/utils/constant';
 import { resetReviewUploadStore, InitalReviewInfo } from '~/store/modules/product/reviewUpload';
 import Blinder from '~/components/product/Blinder';
 import TopBarBackArrow from '~/components/universal/topBar/TopBarBackArrow';
@@ -19,6 +18,8 @@ import { AsyncAccessToken } from '~/utils/asyncStorage';
 import { RootState } from '~/store/modules';
 import { ProductStackParamList } from '~/navigation/tabs/ProductStack';
 import { RouteProp } from '@react-navigation/native';
+import { fetchAPI } from '~/api';
+import { llog } from '~/utils/functions';
 
 interface Props {
   navigation: StackNavigationProp<ProductStackParamList, 'ReviewUpload3'>;
@@ -68,17 +69,13 @@ const ReviewUpload3 = ({ navigation, route }: Props) => {
 
     try {
       const token = await getTokenItem();
-      console.log('🎃2_reviews 업로드 api 호출 with token:', token);
+      llog('🎃2_reviews 업로드 api 호출 with token:', token);
       if (!token) { Alert.alert('❄️', '로그인 후 이용해주세요!'); return; }
 
-      const response = await fetch(`${BASE_URL}/reviews/`, {
+      const { status } = await fetchAPI('reviews/', {
         method: 'POST',
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify({
+        token,
+        params: {
           product,
           total,
           oily,
@@ -87,14 +84,15 @@ const ReviewUpload3 = ({ navigation, route }: Props) => {
           gender,
           partner_gender,
           content,
-        }),
+        },
       });
-      const json = await response.json();
-      console.log('🎃3_reviews 업로드도 반응이 오나요?', json);
-      dispatch(resetReviewUploadStore());
-      navigation.navigate('ProductMain');
+
+      if (status === 201) {
+        dispatch(resetReviewUploadStore());
+        navigation.navigate('ProductMain');
+      }
     } catch (error) {
-      console.log('🎃 review업로드 안 됐다리', error);
+      llog('🎃 review업로드 안 됐다리', error);
     }
   };
 

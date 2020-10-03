@@ -1,10 +1,10 @@
 import * as React from 'react';
-import { View, Text, Alert } from 'react-native';
+import { useEffect } from 'react';
+import { Alert } from 'react-native';
 import styled from 'styled-components/native';
-import { useState, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { d, c, l, BASE_URL, isAndroid } from '~/utils/constant';
+import { StackActions } from '@react-navigation/native';
 import KakaoLogins from '@react-native-seoul/kakao-login';
+
 import appleAuth, {
   AppleAuthRequestOperation,
   AppleAuthRequestScope,
@@ -13,16 +13,14 @@ import appleAuth, {
 } from '@invertase/react-native-apple-authentication';
 import analytics from "@react-native-firebase/analytics";
 
+import { d, c, l, BASE_URL, isAndroid } from '~/utils/constant';
 import BottomBtnCollectData from '~/components/universal/bottomBar/BottomBtnCollectData';
-import MarginWide from '~/components/universal/margin/MarginWide';
-import TopBarLeftIcon from '~/components/universal/topBar/TopBarLeftIcon';
-import TopBarWithIcon from '~/components/universal/topBar/TopBarRightIcon';
-import { withNavigation } from '@react-navigation/compat';
 import TopBarBackArrowRightIcon from '~/components/universal/topBar/TopBarBackArrowRightIcon';
-import { llog2, llog1, llog3 } from '~/utils/functions';
+import { llog } from '~/utils/functions';
 import { KakaoLoginResponse } from '~/utils/interface';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { JoinStackParamList } from '~/navigation/tabs/JoinStack';
+import { manageLoginLogout } from '~/store/modules/join/auth';
 
 const JOIN_BOX_HEIGHT = d.px * 50;
 const Container = styled.View`
@@ -63,36 +61,55 @@ const JoinScreen = ({ navigation }: Props) => {
   const _signInWithKakao = async () => {
     try {
       analytics().logEvent("press_kakao_login_btn");
-      llog1('🥎 카카오 가입을 해보자');
+      llog('🥎 카카오 가입을 해보자');
       const result: KakaoLoginResponse = await KakaoLogins.login();
-      llog2('🥎 카카오 서버와 통신', result);
+      llog('🥎 카카오 서버와 통신', result);
 
-      //카카오로 accessToken을 받으면
+      // login 관련만 이렇게 FormData를 넣기!
+      const formdata = new FormData();
+      formdata.append("access_token", result.accessToken);
+      const requestOptions = {
+        method: 'POST',
+        body: formdata,
+      };
+
+      // 카카오로 accessToken을 받으면
       if (result) {
-        const response = await fetch(
-          `${BASE_URL}/accounts/social/kakao-login-callback?access_token=${result.accessToken}`,
-          {
-            method: 'POST',
-          }
+        const response = await fetch( // 여기는 그냥 fetch
+          `${BASE_URL}/accounts/social/kakao-login-callback`,
+          requestOptions,
         );
 
         const json = await response.json();
-        llog2('🥎 카카오 가입 response,', response);
-        llog2('🥎 카카오 가입 api,', json);
+        llog('🥎 카카오 가입 response,', response);
+        llog('🥎 카카오 가입 api,', json);
 
-
-        // TODO: json 에서 성공이면
-
-
-        navigation.navigate('JoinStack', {
-          screen: 'Join2',
-          params: { _token: json.access, socialJoin: true },
-        });
+        switch (response.status) {
+          case 200: // 이미 가입된 유저
+            alert('이미 가입되어 있는 유저입니다 / 로그인 완료');
+            // 바로 토큰 가지고 로그인 처리, stack top으로 이동
+            // dispatch(manageLoginLogout(dispatch, true, accessToken));
+            // navigation.dispatch(StackActions.popToTop());
+            // toast도 메세지 준대
+            // toast(`${json.message}`);
+            break;
+          case 201: // 새로 회원가입
+            // TODO 이 Token은 어디 저장을 하나? 아니면 새로 나중에 회원가입 완료할 때 다시 하나?
+            navigation.navigate('Join2', {
+              _token: json.access, socialJoin: true,
+            });
+            break;
+          case 400: // accessToken을 잘못 보냈을 때
+          // access_token이 존재하지 않습니다.
+          default:
+            alert(`${response.status} / ${json.message}`);
+            break;
+        }
       } else {
         throw Error;
       }
     } catch (error) {
-      llog2('💢 kakao error', error);
+      llog('💢 kakao error', error);
       Alert.alert('오류', '카카오 로그인 실패');
     }
   };
@@ -107,7 +124,7 @@ const JoinScreen = ({ navigation }: Props) => {
         },
       );
 
-      llog3(
+      llog(
         '🐒 appleLogin appleAuthRequestResponse',
         appleAuthRequestResponse,
         appleAuthRequestResponse.identityToken,
@@ -117,28 +134,50 @@ const JoinScreen = ({ navigation }: Props) => {
       );
 
       if (credentialState === AppleAuthCredentialState.AUTHORIZED) {
-        const accessToken = appleAuthRequestResponse.identityToken;
-        llog1('🐒 Apple AUTHORIZED~~');
-        const response = await fetch(`${BASE_URL}/accounts/social/apple-login-callback?identify_token=${accessToken}`,
-          {
-            method: 'POST',
-          });
+        const { identityToken } = appleAuthRequestResponse;
+        llog('🐒 Apple AUTHORIZED~~', identityToken);
+
+        // login 관련만 이렇게 FormData를 넣기!
+        const formdata = new FormData();
+        formdata.append("identity_token", identityToken);
+        const requestOptions = {
+          method: 'POST',
+          body: formdata,
+        };
+        // "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjAxMzAyMjA3LCJqdGkiOiI5YzExNWZhM2FhMjc0MjUwYWM4Yjc1M2RlZTE1NGIzOSIsInVzZXJfaWQiOjEwNywidXNlcm5hbWUiOiJcdWM1NjBcdWQ1MGNcdWIyZTQiLCJzb2NpYWwiOiJBUFBMRSIsImJpcnRoX3llYXIiOjE5OTgsImdlbmRlciI6IldPTUFOIn0.j-436cd7lT6kYcTaWsUKPjGTfZnetjo1fjHuVE7oa54"
+        // eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90e…FOIn0.ZsnpxrtM2oJ-Mm5zLH_wmv8s4wGcm3pRE0sf6mCnw04
+        const response = await fetch(`${BASE_URL}/accounts/social/apple-login-callback`, requestOptions);
 
         const json = await response.json();
-        llog2('🐒 Apple 가입 response,', response);
-        llog2('🐒 Apple 가입 api,', json);
+        llog('🐒 Apple 가입 response,', response);
+        llog('🐒 Apple 가입 api,', json);
 
-        // TODO: json 에서 성공이면
-
-        navigation.navigate('JoinStack', {
-          screen: 'Join2',
-          params: { _token: json.access, socialJoin: true },
-        });
+        switch (response.status) {
+          case 200: // 이미 가입된 유저
+            alert('이미 가입되어 있는 유저입니다 / 로그인 완료');
+            // 바로 토큰 가지고 로그인 처리, stack top으로 이동
+            // dispatch(manageLoginLogout(dispatch, true, accessToken));
+            // navigation.dispatch(StackActions.popToTop());
+            // toast도 메세지 준대
+            // toast(`${json.message}`);
+            break;
+          case 201: // 새로 회원가입
+            // TODO 이 Token은 어디 저장을 하나? 아니면 새로 나중에 회원가입 완료할 때 다시 하나?
+            navigation.navigate('Join2', {
+              _token: json.access, socialJoin: true,
+            });
+            break;
+          case 400: // accessToken을 잘못 보냈을 때
+          // access_token이 존재하지 않습니다.
+          default:
+            alert(`${response.status} / ${json.message}`);
+            break;
+        }
       } else {
         throw Error;
       }
     } catch (e) {
-      llog2('💢 apple error', e);
+      llog('💢 apple error', e);
       Alert.alert('오류', '애플 로그인 실패');
     }
   };
@@ -152,25 +191,25 @@ const JoinScreen = ({ navigation }: Props) => {
       img: 'none',
       key: 0,
     },
-    // {
-    //   guideText: '카카오로 가입하기',
-    //   guide: 'kakao',
-    //   screen: 'JoinWithKakao',
-    //   function: _signInWithKakao,
-    //   img: 'kakao',
-    //   key: 1,
-    // },
-    // {
-    //   guideText: '애플 로그인으로 가입하기',
-    //   guide: 'apple',
-    //   screen: 'JoinWithApple',
-    //   function: _signInWithApple,
-    //   img: 'apple',
-    //   key: 2,
-    // },
+    {
+      guideText: '카카오로 가입하기',
+      guide: 'kakao',
+      screen: 'JoinWithKakao',
+      function: _signInWithKakao,
+      img: 'kakao',
+      key: 1,
+    },
+    {
+      guideText: '애플로 가입하기',
+      guide: 'apple',
+      screen: 'JoinWithApple',
+      function: _signInWithApple,
+      img: 'apple',
+      key: 2,
+    },
   ];
 
-  React.useEffect(() => {
+  useEffect(() => {
     analytics().setCurrentScreen("JoinScreen");
   }, []);
 

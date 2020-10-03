@@ -1,19 +1,16 @@
 import * as React from 'react';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import AsyncStorage, { useAsyncStorage } from '@react-native-community/async-storage';
 import styled from 'styled-components/native';
 
-import { d, BASE_URL, c, l } from '~/utils/constant';
+import { d, c, l } from '~/utils/constant';
 import TextTitlePurpleRight from '~/components/universal/text/TextTitlePurpleRight';
-import { AsyncAccessToken } from '~/utils/asyncStorage';
 import TextTitleDarkPurpleLink from '~/components/universal/text/TextTitleDarkPurpleLink';
-import { manageLoginLogout } from '~/store/modules/auth';
+import { manageLoginLogout } from '~/store/modules/join/auth';
 
 import MarginNarrow from '~/components/universal/margin/MarginNarrow';
-import { llog2 } from '~/utils/functions';
 import { RootState } from '~/store/modules';
-import { getUserInfoRequest } from '~/store/modules/join/userInfo';
+import { getUserInfoAC } from '~/store/modules/join/userInfo';
 
 const ProfileContainer = styled.View``;
 const Container = styled.View`
@@ -23,11 +20,11 @@ const Container = styled.View`
 const MyProfile = () => {
   // redux
   const dispatch = useDispatch();
-  const _isLoggedin = useSelector((state: RootState) => state.auth.isLoggedin);
+  const _isLoggedin = useSelector((state: RootState) => state.join.auth.isLoggedin);
   const { loading, data: userInfo, error } = useSelector((state: RootState) => state.join.userInfo.userInfo);
 
   useEffect(() => {
-    dispatch(getUserInfoRequest());
+    dispatch(getUserInfoAC.request());
   }, []);
 
   return (
@@ -43,7 +40,7 @@ const MyProfile = () => {
             <MarginNarrow />
             <TextTitleDarkPurpleLink
               title={''}
-              buttonText={'로그아웃'}
+              buttonText={'LOGOUT'}
               onPress={() => manageLoginLogout(dispatch, false)}
             />
           </>

@@ -1,19 +1,16 @@
 import * as React from 'react';
 import { useEffect, useState } from 'react';
-import { Text, View, TouchableOpacity } from 'react-native';
 import styled from 'styled-components/native';
 import analytics from "@react-native-firebase/analytics";
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector, shallowEqual } from 'react-redux';
 
-import { d, l, BASE_URL, c } from '~/utils/constant';
-import TextProductMiddleBar from '~/components/universal/text/product/info/TextProductMiddleBar';
-import ReviewCardContainer from '../review/ReviewCardContainer';
-import MarginWide from '~/components/universal/margin/MarginWide';
+import { d, l, c } from '~/utils/constant';
 import GenderLoop from '~/components/universal/profile/GenderLoop';
 import LineGrayMiddle from '~/components/universal/line/LineGrayMiddle';
-import MarginNarrow from '~/components/universal/margin/MarginNarrow';
 import MarginMedium from '~/components/universal/margin/MarginMedium';
 import { RootState } from '~/store/modules';
+import { fetchAPI } from '~/api';
+import { llog } from '~/utils/functions';
 
 const NARROW_MARGIN = d.px * 9;
 const TEXT_HEIGHT = d.px * 16;
@@ -112,14 +109,15 @@ enum PartnerEnum {
 }
 
 const ProductInfoReviewFilter = ({ setReviewArray, productId }: Props) => {
-  const [genderParam, setGenderParam] = useState(GenderEnum.NONE);
-  const [partnerParam, setPartnerParam] = useState(PartnerEnum.NONE);
-  const [showGenderPartnerFilter, setShowGenderPartnerFilter] = useState(false);
-  const womanColor = useSelector(
-    (state: RootState) => state.join.genderColor.womanColor,
-  );
-  const manColor = useSelector(
-    (state: RootState) => state.join.genderColor.manColor,
+  const [genderParam, setGenderParam] = useState<GenderEnum>(GenderEnum.NONE);
+  const [partnerParam, setPartnerParam] = useState<PartnerEnum>(PartnerEnum.NONE);
+  const [showGenderPartnerFilter, setShowGenderPartnerFilter] = useState<boolean>(false);
+  const {
+    womanColor,
+    manColor,
+  } = useSelector(
+    (state: RootState) => state.join.genderColor,
+    shallowEqual
   );
   const genderFilterList = [
     {
@@ -150,7 +148,7 @@ const ProductInfoReviewFilter = ({ setReviewArray, productId }: Props) => {
     },
   ];
   const _getReviewArray = async () => {
-    let url = `${BASE_URL}/reviews/?product=${productId}`;
+    let url = `reviews/?product=${productId}`;
     if (genderParam !== GenderEnum.NONE) {
       url += `&gender=${genderParam}`;
     }
@@ -159,12 +157,14 @@ const ProductInfoReviewFilter = ({ setReviewArray, productId }: Props) => {
     }
 
     try {
-      const response = await fetch(url);
-      const json = await response.json();
-      console.log('🌮 id', productId, '의 review array success!', json.results);
-      setReviewArray(json.results);
+      const { status, response } = await fetchAPI(url);
+      if (status === 200) {
+        const json = await response.json();
+        llog('🌮 id', productId, '의 review array success!', json.results);
+        setReviewArray(json.results);
+      }
     } catch (error) {
-      console.log('🌮', productId, '의 review array', error);
+      llog('🌮', productId, '의 review array', error);
     }
   };
   useEffect(() => {

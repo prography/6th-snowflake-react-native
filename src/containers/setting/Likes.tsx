@@ -1,21 +1,20 @@
 import * as React from 'react';
 import { useEffect, useState } from 'react';
-import TextTitlePurpleRight from '~/components/universal/text/TextTitlePurpleRight';
+import { ScrollView, Text } from 'react-native';
 import { useSelector } from 'react-redux';
-import { d, BASE_URL, c, l } from '~/utils/constant';
+import { useAsyncStorage } from '@react-native-community/async-storage';
 import styled from 'styled-components/native';
-import AsyncStorage, {
-  useAsyncStorage,
-} from '@react-native-community/async-storage';
-import RankBar from '~/components/product/ranking/RankBar';
-import { ScrollView, Alert } from 'react-native';
-import TextTitleDarkLeft from '~/components/universal/text/TextTitleDarkLeft';
 import { withNavigation } from '@react-navigation/compat';
-import { Text } from 'react-native';
+
+import TextTitlePurpleRight from '~/components/universal/text/TextTitlePurpleRight';
+import { d, c, l } from '~/utils/constant';
+import TextTitleDarkLeft from '~/components/universal/text/TextTitleDarkLeft';
 import TextProductCompany from '~/components/universal/text/product/TextProductCompany';
 import TextProductName from '~/components/universal/text/product/TextProductName';
 import { AsyncAccessToken } from '~/utils/asyncStorage';
 import { RootState } from '~/store/modules';
+import { fetchAPI } from '~/api';
+import { llog } from '~/utils/functions';
 
 interface Props {
   token: any;
@@ -64,7 +63,7 @@ const Likes = ({ navigation }: Props) => {
   const blindState = useSelector(
     (state: RootState) => state.product.blind.blindState,
   );
-  const _isLoggedin = useSelector((state: RootState) => state.auth.isLoggedin);
+  const _isLoggedin = useSelector((state: RootState) => state.join.auth.isLoggedin);
 
   const [_rankingList, _setRankingList] = useState(null);
   const [showLikes, setShowLikes] = useState(false);
@@ -75,21 +74,18 @@ const Likes = ({ navigation }: Props) => {
       const token = await getTokenItem();
       if (!token) { return; }
 
-      const response = await fetch(
-        `${BASE_URL}/likes/?model=product&is_product_detail=true`,
-        {
-          method: 'GET',
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
+      const { status, response } = await fetchAPI(
+        `likes/?model=product&is_product_detail=true`,
+        { token },
       );
-      const json = await response.json();
 
-      console.log('2.🐰Like List 불러옴 - 성공!', json.results);
-      _setRankingList(json.results);
+      if (status === 200) {
+        const json = await response.json();
+        llog('2.🐰Like List 불러옴 - 성공!', response);
+        _setRankingList(json.results);
+      }
     } catch (error) {
-      console.log('🐰Like List - error', error);
+      llog('🐰Like List - error', error);
     }
   };
 

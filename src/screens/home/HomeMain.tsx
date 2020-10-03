@@ -7,12 +7,8 @@ import Content from '../../containers/home/main/Content';
 import TopBarLeftIcon from '~/components/universal/topBar/TopBarLeftIcon';
 import NavBar from '~/screens/NavBar';
 import MarginBottom from '~/components/universal/margin/MarginBottom';
-import { AsyncAccessToken } from '~/utils/asyncStorage';
-import { useAsyncStorage } from '@react-native-community/async-storage';
-import { BASE_URL } from '~/utils/constant';
-import { llog2 } from '~/utils/functions';
 import { setUserGender, setUserPartnerGender } from '~/store/modules/join/userInfo';
-import { getUserInfoRequest } from '~/store/modules/join/userInfo';
+import { getUserInfoAC } from '~/store/modules/join/userInfo';
 import { RootState } from '~/store/modules';
 
 const HomeMain = () => {
@@ -25,7 +21,7 @@ const HomeMain = () => {
   }, []);
 
   useEffect(() => {
-    dispatch(getUserInfoRequest())
+    dispatch(getUserInfoAC.request())
   }, []);
 
   useEffect(() => {

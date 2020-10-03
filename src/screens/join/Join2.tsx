@@ -1,31 +1,16 @@
 import * as React from 'react';
-import { View, Text } from 'react-native';
 import styled from 'styled-components/native';
 import { useState, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import analytics from "@react-native-firebase/analytics";
 import { Picker } from '@react-native-community/picker';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RouteProp } from '@react-navigation/native';
 
-import { d, c, l, BASE_URL } from '~/utils/constant';
-import {
-  State,
-  setUserEmail,
-  setUserPassword1,
-  setUserPassword2,
-  setUserName,
-  setUserBirthYear,
-  setUserGender,
-  setUserPartnerGender,
-} from '~/store/modules/join/userInfo';
+import { d, c, l } from '~/utils/constant';
 import BottomBtnCollectData from '~/components/universal/bottomBar/BottomBtnCollectData';
-import MarginWide from '~/components/universal/margin/MarginWide';
-import TopBarLeftIcon from '~/components/universal/topBar/TopBarLeftIcon';
-import TopBarWithIcon from '~/components/universal/topBar/TopBarRightIcon';
-import TopBarBackArrow from '~/components/universal/topBar/TopBarBackArrow';
 import TopBarBackArrowRightIcon from '~/components/universal/topBar/TopBarBackArrowRightIcon';
 import { JoinStackParamList } from '~/navigation/tabs/JoinStack';
+import { fetchAPI } from '~/api';
 
 const Container = styled.View`
   margin: 0 ${l.mR}px;
@@ -99,8 +84,8 @@ const Join2 = ({ navigation, route }: Props) => {
 
   const _checkNameDuplicate = async () => {
     try {
-      const response = await fetch(
-        `${BASE_URL}/accounts/check-duplicates/username?value=${nameInput}`
+      const response = await fetchAPI(
+        `accounts/check-duplicates/username?value=${nameInput}`
       );
       const json = await response.json();
       console.log('⛄️닉네임 중복 체크', response, json);

@@ -6,13 +6,15 @@ import analytics from "@react-native-firebase/analytics";
 import { useSelector } from 'react-redux';
 import { StackNavigationProp } from '@react-navigation/stack';
 
-import { d, l, c, BASE_URL } from '~/utils/constant';
+import { d, l, c } from '~/utils/constant';
 import TextProductCompany from '~/components/universal/text/product/TextProductCompany';
 import TextProductName from '~/components/universal/text/product/TextProductName';
 import Blinder from '~/components/product/Blinder';
 import BackButton from '~/components/universal/button/BackButton';
 import { RootState } from '~/store/modules';
 import { ProductStackParamList } from '~/navigation/tabs/ProductStack';
+import { fetchAPI } from '~/api';
+import { llog } from '~/utils/functions';
 
 const Container = styled.View`
   flex: 1;
@@ -78,17 +80,12 @@ const SearchProduct = ({ navigation }: Props) => {
   const _searchProduct = async () => {
     try {
       const _searchInput = searchInput ? searchInput.replace(/(\s*)/g, '') : '';
-      const response = await fetch(
-        `${BASE_URL}/products/search/?keyword=${_searchInput}`,
-        {
-          method: 'GET',
-        }
-      );
+      const response = await fetchAPI(`products/search/?keyword=${_searchInput}`);
       const json = await response.json();
       _setSearchResult(json.results);
-      console.log('💎검색 - 성공!', _searchInput, json.results);
+      llog('💎검색 - 성공!', _searchInput, json.results);
     } catch (error) {
-      console.log('💎검색- error', error);
+      llog('💎검색- error', error);
     }
   };
 

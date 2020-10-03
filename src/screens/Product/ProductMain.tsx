@@ -1,13 +1,11 @@
 import * as React from 'react';
-import { useState, useEffect } from 'react';
-import { SafeAreaView, Text, ScrollView, View } from 'react-native';
+import { useEffect } from 'react';
+import { ScrollView } from 'react-native';
 import styled from 'styled-components/native';
 import analytics from '@react-native-firebase/analytics';
 import { useLinkTo } from '@react-navigation/native';
 
-import { d, c, BASE_URL } from '~/utils/constant';
 import NavBar from '~/screens/NavBar';
-import TopBarLeftIcon from '~/components/universal/topBar/TopBarLeftIcon';
 import Trio from '~/containers/product/main/Trio';
 import CardPurpleRight from '~/components/universal/card/CardPurpleRight';
 import MarginWide from '~/components/universal/margin/MarginWide';
@@ -25,19 +23,9 @@ const Container = styled.View`
 const ProductMain = () => {
   const linkTo = useLinkTo();
 
-  const _getCondomList = async () => {
-    try {
-      const response = await fetch(`${BASE_URL}/products/condom/`);
-      const json = await response.json();
-      // console.log('🍕product - condom list success!', json);
-    } catch (error) {
-      console.log('🍕product - condom list error', error);
-    }
-  };
   //제품 리스트에 현재 id 안 오고 있음
   useEffect(() => {
-    _getCondomList();
-    analytics().setCurrentScreen('ProductMain');
+    analytics().setCurrentScreen("ProductMain");
 
     // 딥링크 테스트용 코드
     // setTimeout(() => { // 이거 없으면 가끔 안넘어감

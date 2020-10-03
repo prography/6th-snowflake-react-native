@@ -1,6 +1,6 @@
 import { all } from "redux-saga/effects";
 
-import authSaga from "./auth";
+import authSaga from "./join/auth";
 import counterSaga from "./counter-test";
 import { userInfoSaga } from "./join/userInfo";
 
