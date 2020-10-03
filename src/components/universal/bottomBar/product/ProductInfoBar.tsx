@@ -12,7 +12,7 @@ import { d, c, l } from '~/utils/constant';
 import { AsyncAccessToken } from '~/utils/asyncStorage';
 import { BASE_URL } from '~/utils/constant';
 import { useSelector } from 'react-redux';
-import { llog1, llog2 } from '~/utils/functions';
+import { llog } from '~/utils/functions';
 import { RootState } from '~/store/modules';
 
 interface Props {
@@ -66,8 +66,8 @@ const ProductInfoBar = ({ children, navigation, productId }: Props) => {
       const model = 'product';
       const object_id = productId;
       // const user = await AsyncStorage.getItem(UserId);
-      llog2('1-1.🍊like 생성 위한 token 잘 가져옴 ', token);
-      // llog2('1-2.🍊userId도...', user);
+      llog('1-1.🍊like 생성 위한 token 잘 가져옴 ', token);
+      // llog('1-2.🍊userId도...', user);
       const response = await fetch(`${BASE_URL}/likes/`, {
         method: 'POST',
         headers: {
@@ -81,11 +81,11 @@ const ProductInfoBar = ({ children, navigation, productId }: Props) => {
           // user,
         }),
       });
-      llog2('2. 🍊like post 성공! ', response);
+      llog('2. 🍊like post 성공! ', response);
 
       await _checkIsLiked();
     } catch (error) {
-      llog2('🍊like 생성 에러 ', error);
+      llog('🍊like 생성 에러 ', error);
     }
   };
 
@@ -103,11 +103,11 @@ const ProductInfoBar = ({ children, navigation, productId }: Props) => {
         },
       });
 
-      llog2('4. 🍊like 삭제 ', delteLike);
-      llog2('productid:', productId);
+      llog('4. 🍊like 삭제 ', delteLike);
+      llog('productid:', productId);
       await _checkIsLiked();
     } catch (error) {
-      llog2('🍊like 에러 ', error);
+      llog('🍊like 에러 ', error);
     }
   };
   const _checkIsLiked = async () => {
@@ -137,7 +137,7 @@ const ProductInfoBar = ({ children, navigation, productId }: Props) => {
         ? setLikedId(null)
         : setLikedId(responseIsLikedJson.results[0].id);
     } catch (error) {
-      llog2('🍊like 에러 ', error);
+      llog('🍊like 에러 ', error);
     }
   };
 

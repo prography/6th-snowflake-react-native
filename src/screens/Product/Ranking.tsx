@@ -9,7 +9,7 @@ import ProductRankingContainer from '~/containers/product/info/ProductRankingCon
 import TopBarBackArrow from '~/components/universal/topBar/TopBarBackArrow';
 import TopBarBackArrowSearchBar from '~/components/universal/topBar/TopBarBackArrowSearchBar';
 import { ProductStackParamList } from '~/navigation/tabs/ProductStack';
-import { llog2 } from '~/utils/functions';
+import { llog } from '~/utils/functions';
 
 interface Props {
   route: RouteProp<ProductStackParamList, 'Ranking'>;
@@ -22,7 +22,7 @@ const Container = styled.View`
 `;
 
 const Ranking = ({ route }: Props) => {
-  llog2('🦚🦚 route 🦚🦚', route.params)
+  llog('🦚🦚 route 🦚🦚', route.params)
 
   React.useEffect(() => {
     analytics().setCurrentScreen("Ranking");

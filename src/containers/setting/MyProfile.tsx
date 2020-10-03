@@ -1,17 +1,14 @@
 import * as React from 'react';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import AsyncStorage, { useAsyncStorage } from '@react-native-community/async-storage';
 import styled from 'styled-components/native';
 
 import { d, BASE_URL, c, l } from '~/utils/constant';
 import TextTitlePurpleRight from '~/components/universal/text/TextTitlePurpleRight';
-import { AsyncAccessToken } from '~/utils/asyncStorage';
 import TextTitleDarkPurpleLink from '~/components/universal/text/TextTitleDarkPurpleLink';
 import { manageLoginLogout } from '~/store/modules/join/auth';
 
 import MarginNarrow from '~/components/universal/margin/MarginNarrow';
-import { llog2 } from '~/utils/functions';
 import { RootState } from '~/store/modules';
 import { getUserInfoAC } from '~/store/modules/join/userInfo';
 

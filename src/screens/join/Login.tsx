@@ -11,10 +11,9 @@ import TopBarBackArrowRightIcon from '~/components/universal/topBar/TopBarBackAr
 import LinePurpleWhenFocused from '~/components/universal/line/LinePurpleWhenFocused';
 import MarginWide from '~/components/universal/margin/MarginWide';
 import MarginNarrow from '~/components/universal/margin/MarginNarrow';
-import { llog2, llog3 } from '~/utils/functions';
+import { llog } from '~/utils/functions';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { JoinStackParamList } from '~/navigation/tabs/JoinStack';
-import { AsyncAccessToken } from '~/utils/asyncStorage';
 import { RootState } from '~/store/modules';
 import { loginAC } from '~/store/modules/join/auth';
 
@@ -54,7 +53,7 @@ const Login = ({ navigation }: Props) => {
   const [emailFocus, handleEmailFocus] = useState(false);
   const [passwordFocus, handlePasswordFocus] = useState(false);
   const _isLoggedin = useSelector((state: RootState) => state.auth.isLoggedin);
-  llog2('_loggedin', _isLoggedin);
+  llog('_loggedin', _isLoggedin);
 
   useEffect(() => {
     _isLoggedin ? navigation.dispatch(StackActions.popToTop()) : null;
@@ -65,7 +64,7 @@ const Login = ({ navigation }: Props) => {
 
   // 임시로 사가 대신 그냥 여기에서 처리.
   const _login = async () => {
-    llog2('😸5... 로그인 액션 호출', userEmail);
+    llog('😸5... 로그인 액션 호출', userEmail);
     dispatch(loginAC.request(userEmail, userPassword)); // saga 쓸 때는 다시 이거로 쓰기
   };
 

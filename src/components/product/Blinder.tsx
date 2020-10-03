@@ -1,11 +1,11 @@
 import * as React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import analytics from "@react-native-firebase/analytics";
-import { SafeAreaView, Text, ScrollView } from 'react-native';
+import { Text } from 'react-native';
 import styled from 'styled-components/native';
 
 import { d, c, l } from '~/utils/constant';
-import { llog2 } from '~/utils/functions';
+import { llog } from '~/utils/functions';
 import { setBlinder } from '~/store/modules/product/blind';
 import { RootState } from '~/store/modules';
 
@@ -33,7 +33,7 @@ const Blinder = () => {
   const blindState = useSelector(
     (state: RootState) => state.product.blind.blindState,
   );
-  llog2('blindState:', blindState);
+  llog('blindState:', blindState);
 
   const onPress = () => {
     analytics().logEvent(`blinder_to_${blindState ? 'show' : 'hidden'}`);

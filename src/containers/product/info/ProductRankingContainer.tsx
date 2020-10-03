@@ -8,11 +8,9 @@ import TextTitlePurpleRight from '~/components/universal/text/TextTitlePurpleRig
 import RankBar from '~/components/product/ranking/RankBar';
 import Blinder from '~/components/product/Blinder';
 import styled from 'styled-components/native';
-import MarginBottom from '~/components/universal/margin/MarginBottom';
 import LineGrayMiddle from '~/components/universal/line/LineGrayMiddle';
-import LineGrayRightLong from '~/components/universal/line/LineGrayRightLong';
 import MarginNarrow from '~/components/universal/margin/MarginNarrow';
-import { llog2, llog3 } from '~/utils/functions';
+import { llog } from '~/utils/functions';
 import { RankingParamList } from '~/navigation/tabs/ProductStack';
 
 const NARROW_MARGIN = d.px * 9;
@@ -193,7 +191,7 @@ interface Props {
 }
 
 const ProductRankingContainer = ({ serverParams }: Props) => {
-  llog2('🦨 serverParams', serverParams);
+  llog('🦨 serverParams', serverParams);
   const [_rankingList, _setRankingList] = useState(null);
   const [selectedCategory, setSelectedCategory] = useState<CategoryEnum>(CategoryEnum.NONE);
   const [showOrderFilter, setShowOrderFilter] = useState(false);
@@ -219,15 +217,15 @@ const ProductRankingContainer = ({ serverParams }: Props) => {
 
       const json = await response.json();
       _setRankingList(json.results);
-      // llog2('🧤Ranking List - success!', _rankingList);
+      // llog('🧤Ranking List - success!', _rankingList);
     } catch (error) {
-      llog2('🧤Ranking List - error', error);
+      llog('🧤Ranking List - error', error);
     }
   };
 
   const _getOrderTextBySelectedOrder = () => {
     const found = orderFilterList.find((orderFilter: OrderFilter) => orderFilter.orderEnum === selectedOrder);
-    llog3('😎😎😎😎 selectedOrder found', selectedOrder, found)
+    llog('😎😎😎😎 selectedOrder found', selectedOrder, found)
     return found?.orderText;
   };
 

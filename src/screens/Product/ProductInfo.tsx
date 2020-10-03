@@ -18,7 +18,7 @@ import ProductInfoReview from '~/containers/product/info/ProductInfoReview';
 import TopBarBackArrow from '~/components/universal/topBar/TopBarBackArrow';
 import ProductInfoBar from '~/components/universal/bottomBar/product/ProductInfoBar';
 import TextTitlePurpleRight from '~/components/universal/text/TextTitlePurpleRight';
-import { llog2 } from '~/utils/functions';
+import { llog } from '~/utils/functions';
 import { ProductStackParamList } from '~/navigation/tabs/ProductStack';
 
 const Container = styled.View`
@@ -32,7 +32,7 @@ interface Props {
 
 const ProductInfo = ({ route }: Props) => {
   const { productId } = route.params;
-  llog2('🍒🍒productId', productId)
+  llog('🍒🍒productId', productId)
 
   const [productInfo, setProductInfo] = useState(null);
 

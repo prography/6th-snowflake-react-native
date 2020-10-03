@@ -6,7 +6,7 @@ import remoteConfig, {
 } from '@react-native-firebase/remote-config';
 
 import { verNums } from '~/utils/version';
-import { llog2, llog1 } from '~/utils/functions';
+import { llog } from '~/utils/functions';
 import { isAndroid } from '~/utils/constant';
 
 export const CommonContext = createContext();
@@ -56,10 +56,10 @@ export const CommonProvider = ({ children }) => {
       await remoteConfig().fetch(0);
       const activated = await remoteConfig().activate();
       if (activated) {
-        llog2('Defaults set, fetched & activated!', activated);
+        llog('Defaults set, fetched & activated!', activated);
         const allConfigs: RemoteConfigs = await remoteConfig().getAll();
         setRemoteConfigs(allConfigs);
-        llog2('👾 allConfigs 👾', allConfigs);
+        llog('👾 allConfigs 👾', allConfigs);
 
         // App Version State 설정
         let cpVer;
@@ -77,13 +77,13 @@ export const CommonProvider = ({ children }) => {
         const state = getAppVersionState(verNums, cpVerNums);
         setVersionState(state);
       } else {
-        llog1('Defaults set, however activation failed.');
+        llog('Defaults set, however activation failed.');
         setVersionState(APP_VERSION_STATE.NOT_NECESSARY);
       }
     } catch (error) {
       if (__DEV__) {
         alert('remoteConfig 에러');
-        llog2('🧲 remoteConfig', error)
+        llog('🧲 remoteConfig', error)
       }
       setVersionState(APP_VERSION_STATE.NOT_NECESSARY);
     }

@@ -17,7 +17,7 @@ import analytics from "@react-native-firebase/analytics";
 import { d, c, l, BASE_URL, isAndroid } from '~/utils/constant';
 import BottomBtnCollectData from '~/components/universal/bottomBar/BottomBtnCollectData';
 import TopBarBackArrowRightIcon from '~/components/universal/topBar/TopBarBackArrowRightIcon';
-import { llog2, llog1, llog3 } from '~/utils/functions';
+import { llog } from '~/utils/functions';
 import { KakaoLoginResponse } from '~/utils/interface';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { JoinStackParamList } from '~/navigation/tabs/JoinStack';
@@ -62,9 +62,9 @@ const JoinScreen = ({ navigation }: Props) => {
   const _signInWithKakao = async () => {
     try {
       analytics().logEvent("press_kakao_login_btn");
-      llog1('🥎 카카오 가입을 해보자');
+      llog('🥎 카카오 가입을 해보자');
       const result: KakaoLoginResponse = await KakaoLogins.login();
-      llog2('🥎 카카오 서버와 통신', result);
+      llog('🥎 카카오 서버와 통신', result);
 
       // login 관련만 이렇게 FormData를 넣기!
       const formdata = new FormData();
@@ -82,8 +82,8 @@ const JoinScreen = ({ navigation }: Props) => {
         );
 
         const json = await response.json();
-        llog2('🥎 카카오 가입 response,', response);
-        llog2('🥎 카카오 가입 api,', json);
+        llog('🥎 카카오 가입 response,', response);
+        llog('🥎 카카오 가입 api,', json);
 
         switch (response.status) {
           case 200: // 이미 가입된 유저
@@ -110,7 +110,7 @@ const JoinScreen = ({ navigation }: Props) => {
         throw Error;
       }
     } catch (error) {
-      llog2('💢 kakao error', error);
+      llog('💢 kakao error', error);
       Alert.alert('오류', '카카오 로그인 실패');
     }
   };
@@ -125,7 +125,7 @@ const JoinScreen = ({ navigation }: Props) => {
         },
       );
 
-      llog3(
+      llog(
         '🐒 appleLogin appleAuthRequestResponse',
         appleAuthRequestResponse,
         appleAuthRequestResponse.identityToken,
@@ -136,7 +136,7 @@ const JoinScreen = ({ navigation }: Props) => {
 
       if (credentialState === AppleAuthCredentialState.AUTHORIZED) {
         const { identityToken } = appleAuthRequestResponse;
-        llog2('🐒 Apple AUTHORIZED~~', identityToken);
+        llog('🐒 Apple AUTHORIZED~~', identityToken);
 
         // login 관련만 이렇게 FormData를 넣기!
         const formdata = new FormData();
@@ -150,8 +150,8 @@ const JoinScreen = ({ navigation }: Props) => {
         const response = await fetch(`${BASE_URL}/accounts/social/apple-login-callback`, requestOptions);
 
         const json = await response.json();
-        llog2('🐒 Apple 가입 response,', response);
-        llog2('🐒 Apple 가입 api,', json);
+        llog('🐒 Apple 가입 response,', response);
+        llog('🐒 Apple 가입 api,', json);
 
         switch (response.status) {
           case 200: // 이미 가입된 유저
@@ -178,7 +178,7 @@ const JoinScreen = ({ navigation }: Props) => {
         throw Error;
       }
     } catch (e) {
-      llog2('💢 apple error', e);
+      llog('💢 apple error', e);
       Alert.alert('오류', '애플 로그인 실패');
     }
   };

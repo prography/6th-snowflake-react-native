@@ -4,7 +4,7 @@ import AsyncStorage, {
 } from "@react-native-community/async-storage";
 
 import { LOGIN, setIsLoggedin, loginAC } from "~/store/modules/join/auth";
-import { llog3 } from "~/utils/functions";
+import { llog } from "~/utils/functions";
 import * as authAPI from "~/api/join/auth";
 import { LoginRes } from "~/api/interface";
 import { AsyncAccessToken } from "~/utils/asyncStorage";
@@ -23,7 +23,7 @@ function* manageLoginLogout(value: boolean, jwt?: string) {
 
 function* login(email: string, password: string) {
   try {
-    llog3("😸8. login called", email, password);
+    llog("😸8. login called", email, password);
 
     // 1. loginAPI 호출
     const json: LoginRes = yield call(authAPI.login, email, password);

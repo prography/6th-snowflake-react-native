@@ -1,7 +1,3 @@
-/******** For Test ********/
-
-import { llog2 } from "~/utils/functions";
-
 // 액션 타입
 const INCREASE = "INCREASE";
 const DECREASE = "DECREASE";

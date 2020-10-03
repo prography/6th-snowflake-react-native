@@ -1,6 +1,6 @@
 import { BASE_URL } from "~/utils/constant";
 import { getTokenItem } from "~/utils/asyncStorage";
-import { llog2 } from "~/utils/functions";
+import { llog } from "~/utils/functions";
 import { UserInfoRes } from "~/api/interface";
 
 export const getUserInfo = async (): Promise<UserInfoRes> => {
@@ -18,6 +18,6 @@ export const getUserInfo = async (): Promise<UserInfoRes> => {
   });
 
   const json: UserInfoRes = await response.json();
-  llog2("2.🐹User info 불러옴 - 성공!", json);
+  llog("2.🐹User info 불러옴 - 성공!", json);
   return json;
 };

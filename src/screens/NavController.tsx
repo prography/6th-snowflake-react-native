@@ -4,24 +4,24 @@ import { useSelector, useDispatch } from 'react-redux';
 
 import RootTabNavigation from '~/navigation/RootTabNavigation';
 import { AsyncAccessToken } from '~/utils/asyncStorage';
-import { llog2, llog1 } from '~/utils/functions';
+import { llog } from '~/utils/functions';
 import { manageLoginLogout } from '~/store/modules/join/auth';
 import { RootState } from '~/store/modules';
 
 export default () => {
   const dispatch = useDispatch();
   const _isLoggedin = useSelector((state: RootState) => state.auth.isLoggedin);
-  llog2('💜 _isLoggedin', _isLoggedin)
+  llog('💜 _isLoggedin', _isLoggedin)
 
   const { getItem } = useAsyncStorage(AsyncAccessToken);
   const settingIsLoggedin = async () => {
     const accessTokenFS = await getItem();
     if (accessTokenFS) {
-      llog2('🥭 accessTokenFS 있다', accessTokenFS);
+      llog('🥭 accessTokenFS 있다', accessTokenFS);
       manageLoginLogout(dispatch, true);
-      llog1('🥭 accessTokenFS 🥭');
+      llog('🥭 accessTokenFS 🥭');
     } else {
-      llog2('accessTokenFS 없다', accessTokenFS);
+      llog('accessTokenFS 없다', accessTokenFS);
       manageLoginLogout(dispatch, false);
     }
   };
