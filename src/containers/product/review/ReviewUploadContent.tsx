@@ -38,17 +38,17 @@ const AnswerInput = styled.TextInput`
   line-height: ${d.px * 25}px;
   color: ${c.black};
 `;
-const ReviewUploadContent = ({productId}: Props) => {
-  const [reviewLength, setReviewLength] = useState(0);
+const ReviewUploadContent = ({ productId }: Props) => {
+  const [reviewLength, setReviewLength] = useState<number>(0);
   const dispatch = useDispatch();
 
   const reviewInfo3 = useSelector(
     (state: RootState) => state.product.reviewUpload.reviewInfo3
   )
 
-const info3 = reviewInfo3.find((item) => item.productId === productId);
-const reviewContent = info3?.reviewContent || ""
-  
+  const info3 = reviewInfo3.find((item) => item.productId === productId);
+  const reviewContent = info3?.reviewContent || ""
+
 
   return (
     <>
@@ -62,7 +62,7 @@ const reviewContent = info3?.reviewContent || ""
           placeholderTextColor={c.lightGray}
           placeholder={reviewUploadContentPlaceholder}
           onChangeText={(text) => [
-            dispatch(setReviewInfo3({productId, reviewContent:text})),
+            dispatch(setReviewInfo3({ productId, reviewContent: text })),
             setReviewLength(text.length),
             dispatch(setIsFilledReviewUpload3(
               reviewLength < REVIEW_MINIMUM_LENGTH ? false : true

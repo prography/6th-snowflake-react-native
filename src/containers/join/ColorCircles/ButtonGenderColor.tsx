@@ -64,10 +64,7 @@ const ButtonGenderColor = ({ children, navigation }: Props) => {
         style={{
           backgroundColor: womanColor && manColor ? c.purple : c.lightGray,
         }}
-        onPress={() =>
-          pressFunc()
-        }
-      >
+        onPress={pressFunc}>
         <TextBottomBtn btnName={'눈송이 시작하기'} />
       </Container>
     </Screen>

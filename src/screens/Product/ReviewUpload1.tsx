@@ -20,7 +20,7 @@ interface Props {
 }
 
 const ReviewUpload1 = ({ route }: Props) => {
-  const { productId } = route.params;
+  const { productInfo } = route.params;
   const _isFilledReviewUpload1 = useSelector(
     (state: RootState) => state.product.reviewUpload.isFilledReviewUpload1,
   );
@@ -37,14 +37,14 @@ const ReviewUpload1 = ({ route }: Props) => {
         screen={'ReviewUpload2'}
         isFilled={_isFilledReviewUpload1}
         btnTextBeforeFilled={'콘돔 삼박자를 평가해주세요'}
-        params={{ productId: productId }}
+        params={{ productInfo }}
       >
         <TopBarBackArrow />
-        <ProductBarForReviewUpload productId={productId} />
+        <ProductBarForReviewUpload productInfo={productInfo} />
         <LineGrayMiddle />
         <MarginMedium />
         <ScrollView>
-          <ReviewUploadTrioScore productId={productId} />
+          <ReviewUploadTrioScore productId={productInfo.id} />
           <MarginBottom />
         </ScrollView>
       </BottomBtnCollectData>

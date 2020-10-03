@@ -5,6 +5,7 @@ import analytics from "@react-native-firebase/analytics";
 import { useSelector, useDispatch } from 'react-redux';
 import { useAsyncStorage } from '@react-native-community/async-storage';
 import { StackNavigationProp } from '@react-navigation/stack';
+import { RouteProp } from '@react-navigation/native';
 
 import { resetReviewUploadStore, InitalReviewInfo } from '~/store/modules/product/reviewUpload';
 import Blinder from '~/components/product/Blinder';
@@ -17,7 +18,6 @@ import BottomBtnCollectData from '~/components/universal/bottomBar/BottomBtnColl
 import { AsyncAccessToken } from '~/utils/asyncStorage';
 import { RootState } from '~/store/modules';
 import { ProductStackParamList } from '~/navigation/tabs/ProductStack';
-import { RouteProp } from '@react-navigation/native';
 import { fetchAPI } from '~/api';
 import { llog } from '~/utils/functions';
 
@@ -27,7 +27,8 @@ interface Props {
 }
 
 const ReviewUpload3 = ({ navigation, route }: Props) => {
-  const { productId } = route.params;
+  const { productInfo } = route.params;
+  const { id: productId } = productInfo;
 
   const dispatch = useDispatch();
   const _isFilledReviewUpload3 = useSelector(
@@ -57,7 +58,7 @@ const ReviewUpload3 = ({ navigation, route }: Props) => {
   const { getItem: getTokenItem } = useAsyncStorage(AsyncAccessToken);
 
   const _reviewUpload = async () => {
-    console.log('🎃1_reviewUpload 호출');
+    llog('🎃1_reviewUpload 호출');
     const product = productId;
     const total = score;
     const oily = oilyScore;
@@ -111,7 +112,7 @@ const ReviewUpload3 = ({ navigation, route }: Props) => {
         onPressFunction={_reviewUpload}
       >
         <TopBarBackArrow />
-        <ProductBarForReviewUpload productId={productId} />
+        <ProductBarForReviewUpload productInfo={productInfo} />
         <LineGrayMiddle />
         <MarginMedium />
 

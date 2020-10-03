@@ -4,6 +4,7 @@ import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import analytics from "@react-native-firebase/analytics";
 import { StackActions, RouteProp } from '@react-navigation/native';
+import { StackNavigationProp } from '@react-navigation/stack';
 
 import { loginAC } from '~/store/modules/join/auth';
 import { d, c, l } from '~/utils/constant';
@@ -13,12 +14,9 @@ import TopBarBackArrowRightIcon from '~/components/universal/topBar/TopBarBackAr
 import MarginNarrow from '~/components/universal/margin/MarginNarrow';
 import MarginMedium from '~/components/universal/margin/MarginMedium';
 import { JoinStackParamList } from '~/navigation/tabs/JoinStack';
-import { StackNavigationProp } from '@react-navigation/stack';
 import { fetchAPI } from '~/api';
 import { llog } from '~/utils/functions';
-const Container = styled.View`
-  margin: 0 ${l.mR}px;
-`;
+
 const OneLineWrapper = styled.View`
   flex-direction: row;
 `;
@@ -68,7 +66,7 @@ const Join4 = ({ navigation, route }: Props) => {
   const dispatch = useDispatch();
   const _login = (email: string, password: string) => {
     llog('😸5. 회원가입 성공 후 로그인 액션 호출');
-    dispatch(loginAC.request(email, password));
+    dispatch(loginAC.request({ email, password }));
   };
 
   const _socialSignup = async () => {

@@ -9,6 +9,7 @@ import ProductInfoReviewFilter from './ProductInfoReviewFilter';
 import MarginNarrow from '~/components/universal/margin/MarginNarrow';
 import LineGrayMiddle from '~/components/universal/line/LineGrayMiddle';
 import MarginMedium from '~/components/universal/margin/MarginMedium';
+import { Review } from '~/api/interface';
 
 const Container = styled.View`
   width: ${d.width - l.mR * 2}px;
@@ -22,7 +23,7 @@ interface Props {
   productId: number;
 }
 const ProductInfoReview = ({ reviewNum, productId }: Props) => {
-  const [reviewArray, setReviewArray] = useState(null);
+  const [reviewArray, setReviewArray] = useState<Review[]>(null);
   return (
     <>
       <Container>
@@ -33,18 +34,12 @@ const ProductInfoReview = ({ reviewNum, productId }: Props) => {
         />
 
         <ProductInfoReviewFilter
-          reviewArray={reviewArray}
           setReviewArray={setReviewArray}
           productId={productId}
         />
         <MarginMedium />
 
-        {reviewNum ? (
-          <ReviewCardContainer
-            productId={productId}
-            reviewArray={reviewArray}
-          />
-        ) : null}
+        {reviewNum ? <ReviewCardContainer reviewArray={reviewArray} /> : null}
       </Container>
     </>
   );

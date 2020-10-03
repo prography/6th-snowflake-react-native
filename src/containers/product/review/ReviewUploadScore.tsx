@@ -96,7 +96,7 @@ const CheckText = styled.Text`
 `;
 
 const ReviewUploadScore = ({ productId }: Props) => {
-  const [checked, setChecked] = useState(false);
+  const [checked, setChecked] = useState<boolean>(false);
   const dispatch = useDispatch();
 
   const { reviewInfo2_score, reviewInfo2_average } = useSelector(

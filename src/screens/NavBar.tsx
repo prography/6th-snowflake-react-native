@@ -1,16 +1,18 @@
 import * as React from 'react';
 import styled from 'styled-components/native';
-import { useState } from 'react';
-import { withNavigation } from '@react-navigation/compat';
 import analytics from '@react-native-firebase/analytics';
 
-import { StackNavigationProp } from '@react-navigation/stack';
-import { RootTabParamList } from '~/navigation/RootTabNavigation';
 import { d, c, l } from '~/utils/constant';
 
+interface Tab {
+  key: number;
+  stackNameEng: 'HomeStack' | 'ProductStack' | 'LabStack' | 'ClinicStack' | 'JoinStack',
+  stackNameKor: string,
+}
+
 interface Props {
-  children: any;
-  navigation: any;
+  children: React.ReactElement;
+  navigateToStack: (stackName: string) => void;
   selectedStack: string;
 }
 
@@ -51,46 +53,46 @@ const SelectedCircle = styled.View`
   border-radius: 1000px;
 `;
 
-const NavBar = ({ children, navigation, selectedStack }: Props) => {
-  // const [selectedTab, setSelectedTab] = useState('HomeStack');
-  const tabArray = [
-    {
-      key: 1,
-      stackNameEng: 'HomeStack',
-      stackNameKor: '홈',
-    },
-    {
-      key: 2,
-      stackNameEng: 'ProductStack',
-      stackNameKor: '제품',
-    },
-    {
-      key: 3,
-      stackNameEng: 'LabStack',
-      stackNameKor: '실험실',
-    },
-    {
-      key: 4,
-      stackNameEng: 'ClinicStack',
-      stackNameKor: '상담소',
-    },
-    {
-      key: 5,
-      stackNameEng: 'JoinStack',
-      stackNameKor: '마이',
-    },
-  ];
+const tabArray: Tab[] = [
+  {
+    key: 1,
+    stackNameEng: 'HomeStack',
+    stackNameKor: '홈',
+  },
+  {
+    key: 2,
+    stackNameEng: 'ProductStack',
+    stackNameKor: '제품',
+  },
+  {
+    key: 3,
+    stackNameEng: 'LabStack',
+    stackNameKor: '실험실',
+  },
+  {
+    key: 4,
+    stackNameEng: 'ClinicStack',
+    stackNameKor: '상담소',
+  },
+  {
+    key: 5,
+    stackNameEng: 'JoinStack',
+    stackNameKor: '마이',
+  },
+];
+
+const NavBar = ({ children, navigateToStack, selectedStack }: Props) => {
   return (
     <Screen>
       {children}
       <Container>
-        {tabArray.map((tab, index: number) => {
+        {tabArray.map((tab: Tab, index: number) => {
           return (
             <Tab
               key={index}
               activeOpacity={1}
               onPress={() => {
-                navigation.navigate(tab.stackNameEng);
+                navigateToStack(tab.stackNameEng);
                 analytics().logEvent(`press_tab_${tab.stackNameEng}`);
                 analytics().setCurrentScreen(`${tab.stackNameEng}`);
               }}
@@ -107,4 +109,4 @@ const NavBar = ({ children, navigation, selectedStack }: Props) => {
   );
 };
 
-export default withNavigation(NavBar);
+export default NavBar;

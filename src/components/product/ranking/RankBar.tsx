@@ -2,8 +2,6 @@ import * as React from 'react';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components/native';
 import analytics from "@react-native-firebase/analytics";
-import { withNavigation } from '@react-navigation/compat';
-import { StackNavigationProp } from '@react-navigation/stack';
 
 import { d, c } from '~/utils/constant';
 import TextProductCompany from '~/components/universal/text/product/TextProductCompany';
@@ -11,7 +9,8 @@ import TextProductName from '~/components/universal/text/product/TextProductName
 import TextRankNum from '~/components/universal/text/product/TextRankNum';
 import TextProductScore from '~/components/universal/text/product/TextProductScore';
 import { RootState } from '~/store/modules';
-import { ProductStackParamList } from '~/navigation/tabs/ProductStack';
+import { Img } from '~/img';
+import { llog } from '~/utils/functions';
 
 interface Props {
   rankNum: number;
@@ -19,8 +18,8 @@ interface Props {
   productCompany: string;
   productName: string;
   imageUri: string;
-  navigation: StackNavigationProp<ProductStackParamList, 'Ranking'>;
   id: number;
+  navigateToProductInfo: (productId: number) => void;
 }
 
 const Container = styled.TouchableOpacity`
@@ -58,7 +57,7 @@ const RankBar = ({
   productName,
   imageUri,
   id,
-  navigation,
+  navigateToProductInfo,
 }: Props) => {
   const blindState = useSelector(
     (state: RootState) => state.product.blind.blindState,
@@ -68,7 +67,7 @@ const RankBar = ({
       activeOpacity={1}
       onPress={() => {
         analytics().logEvent("press_product", { productId: id });
-        navigation.navigate('ProductInfo', { productId: id });
+        navigateToProductInfo(id);
       }}
     >
       <ImageWrapper>
@@ -77,10 +76,10 @@ const RankBar = ({
           source={
             blindState
               ? rankNum < 4
-                ? require('~/img/doodle/doodleCdBoxPurple.png')
-                : require('~/img/doodle/doodleCdBoxMint.png')
+                ? Img.doodle.cdBoxPurple
+                : Img.doodle.cdBoxMint
               : imageUri === null
-                ? require('~/img/icon/imageNull.png')
+                ? Img.icon.null
                 : { uri: imageUri }
           }
         />
@@ -99,4 +98,4 @@ const RankBar = ({
   );
 };
 
-export default withNavigation(RankBar);
+export default RankBar;
