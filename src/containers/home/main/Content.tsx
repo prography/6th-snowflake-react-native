@@ -1,22 +1,27 @@
 import * as React from 'react';
 import { useState, useEffect } from 'react';
-import { ScrollView, Platform, Text, View } from 'react-native';
-import { d, BASE_URL, l } from '~/utils/constant';
+import { ScrollView, Text, View } from 'react-native';
+
+import { l } from '~/utils/constant';
 import HomeCardNoticePurple from '~/components/home/card/HomeCardNoticePurple';
 import HomeCardDefaultContentPurpleButton from '~/components/home/card/HomeCardDefaultContentPurpleButton';
 import TextTitlePurpleRight from '~/components/universal/text/TextTitlePurpleRight';
+import { fetchAPI } from '~/api';
+import { llog } from '~/utils/functions';
 
 const Content = () => {
   const [contentArray, setContentArray] = useState(null);
 
   const _getWelcomCards = async () => {
     try {
-      const response = await fetch(`${BASE_URL}/home/welcome-cards/`);
+      const response = await fetchAPI({
+        url: 'home/welcome-cards/',
+      });
       const json = await response.json();
-      console.log('👻 welcome-cards success', contentArray);
+      llog('👻 welcome-cards success', json);
       setContentArray(json.results);
     } catch (error) {
-      console.log('👻 welcome-cards error ', error);
+      llog('👻 welcome-cards error ', error);
     }
   };
 

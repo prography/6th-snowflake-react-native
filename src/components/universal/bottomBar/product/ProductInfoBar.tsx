@@ -5,15 +5,15 @@ import styled from 'styled-components/native';
 import { withNavigation } from '@react-navigation/compat';
 import { StackNavigationProp } from '@react-navigation/stack';
 import analytics from "@react-native-firebase/analytics";
-import AsyncStorage, { useAsyncStorage } from '@react-native-community/async-storage';
 
 import { RootTabParamList } from '~/navigation/RootTabNavigation';
 import { d, c, l } from '~/utils/constant';
-import { AsyncAccessToken } from '~/utils/asyncStorage';
+import { AsyncAccessToken, getTokenItem } from '~/utils/asyncStorage';
 import { BASE_URL } from '~/utils/constant';
 import { useSelector } from 'react-redux';
 import { llog } from '~/utils/functions';
 import { RootState } from '~/store/modules';
+import { fetchAPI } from '~/api';
 
 interface Props {
   children: React.ReactNode;
@@ -56,18 +56,12 @@ const ProductInfoBar = ({ children, navigation, productId }: Props) => {
   const [likedId, setLikedId] = useState(null);
   const _isLoggedin = useSelector((state: RootState) => state.auth.isLoggedin);
 
-  const { getItem: getTokenItem } = useAsyncStorage(AsyncAccessToken);
-
   const _likeProduct = async () => {
     try {
       const token = await getTokenItem();
       if (!token) { Alert.alert('❄️', '로그인 후 이용해주세요!'); return; }
 
-      const model = 'product';
-      const object_id = productId;
-      // const user = await AsyncStorage.getItem(UserId);
       llog('1-1.🍊like 생성 위한 token 잘 가져옴 ', token);
-      // llog('1-2.🍊userId도...', user);
       const response = await fetch(`${BASE_URL}/likes/`, {
         method: 'POST',
         headers: {
@@ -76,9 +70,8 @@ const ProductInfoBar = ({ children, navigation, productId }: Props) => {
           Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify({
-          model,
-          object_id,
-          // user,
+          model: 'product',
+          object_id: productId,
         }),
       });
       llog('2. 🍊like post 성공! ', response);
@@ -103,9 +96,10 @@ const ProductInfoBar = ({ children, navigation, productId }: Props) => {
         },
       });
 
-      llog('4. 🍊like 삭제 ', delteLike);
-      llog('productid:', productId);
-      await _checkIsLiked();
+      if (delteLike.status === 204) {
+        llog('4. 🍊like 삭제 성공', delteLike);
+        await _checkIsLiked();
+      }
     } catch (error) {
       llog('🍊like 에러 ', error);
     }

@@ -4,12 +4,12 @@ import { useSelector } from 'react-redux';
 import styled from 'styled-components/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 
-import { BASE_URL } from '~/utils/constant';
 import { d, c, l } from '~/utils/constant';
 import TextProductCompany from '~/components/universal/text/product/TextProductCompany';
 import TextProductName from '~/components/universal/text/product/TextProductName';
 import { RootState } from '~/store/modules';
 import { ProductStackParamList } from '~/navigation/tabs/ProductStack';
+import { fetchAPI } from '~/api';
 
 interface Props {
   productId: number;
@@ -42,7 +42,9 @@ const ProductBarForReviewUpload = ({ productId }: Props) => {
 
   const _getProductInfo = async () => {
     try {
-      const response = await fetch(`${BASE_URL}/products/condom/${productId}/`);
+      const response = await fetchAPI({
+        url: `products/condom/${productId}/`,
+      });
       const json = await response.json();
       console.log('🎃review upload - product info success', _productInfo);
       _setProductInfo(json);
