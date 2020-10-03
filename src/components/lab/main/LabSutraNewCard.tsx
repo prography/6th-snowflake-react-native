@@ -1,9 +1,10 @@
 import * as React from 'react';
 import styled from 'styled-components/native';
+
 import { d, l, c } from '~/utils/constant';
 import MarginNarrow from '~/components/universal/margin/MarginNarrow';
 import MarginWide from '~/components/universal/margin/MarginWide';
-import LineGrayRightLong from '../../universal/line/LineGrayRightLong';
+import LineGrayRightLong from '~/components/universal/line/LineGrayRightLong';
 import MarginMedium from '~/components/universal/margin/MarginMedium';
 
 const Container = styled.View`

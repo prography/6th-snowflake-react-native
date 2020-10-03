@@ -2,8 +2,6 @@ import * as React from 'react';
 import { useState, useEffect } from 'react';
 import { Alert } from 'react-native';
 import styled from 'styled-components/native';
-import { withNavigation } from '@react-navigation/compat';
-import { StackNavigationProp } from '@react-navigation/stack';
 import analytics from "@react-native-firebase/analytics";
 
 import { RootTabParamList } from '~/navigation/RootTabNavigation';

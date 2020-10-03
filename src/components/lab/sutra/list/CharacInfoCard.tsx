@@ -1,6 +1,7 @@
 import * as React from 'react';
 import styled from 'styled-components/native';
-import { d, l, c } from '../../../../utils/constant';
+
+import { d, l, c } from '~/utils/constant';
 import MarginMedium from '~/components/universal/margin/MarginMedium';
 import LineGrayMiddle from '~/components/universal/line/LineGrayMiddle';
 import MarginWide from '~/components/universal/margin/MarginWide';

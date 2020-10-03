@@ -10,7 +10,6 @@ import TextRankNum from '~/components/universal/text/product/TextRankNum';
 import TextProductScore from '~/components/universal/text/product/TextProductScore';
 import { RootState } from '~/store/modules';
 import { Img } from '~/img';
-import { llog } from '~/utils/functions';
 
 interface Props {
   rankNum: number;

@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import styled from 'styled-components/native';
 import { withNavigation } from '@react-navigation/compat';
 import { StackNavigationProp } from '@react-navigation/stack';
+
 import { RootTabParamList } from '~/navigation/RootTabNavigation';
 import { d, c, l } from '~/utils/constant';
 import TextBottomBtn from '~/components/universal/text/TextBottomBtn';
@@ -57,10 +58,10 @@ const BottomBtnCollectData = ({
           onPressFunction
             ? onPressFunction()
             : isFilled
-            ? stack && screen
-              ? navigation.navigate(stack, { screen: screen, params: params })
+              ? stack && screen
+                ? navigation.navigate(stack, { screen: screen, params: params })
+                : null
               : null
-            : null
         }
       >
         <TextBottomBtn

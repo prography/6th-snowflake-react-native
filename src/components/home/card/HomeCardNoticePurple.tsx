@@ -1,12 +1,13 @@
 import * as React from 'react';
 import styled from 'styled-components/native';
-import LineGrayRightLong from '../../universal/line/LineGrayRightLong';
-import MarginWide from '../../universal/margin/MarginWide';
-import { d, c } from '../../../utils/constant';
-import MarginNarrow from '../../universal/margin/MarginNarrow';
-import TextTag from '../../universal/text/TextTag';
+
+import LineGrayRightLong from '~components/universal/line/LineGrayRightLong';
+import MarginWide from '~components/universal/margin/MarginWide';
+import MarginNarrow from '~components/universal/margin/MarginNarrow';
+import TextTag from '~components/universal/text/TextTag';
 import TextTitlePurpleRight from '~/components/universal/text/TextTitlePurpleRight';
 import TextContentDarkRight from '~/components/universal/text/TextContentDarkRight';
+import { d, c } from '~/utils/constant';
 
 interface Props {
   tag: any;

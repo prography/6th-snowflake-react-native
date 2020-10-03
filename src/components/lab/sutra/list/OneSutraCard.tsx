@@ -2,6 +2,7 @@ import * as React from 'react';
 import { Text } from 'react-native';
 import { useState } from 'react';
 import styled from 'styled-components/native';
+
 import { d, l, c } from '~/utils/constant';
 import MarginWide from '~/components/universal/margin/MarginWide';
 import MarginNarrow from '~/components/universal/margin/MarginNarrow';
@@ -188,11 +189,11 @@ const OneSutraCard = () => {
                   source={require('~/img/icon/iconBookmarkSelected.png')}
                 />
               ) : (
-                <BookmarkImage
-                  style={{ resizeMode: 'contain' }}
-                  source={require('~/img/icon/iconBookmarkUnselected.png')}
-                />
-              )}
+                  <BookmarkImage
+                    style={{ resizeMode: 'contain' }}
+                    source={require('~/img/icon/iconBookmarkUnselected.png')}
+                  />
+                )}
             </BookmarkContainer>
           </ImageContainer>
           <Text />
@@ -230,20 +231,20 @@ const OneSutraCard = () => {
               </PurpleSkyScoreContainer>
             </SelectionContainer>
           ) : (
-            <SelectionContainer>
-              <GoodOrBadButtonContainer>
-                <GoodButton activeOpacity={1}>
-                  <GoodBadText>추천</GoodBadText>
-                </GoodButton>
-                <BadButton activeOpacity={1}>
-                  <GoodBadText>비추</GoodBadText>
-                </BadButton>
-              </GoodOrBadButtonContainer>
-              <NotYet activeOpacity={1}>
-                <GoodBadText>안 해 봤어요</GoodBadText>
-              </NotYet>
-            </SelectionContainer>
-          )}
+              <SelectionContainer>
+                <GoodOrBadButtonContainer>
+                  <GoodButton activeOpacity={1}>
+                    <GoodBadText>추천</GoodBadText>
+                  </GoodButton>
+                  <BadButton activeOpacity={1}>
+                    <GoodBadText>비추</GoodBadText>
+                  </BadButton>
+                </GoodOrBadButtonContainer>
+                <NotYet activeOpacity={1}>
+                  <GoodBadText>안 해 봤어요</GoodBadText>
+                </NotYet>
+              </SelectionContainer>
+            )}
         </TopArea>
         <MarginNarrow />
         <SutraTitle>체위 한글 이름</SutraTitle>

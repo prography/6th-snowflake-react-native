@@ -1,9 +1,10 @@
 import * as React from 'react';
 import styled from 'styled-components/native';
-import { d, color } from '~/utils/constant';
-import TextTitlePurpleRight from '../text/TextTitlePurpleRight';
-import TextContentDarkRight from '../text/TextContentDarkRight';
-import MarginWide from '../margin/MarginWide';
+
+import { d } from '~/utils/constant';
+import TextTitlePurpleRight from '~/components/universal/text/TextTitlePurpleRight';
+import TextContentDarkRight from '~/components/universal/text/TextContentDarkRight';
+import MarginWide from '~/components/universal/margin/MarginWide';
 
 interface Props {
   title: string;

@@ -1,8 +1,9 @@
 import * as React from 'react';
+import { useState } from 'react';
 import styled from 'styled-components/native';
 import { View, Text } from 'react-native';
+
 import { d, l, c } from '~/utils/constant';
-import { useState } from 'react';
 
 const Container = styled.View`
   margin-right: ${l.mR}px;
@@ -49,11 +50,11 @@ const SutraInfoGoodBad = () => {
                 source={require('~/img/icon/iconBookmarkSelected.png')}
               />
             ) : (
-              <BookmarkImage
-                style={{ resizeMode: 'contain' }}
-                source={require('~/img/icon/iconBookmarkUnselected.png')}
-              />
-            )}
+                <BookmarkImage
+                  style={{ resizeMode: 'contain' }}
+                  source={require('~/img/icon/iconBookmarkUnselected.png')}
+                />
+              )}
           </BookmarkContainer>
         </ImageContainer>
       </Container>

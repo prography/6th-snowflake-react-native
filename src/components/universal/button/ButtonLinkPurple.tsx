@@ -1,7 +1,8 @@
 import * as React from 'react';
 import styled from 'styled-components/native';
-import { d, c } from '~/utils/constant';
 import { withNavigation } from '@react-navigation/compat';
+
+import { d, c } from '~/utils/constant';
 import { Img } from '~/img';
 
 interface Props {

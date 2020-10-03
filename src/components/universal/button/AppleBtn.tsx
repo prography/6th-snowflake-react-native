@@ -1,18 +1,15 @@
 import * as React from 'react';
 import { useEffect } from 'react';
 import { View } from 'react-native';
-import styled from 'styled-components/native';
-import { d, c } from '~/utils/constant';
 import appleAuth, {
   AppleButton,
   AppleAuthRequestOperation,
   AppleAuthRequestScope,
   AppleAuthCredentialState,
 } from '@invertase/react-native-apple-authentication';
+
 import { llog } from '~/utils/functions';
-
-
-
+import { d, c } from '~/utils/constant';
 
 async function onAppleButtonPress(signup) {
   llog('apple login 버튼');
