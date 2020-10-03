@@ -10,7 +10,8 @@ import TopBarLeftIcon from '~/components/universal/topBar/TopBarLeftIcon';
 import Blinder from '~/components/product/Blinder';
 import MarginBottom from '~/components/universal/margin/MarginBottom';
 import TopBarBackArrow from '~/components/universal/topBar/TopBarBackArrow';
-import CharacInfoCard from '~/components/lab/list/CharacInfoCard';
+import CharacInfoCard from '~/components/lab/sutra/list/CharacInfoCard';
+import SutraCardsList from '~/containers/lab/sutra/list/SutraCardsList';
 
 const Container = styled.View`
   flex-direction: column;
@@ -29,7 +30,8 @@ const SutraList = () => {
           <TopBarBackArrow />
           <Container>
             <CharacInfoCard />
-            <MarginBottom />
+
+            <SutraCardsList />
           </Container>
         </ScrollView>
       </NavBar>

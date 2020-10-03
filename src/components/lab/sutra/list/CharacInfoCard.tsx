@@ -1,6 +1,6 @@
 import * as React from 'react';
 import styled from 'styled-components/native';
-import { d, l, c } from '../../../utils/constant';
+import { d, l, c } from '../../../../utils/constant';
 import MarginMedium from '~/components/universal/margin/MarginMedium';
 import LineGrayMiddle from '~/components/universal/line/LineGrayMiddle';
 import MarginWide from '~/components/universal/margin/MarginWide';
@@ -50,11 +50,15 @@ const CharacInfoCard = () => {
             style={{ resizeMode: 'contain' }}
             source={require('~/img/sample/purpleCharacSample.png')}
           />
-          <PurpleDetailText>설명은 좀 더 정리가 필요하네용.</PurpleDetailText>
+          <PurpleDetailText>
+            보라색 친구! 설명은 좀 더 정리가 필요하네용.
+          </PurpleDetailText>
         </PurpleArea>
         <MarginNarrow />
         <SkyArea>
-          <SkyDetailText>설명은 좀 더 정리가 필요하네용</SkyDetailText>
+          <SkyDetailText>
+            하늘색 친구! 설명은 좀 더 정리가 필요하네용
+          </SkyDetailText>
           <SkyCharac
             style={{ resizeMode: 'contain' }}
             source={require('~/img/sample/skyCharacSample.png')}
