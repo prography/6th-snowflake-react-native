@@ -5,8 +5,6 @@ import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import analytics from "@react-native-firebase/analytics";
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import { useAsyncStorage } from '@react-native-community/async-storage';
-import { StackNavigationProp } from '@react-navigation/stack';
 import { RouteProp } from '@react-navigation/native';
 
 import { d, c, l } from '~/utils/constant';
@@ -57,7 +55,6 @@ const LeftMargin = styled.View`
 
 const CircleTextContatiner = styled.View``;
 interface Props {
-  navigation: StackNavigationProp<JoinStackParamList, 'Join4'>;
   route: RouteProp<JoinStackParamList, 'Join3'>;
 }
 const Join3 = ({ navigation, route }: Props) => {
@@ -69,7 +66,7 @@ const Join3 = ({ navigation, route }: Props) => {
     socialJoin,
     _token,
   } = route.params;
-  const [isFilled, setIsFilled] = useState(false);
+  const [isFilled, setIsFilled] = useState<boolean>(false);
 
   const dispatch = useDispatch();
 
@@ -99,10 +96,10 @@ const Join3 = ({ navigation, route }: Props) => {
     (state: RootState) => state.join.genderColor.manColor,
   );
 
-  const [bothColor, setBothColor] = useState(c.purple);
-  const [noneColor, setNoneColor] = useState(c.black);
+  const [bothColor, setBothColor] = useState<string>(c.purple);
+  const [noneColor, setNoneColor] = useState<string>(c.black);
 
-  React.useEffect(() => {
+  useEffect(() => {
     analytics().setCurrentScreen("Join3_UerGender");
   }, []);
 

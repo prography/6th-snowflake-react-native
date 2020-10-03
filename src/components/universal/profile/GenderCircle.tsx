@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import styled from 'styled-components/native';
 import { useAsyncStorage } from '@react-native-community/async-storage';
@@ -8,6 +8,7 @@ import { d, c } from '~/utils/constant';
 import { WomanColor, ManColor } from '~/utils/asyncStorage';
 import { setWomanColor, setManColor } from '~/store/modules/join/genderColor';
 import { RootState } from '~/store/modules';
+import { llog } from '~/utils/functions';
 
 
 interface Props {
@@ -58,19 +59,16 @@ const GenderCircle = ({ gender, size, who }: Props) => {
     (state: RootState) => state.join.genderColor.manColor,
   );
 
-  const [woman, setWoman] = useState(null);
-  const [man, setMan] = useState(null);
-
   const { getItem: getWomanColor } = useAsyncStorage(WomanColor);
   const { getItem: getManColor } = useAsyncStorage(ManColor);
 
   useEffect(() => {
     const getASColor = async () => {
       const womanTemp = await getWomanColor();
-      console.log('AsyncStorage womanColor', womanTemp);
+      llog('AsyncStorage womanColor', womanTemp);
       dispatch(setWomanColor(womanTemp));
       const manTemp = await getManColor();
-      console.log('AsyncStorage manColor', manTemp);
+      llog('AsyncStorage manColor', manTemp);
       dispatch(setManColor(manTemp));
     }
     getASColor();
@@ -85,7 +83,6 @@ const GenderCircle = ({ gender, size, who }: Props) => {
           <MyGenderCircle
             size={size}
             genderColor={
-
               gender === 'female' || gender === 'WOMAN'
                 ? womanColor
                 : gender === 'male' || gender === 'MAN'
@@ -101,7 +98,6 @@ const GenderCircle = ({ gender, size, who }: Props) => {
               <PartnerGenderCircle
                 size={size}
                 genderColor={
-
                   gender === 'female' || gender === 'WOMAN'
                     ? womanColor
                     : gender === 'male' || gender === 'MAN'

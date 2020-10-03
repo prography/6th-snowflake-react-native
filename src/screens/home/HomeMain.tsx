@@ -2,6 +2,7 @@ import * as React from 'react';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import analytics from "@react-native-firebase/analytics";
+import { StackNavigationProp } from '@react-navigation/stack';
 
 import Content from '../../containers/home/main/Content';
 import TopBarLeftIcon from '~/components/universal/topBar/TopBarLeftIcon';
@@ -10,13 +11,18 @@ import MarginBottom from '~/components/universal/margin/MarginBottom';
 import { setUserGender, setUserPartnerGender } from '~/store/modules/join/userInfo';
 import { getUserInfoAC } from '~/store/modules/join/userInfo';
 import { RootState } from '~/store/modules';
+import { HomeStackParamList } from '~/navigation/tabs/HomeStack';
 
-const HomeMain = () => {
+interface Props {
+  navigation: StackNavigationProp<HomeStackParamList, 'HomeMain'>;
+}
+
+const HomeMain = ({ navigation }: Props) => {
   // redux
   const dispatch = useDispatch();
   const { loading, data: userInfo, error } = useSelector((state: RootState) => state.join.userInfo.userInfo);
 
-  React.useEffect(() => {
+  useEffect(() => {
     analytics().setCurrentScreen("HomeMain");
   }, []);
 
@@ -32,11 +38,13 @@ const HomeMain = () => {
   }, [userInfo])
 
   return (
-    <NavBar selectedStack={'HomeStack'}>
-      <TopBarLeftIcon />
-      {/* <MenuBar/> */}
-      <Content />
-      <MarginBottom />
+    <NavBar selectedStack={'HomeStack'} navigateToStack={(stackName: string) => navigation.navigate(stackName)}>
+      <>
+        <TopBarLeftIcon />
+        {/* <MenuBar/> */}
+        <Content />
+        <MarginBottom />
+      </>
     </NavBar>
   );
 };

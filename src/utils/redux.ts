@@ -16,8 +16,8 @@ export const createAction = (prefix: string): ApiAction => ({
 // 여기서 해주는 작업은 사실 reducer에서 하지만, 편의를 위해 action creator에서 해준다.
 export const getActionCreator = <T>(ACTION: ApiAction) => {
   // 주의: ...params를 해버리면 request()에 대한 에러를 안잡아줌
-  const request = (...params: any[]) => {
-    llog("😸 dispatch reequest");
+  const request = (params: object = {}) => {
+    llog("😸 dispatch request");
     const fetchResult: RFetchResult<T> = {
       loading: true,
       data: undefined,

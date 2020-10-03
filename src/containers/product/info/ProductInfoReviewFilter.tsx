@@ -11,6 +11,8 @@ import MarginMedium from '~/components/universal/margin/MarginMedium';
 import { RootState } from '~/store/modules';
 import { fetchAPI } from '~/api';
 import { llog } from '~/utils/functions';
+import { Review, ResultsRes } from '~/api/interface';
+import { GenderEnum } from '~/utils/interface';
 
 const NARROW_MARGIN = d.px * 9;
 const TEXT_HEIGHT = d.px * 16;
@@ -92,25 +94,41 @@ const GenderText = styled.Text`
 `;
 interface Props {
   productId: number;
-  reviewArray: any;
-  setReviewArray: any;
+  setReviewArray: (reviews: Review[]) => void;
 }
 
-enum GenderEnum {
-  NONE = 'NONE',
-  man = 'MAN',
-  woman = 'WOMAN',
-}
-
-enum PartnerEnum {
-  NONE = 'NONE',
-  man = 'MAN',
-  woman = 'WOMAN',
-}
+const genderFilterList = [
+  {
+    genderEnum: GenderEnum.woman,
+    genderText: '여성',
+  },
+  {
+    genderEnum: GenderEnum.man,
+    genderText: '남성',
+  },
+  {
+    genderEnum: GenderEnum.NONE,
+    genderText: '취소',
+  },
+];
+const partnerFilterList = [
+  {
+    partnerEnum: GenderEnum.woman,
+    partnerText: '여성',
+  },
+  {
+    partnerEnum: GenderEnum.man,
+    partnerText: '남성',
+  },
+  {
+    partnerEnum: GenderEnum.NONE,
+    partnerText: '취소',
+  },
+];
 
 const ProductInfoReviewFilter = ({ setReviewArray, productId }: Props) => {
   const [genderParam, setGenderParam] = useState<GenderEnum>(GenderEnum.NONE);
-  const [partnerParam, setPartnerParam] = useState<PartnerEnum>(PartnerEnum.NONE);
+  const [partnerParam, setPartnerParam] = useState<GenderEnum>(GenderEnum.NONE);
   const [showGenderPartnerFilter, setShowGenderPartnerFilter] = useState<boolean>(false);
   const {
     womanColor,
@@ -119,63 +137,38 @@ const ProductInfoReviewFilter = ({ setReviewArray, productId }: Props) => {
     (state: RootState) => state.join.genderColor,
     shallowEqual
   );
-  const genderFilterList = [
-    {
-      genderEnum: GenderEnum.woman,
-      genderText: '여성',
-    },
-    {
-      genderEnum: GenderEnum.man,
-      genderText: '남성',
-    },
-    {
-      genderEnum: GenderEnum.NONE,
-      genderText: '취소',
-    },
-  ];
-  const partnerFilterList = [
-    {
-      partnerEnum: PartnerEnum.woman,
-      partnerText: '여성',
-    },
-    {
-      partnerEnum: PartnerEnum.man,
-      partnerText: '남성',
-    },
-    {
-      partnerEnum: PartnerEnum.NONE,
-      partnerText: '취소',
-    },
-  ];
+
   const _getReviewArray = async () => {
     let url = `reviews/?product=${productId}`;
     if (genderParam !== GenderEnum.NONE) {
       url += `&gender=${genderParam}`;
     }
-    if (partnerParam !== PartnerEnum.NONE) {
+    if (partnerParam !== GenderEnum.NONE) {
       url += `&partner=${partnerParam}`;
     }
 
     try {
       const { status, response } = await fetchAPI(url);
+      const json: ResultsRes<Review> = await response.json();
+      llog('🌮 id', productId, '의 review array success!', json);
       if (status === 200) {
-        const json = await response.json();
-        llog('🌮 id', productId, '의 review array success!', json.results);
         setReviewArray(json.results);
       }
     } catch (error) {
       llog('🌮', productId, '의 review array', error);
     }
   };
+
   useEffect(() => {
     _getReviewArray();
   }, [genderParam, partnerParam]);
+
   return (
     <>
       <FilterWrapper>
         <FilterBox
           showFilter={showGenderPartnerFilter}
-          selected={genderParam === 'NONE' && partnerParam === 'NONE' && ''}
+          selected={genderParam === GenderEnum.NONE && partnerParam === GenderEnum.NONE && ''}
           onPress={() => {
             analytics().logEvent("press_show_gender_partner_filter", { to: !showGenderPartnerFilter });
             setShowGenderPartnerFilter(!showGenderPartnerFilter);

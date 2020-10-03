@@ -6,6 +6,7 @@ import MarginMedium from '~/components/universal/margin/MarginMedium';
 import LineGrayRightShort from '~/components/universal/line/LineGrayRightShort';
 import GenderLoop from '~/components/universal/profile/GenderLoop';
 import MarginNarrow from '~/components/universal/margin/MarginNarrow';
+import { Img } from '~/img';
 
 const Container = styled.View`
   flex-direction: row;
@@ -125,7 +126,7 @@ const ReviewCard = ({
           <ProfileCircle>
             <ProfileImgDummy
               style={{ resizeMode: 'contain' }}
-              source={require('~/img/profile/pfc2.png')}
+              source={Img.profile.pfc2}
             />
           </ProfileCircle>
         </LeftWrapper>

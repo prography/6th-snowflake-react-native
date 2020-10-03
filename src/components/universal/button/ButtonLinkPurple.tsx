@@ -2,6 +2,7 @@ import * as React from 'react';
 import styled from 'styled-components/native';
 import { d, c } from '~/utils/constant';
 import { withNavigation } from '@react-navigation/compat';
+import { Img } from '~/img';
 
 interface Props {
   buttonText: string;
@@ -46,7 +47,7 @@ const ButtonLinkPurple = ({ buttonText, stack, screen, navigation, onPress, para
       <TextStyle>{buttonText}</TextStyle>
       <TriangleArrow
         style={{ resizeMode: 'contain' }}
-        source={require('~/img/triangleArrow.png')}
+        source={Img.triangleArrow}
       />
     </Container>
   );

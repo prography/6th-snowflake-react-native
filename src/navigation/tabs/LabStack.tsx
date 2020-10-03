@@ -2,7 +2,11 @@ import * as React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import LabMain from '~/screens/lab/LabMain';
 
-const Stack = createStackNavigator();
+export type LabStackParamList = {
+  LabMain: undefined;
+};
+
+const Stack = createStackNavigator<LabStackParamList>();
 
 export default () => {
   return (

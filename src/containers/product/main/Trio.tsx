@@ -9,6 +9,12 @@ import MarginMedium from '~/components/universal/margin/MarginMedium';
 import TrioBox from '~/components/product/main/TrioBox';
 import { fetchAPI } from '~/api';
 import { llog } from '~/utils/functions';
+import { CondomTrio, CondomProductMain } from '~/api/interface';
+
+interface Props {
+  navigateToProductInfo: (productId: number) => void;
+  navigateToRanking: () => void;
+}
 
 const Container = styled.View`
   width: ${d.width - d.px * 50}px;
@@ -21,16 +27,16 @@ const TrioContainer = styled.View`
   flex-direction: row;
 `;
 
-const Trio = () => {
-  const [_trioList, _setTrioList] = useState(null);
+const Trio = ({ navigateToProductInfo, navigateToRanking }: Props) => {
+  const [_trioList, _setTrioList] = useState<CondomTrio>(null);
 
   const _getTrioList = async () => {
     try {
       const { status, response } = await fetchAPI(`products/condom/trio/`);
-      llog('🍡trio - success!', response);
+      const json: CondomTrio = await response.json();
+      llog('🍡trio - success!', json);
 
       if (status === 200) {
-        const json = await response.json();
         _setTrioList(json);
       }
     } catch (error) {
@@ -82,7 +88,7 @@ const Trio = () => {
       <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
         <TrioContainer>
           {_trioList &&
-            _trioList.thickness.map((product, index: number) => {
+            _trioList.thickness.map((product: CondomProductMain, index: number) => {
               return (
                 <TrioBox
                   key={index}
@@ -91,11 +97,13 @@ const Trio = () => {
                   productCompany={product.manufacturer_kor}
                   productName={product.name_kor}
                   imageUri={product.thumbnail}
+                  navigateToProductInfo={navigateToProductInfo}
+                  navigateToRanking={navigateToRanking}
                 />
               );
             })}
           {_trioList &&
-            _trioList.durability.map((product, index: number) => {
+            _trioList.durability.map((product: CondomProductMain, index: number) => {
               return (
                 <TrioBox
                   key={index + 100}
@@ -104,11 +112,13 @@ const Trio = () => {
                   productCompany={product.manufacturer_kor}
                   productName={product.name_kor}
                   imageUri={product.thumbnail}
+                  navigateToProductInfo={navigateToProductInfo}
+                  navigateToRanking={navigateToRanking}
                 />
               );
             })}
           {_trioList &&
-            _trioList.oily.map((product, index: number) => {
+            _trioList.oily.map((product: CondomProductMain, index: number) => {
               return (
                 <TrioBox
                   key={index + 200}
@@ -117,6 +127,8 @@ const Trio = () => {
                   productCompany={product.manufacturer_kor}
                   productName={product.name_kor}
                   imageUri={product.thumbnail}
+                  navigateToProductInfo={navigateToProductInfo}
+                  navigateToRanking={navigateToRanking}
                 />
               );
             })}

@@ -4,6 +4,7 @@ import { ScrollView } from 'react-native';
 import styled from 'styled-components/native';
 import analytics from "@react-native-firebase/analytics";
 import { useLinkTo } from '@react-navigation/native';
+import { StackNavigationProp } from '@react-navigation/stack';
 
 import NavBar from '~/screens/NavBar';
 import Trio from '~/containers/product/main/Trio';
@@ -14,13 +15,18 @@ import TopFive from '~/containers/product/main/TopFive';
 import MarginBottom from '~/components/universal/margin/MarginBottom';
 import Blinder from '~/components/product/Blinder';
 import TopBarLeftIconSearchBar from '~/components/universal/topBar/TopBarLeftIconSearchBar';
+import { ProductStackParamList } from '~/navigation/tabs/ProductStack';
+
+interface Props {
+  navigation: StackNavigationProp<ProductStackParamList, 'ProductMain'>;
+}
 
 const Container = styled.View`
   flex-direction: column;
   align-items: flex-start;
 `;
 
-const ProductMain = () => {
+const ProductMain = ({ navigation }: Props) => {
   const linkTo = useLinkTo();
 
   //제품 리스트에 현재 id 안 오고 있음
@@ -36,7 +42,7 @@ const ProductMain = () => {
   }, []);
   return (
     <>
-      <NavBar selectedStack={'ProductStack'}>
+      <NavBar selectedStack={'ProductStack'} navigateToStack={(stackName: string) => navigation.navigate(stackName)}>
         <ScrollView showsVerticalScrollIndicator={false}>
           <TopBarLeftIconSearchBar />
           <Container>
@@ -52,12 +58,17 @@ const ProductMain = () => {
             <LineGrayRightLong />
             <MarginWide />
             {/* 콘돔 삼박자 BEST */}
-            <Trio />
+            <Trio
+              navigateToProductInfo={(productId: number) => navigation.navigate('ProductInfo', { productId })}
+              navigateToRanking={() => navigation.navigate('Ranking')}
+            />
             <MarginWide />
             <LineGrayRightLong />
             <MarginWide />
             {/* 콘돔 총점 TOP5 */}
-            <TopFive />
+            <TopFive
+              navigateToProductInfo={(productId: number) => navigation.navigate('ProductInfo', { productId })}
+            />
             <MarginBottom />
           </Container>
         </ScrollView>

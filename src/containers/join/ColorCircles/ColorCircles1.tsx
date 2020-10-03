@@ -6,6 +6,7 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import { d, c, circleColor1 } from '~/utils/constant';
 import { setManColor, setWomanColor } from '~/store/modules/join/genderColor';
 import { RootState } from '~/store/modules';
+import { llog } from '~/utils/functions';
 
 const OneLine = styled.View`
   flex-direction: row;
@@ -41,7 +42,7 @@ const ColorCircles1 = () => {
               key={index}
               onPress={() => {
                 setColor(circle.cColor);
-                console.log('바뀐 womanColor:', womanColor, 'man', manColor);
+                llog('바뀐 womanColor:', womanColor, 'man', manColor);
               }}
               style={{
                 width: d.height / 20,

@@ -3,7 +3,7 @@ import styled from 'styled-components/native';
 import { d, c } from '~/utils/constant';
 
 interface Props {
-  score: number;
+  score: string; // toFixed하면 string이 되므로
 }
 
 const TextStyle = styled.Text`
@@ -20,8 +20,8 @@ const TextProductScore = ({ score }: Props) => {
       {score === '0.00' ? (
         <TextStyle>-</TextStyle>
       ) : (
-        <TextStyle>★ {score}</TextStyle>
-      )}
+          <TextStyle>★ {score}</TextStyle>
+        )}
     </>
   );
 };

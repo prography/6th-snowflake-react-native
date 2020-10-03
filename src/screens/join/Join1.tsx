@@ -15,6 +15,7 @@ import TopBarBackArrowRightIcon from '~/components/universal/topBar/TopBarBackAr
 
 import { fetchAPI } from '~/api';
 import { llog } from '~/utils/functions';
+import { MsgRes } from '~/api/interface';
 
 const Container = styled.View`
   margin: 0 ${l.mR}px;
@@ -49,15 +50,15 @@ const JoinInfoInput = styled.TextInput`
 `;
 
 const Join1 = () => {
-  const [isFilled, setIsFilled] = useState(false);
-  const [emailInput, setEmailInput] = useState('');
-  const [emailWarnigText, setEmailWarningText] = useState(null);
-  const [passwordInput, setPasswordInput] = useState('');
-  const [checkPasswordInput, setCheckPasswordInput] = useState('');
-  const [emailFocus, handleEmailFocus] = useState(false);
-  const [passwordFocus, handlePasswordFocus] = useState(false);
-  const [checkPasswordFocus, handleCheckPasswordFocus] = useState(false);
-  const [checkPasswordWarning, setCheckPasswordWarning] = useState(false);
+  const [isFilled, setIsFilled] = useState<boolean>(false);
+  const [emailInput, setEmailInput] = useState<string>('');
+  const [emailWarnigText, setEmailWarningText] = useState<string>(null);
+  const [passwordInput, setPasswordInput] = useState<string>('');
+  const [checkPasswordInput, setCheckPasswordInput] = useState<string>('');
+  const [emailFocus, handleEmailFocus] = useState<boolean>(false);
+  const [passwordFocus, handlePasswordFocus] = useState<boolean>(false);
+  const [checkPasswordFocus, handleCheckPasswordFocus] = useState<boolean>(false);
+  const [checkPasswordWarning, setCheckPasswordWarning] = useState<boolean>(false);
   useEffect(() => {
     setIsFilled(
       emailInput === '' || passwordInput === '' || checkPasswordInput === '' || !validatePassword(passwordInput)
@@ -83,8 +84,8 @@ const Join1 = () => {
       const { status, response } = await fetchAPI(
         `accounts/check-duplicates/email/?value=${emailInput}`
       );
-      const json = await response.json();
-      llog('🤯🤯🤯', response, json);
+      const json: MsgRes = await response.json();
+      llog('🤯🤯🤯', json);
       if (status === 200) {
         // 중복 안됨! 성공!
         _setEmailWarningText(false);

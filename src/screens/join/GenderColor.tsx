@@ -1,16 +1,12 @@
 import * as React from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { View, SafeAreaView } from 'react-native';
+import { useSelector } from 'react-redux';
+import { View } from 'react-native';
 import styled from 'styled-components/native';
 import analytics from "@react-native-firebase/analytics";
 
-import { d, c, circleColor1 } from '~/utils/constant';
-import TopBarWithIcon from '~/components/universal/topBar/TopBarRightIcon';
-import { TouchableOpacity } from 'react-native-gesture-handler';
-import BottomButton from '~/components/universal/BottomButton';
+import { d, c } from '~/utils/constant';
 import ColorCircles1 from '~/containers/join/ColorCircles/ColorCircles1';
 import TextTitleDarkLeft from '~/components/universal/text/TextTitleDarkLeft';
-import MarginWide from '~/components/universal/margin/MarginWide';
 import ColorCircles2 from '~/containers/join/ColorCircles/ColorCircles2';
 import ColorCircles3 from '~/containers/join/ColorCircles/ColorCircles3';
 import ColorCircles4 from '~/containers/join/ColorCircles/ColorCircles4';
@@ -18,7 +14,6 @@ import ColorCircles5 from '~/containers/join/ColorCircles/ColorCircles5';
 import MarginBottom from '~/components/universal/margin/MarginBottom';
 import MarginMedium from '~/components/universal/margin/MarginMedium';
 import ButtonGenderColor from '~/containers/join/ColorCircles/ButtonGenderColor';
-import GenderCircle from '~/components/universal/profile/GenderCircle';
 import TopBarBackArrowRightIcon from '~/components/universal/topBar/TopBarBackArrowRightIcon';
 import { RootState } from '~/store/modules';
 

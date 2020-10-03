@@ -3,6 +3,7 @@ import { Text, ScrollView, BackHandler } from 'react-native';
 import styled from 'styled-components/native';
 import { d, l } from '~/utils/constant';
 import { withNavigation } from '@react-navigation/compat';
+import { Img } from '~/img';
 
 const Container = styled.View`
   height: ${d.px * l.tB}px;
@@ -31,14 +32,10 @@ interface Props {
 const TopBarBackArrow = ({ navigation }: Props) => {
   return (
     <Container>
-      <Button
-        onPress={() => {
-          navigation.pop();
-        }}
-      >
+      <Button onPress={() => navigation.pop()}>
         <SnowFlake
           style={{ resizeMode: 'contain' }}
-          source={require('~/img/icon/iconBackArrow.png')}
+          source={Img.icon.backArrow}
         />
       </Button>
     </Container>

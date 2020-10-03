@@ -1,4 +1,4 @@
-import { RFetchResult, UserInfoRes } from "~/api/interface";
+import { RFetchResult, UserInfo } from "~/api/interface";
 import {
   getInitialFetchResult,
   getActionCreator,
@@ -14,7 +14,7 @@ export interface UserInfoState {
   userGender: string;
   userPartnerGender: string;
 
-  userInfo: RFetchResult<UserInfoRes>;
+  userInfo: RFetchResult<UserInfo>;
 }
 
 const initialState: UserInfoState = {
@@ -27,7 +27,7 @@ const initialState: UserInfoState = {
   userGender: null,
   userPartnerGender: null,
 
-  userInfo: getInitialFetchResult<UserInfoRes>(),
+  userInfo: getInitialFetchResult<UserInfo>(),
 };
 
 const SET_USER_EMAIL = "SET_USER_EMAIL";
@@ -68,7 +68,7 @@ export const setUserPartnerGender = (userPartnerGender: string) => ({
   userPartnerGender: userPartnerGender,
 });
 // AC = Action Creator. not Action
-export const getUserInfoAC = getActionCreator<UserInfoRes>(GET_USER_INFO);
+export const getUserInfoAC = getActionCreator<UserInfo>(GET_USER_INFO);
 
 export default (state = initialState, action): UserInfoState => {
   switch (action.type) {

@@ -8,27 +8,34 @@ import RankBar from '~/components/product/ranking/RankBar';
 import TextTitlePurpleRight from '~/components/universal/text/TextTitlePurpleRight';
 import { fetchAPI } from '~/api';
 import { llog } from '~/utils/functions';
+import { ResultsRes, CondomProductMain } from '~/api/interface';
+
+interface Props {
+  navigateToProductInfo: (productId: number) => void;
+}
 
 const Container = styled.View`
   width: ${d.width - d.px * 50}px;
   margin-left: ${d.px * 30}px;
 `;
 
-const TopFive = () => {
-  const [_topFiveList, _setTopFiveList] = useState(null);
+const TopFive = ({ navigateToProductInfo }: Props) => {
+  const [_topFiveList, _setTopFiveList] = useState<CondomProductMain[]>(null);
+
   const _getTopFiveList = async () => {
     try {
       const { status, response } = await fetchAPI(`products/condom/top-n/`);
-      llog('🍪top5 - success!', response);
+      const json: ResultsRes<CondomProductMain> = await response.json();
+      llog('🍪top5 - success!', json);
+
       if (status === 200) {
-        const json = await response.json();
         _setTopFiveList(json.results);
-        llog('🍪top5 - success!', _topFiveList);
       }
     } catch (error) {
       llog('🍪top5 - error', error);
     }
   };
+
   useEffect(() => {
     _getTopFiveList();
   }, []);
@@ -47,7 +54,7 @@ const TopFive = () => {
         {_topFiveList === null ? (
           <TextTitlePurpleRight title={'Loading...'} />
         ) : (
-            _topFiveList.map((product, index: number) => {
+            _topFiveList.map((product: CondomProductMain, index: number) => {
               return (
                 <RankBar
                   key={index}
@@ -57,6 +64,7 @@ const TopFive = () => {
                   imageUri={product.thumbnail}
                   score={product.score}
                   id={product.id}
+                  navigateToProductInfo={navigateToProductInfo}
                 />
               );
             })

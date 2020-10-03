@@ -8,7 +8,7 @@ import HomeCardDefaultContentPurpleButton from '~/components/home/card/HomeCardD
 import TextTitlePurpleRight from '~/components/universal/text/TextTitlePurpleRight';
 import { fetchAPI } from '~/api';
 import { llog } from '~/utils/functions';
-import { WelcomeCardContent, WelcomeCards } from '~/api/interface';
+import { WelcomeCardContent, ResultsRes } from '~/api/interface';
 
 const Content = () => {
   const [contentArray, setContentArray] = useState<WelcomeCardContent[]>(null);
@@ -17,7 +17,7 @@ const Content = () => {
     try {
       const { status, response } = await fetchAPI('home/welcome-cards/');
       if (status === 200) {
-        const json: WelcomeCards = await response.json();
+        const json: ResultsRes<WelcomeCardContent> = await response.json();
         llog('👻 welcome-cards success', json);
         setContentArray(json.results);
       }

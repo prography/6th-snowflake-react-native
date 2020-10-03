@@ -6,6 +6,7 @@ import { useLinkTo } from '@react-navigation/native';
 
 import { d, c } from '~/utils/constant';
 import TextBottomBtn from '../text/TextBottomBtn';
+import { Img } from '~/img';
 
 interface Props {
   buttonText: string;
@@ -56,7 +57,7 @@ const ButtonLinkPurpleLarge = ({ buttonText, link, navigation }: Props) => {
       <TextBottomBtn btnName={buttonText} />
       <TriangleArrow
         resizeMode="contain"
-        source={require('~/img/triangleArrow.png')}
+        source={Img.triangleArrow}
       />
     </Container>
   );

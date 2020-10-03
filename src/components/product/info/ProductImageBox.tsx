@@ -5,6 +5,7 @@ import { withNavigation } from '@react-navigation/compat';
 
 import { d, c, l } from '~/utils/constant';
 import { RootState } from '~/store/modules';
+import { Img } from '~/img';
 
 const Container = styled.View`
   margin: 0 ${l.mR}px;
@@ -33,9 +34,9 @@ const ProductImageBox = ({ imageUri }: Props) => {
         style={{ resizeMode: 'contain' }}
         source={
           blindState
-            ? require('~/img/doodle/doodleCdBoxMintPurpleHeart.png')
+            ? Img.doodle.cdBoxMintPurpleHeart
             : imageUri === null
-              ? require('~/img/icon/imageNull.png')
+              ? Img.icon.null
               : { uri: imageUri }
         }
       />
@@ -43,4 +44,4 @@ const ProductImageBox = ({ imageUri }: Props) => {
   );
 };
 
-export default withNavigation(ProductImageBox);
+export default ProductImageBox;

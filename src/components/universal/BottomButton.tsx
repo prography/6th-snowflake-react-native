@@ -1,13 +1,11 @@
 import * as React from 'react';
 import styled from 'styled-components/native';
-import { withNavigation } from '@react-navigation/compat';
-import { StackNavigationProp } from '@react-navigation/stack';
-import { RootTabParamList } from '~/navigation/RootTabNavigation';
+
 import { d, c } from '~/utils/constant';
 
 interface Props {
   children: React.ReactNode;
-  navigation: StackNavigationProp<RootTabParamList>;
+  navigateHome: () => void;
 }
 
 const Screen = styled.View`
@@ -33,15 +31,15 @@ const Title = styled.Text`
   font-weight: 400;
 `;
 
-const BottomButton = ({ children, navigation }: Props) => {
+const BottomButton = ({ children, navigateHome }: Props) => {
   return (
     <Screen>
       {children}
-      <Container onPress={() => navigation.navigate('HomeStack')}>
+      <Container onPress={navigateHome}>
         <Title>눈송이 시작하기</Title>
       </Container>
     </Screen>
   );
 };
 
-export default withNavigation(BottomButton);
+export default BottomButton;

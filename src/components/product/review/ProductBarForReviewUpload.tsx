@@ -1,20 +1,18 @@
 import * as React from 'react';
-import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 
-import { d, c, l } from '~/utils/constant';
+import { d, l } from '~/utils/constant';
 import TextProductCompany from '~/components/universal/text/product/TextProductCompany';
 import TextProductName from '~/components/universal/text/product/TextProductName';
 import { RootState } from '~/store/modules';
 import { ProductStackParamList } from '~/navigation/tabs/ProductStack';
-import { fetchAPI } from '~/api';
-import { llog } from '~/utils/functions';
+import { CondomProduct } from '~/api/interface';
+import { Img } from '~/img';
 
 interface Props {
-  productId: number;
-  navigation: StackNavigationProp<ProductStackParamList>;
+  productInfo: CondomProduct;
 }
 
 const Container = styled.View`
@@ -38,41 +36,23 @@ const TextWrapper = styled.View`
   justify-content: center;
 `;
 
-const ProductBarForReviewUpload = ({ productId }: Props) => {
-  const [_productInfo, _setProductInfo] = useState(null);
-
-  const _getProductInfo = async () => {
-    try {
-      const { status, response } = await fetchAPI(`products/condom/${productId}/`);
-      if (status === 200) {
-        const json = await response.json();
-        llog('🎃review upload - product info success', response);
-        _setProductInfo(json);
-      }
-    } catch (error) {
-      llog('🎃review upload - product info error', error);
-    }
-  };
-
-  useEffect(() => {
-    _getProductInfo();
-  }, []);
-
+const ProductBarForReviewUpload = ({ productInfo }: Props) => {
   const blindState = useSelector(
     (state: RootState) => state.product.blind.blindState,
   );
+
   return (
     <Container>
       <ImageWrapper>
-        {_productInfo === null ? null : (
+        {productInfo && (
           <ProductImage
             style={{ resizeMode: 'contain' }}
             source={
               blindState
-                ? require('~/img/doodle/doodleCdBoxMintPurpleHeart.png')
-                : _productInfo.image === null
-                  ? require('~/img/icon/imageNull.png')
-                  : { uri: _productInfo.image }
+                ? Img.doodle.cdBoxMintPurpleHeart
+                : productInfo.image === null
+                  ? Img.icon.null
+                  : { uri: productInfo.image }
             }
           />
         )}
@@ -80,12 +60,12 @@ const ProductBarForReviewUpload = ({ productId }: Props) => {
       <TextWrapper>
         <TextProductCompany
           productCompany={
-            _productInfo === null ? 'Loading...' : _productInfo.manufacturer_kor
+            productInfo === null ? 'Loading...' : productInfo.manufacturer_kor
           }
         />
         <TextProductName
           productName={
-            _productInfo === null ? 'Loading...' : _productInfo.name_kor
+            productInfo === null ? 'Loading...' : productInfo.name_kor
           }
         />
       </TextWrapper>

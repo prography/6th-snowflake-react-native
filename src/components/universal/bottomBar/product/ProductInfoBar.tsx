@@ -17,7 +17,7 @@ import { Img } from '~/img';
 
 interface Props {
   children: React.ReactNode;
-  navigation: StackNavigationProp<RootTabParamList>;
+  navigateToReviewUpload1: () => void;
   productId: number;
 }
 
@@ -51,8 +51,8 @@ const HeartIcon = styled.Image`
   height: ${d.px * 20}px;
 `;
 
-const ProductInfoBar = ({ children, navigation, productId }: Props) => {
-  const [isLiked, setIsLiked] = useState(false);
+const ProductInfoBar = ({ children, navigateToReviewUpload1, productId }: Props) => {
+  const [isLiked, setIsLiked] = useState<boolean>(false);
   const [likedId, setLikedId] = useState(null);
   const _isLoggedin = useSelector((state: RootState) => state.join.auth.isLoggedin);
 
@@ -155,7 +155,7 @@ const ProductInfoBar = ({ children, navigation, productId }: Props) => {
         >
           <HeartIcon
             resizeMode="contain"
-            source={isLiked ? Img.heartBlack : Img.heartWhite}
+            source={isLiked ? Img.icon.heartBlack : Img.icon.heartWhite}
           />
         </Tab>
         {/* <Tab>
@@ -165,7 +165,7 @@ const ProductInfoBar = ({ children, navigation, productId }: Props) => {
           onPress={() => {
             if (_isLoggedin) {
               analytics().logEvent("press_review_upload", { productId });
-              navigation.navigate('ReviewUpload1', { productId });
+              navigateToReviewUpload1();
             } else {
               Alert.alert(
                 '❄️',
@@ -181,4 +181,4 @@ const ProductInfoBar = ({ children, navigation, productId }: Props) => {
   );
 };
 
-export default withNavigation(ProductInfoBar);
+export default ProductInfoBar;

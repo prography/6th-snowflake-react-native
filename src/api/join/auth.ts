@@ -15,6 +15,8 @@ export const login = async (
     },
   });
 
+  llog("✔️ response", response);
+
   if (status !== 200) {
     throw Error("로그인을 처리하는 중 오류가 발생했어요.");
   }

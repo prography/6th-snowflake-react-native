@@ -12,8 +12,8 @@ export type RootTabParamList = {
   ProductStack: undefined;
   LabStack: undefined;
   ClinicStack: undefined;
-  SettingStack: undefined;
   JoinStack: undefined;
+  FeedbackStack: undefined;
 };
 
 const Tab = createBottomTabNavigator<RootTabParamList>();

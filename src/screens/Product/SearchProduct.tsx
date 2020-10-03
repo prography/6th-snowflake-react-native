@@ -15,6 +15,8 @@ import { RootState } from '~/store/modules';
 import { ProductStackParamList } from '~/navigation/tabs/ProductStack';
 import { fetchAPI } from '~/api';
 import { llog } from '~/utils/functions';
+import { ResultsRes, CondomProductForSearch } from '~/api/interface';
+import { Img } from '~/img';
 
 const Container = styled.View`
   flex: 1;
@@ -72,26 +74,26 @@ interface Props {
   navigation: StackNavigationProp<ProductStackParamList, 'SearchProduct'>;
 }
 const SearchProduct = ({ navigation }: Props) => {
-  const [searchInput, setSearchInput] = useState(null);
-  const [_searchResult, _setSearchResult] = useState(null);
+  const [searchInput, setSearchInput] = useState<string>(null);
+  const [_searchResult, _setSearchResult] = useState<CondomProductForSearch[]>(null);
   const blindState = useSelector(
     (state: RootState) => state.product.blind.blindState,
   );
-  const _searchProduct = async () => {
+
+  const _searchProduct = async (text: string) => {
     try {
       const _searchInput = searchInput ? searchInput.replace(/(\s*)/g, '') : '';
-      const response = await fetchAPI(`products/search/?keyword=${_searchInput}`);
-      const json = await response.json();
-      _setSearchResult(json.results);
-      llog('💎검색 - 성공!', _searchInput, json.results);
+      const { response, status } = await fetchAPI(`products/search/?keyword=${_searchInput}`);
+      const json: ResultsRes<CondomProductForSearch> = await response.json();
+      llog('💎검색 - 성공!', _searchInput, status, json);
+
+      if (status === 200) {
+        _setSearchResult(json.results);
+      }
     } catch (error) {
       llog('💎검색- error', error);
     }
   };
-
-  useEffect(() => {
-    _searchProduct();
-  }, [searchInput]);
 
   useEffect(() => {
     analytics().setCurrentScreen("SearchProduct");
@@ -100,14 +102,16 @@ const SearchProduct = ({ navigation }: Props) => {
   return (
     <Container>
       <TopBarContainer>
-        <BackButton />
+        <BackButton onPressBack={() => navigation.pop()} />
         <SearchInput
           placeholderTextColor={c.lightGray}
           placeholder={'검색어를 입력해주세요'}
           autoCapitalize={'none'}
           autoCorrect={false}
-          onChangeText={(text) => [setSearchInput(text)]}
-          placeholderTextColor={c.lightGray}
+          onChangeText={(text) => {
+            setSearchInput(text);
+            _searchProduct(text);
+          }}
         >
           {searchInput}
         </SearchInput>
@@ -118,37 +122,32 @@ const SearchProduct = ({ navigation }: Props) => {
             {_searchResult && _searchResult.length === 0 ? (
               <WarningText>검색 결과가 없습니다</WarningText>
             ) : (
-                _searchResult.map((product, index: number) => {
+                _searchResult.map((product: CondomProductForSearch, index: number) => {
                   return (
-                    <>
-                      <ProductContainer
-                        key={index}
-                        onPress={() => {
-                          navigation.navigate('ProductStack', {
-                            screen: 'ProductInfo',
-                            params: { productId: product.id },
-                          });
-                        }}
-                        key={_searchResult.indexOf(product) + 1}
-                      >
-                        <ImageWrapper>
-                          <ProductImage
-                            style={{ resizeMode: 'contain' }}
-                            source={
-                              blindState
-                                ? require('~/img/doodle/doodleCdBoxMint.png')
-                                : product.thumbnail === null
-                                  ? require('~/img/icon/imageNull.png')
-                                  : { uri: product.thumbnail }
-                            }
-                          />
-                        </ImageWrapper>
-                        <TextProductCompany
-                          productCompany={product.manufacturer_kor}
+                    <ProductContainer
+                      key={index}
+                      onPress={() => {
+                        navigation.navigate('ProductInfo', {
+                          productId: product.id,
+                        });
+                      }}>
+                      <ImageWrapper>
+                        <ProductImage
+                          style={{ resizeMode: 'contain' }}
+                          source={
+                            blindState
+                              ? Img.doodle.cdBoxMint
+                              : product.thumbnail === null
+                                ? Img.icon.null
+                                : { uri: product.thumbnail }
+                          }
                         />
-                        <TextProductName productName={product.name_kor} />
-                      </ProductContainer>
-                    </>
+                      </ImageWrapper>
+                      <TextProductCompany
+                        productCompany={product.manufacturer_kor}
+                      />
+                      <TextProductName productName={product.name_kor} />
+                    </ProductContainer>
                   );
                 })
               )}
