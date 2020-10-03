@@ -1,5 +1,5 @@
 import { all, fork, takeLatest, call, put, take } from "redux-saga/effects";
-import { REQUEST_LOGIN, setIsLoggedin } from "~/store/modules/auth";
+import { REQUEST_LOGIN, setIsLoggedin } from "~/store/modules/join/auth";
 import { BASE_URL } from "~/utils/constant";
 import { useAsyncStorage } from "@react-native-community/async-storage";
 import { AsyncAccessToken } from "~/utils/asyncStorage";

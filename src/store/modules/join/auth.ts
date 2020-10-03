@@ -11,8 +11,13 @@ const initialState: AuthState = {
   isLoggedin: null,
 };
 
+// deprecated
 export const REQUEST_LOGIN = "REQUEST_LOGIN";
 export const SET_IS_LOGGEDIN = "SET_IS_LOGGEDIN";
+// new
+export const LOGIN_REQUEST = "LOGIN_REQUEST";
+export const LOGIN_SUCCESS = "LOGIN_SUCCESS";
+export const LOGIN_ERROR = "LOGIN_ERROR";
 
 export const requestLogin = (email: string, password: string) => {
   llog1("😸6. requestLogin 액션 dispatch");

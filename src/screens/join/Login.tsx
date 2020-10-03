@@ -9,7 +9,7 @@ import { StackActions } from '@react-navigation/native';
 
 import BottomBtnCollectData from '~/components/universal/bottomBar/BottomBtnCollectData';
 import { c, d, l, BASE_URL } from '~/utils/constant';
-import { requestLogin, setIsLoggedin, manageLoginLogout } from '~/store/modules/auth/index';
+import { requestLogin, setIsLoggedin, manageLoginLogout } from '~/store/modules/join/auth';
 import TopBarBackArrowRightIcon from '~/components/universal/topBar/TopBarBackArrowRightIcon';
 import TopBarWithIcon from '~/components/universal/topBar/TopBarRightIcon';
 import LinePurpleWhenFocused from '~/components/universal/line/LinePurpleWhenFocused';

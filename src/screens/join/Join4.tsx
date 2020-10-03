@@ -9,7 +9,7 @@ import AsyncStorage, {
   useAsyncStorage,
 } from '@react-native-community/async-storage';
 
-import { requestLogin } from '~/store/modules/auth';
+import { requestLogin } from '~/store/modules/join/auth';
 import { d, c, l, BASE_URL } from '~/utils/constant';
 import BottomBtnCollectData from '~/components/universal/bottomBar/BottomBtnCollectData';
 import MarginWide from '~/components/universal/margin/MarginWide';

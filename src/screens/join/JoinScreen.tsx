@@ -21,7 +21,7 @@ import { llog2, llog1, llog3 } from '~/utils/functions';
 import { KakaoLoginResponse } from '~/utils/interface';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { JoinStackParamList } from '~/navigation/tabs/JoinStack';
-import { manageLoginLogout } from '~/store/modules/auth';
+import { manageLoginLogout } from '~/store/modules/join/auth';
 
 const JOIN_BOX_HEIGHT = d.px * 50;
 const Container = styled.View`

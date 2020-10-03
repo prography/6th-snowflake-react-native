@@ -8,7 +8,7 @@ import { d, BASE_URL, c, l } from '~/utils/constant';
 import TextTitlePurpleRight from '~/components/universal/text/TextTitlePurpleRight';
 import { AsyncAccessToken } from '~/utils/asyncStorage';
 import TextTitleDarkPurpleLink from '~/components/universal/text/TextTitleDarkPurpleLink';
-import { manageLoginLogout } from '~/store/modules/auth';
+import { manageLoginLogout } from '~/store/modules/join/auth';
 
 import MarginNarrow from '~/components/universal/margin/MarginNarrow';
 import { llog2 } from '~/utils/functions';

@@ -5,7 +5,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import RootTabNavigation from '~/navigation/RootTabNavigation';
 import { AsyncAccessToken } from '~/utils/asyncStorage';
 import { llog2, llog1 } from '~/utils/functions';
-import { manageLoginLogout } from '~/store/modules/auth';
+import { manageLoginLogout } from '~/store/modules/join/auth';
 import { RootState } from '~/store/modules';
 
 export default () => {
