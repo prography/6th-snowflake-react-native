@@ -8,18 +8,19 @@ import HomeCardDefaultContentPurpleButton from '~/components/home/card/HomeCardD
 import TextTitlePurpleRight from '~/components/universal/text/TextTitlePurpleRight';
 import { fetchAPI } from '~/api';
 import { llog } from '~/utils/functions';
+import { WelcomeCardContent, ResultsRes } from '~/api/interface';
 
 const Content = () => {
-  const [contentArray, setContentArray] = useState(null);
+  const [contentArray, setContentArray] = useState<WelcomeCardContent[]>(null);
 
   const _getWelcomCards = async () => {
     try {
-      const response = await fetchAPI({
-        url: 'home/welcome-cards/',
-      });
-      const json = await response.json();
-      llog('👻 welcome-cards success', json);
-      setContentArray(json.results);
+      const { status, response } = await fetchAPI('home/welcome-cards/');
+      if (status === 200) {
+        const json: ResultsRes<WelcomeCardContent> = await response.json();
+        llog('👻 welcome-cards success', json);
+        setContentArray(json.results);
+      }
     } catch (error) {
       llog('👻 welcome-cards error ', error);
     }
@@ -36,7 +37,7 @@ const Content = () => {
           <TextTitlePurpleRight title={'Loading...'} />
         </View>
       ) : (
-          contentArray.map((card, index: number) => {
+          contentArray.map((card: WelcomeCardContent, index: number) => {
             switch (card.design_type) {
               case 'default':
                 return (

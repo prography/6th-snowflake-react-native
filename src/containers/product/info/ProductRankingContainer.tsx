@@ -1,17 +1,19 @@
 import * as React from 'react';
 import { useState, useEffect } from 'react';
-import { ScrollView, Text } from 'react-native';
+import { ScrollView } from 'react-native';
 import analytics from "@react-native-firebase/analytics";
+import styled from 'styled-components/native';
 
-import { d, BASE_URL, c, l } from '~/utils/constant';
+import { d, c, l } from '~/utils/constant';
 import TextTitlePurpleRight from '~/components/universal/text/TextTitlePurpleRight';
 import RankBar from '~/components/product/ranking/RankBar';
 import Blinder from '~/components/product/Blinder';
-import styled from 'styled-components/native';
 import LineGrayMiddle from '~/components/universal/line/LineGrayMiddle';
 import MarginNarrow from '~/components/universal/margin/MarginNarrow';
 import { llog } from '~/utils/functions';
 import { RankingParamList } from '~/navigation/tabs/ProductStack';
+import { fetchAPI } from '~/api';
+import { CondomProductForRank, ResultsRes } from '~/api/interface';
 
 const NARROW_MARGIN = d.px * 9;
 const TEXT_HEIGHT = d.px * 16;
@@ -188,17 +190,18 @@ const orderFilterList: OrderFilter[] = [
 
 interface Props {
   serverParams: RankingParamList;
+  navigateToProductInfo: (productId: number) => void;
 }
 
-const ProductRankingContainer = ({ serverParams }: Props) => {
+const ProductRankingContainer = ({ serverParams, navigateToProductInfo }: Props) => {
   llog('🦨 serverParams', serverParams);
-  const [_rankingList, _setRankingList] = useState(null);
+  const [_rankingList, _setRankingList] = useState<CondomProductForRank[]>(null);
   const [selectedCategory, setSelectedCategory] = useState<CategoryEnum>(CategoryEnum.NONE);
-  const [showOrderFilter, setShowOrderFilter] = useState(false);
+  const [showOrderFilter, setShowOrderFilter] = useState<boolean>(false);
   const [selectedOrder, setSelectedOrder] = useState<OrderEnum>(OrderEnum.NONE);
 
   const _getRankingList = async () => {
-    let url = `${BASE_URL}/products/condom?`;
+    let url = `products/condom?`;
     if (selectedCategory !== CategoryEnum.NONE) {
       url += `category=${selectedCategory}&`;
     }
@@ -210,14 +213,16 @@ const ProductRankingContainer = ({ serverParams }: Props) => {
     if (url[url.length - 1] === '&' || url[url.length - 1] === '?') {
       url = url.substring(0, url.length - 1);
     }
-    console.log('🍎 url', url);
+    llog('🍎 url', url);
 
     try {
-      const response = await fetch(url);
+      const { status, response } = await fetchAPI(url);
+      const json: ResultsRes<CondomProductForRank> = await response.json();
+      llog('🧤Ranking List - success!', json);
 
-      const json = await response.json();
-      _setRankingList(json.results);
-      // llog('🧤Ranking List - success!', _rankingList);
+      if (status === 200) {
+        _setRankingList(json.results);
+      }
     } catch (error) {
       llog('🧤Ranking List - error', error);
     }
@@ -293,10 +298,7 @@ const ProductRankingContainer = ({ serverParams }: Props) => {
                 onPress={() => {
                   analytics().logEvent("press_order_in_ranking", { order: filter.orderEnum });
                   setSelectedOrder(filter.orderEnum);
-                }}
-                selectedOrder={selectedOrder}
-                orderEnum={filter.orderEnum}
-              >
+                }}>
                 <OrderFilterText
                   selectedOrder={selectedOrder}
                   orderEnum={filter.orderEnum}
@@ -317,7 +319,7 @@ const ProductRankingContainer = ({ serverParams }: Props) => {
       >
         <Container>
           {_rankingList ? (
-            _rankingList.map((product, index: number) => {
+            _rankingList.map((product: CondomProductForRank, index: number) => {
               return (
                 <RankBar
                   key={index + 200}
@@ -327,6 +329,7 @@ const ProductRankingContainer = ({ serverParams }: Props) => {
                   imageUri={product.thumbnail}
                   score={product.score}
                   id={product.id}
+                  navigateToProductInfo={navigateToProductInfo}
                 />
               );
             })

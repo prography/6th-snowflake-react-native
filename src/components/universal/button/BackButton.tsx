@@ -1,11 +1,11 @@
 import * as React from 'react';
 import styled from 'styled-components/native';
+
 import { d, c } from '~/utils/constant';
-import { withNavigation } from '@react-navigation/compat';
-import { goBack } from '@react-navigation/compat/lib/typescript/src/helpers';
+import { Img } from '~/img';
 
 interface Props {
-  navigation: any;
+  onPressBack: () => void;
 }
 
 const Container = styled.TouchableOpacity`
@@ -24,23 +24,17 @@ const SnowFlake = styled.Image`
   margin-right: ${d.px * 10}px;
 `;
 
-const BackButton = ({ navigation }: Props) => {
-  const onPressBack = () => {
-    navigation.pop()
-  };
-
+const BackButton = ({ onPressBack }: Props) => {
   return (
     <Container
       activeOpacity={1}
-      onPress={onPressBack}
-    >
-
+      onPress={onPressBack}>
       <SnowFlake
         style={{ resizeMode: 'contain' }}
-        source={require('~/img/icon/iconBackArrow.png')}
+        source={Img.icon.backArrow}
       />
     </Container>
   );
 };
 
-export default withNavigation(BackButton);
+export default BackButton;

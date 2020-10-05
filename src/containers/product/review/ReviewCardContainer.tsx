@@ -1,17 +1,16 @@
 import * as React from 'react';
-import { useState, useEffect } from 'react';
 import styled from 'styled-components/native';
-import { Text } from 'react-native';
-import { d, l, BASE_URL } from '~/utils/constant';
+import { d, l } from '~/utils/constant';
 import ReviewCard from '~/components/product/review/ReviewCard';
 import TextTitlePurpleRight from '~/components/universal/text/TextTitlePurpleRight';
+import { Review } from '~/api/interface';
 
 const Container = styled.View`
   width: ${d.width - l.mR * 2}px;
   flex-direction: column;
 `;
 interface Props {
-  reviewArray: any;
+  reviewArray: Review[];
 }
 const ReviewCardContainer = ({ reviewArray }: Props) => {
   return (
@@ -20,7 +19,7 @@ const ReviewCardContainer = ({ reviewArray }: Props) => {
         {reviewArray === null ? (
           <TextTitlePurpleRight title={'Loading...'} />
         ) : (
-            reviewArray.map((review, index: number) => {
+            reviewArray.map((review: Review, index: number) => {
               return (
                 <ReviewCard
                   key={index}

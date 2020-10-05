@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components/native';
 import analytics from "@react-native-firebase/analytics";
 import { StackActions } from '@react-navigation/native';
+import { StackNavigationProp } from '@react-navigation/stack';
 
 import BottomBtnCollectData from '~/components/universal/bottomBar/BottomBtnCollectData';
 import { c, d, l } from '~/utils/constant';
@@ -12,7 +13,6 @@ import LinePurpleWhenFocused from '~/components/universal/line/LinePurpleWhenFoc
 import MarginWide from '~/components/universal/margin/MarginWide';
 import MarginNarrow from '~/components/universal/margin/MarginNarrow';
 import { llog } from '~/utils/functions';
-import { StackNavigationProp } from '@react-navigation/stack';
 import { JoinStackParamList } from '~/navigation/tabs/JoinStack';
 import { RootState } from '~/store/modules';
 import { loginAC } from '~/store/modules/join/auth';
@@ -44,15 +44,15 @@ const HeaderContainer = styled.View`
 // 다희 로그인: d@d.com / aaa111
 const Login = ({ navigation }: Props) => {
   const dispatch = useDispatch();
-  const [userEmail, setUserEmail] = useState(__DEV__ ? '12@12.com' : null);
-  const [userPassword, setUserPassword] = useState(
+  const [userEmail, setUserEmail] = useState<string>(__DEV__ ? '12@12.com' : null);
+  const [userPassword, setUserPassword] = useState<string>(
     __DEV__ ? '12@12.com' : null
   );
-  const [isFilled, setIsFilled] = useState(false);
+  const [isFilled, setIsFilled] = useState<boolean>(false);
 
-  const [emailFocus, handleEmailFocus] = useState(false);
-  const [passwordFocus, handlePasswordFocus] = useState(false);
-  const _isLoggedin = useSelector((state: RootState) => state.auth.isLoggedin);
+  const [emailFocus, handleEmailFocus] = useState<boolean>(false);
+  const [passwordFocus, handlePasswordFocus] = useState<boolean>(false);
+  const _isLoggedin = useSelector((state: RootState) => state.join.auth.isLoggedin);
   llog('_loggedin', _isLoggedin);
 
   useEffect(() => {
@@ -64,8 +64,10 @@ const Login = ({ navigation }: Props) => {
 
   // 임시로 사가 대신 그냥 여기에서 처리.
   const _login = async () => {
-    llog('😸5... 로그인 액션 호출', userEmail);
-    dispatch(loginAC.request(userEmail, userPassword)); // saga 쓸 때는 다시 이거로 쓰기
+    dispatch(loginAC.request({
+      email: userEmail,
+      password: userPassword,
+    })); // saga 쓸 때는 다시 이거로 쓰기
   };
 
   const LoginInputArry = [

@@ -1,10 +1,11 @@
 import * as React from 'react';
-import { Text, ScrollView } from 'react-native';
 import styled from 'styled-components/native';
-import { d } from '~/utils/constant';
+
+import { d, l } from '~/utils/constant';
+import { Img } from '~/img';
 
 const Container = styled.View`
-  height: ${d.px * 75}px;
+  height: ${d.px * l.tB}px;
   width: 100%;
   margin-left: ${d.px * 30}px;
   align-items: flex-start;
@@ -22,7 +23,7 @@ const TopBarLeftIcon = () => {
     <Container>
       <SnowFlake
         style={{ resizeMode: 'contain' }}
-        source={require('~/img/logo.png')}
+        source={Img.logo}
       />
     </Container>
   );

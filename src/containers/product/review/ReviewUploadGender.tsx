@@ -12,6 +12,7 @@ import TextMiddleTitleDarkCenter from '~/components/universal/text/TextMiddleTit
 import GenderLoop from '~/components/universal/profile/GenderLoop';
 import GenderCircle from '~/components/universal/profile/GenderCircle';
 import { RootState } from '~/store/modules';
+import { llog } from '~/utils/functions';
 
 interface Props {
   productId: number;
@@ -105,7 +106,7 @@ const CheckText = styled.Text`
 `;
 
 const ReviewUploadGender = ({ productId }: Props) => {
-  const [checked, setChecked] = useState(false);
+  const [checked, setChecked] = useState<boolean>(false);
   const dispatch = useDispatch();
 
   const {
@@ -182,7 +183,7 @@ const ReviewUploadGender = ({ productId }: Props) => {
               <SelectCircleTouchArea
                 key={index}
                 onPress={() => {
-                  [setGender(circle.gender), console.log(circle.gender)];
+                  [setGender(circle.gender), llog(circle.gender)];
                 }}
               >
                 <SelectCircle

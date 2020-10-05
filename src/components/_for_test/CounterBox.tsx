@@ -6,7 +6,6 @@ import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '~/store/modules';
 import MarginNarrow from '../universal/margin/MarginNarrow';
 import { increaseAsync, decreaseAsync } from '~/store/modules/counter-test';
-import { getUserInfo } from '~/store/saga/join/userInfo';
 
 interface Props {
 
@@ -40,10 +39,10 @@ export default ({ }: Props) => {
       <Button onPress={() => dispatch(decreaseAsync())}>
         <Text>- 1</Text>
       </Button>
-      <Button onPress={() => dispatch(getUserInfo())}>
+      <Button onPress={() => null)}>
         <Text>Get User Info</Text>
       </Button>
-      <MarginNarrow />
-    </Container>
+    <MarginNarrow />
+    </Container >
   );
 };

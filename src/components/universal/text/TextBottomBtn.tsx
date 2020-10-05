@@ -3,7 +3,7 @@ import styled from 'styled-components/native';
 import { d, c } from '~/utils/constant';
 
 interface Props {
-  content: string;
+  btnName: string;
 }
 
 const TextStyle = styled.Text`

@@ -1,14 +1,15 @@
 import * as React from 'react';
 import styled from 'styled-components/native';
-import TextTitleDarkRight from '../../universal/text/TextTitleDarkRight';
-import ButtonLinkPurpleLarge from '../../universal/button/ButtonLinkPurpleLarge';
-import LineGrayRightLong from '../../universal/line/LineGrayRightLong';
-import MarginWide from '../../universal/margin/MarginWide';
-import { d } from '../../../utils/constant';
-import MarginNarrow from '../../universal/margin/MarginNarrow';
-import TextTag from '../../universal/text/TextTag';
+
+import TextTitleDarkRight from '~/components/universal/text/TextTitleDarkRight';
+import ButtonLinkPurpleLarge from '~/components/universal/button/ButtonLinkPurpleLarge';
+import LineGrayRightLong from '~/components/universal/line/LineGrayRightLong';
+import MarginWide from '~/components/universal/margin/MarginWide';
+import MarginNarrow from '~/components/universal/margin/MarginNarrow';
+import TextTag from '~/components/universal/text/TextTag';
 import MarginMedium from '~/components/universal/margin/MarginMedium';
 import TextContentLightLeft from '~/components/universal/text/TextContentLightLeft';
+import { d, l } from '~/utils/constant';
 
 interface Props {
   tag: string;
@@ -19,8 +20,8 @@ interface Props {
 }
 
 const Container = styled.View`
-  margin-right: ${d.px * 20}px;
-  margin-left: ${d.px * 30}px;
+  margin-right: ${l.mR}px;
+  margin-left: ${l.mL}px;
 `;
 
 const TagContainer = styled.View`

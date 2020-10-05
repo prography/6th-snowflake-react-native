@@ -2,17 +2,20 @@ import * as React from 'react';
 import styled from 'styled-components/native';
 import { useState, useEffect } from 'react';
 import analytics from '@react-native-firebase/analytics';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scrollview';
 
 import LinePurpleWhenFocused from '~/components/universal/line/LinePurpleWhenFocused';
 import { validateEmail, validatePassword } from '~/utils/validator';
 import MarginNarrow from '~/components/universal/margin/MarginNarrow';
-import { d, c, l, BASE_URL } from '~/utils/constant';
+import { d, c, l } from '~/utils/constant';
 
 import BottomBtnCollectData from '~/components/universal/bottomBar/BottomBtnCollectData';
 import MarginWide from '~/components/universal/margin/MarginWide';
 import TopBarBackArrowRightIcon from '~/components/universal/topBar/TopBarBackArrowRightIcon';
 
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scrollview'
+import { fetchAPI } from '~/api';
+import { llog } from '~/utils/functions';
+import { MsgRes } from '~/api/interface';
 
 const Container = styled.View`
   margin: 0 ${l.mR}px;
@@ -47,15 +50,15 @@ const JoinInfoInput = styled.TextInput`
 `;
 
 const Join1 = () => {
-  const [isFilled, setIsFilled] = useState(false);
-  const [emailInput, setEmailInput] = useState('');
-  const [emailWarnigText, setEmailWarningText] = useState(null);
-  const [passwordInput, setPasswordInput] = useState('');
-  const [checkPasswordInput, setCheckPasswordInput] = useState('');
-  const [emailFocus, handleEmailFocus] = useState(false);
-  const [passwordFocus, handlePasswordFocus] = useState(false);
-  const [checkPasswordFocus, handleCheckPasswordFocus] = useState(false);
-  const [checkPasswordWarning, setCheckPasswordWarning] = useState(false);
+  const [isFilled, setIsFilled] = useState<boolean>(false);
+  const [emailInput, setEmailInput] = useState<string>('');
+  const [emailWarnigText, setEmailWarningText] = useState<string>(null);
+  const [passwordInput, setPasswordInput] = useState<string>('');
+  const [checkPasswordInput, setCheckPasswordInput] = useState<string>('');
+  const [emailFocus, handleEmailFocus] = useState<boolean>(false);
+  const [passwordFocus, handlePasswordFocus] = useState<boolean>(false);
+  const [checkPasswordFocus, handleCheckPasswordFocus] = useState<boolean>(false);
+  const [checkPasswordWarning, setCheckPasswordWarning] = useState<boolean>(false);
   useEffect(() => {
     setIsFilled(
       emailInput === '' || passwordInput === '' || checkPasswordInput === '' || !validatePassword(passwordInput)
@@ -78,21 +81,21 @@ const Join1 = () => {
 
   const _checkEmailDuplicate = async () => {
     try {
-      const response = await fetch(
-        `${BASE_URL}/accounts/check-duplicates/email/?value=${emailInput}`
+      const { status, response } = await fetchAPI(
+        `accounts/check-duplicates/email/?value=${emailInput}`
       );
-      const json = await response.json();
-      console.log('🤯🤯🤯', response, json);
-      if (response.status === 200) {
+      const json: MsgRes = await response.json();
+      llog('🤯🤯🤯', json);
+      if (status === 200) {
         // 중복 안됨! 성공!
         _setEmailWarningText(false);
-        console.log('🧢🧢이메일 중복 체크', json.message, '중복아님');
+        llog('🧢🧢이메일 중복 체크', json.message, '중복아님');
       } else {
         _setEmailWarningText(true);
-        console.log('🧢🧢이메일 중복 체크', json.message, '중복임');
+        llog('🧢🧢이메일 중복 체크', json.message, '중복임');
       }
     } catch (error) {
-      console.log('🧢이메일 중복 체크 실패', error);
+      llog('🧢이메일 중복 체크 실패', error);
     }
   };
   const _setEmailWarningText = (isDuplicate: boolean) => {

@@ -2,18 +2,15 @@ import * as React from 'react';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components/native';
 import analytics from "@react-native-firebase/analytics";
-import { withNavigation } from '@react-navigation/compat';
-import { StackNavigationProp } from '@react-navigation/stack';
 
 import { d, c } from '~/utils/constant';
 import TextMiddleTitleDark from '~/components/universal/text/TextMiddleTitleDark';
 import TextProductCompany from '~/components/universal/text/product/TextProductCompany';
-import TextProductName from '~/components/universal/text/product/TextProductName';
 import MarginNarrow from '~/components/universal/margin/MarginNarrow';
 import TextLink from '~/components/universal/text/TextLink';
 import { RootState } from '~/store/modules';
-import { ProductStackParamList } from '~/navigation/tabs/ProductStack';
 import TextProductFlowName from '~/components/universal/text/product/TextProductFlowName';
+import { Img } from '~/img';
 
 
 const Container = styled.View`
@@ -45,7 +42,8 @@ interface Props {
   productCompany: string;
   productName: string;
   imageUri: string;
-  navigation: StackNavigationProp<ProductStackParamList>;
+  navigateToProductInfo: (productId: number) => void;
+  navigateToRanking: () => void;
 }
 const TrioBox = ({
   id,
@@ -53,7 +51,8 @@ const TrioBox = ({
   productCompany,
   productName,
   imageUri,
-  navigation,
+  navigateToProductInfo,
+  navigateToRanking,
 }: Props) => {
   const blindState = useSelector(
     (state: RootState) => state.product.blind.blindState,
@@ -64,17 +63,14 @@ const TrioBox = ({
       <MarginNarrow />
       <ProductBox
         activeOpacity={1}
-        onPress={() => {
-          navigation.navigate('ProductInfo', { productId: id });
-        }}
-      >
+        onPress={() => navigateToProductInfo(id)}>
         <ProductImage
           style={{ resizeMode: 'contain' }}
           source={
             blindState
-              ? require('~/img/doodle/doodleCdBoxCrownFilledMint.png')
+              ? Img.doodle.cdBoxCrownFilledMint
               : imageUri === null
-                ? require('~/img/icon/imageNull.png')
+                ? Img.icon.null
                 : { uri: imageUri }
           }
         />
@@ -88,7 +84,7 @@ const TrioBox = ({
         activeOpacity={0.5}
         onPress={() => {
           analytics().logEvent("press_go_to_ranking", { from: title });
-          navigation.navigate('Ranking');
+          navigateToRanking();
         }}
       >
         <TextLink content={title + ' 랭킹'} />
@@ -97,4 +93,4 @@ const TrioBox = ({
   );
 };
 
-export default withNavigation(TrioBox);
+export default TrioBox;

@@ -4,8 +4,8 @@ import { ScrollView } from 'react-native';
 import analytics from "@react-native-firebase/analytics";
 import styled from 'styled-components/native';
 import { RouteProp } from '@react-navigation/native';
+import { StackNavigationProp } from '@react-navigation/stack';
 
-import { BASE_URL } from '~/utils/constant';
 import MarginBottom from '~/components/universal/margin/MarginBottom';
 import Blinder from '~/components/product/Blinder';
 import ProductInfoImage from '~/containers/product/info/ProductInfoImage';
@@ -20,6 +20,8 @@ import ProductInfoBar from '~/components/universal/bottomBar/product/ProductInfo
 import TextTitlePurpleRight from '~/components/universal/text/TextTitlePurpleRight';
 import { llog } from '~/utils/functions';
 import { ProductStackParamList } from '~/navigation/tabs/ProductStack';
+import { fetchAPI } from '~/api';
+import { CondomProduct } from '~/api/interface';
 
 const Container = styled.View`
   flex-direction: column;
@@ -27,34 +29,32 @@ const Container = styled.View`
 `;
 
 interface Props {
+  navigation: StackNavigationProp<ProductStackParamList, 'ProductInfo'>;
   route: RouteProp<ProductStackParamList, 'ProductInfo'>;
 }
 
-const ProductInfo = ({ route }: Props) => {
+const ProductInfo = ({ navigation, route }: Props) => {
   const { productId } = route.params;
   llog('🍒🍒productId', productId)
 
-  const [productInfo, setProductInfo] = useState(null);
+  const [productInfo, setProductInfo] = useState<CondomProduct>(null);
 
   const _getProductInfo = async () => {
     try {
-      const response = await fetch(
-        `${BASE_URL}/products/condom/${JSON.stringify(productId)}/`
-      );
-      const json = await response.json();
-      console.log('🍒 product info success', productInfo);
-      setProductInfo(json);
+      const { status, response } = await fetchAPI(`products/condom/${productId}/`);
+      const json: CondomProduct = await response.json();
+      llog('🍒 product info success', json);
+      if (status === 200) {
+        setProductInfo(json);
+      }
     } catch (error) {
-      console.log('🍒product info error', error);
+      llog('🍒product info error', error);
     }
   };
 
   useEffect(() => {
-    _getProductInfo();
-  }, []);
-
-  React.useEffect(() => {
     analytics().setCurrentScreen("ProductInfo");
+    _getProductInfo();
   }, []);
 
   return (
@@ -62,7 +62,11 @@ const ProductInfo = ({ route }: Props) => {
       {productInfo === null ? (
         <TextTitlePurpleRight title={'Loading...'} />
       ) : (
-          <ProductInfoBar productId={productId}>
+          <ProductInfoBar
+            navigateToReviewUpload1={() => {
+              navigation.navigate('ReviewUpload1', { productInfo });
+            }}
+            productId={productId}>
             <ScrollView showsVerticalScrollIndicator={false}>
               <TopBarBackArrow />
               <Container>

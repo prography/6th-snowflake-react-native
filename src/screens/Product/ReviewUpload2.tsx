@@ -1,5 +1,4 @@
 import * as React from 'react';
-import {useState} from 'react';
 import { ScrollView } from 'react-native';
 import { useSelector } from 'react-redux';
 import analytics from "@react-native-firebase/analytics";
@@ -24,8 +23,8 @@ interface Props {
 }
 
 const ReviewUpload2 = ({ route }: Props) => {
-  const { productId } = route.params;
-  
+  const { productInfo } = route.params;
+
   const _isFilledReviewUpload2 = useSelector(
     (state: RootState) => state.product.reviewUpload.isFilledReviewUpload2,
   );
@@ -42,18 +41,18 @@ const ReviewUpload2 = ({ route }: Props) => {
         stack={'ProductStack'}
         screen={'ReviewUpload3'}
         isFilled={_isFilledReviewUpload2}
-        params={{ productId: productId }}
+        params={{ productInfo }}
       >
         <TopBarBackArrow />
-        <ProductBarForReviewUpload productId={productId} />
+        <ProductBarForReviewUpload productInfo={productInfo} />
         <LineGrayMiddle />
         <MarginMedium />
         <ScrollView>
-          <ReviewUploadScore productId={productId}/>
+          <ReviewUploadScore productId={productInfo.id} />
           <MarginNarrow />
           <LineGrayMiddle />
           <MarginMedium />
-          <ReviewUploadGender productId={productId}/>
+          <ReviewUploadGender productId={productInfo.id} />
           <MarginBottom />
         </ScrollView>
       </BottomBtnCollectData>

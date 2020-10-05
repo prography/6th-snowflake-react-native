@@ -2,22 +2,20 @@ import * as React from 'react';
 import { useState, useEffect } from 'react';
 import { Alert } from 'react-native';
 import styled from 'styled-components/native';
-import { withNavigation } from '@react-navigation/compat';
-import { StackNavigationProp } from '@react-navigation/stack';
 import analytics from "@react-native-firebase/analytics";
 
 import { RootTabParamList } from '~/navigation/RootTabNavigation';
 import { d, c, l } from '~/utils/constant';
-import { AsyncAccessToken, getTokenItem } from '~/utils/asyncStorage';
-import { BASE_URL } from '~/utils/constant';
+import { getTokenItem } from '~/utils/asyncStorage';
 import { useSelector } from 'react-redux';
 import { llog } from '~/utils/functions';
 import { RootState } from '~/store/modules';
 import { fetchAPI } from '~/api';
+import { Img } from '~/img';
 
 interface Props {
   children: React.ReactNode;
-  navigation: StackNavigationProp<RootTabParamList>;
+  navigateToReviewUpload1: () => void;
   productId: number;
 }
 
@@ -51,10 +49,10 @@ const HeartIcon = styled.Image`
   height: ${d.px * 20}px;
 `;
 
-const ProductInfoBar = ({ children, navigation, productId }: Props) => {
-  const [isLiked, setIsLiked] = useState(false);
+const ProductInfoBar = ({ children, navigateToReviewUpload1, productId }: Props) => {
+  const [isLiked, setIsLiked] = useState<boolean>(false);
   const [likedId, setLikedId] = useState(null);
-  const _isLoggedin = useSelector((state: RootState) => state.auth.isLoggedin);
+  const _isLoggedin = useSelector((state: RootState) => state.join.auth.isLoggedin);
 
   const _likeProduct = async () => {
     try {
@@ -62,19 +60,18 @@ const ProductInfoBar = ({ children, navigation, productId }: Props) => {
       if (!token) { Alert.alert('❄️', '로그인 후 이용해주세요!'); return; }
 
       llog('1-1.🍊like 생성 위한 token 잘 가져옴 ', token);
-      const response = await fetch(`${BASE_URL}/likes/`, {
+      llog('token', token);
+      llog('productId', productId);
+
+      const { status, response } = await fetchAPI(`likes/`, {
         method: 'POST',
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify({
+        token,
+        params: {
           model: 'product',
           object_id: productId,
-        }),
+        },
       });
-      llog('2. 🍊like post 성공! ', response);
+      llog('2. 🍊like post 성공? ', response);
 
       await _checkIsLiked();
     } catch (error) {
@@ -87,51 +84,45 @@ const ProductInfoBar = ({ children, navigation, productId }: Props) => {
       const token = await getTokenItem();
       if (!token) { Alert.alert('❄️', '로그인 후 이용해주세요!'); return; }
 
-      const url = `${BASE_URL}/likes/${likedId}/`;
-      const delteLike = await fetch(url, {
+      const url = `likes/${likedId}/`;
+      const { status, response } = await fetchAPI(url, {
         method: 'DELETE',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`,
-        },
+        token,
       });
 
-      if (delteLike.status === 204) {
-        llog('4. 🍊like 삭제 성공', delteLike);
+      if (status === 204) {
+        llog('4. 🍊like 삭제 성공', response);
         await _checkIsLiked();
       }
     } catch (error) {
-      llog('🍊like 에러 ', error);
+      llog('🍊like delete 에러 ', error);
     }
   };
+
   const _checkIsLiked = async () => {
     try {
       const token = await getTokenItem();
       if (!token) { Alert.alert('❄️', '로그인 후 이용해주세요!'); return; }
 
-      const responseIsLiked = await fetch(
-        `${BASE_URL}/likes/?model=product&object_id=${productId}`,
-        {
-          method: 'GET',
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-      const responseIsLikedJson = await responseIsLiked.json();
-      await setIsLiked(responseIsLikedJson.results.length === 0 ? false : true);
-      await console.log('3-1. 🍊like 조회 ', responseIsLikedJson);
-      console.log(
-        '3-2. 🍊like가 되었다면, 그 id',
-        responseIsLikedJson.results.length === 0
-          ? 'like 안 돼서 없음'
-          : responseIsLikedJson.results[0].id
-      );
-      responseIsLikedJson.results.length === 0
-        ? setLikedId(null)
-        : setLikedId(responseIsLikedJson.results[0].id);
+      const { status, response } = await fetchAPI(`likes/?model=product&object_id=${productId}`, { token });
+      if (status === 200) {
+        const json = await response.json();
+        llog('3-1. 🍊like 조회 ', response, json);
+        setIsLiked(json.results.length === 0 ? false : true);
+
+        llog(
+          '3-2. 🍊like가 되었다면, 그 id',
+          json.results.length === 0
+            ? 'like 안 돼서 없음'
+            : json.results[0].id
+        );
+
+        json.results.length === 0
+          ? setLikedId(null)
+          : setLikedId(json.results[0].id);
+      }
     } catch (error) {
-      llog('🍊like 에러 ', error);
+      llog('🍊 check like 에러 ', error);
     }
   };
 
@@ -162,11 +153,7 @@ const ProductInfoBar = ({ children, navigation, productId }: Props) => {
         >
           <HeartIcon
             resizeMode="contain"
-            source={
-              isLiked
-                ? require('~/img/icon/iconHeartBlack.png')
-                : require('~/img/icon/iconHeartWhite.png')
-            }
+            source={isLiked ? Img.icon.heartBlack : Img.icon.heartWhite}
           />
         </Tab>
         {/* <Tab>
@@ -176,7 +163,7 @@ const ProductInfoBar = ({ children, navigation, productId }: Props) => {
           onPress={() => {
             if (_isLoggedin) {
               analytics().logEvent("press_review_upload", { productId });
-              navigation.navigate('ReviewUpload1', { productId });
+              navigateToReviewUpload1();
             } else {
               Alert.alert(
                 '❄️',
@@ -192,4 +179,4 @@ const ProductInfoBar = ({ children, navigation, productId }: Props) => {
   );
 };
 
-export default withNavigation(ProductInfoBar);
+export default ProductInfoBar;

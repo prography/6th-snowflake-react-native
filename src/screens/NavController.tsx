@@ -10,7 +10,7 @@ import { RootState } from '~/store/modules';
 
 export default () => {
   const dispatch = useDispatch();
-  const _isLoggedin = useSelector((state: RootState) => state.auth.isLoggedin);
+  const _isLoggedin = useSelector((state: RootState) => state.join.auth.isLoggedin);
   llog('💜 _isLoggedin', _isLoggedin)
 
   const { getItem } = useAsyncStorage(AsyncAccessToken);

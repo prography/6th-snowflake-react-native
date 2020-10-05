@@ -14,6 +14,7 @@ import Join3 from '~/screens/join/Join3';
 import Join4 from '~/screens/join/Join4';
 import SettingMain from '~/screens/setting/SettingMain';
 import HomeMain from '~/screens/home/HomeMain';
+import { CondomProduct } from '~/api/interface';
 
 import { CategoryEnum, OrderEnum } from '~/containers/product/info/ProductRankingContainer';
 import { Join2Params, Join3Params, Join4Params } from './JoinStack';
@@ -22,15 +23,13 @@ export interface ProductInfoParamList {
   productId: number;
 }
 export interface ReviewUpload1ParamList {
-  productId: number;
+  productInfo: CondomProduct;
 }
-
 export interface ReviewUpload2ParamList {
-  productId: number;
+  productInfo: CondomProduct;
 }
-
 export interface ReviewUpload3ParamList {
-  productId: number;
+  productInfo: CondomProduct;
 }
 export interface RankingParamList {
   category?: CategoryEnum

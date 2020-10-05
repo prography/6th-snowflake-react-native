@@ -1,12 +1,14 @@
 import * as React from 'react';
-import { Text, ScrollView } from 'react-native';
 import styled from 'styled-components/native';
-import { d, l } from '~/utils/constant';
 import { withNavigation } from '@react-navigation/compat';
+
+import { d, l } from '~/utils/constant';
+import { Img } from '~/img';
+
 const Container = styled.View`
   height: ${d.px * l.tB}px;
   width: ${d.width - d.px * l.tB}px;
-  margin-left: ${l.mR}px;
+  margin-left: ${l.mL}px;
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
@@ -36,7 +38,7 @@ const TopBarLeftIconSearchBar = ({ navigation }: Props) => {
     <Container>
       <SnowFlake
         style={{ resizeMode: 'contain' }}
-        source={require('~/img/logo.png')}
+        source={Img.logo}
       />
       <SearchButton
         onPress={() => {
@@ -47,7 +49,7 @@ const TopBarLeftIconSearchBar = ({ navigation }: Props) => {
       >
         <SearchIcon
           style={{ resizeMode: 'contain' }}
-          source={require('~/img/icon/iconSearch.png')}
+          source={Img.icon.search}
         />
       </SearchButton>
     </Container>

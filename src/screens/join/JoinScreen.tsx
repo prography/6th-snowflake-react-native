@@ -1,8 +1,7 @@
 import * as React from 'react';
 import { useEffect } from 'react';
-import { View, Text, Alert } from 'react-native';
+import { Alert } from 'react-native';
 import styled from 'styled-components/native';
-import { useDispatch, useSelector } from 'react-redux';
 import { StackActions } from '@react-navigation/native';
 import KakaoLogins from '@react-native-seoul/kakao-login';
 
@@ -76,7 +75,7 @@ const JoinScreen = ({ navigation }: Props) => {
 
       // 카카오로 accessToken을 받으면
       if (result) {
-        const response = await fetch(
+        const response = await fetch( // 여기는 그냥 fetch
           `${BASE_URL}/accounts/social/kakao-login-callback`,
           requestOptions,
         );

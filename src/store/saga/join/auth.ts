@@ -1,7 +1,5 @@
 import { all, fork, call, put, take } from "redux-saga/effects";
-import AsyncStorage, {
-  useAsyncStorage,
-} from "@react-native-community/async-storage";
+import AsyncStorage from "@react-native-community/async-storage";
 
 import { LOGIN, setIsLoggedin, loginAC } from "~/store/modules/join/auth";
 import { llog } from "~/utils/functions";
@@ -27,7 +25,7 @@ function* login(email: string, password: string) {
 
     // 1. loginAPI 호출
     const json: LoginRes = yield call(authAPI.login, email, password);
-    console.log("😸10. loginAPI 에서 accesToken 받아오기", json.access);
+    llog("😸10. loginAPI 에서 accesToken 받아오기", json.access);
 
     // 2. login 성공 처리
     yield put(loginAC.success(json));
@@ -40,7 +38,7 @@ function* login(email: string, password: string) {
 }
 
 function* watchAuth() {
-  console.log("😸7. LOGIN_REQUEST가 드디어 saga에서 감지되었다!!");
+  llog("😸7. LOGIN_REQUEST가 드디어 saga에서 감지되었다!!");
   // yield takeLatest(LOGIN.REQUEST, login); // 액션에서 뭔가 가져올게 없으면 이런식으로
   const { email, password } = yield take(LOGIN.REQUEST);
   yield call(login, email, password);
