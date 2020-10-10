@@ -22,6 +22,13 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import { JoinStackParamList } from '~/navigation/tabs/JoinStack';
 import { manageLoginLogout } from '~/store/modules/join/auth';
 
+interface JoinInfo {
+  guideText: string;
+  guide: 'email' | 'kakao' | 'apple' | 'naver';
+  screen?: string;
+  function: (() => Promise<void>) | 'none';
+}
+
 const JOIN_BOX_HEIGHT = d.px * 50;
 const Container = styled.View`
   flex: 1;
@@ -182,30 +189,38 @@ const JoinScreen = ({ navigation }: Props) => {
     }
   };
 
-  const joinArray = [
+  const _signInWithNaver = async () => {
+    try {
+      analytics().logEvent("press_naver_login_btn");
+      llog('🤢 네이버 가입을 해보자');
+
+    } catch (error) {
+      llog('💢 naver error', error);
+      Alert.alert('오류', '네이버 로그인 실패');
+    }
+  };
+
+  const joinArray: JoinInfo[] = [
     {
       guideText: '이메일로 가입하기',
       guide: 'email',
       screen: 'Join1',
       function: 'none',
-      img: 'none',
-      key: 0,
     },
     {
       guideText: '카카오로 가입하기',
       guide: 'kakao',
-      screen: 'JoinWithKakao',
       function: _signInWithKakao,
-      img: 'kakao',
-      key: 1,
     },
     {
       guideText: '애플로 가입하기',
       guide: 'apple',
-      screen: 'JoinWithApple',
       function: _signInWithApple,
-      img: 'apple',
-      key: 2,
+    },
+    {
+      guideText: '네이버로 가입하기',
+      guide: 'naver',
+      function: _signInWithNaver,
     },
   ];
 
@@ -219,7 +234,7 @@ const JoinScreen = ({ navigation }: Props) => {
         <LeftMargin>
           <TopBarBackArrowRightIcon />
         </LeftMargin>
-        {joinArray.map((join, index: number) => {
+        {joinArray.map((join: JoinInfo, index: number) => {
           // apple login은 iOS 기기에만 보여준다
           if (join.guide === 'apple' && isAndroid) {
             return null
@@ -231,7 +246,7 @@ const JoinScreen = ({ navigation }: Props) => {
                 activeOpacity={1}
                 onPress={() => {
                   join.function === 'none'
-                    ? navigation.navigate('JoinStack', { screen: join.screen })
+                    ? navigation.navigate(join.screen)
                     : join.function();
                 }}
               >
