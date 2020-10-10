@@ -45,9 +45,7 @@ const GoodScoreContainer = styled.View`
   width: 100%;
   height: ${d.px * 60}px;
   flex-direction: row;
-  border-color: ${c.darkGray};
-  border-width: ${d.px * 0.5}px;
-  border-style: solid;
+  background-color: ${c.mint};
   margin-bottom: ${d.px * 13}px;
   align-items: center;
   justify-content: center;
@@ -55,14 +53,14 @@ const GoodScoreContainer = styled.View`
 const GoodScore = styled.View`
   width: ${(props) => props.score}%;
   height: 100%;
-  background-color: ${c.mint};
+  background-color: ${c.purple};
   position: absolute;
   left: 0;
 `;
 const GoodScoreText = styled.Text`
   font-family: Jost-Medium;
   font-size: ${d.px * 17}px;
-  color: ${c.black};
+  color: white;
 `;
 const PurpleSkyScoreContainer = styled.View`
   flex-direction: column;
@@ -110,9 +108,7 @@ const GoodOrBadButtonContainer = styled.View`
   width: 100%;
   height: ${d.px * 60}px;
   flex-direction: row;
-  border-color: ${c.darkGray};
-  border-width: ${d.px * 0.5}px;
-  border-style: solid;
+
   margin-bottom: ${d.px * 20}px;
 `;
 const GoodButton = styled.TouchableOpacity`
@@ -120,10 +116,7 @@ const GoodButton = styled.TouchableOpacity`
   height: 100%;
   justify-content: center;
   align-items: center;
-  background-color: ${c.mint};
-  border-color: ${c.darkGray};
-  border-right-width: ${d.px * 0.5}px;
-  border-style: solid;
+  background-color: ${c.purple};
 `;
 const BadButton = styled.TouchableOpacity`
   flex: 1;
@@ -131,12 +124,13 @@ const BadButton = styled.TouchableOpacity`
   justify-content: center;
   align-items: center;
   background-color: white;
+  background-color: ${c.mint};
 `;
 
 const GoodBadText = styled.Text`
   font-family: Jost-Medium;
   font-size: ${d.px * 15}px;
-  color: ${c.black};
+  color: ${(props) => (props.white ? 'white' : c.black)};
 `;
 const NotYet = styled.TouchableOpacity`
   width: 100%;
@@ -144,9 +138,7 @@ const NotYet = styled.TouchableOpacity`
 
   justify-content: center;
   align-items: center;
-  border-color: ${c.darkGray};
-  border-width: ${d.px * 0.5}px;
-  border-style: solid;
+  background-color: ${c.darkGray};
 `;
 const SutraTitle = styled.Text`
   font-family: Jost-Semi;
@@ -190,11 +182,11 @@ const OneSutraCard = () => {
                   source={Img.icon.bookmarkSelected}
                 />
               ) : (
-                  <BookmarkImage
-                    style={{ resizeMode: 'contain' }}
-                    source={Img.icon.bookmarkUnselected}
-                  />
-                )}
+                <BookmarkImage
+                  style={{ resizeMode: 'contain' }}
+                  source={Img.icon.bookmarkUnselected}
+                />
+              )}
             </BookmarkContainer>
           </ImageContainer>
           <Text />
@@ -232,20 +224,20 @@ const OneSutraCard = () => {
               </PurpleSkyScoreContainer>
             </SelectionContainer>
           ) : (
-              <SelectionContainer>
-                <GoodOrBadButtonContainer>
-                  <GoodButton activeOpacity={1}>
-                    <GoodBadText>추천</GoodBadText>
-                  </GoodButton>
-                  <BadButton activeOpacity={1}>
-                    <GoodBadText>비추</GoodBadText>
-                  </BadButton>
-                </GoodOrBadButtonContainer>
-                <NotYet activeOpacity={1}>
-                  <GoodBadText>안 해 봤어요</GoodBadText>
-                </NotYet>
-              </SelectionContainer>
-            )}
+            <SelectionContainer>
+              <GoodOrBadButtonContainer>
+                <GoodButton activeOpacity={1}>
+                  <GoodBadText white={true}>추천</GoodBadText>
+                </GoodButton>
+                <BadButton activeOpacity={1}>
+                  <GoodBadText white={false}>비추</GoodBadText>
+                </BadButton>
+              </GoodOrBadButtonContainer>
+              <NotYet activeOpacity={1}>
+                <GoodBadText white={true}>안 해 봤어요</GoodBadText>
+              </NotYet>
+            </SelectionContainer>
+          )}
         </TopArea>
         <MarginNarrow />
         <SutraTitle>체위 한글 이름</SutraTitle>
