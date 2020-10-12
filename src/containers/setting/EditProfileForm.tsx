@@ -6,6 +6,7 @@ import { c, d } from "~/utils/constant";
 interface Props {
   title: string;
   defaultValue: string;
+  setValue: Function;
 }
 
 const Container = styled.View`
@@ -34,13 +35,18 @@ const InfoInput = styled.TextInput`
   border-width: ${d.px * 1}px;
 `;
 
-const EditProfileForm = ({ title, defaultValue }: Props) => {
+const EditProfileForm = ({ title, defaultValue, setValue }: Props) => {
   return (
     <Container>
       <TitleContainer>
         <TitleText>{title}</TitleText>
       </TitleContainer>
-      <InfoInput value={defaultValue} />
+      <InfoInput 
+        value={defaultValue}
+        autoCapitalize={'none'}
+        autoCorrect={false}
+        onChangeText={(text)=>setValue(text)}
+      />
     </Container>
   );
 };

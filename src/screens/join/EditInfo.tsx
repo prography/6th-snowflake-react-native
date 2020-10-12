@@ -1,17 +1,16 @@
 import * as React from "react";
 import styled from "styled-components/native";
-import { useState, useEffect } from "react";
-import { d, c, l, BASE_URL } from "~/utils/constant";
+import { useState } from "react";
+import { l } from "~/utils/constant";
 import TopBarBackArrowTitleRightIcon from "~/components/universal/topBar/TopBarBackArrowTitleRightIcon";
-import { getUserInfo } from "~/api/join/userInfo";
 import TextTitlePurpleRight from "~/components/universal/text/TextTitlePurpleRight";
-import { getTokenItem } from "~/utils/asyncStorage";
-import { llog2 } from "~/utils/functions";
-import { UserInfoRes } from "~/utils/interface";
 import EditProfileForm from "~/containers/setting/EditProfileForm";
 import BottomBtnCollectData from "~/components/universal/bottomBar/BottomBtnCollectData";
 import { RootTabParamList } from "~/navigation/RootTabNavigation";
 import { StackNavigationProp } from "@react-navigation/stack";
+import { getUserInfoAC } from "~/store/modules/join/userInfo";
+import { RootState } from "~/store/modules";
+import { useDispatch, useSelector } from "react-redux";
 
 interface Props {
     navigation: StackNavigationProp<RootTabParamList>;
@@ -27,42 +26,22 @@ const KeyboardAwareView = styled.KeyboardAvoidingView`
 `;
 
 const EditInfo = ({navigation}: Props) => {
-  const [userInfo, setUserInfo] = useState(null);
 
-  const _getUserInfo = async ():Promise<UserInfoRes> => {
-    try {
-      const token = await getTokenItem();
-      if (!token) {
-        throw Error("client - no token");
-      }
+  const { loading, data: userInfo, error } = useSelector((state: RootState) => state.join.userInfo.userInfo);
 
-      const response = await fetch(`${BASE_URL}/accounts/`, {
-        method: "GET",
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-
-      const json: UserInfoRes = await response.json();
-      llog2("🅱️🅱️🅱️🅱️🅱️🅱️   User info 불러옴 - 성공!", json);
-      setUserInfo(json);
-    } catch (error) {
-      console.log("getUserInfo Error");
-    }
-  };
-  
-  useEffect(() => {
-    _getUserInfo();
-  }, []);
+  const [email, setEmail] = useState<string>(userInfo?.email);
+  const [username, setUsername] = useState<string>(userInfo?.username);
 
   const infoArr = [
-      {"title": "이메일", "defaultValue":userInfo?.email},
-      {"title": "이름", "defaultValue":userInfo?.username}
+      {title: "이메일", defaultValue:email, setValue:setEmail},
+      {title: "이름", defaultValue:username, setValue: setUsername}
   ]
 
+  
+console.log(email, username);
   return (
     <>
-      {userInfo === null ? (
+      {loading ? (
         <TextTitlePurpleRight title={"Loading..."} />
       ) : (
           <BottomBtnCollectData
@@ -75,7 +54,7 @@ const EditInfo = ({navigation}: Props) => {
           <KeyboardAwareView>
             <TopBarBackArrowTitleRightIcon title="회원정보 수정" />
             {infoArr.map((info, index) => (
-                <EditProfileForm key={index} title={info.title} defaultValue={info.defaultValue}/>
+                <EditProfileForm key={index} title={info.title} defaultValue={info.defaultValue} setValue={info.setValue}/>
             ))}
           </KeyboardAwareView>
         </Container>
