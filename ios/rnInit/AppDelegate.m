@@ -7,6 +7,7 @@
 #import <CodePush/CodePush.h>
 #import <KakaoOpenSDK/KakaoOpenSDK.h>
 #import <React/RCTLinkingManager.h>
+#import <NaverThirdPartyLogin/NaverThirdPartyLoginConnection.h>
 
 #if DEBUG
 #import <FlipperKit/FlipperClient.h>
@@ -62,6 +63,8 @@ static void InitializeFlipper(UIApplication *application) {
   [self.window makeKeyAndVisible];
   
   [KOSession sharedSession].automaticPeriodicRefresh = YES;
+  [[NaverThirdPartyLoginConnection getSharedInstance] setIsNaverAppOauthEnable:YES];
+  [[NaverThirdPartyLoginConnection getSharedInstance] setIsInAppOauthEnable:YES];
   
   return YES;
 }
@@ -93,6 +96,9 @@ static void InitializeFlipper(UIApplication *application) {
                                                 options:(NSDictionary<NSString *,id> *)options {
     if ([KOSession isKakaoAccountLoginCallback:url]) {
         return [KOSession handleOpenURL:url];
+    }
+    if ([url.scheme isEqualToString:@"naverlogin"]) {
+      return [[NaverThirdPartyLoginConnection getSharedInstance] application:application openURL:url options:options];
     }
 
     return [RCTLinkingManager application:application openURL:url options:options];

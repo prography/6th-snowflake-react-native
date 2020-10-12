@@ -4,6 +4,7 @@ import { Alert } from 'react-native';
 import styled from 'styled-components/native';
 import { StackActions } from '@react-navigation/native';
 import KakaoLogins from '@react-native-seoul/kakao-login';
+import { NaverLogin, getProfile, TokenResponse as NaverTokenResponse } from "@react-native-seoul/naver-login";
 
 import appleAuth, {
   AppleAuthRequestOperation,
@@ -21,6 +22,13 @@ import { KakaoLoginResponse } from '~/utils/interface';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { JoinStackParamList } from '~/navigation/tabs/JoinStack';
 import { manageLoginLogout } from '~/store/modules/join/auth';
+
+interface JoinInfo {
+  guideText: string;
+  guide: 'email' | 'kakao' | 'apple' | 'naver';
+  screen?: string;
+  function: (() => Promise<void>) | 'none';
+}
 
 const JOIN_BOX_HEIGHT = d.px * 50;
 const Container = styled.View`
@@ -56,6 +64,31 @@ const LeftMargin = styled.View`
 interface Props {
   navigation: StackNavigationProp<JoinStackParamList, 'JoinScreen'>;
 }
+
+const iosKeys = {
+  // test
+  // kConsumerKey: "VC5CPfjRigclJV_TFACU",
+  // kConsumerSecret: "f7tLFw0AHn",
+  kConsumerKey: "uH3FW_nhGyuxxOcckFcp",
+  kConsumerSecret: "E85tv_Brxc",
+  kServiceAppName: "눈송이",
+  kServiceAppUrlScheme: "naverlogin" // only for iOS
+  // kServiceAppUrlScheme: "testapp" // only for iOS
+};
+
+const androidKeys = {
+  // test
+  // kConsumerKey: "QfXNXVO8RnqfbPS9x0LR",
+  // kConsumerSecret: "6ZGEYZabM9",
+  kConsumerKey: "uH3FW_nhGyuxxOcckFcp",
+  kConsumerSecret: "E85tv_Brxc",
+  kServiceAppName: "눈송이"
+};
+
+const naverInitials = {
+  callback: 'http://snowflakeproduction-env.eba-qnph52vm.ap-northeast-2.elasticbeanstalk.com/accounts/social/naver-login-callback',
+  ...isAndroid ? androidKeys : iosKeys,
+};
 
 const JoinScreen = ({ navigation }: Props) => {
   const _signInWithKakao = async () => {
@@ -182,31 +215,70 @@ const JoinScreen = ({ navigation }: Props) => {
     }
   };
 
-  const joinArray = [
+
+  const naverLogin = props => {
+    return new Promise((resolve, reject) => {
+      NaverLogin.login(props, (err, token) => {
+        llog('🤢 naver token', token);
+        if (err) {
+          reject(err);
+          return;
+        }
+        resolve(token);
+      });
+    });
+  };
+  const getUserProfile = async (accessToken: string) => {
+    const profileResult = await getProfile(accessToken);
+    if (profileResult.resultcode === "024") {
+      Alert.alert("로그인 실패", profileResult.message);
+      return;
+    }
+    console.log("profileResult", profileResult);
+  };
+  const _signInWithNaver = async () => {
+    // 코드 미완.
+    try {
+      // const response = await fetch(`https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=${naverInitials.kConsumerKey}&redirect_uri=${naverInitials.callback}&state=DAHEE`);
+      // const json = await response.json();
+      // llog('🤢🤢 json', response.status, json);
+      // return
+
+      analytics().logEvent("press_naver_login_btn");
+      llog('🤢 네이버 가입을 해보자');
+      const result: NaverTokenResponse = await naverLogin(naverInitials);
+      llog('🤢result', result.accessToken);
+      // getUserProfile(result.accessToken);
+      // ??
+
+    } catch (error) {
+      llog('💢 naver error', error);
+      Alert.alert('오류', '네이버 로그인 실패');
+    }
+  };
+
+  const joinArray: JoinInfo[] = [
     {
       guideText: '이메일로 가입하기',
       guide: 'email',
       screen: 'Join1',
       function: 'none',
-      img: 'none',
-      key: 0,
     },
     {
       guideText: '카카오로 가입하기',
       guide: 'kakao',
-      screen: 'JoinWithKakao',
       function: _signInWithKakao,
-      img: 'kakao',
-      key: 1,
     },
     {
       guideText: '애플로 가입하기',
       guide: 'apple',
-      screen: 'JoinWithApple',
       function: _signInWithApple,
-      img: 'apple',
-      key: 2,
     },
+    // {
+    //   guideText: '네이버로 가입하기',
+    //   guide: 'naver',
+    //   function: _signInWithNaver,
+    // },
   ];
 
   useEffect(() => {
@@ -219,7 +291,7 @@ const JoinScreen = ({ navigation }: Props) => {
         <LeftMargin>
           <TopBarBackArrowRightIcon />
         </LeftMargin>
-        {joinArray.map((join, index: number) => {
+        {joinArray.map((join: JoinInfo, index: number) => {
           // apple login은 iOS 기기에만 보여준다
           if (join.guide === 'apple' && isAndroid) {
             return null
@@ -231,7 +303,7 @@ const JoinScreen = ({ navigation }: Props) => {
                 activeOpacity={1}
                 onPress={() => {
                   join.function === 'none'
-                    ? navigation.navigate('JoinStack', { screen: join.screen })
+                    ? navigation.navigate(join.screen)
                     : join.function();
                 }}
               >

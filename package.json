@@ -25,6 +25,7 @@
     "@react-native-firebase/app": "^8.2.0",
     "@react-native-firebase/remote-config": "^8.0.0",
     "@react-native-seoul/kakao-login": "2.4.1",
+    "@react-native-seoul/naver-login": "^2.1.0",
     "@react-navigation/bottom-tabs": "5.3.4",
     "@react-navigation/compat": "5.1.20",
     "@react-navigation/native": "5.2.4",
