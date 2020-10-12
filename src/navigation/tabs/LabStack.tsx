@@ -17,8 +17,11 @@ export default () => {
         headerShown: false,
       }}
     >
-      <Stack.Screen name='SutraList' component={SutraList} />
       <Stack.Screen name='SutraInfo' component={SutraInfo} />
+      <Stack.Screen name='SutraList' component={SutraList} />
+      
+      
+      
 
       <Stack.Screen name='LabMain' component={LabMain} />
     </Stack.Navigator>
