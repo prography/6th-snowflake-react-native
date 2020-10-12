@@ -116,7 +116,7 @@ const GoodButton = styled.TouchableOpacity`
   height: 100%;
   justify-content: center;
   align-items: center;
-  background-color: ${c.purple};
+  background-color: ${c.darkGray};
 `;
 const BadButton = styled.TouchableOpacity`
   flex: 1;
@@ -124,7 +124,7 @@ const BadButton = styled.TouchableOpacity`
   justify-content: center;
   align-items: center;
   background-color: white;
-  background-color: ${c.mint};
+  background-color: ${c.extraLightGray};
 `;
 
 const GoodBadText = styled.Text`
@@ -138,7 +138,7 @@ const NotYet = styled.TouchableOpacity`
 
   justify-content: center;
   align-items: center;
-  background-color: ${c.darkGray};
+  background-color: ${c.lightGray};
 `;
 const SutraTitle = styled.Text`
   font-family: Jost-Semi;
@@ -164,7 +164,7 @@ const CommentText = styled.Text`
 // 하나짜리 컴포넌트! SutraCardsList에서 데이터 받아와서 list로...!
 const OneSutraCard = () => {
   const [bookmarked, setBookmarked] = useState(false);
-  const [selected, setSelected] = useState(false);
+  const [selected, setSelected] = useState(true);
   return (
     <>
       <Container>
