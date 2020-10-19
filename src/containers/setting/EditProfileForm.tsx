@@ -17,7 +17,7 @@ const Container = styled.View`
 const TitleContainer = styled.View`
   justify-content: center;
   margin-right: ${d.px * 10}px;
-  width: ${d.px * 50}px;
+  width: ${d.px * 60}px;
 `;
 
 const TitleText = styled.Text`

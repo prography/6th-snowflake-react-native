@@ -11,6 +11,8 @@ import { StackNavigationProp } from "@react-navigation/stack";
 import { getUserInfoAC } from "~/store/modules/join/userInfo";
 import { RootState } from "~/store/modules";
 import { useDispatch, useSelector } from "react-redux";
+import { llog } from "~/utils/functions";
+import { fetchAPI } from "~/api";
 
 interface Props {
     navigation: StackNavigationProp<RootTabParamList>;
@@ -31,14 +33,40 @@ const EditInfo = ({navigation}: Props) => {
 
   const [email, setEmail] = useState<string>(userInfo?.email);
   const [username, setUsername] = useState<string>(userInfo?.username);
+  const [password, setPassword] = useState<string>("");
 
   const infoArr = [
-      {title: "이메일", defaultValue:email, setValue:setEmail},
-      {title: "이름", defaultValue:username, setValue: setUsername}
+      {title: "변경할\n이메일", defaultValue:email, setValue:setEmail},
+      {title: "변경할\n이름", defaultValue:username, setValue: setUsername},
+      {title: "비밀번호\n인증", defaultVaue:password, setValue: setPassword}
   ]
 
+
+  const editInfo = async () => {
+    //PATCH account
+
+    try {
+      llog('😸2. /accounts 정보수정 api 호출');
+      const { status, response } = await fetchAPI('accounts/', {
+        method: 'PATCH',
+        params: {
+          email,
+          username,
+          password,
+        },
+      });
+      console.log('응다븡ㄴ?',status, response)
+      if (status === 201){
+        navigation.navigate("JoinStack", {screen: "SettingMain"})
+        alert('정보수정 완료');
+        console.log(response)
+      }
+    } catch (error) {
+      llog('😸. /accounts 정보수정 오류 catch.. ', error);
+    }
+  };
+
   
-console.log(email, username);
   return (
     <>
       {loading ? (
@@ -47,8 +75,7 @@ console.log(email, username);
           <BottomBtnCollectData
           btnText={"수정 완료"}
           isFilled={true}
-          stack={"JoinStack"}
-          screen={"SettingMain"}
+          onPressFunction={editInfo}
           >
         <Container>
           <KeyboardAwareView>
