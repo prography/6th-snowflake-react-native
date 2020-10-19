@@ -61,7 +61,7 @@ const Content = () => {
                   />
                 );
               default:
-                return <Text>😭무언가 잘 못 되었음</Text>;
+                return <Text key={index}>😭무언가 잘 못 되었음</Text>;
             }
           })
         )}

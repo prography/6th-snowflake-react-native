@@ -16,6 +16,7 @@ export default () => {
   const { getItem } = useAsyncStorage(AsyncAccessToken);
   const settingIsLoggedin = async () => {
     const accessTokenFS = await getItem();
+
     if (accessTokenFS) {
       llog('🥭 accessTokenFS 있다', accessTokenFS);
       manageLoginLogout(dispatch, true);
