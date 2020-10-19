@@ -1,8 +1,9 @@
 import * as React from 'react';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import { ScrollView, Text } from 'react-native';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components/native';
+import { useFocusEffect } from '@react-navigation/native';
 
 import TextTitlePurpleRight from '~/components/universal/text/TextTitlePurpleRight';
 import { d, c, l } from '~/utils/constant';
@@ -87,8 +88,13 @@ const Likes = ({ navigateToProductInfo }: Props) => {
     }
   };
 
+  useFocusEffect(
+    useCallback(() => {
+      _getLikes();
+    }, [])
+  );
+
   useEffect(() => {
-    _getLikes();
     setShowLikes(false);
   }, []);
 

@@ -71,9 +71,10 @@ const ProductInfoBar = ({ children, navigateToReviewUpload1, productId }: Props)
           object_id: productId,
         },
       });
-      llog('2. 🍊like post 성공? ', response);
-
-      await _checkIsLiked();
+      if (status === 201) {
+        llog('2. 🍊like post 성공? ', response);
+        await _checkIsLiked();
+      }
     } catch (error) {
       llog('🍊like 생성 에러 ', error);
     }

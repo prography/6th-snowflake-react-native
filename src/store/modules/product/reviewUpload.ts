@@ -147,9 +147,10 @@ export const setIsFilledReviewUpload3 = (isFilledReviewUpload3: boolean) => {
   };
 };
 
-export const resetReviewUploadStore = () => {
+export const resetReviewUploadStore = (productId: number) => {
   return {
     type: RESET_REVIEW_UPLOAD_STORE,
+    productId,
   };
 };
 
@@ -300,7 +301,35 @@ const ReviewUploadReducer = (state = initialState, action) => {
     case SET_IS_FILLED_REVIEW_UPLOAD3:
       return { ...state, isFilledReviewUpload3: action.isFilledReviewUpload3 };
     case RESET_REVIEW_UPLOAD_STORE:
-      return initialState;
+      const { productId } = action;
+      const reviewInfo1 = state.reviewInfo1.filter(
+        (r: ReviewInfo1) => r.productId !== productId
+      );
+      const reviewInfo2_average = state.reviewInfo2_average.filter(
+        (r: ReviewInfo2_average) => r.productId !== productId
+      );
+      const reviewInfo2_score = state.reviewInfo2_score.filter(
+        (r: ReviewInfo2_score) => r.productId !== productId
+      );
+      const reviewInfo2_myGender = state.reviewInfo2_myGender.filter(
+        (r: ReviewInfo2_myGender) => r.productId !== productId
+      );
+      const reviewInfo2_partnerGender = state.reviewInfo2_partnerGender.filter(
+        (r: ReviewInfo2_partnerGender) => r.productId !== productId
+      );
+      const reviewInfo3 = state.reviewInfo3.filter(
+        (r: ReviewInfo3) => r.productId !== productId
+      );
+      // isFilledReviewUpload1,2,3은 렌더링 때 자동으로 계산되므로 따로 초기화하지 않음
+      return {
+        ...state,
+        reviewInfo1,
+        reviewInfo2_average,
+        reviewInfo2_score,
+        reviewInfo2_myGender,
+        reviewInfo2_partnerGender,
+        reviewInfo3,
+      };
     default:
       return state;
   }
