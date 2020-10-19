@@ -40,8 +40,10 @@ function* login(email: string, password: string) {
 function* watchAuth() {
   llog("😸7. LOGIN_REQUEST가 드디어 saga에서 감지되었다!!");
   // yield takeLatest(LOGIN.REQUEST, login); // 액션에서 뭔가 가져올게 없으면 이런식으로
-  const { email, password } = yield take(LOGIN.REQUEST);
-  yield call(login, email, password);
+  while (true) {
+    const { email, password } = yield take(LOGIN.REQUEST);
+    yield call(login, email, password);
+  }
 }
 
 export default function* authSaga() {

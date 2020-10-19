@@ -89,7 +89,7 @@ const ReviewUpload3 = ({ navigation, route }: Props) => {
       });
 
       if (status === 201) {
-        dispatch(resetReviewUploadStore());
+        dispatch(resetReviewUploadStore(productId));
         navigation.navigate('ProductMain');
       }
     } catch (error) {
