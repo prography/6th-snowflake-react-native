@@ -10,6 +10,7 @@ import Join4 from '~/screens/join/Join4';
 import SettingMain from '~/screens/setting/SettingMain';
 import Feedback from '~/screens/setting/Feedback';
 import ProductInfo from '~/screens/product/ProductInfo';
+import EditInfo from '~/screens/join/EditInfo';
 import { ProductInfoParamList } from './ProductStack';
 
 export type Join2Params = {
@@ -47,6 +48,7 @@ export type JoinStackParamList = {
   Feedback: undefined;
   GenderColor: undefined;
   ProductInfo: ProductInfoParamList;
+  EditInfo: undefined;
 };
 
 const Stack = createStackNavigator<JoinStackParamList>();
@@ -68,6 +70,7 @@ export default () => {
       <Stack.Screen name='Feedback' component={Feedback} />
       <Stack.Screen name='GenderColor' component={GenderColor} />
       <Stack.Screen name='ProductInfo' component={ProductInfo} />
+      <Stack.Screen name='EditInfo' component={EditInfo} />
     </Stack.Navigator>
   );
 };

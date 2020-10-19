@@ -12,20 +12,29 @@ import MarginBottom from '~/components/universal/margin/MarginBottom';
 import TopBarBackArrow from '~/components/universal/topBar/TopBarBackArrow';
 import CharacInfoCard from '~/components/lab/sutra/list/CharacInfoCard';
 import SutraCardsList from '~/containers/lab/sutra/list/SutraCardsList';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { LabStackParamList } from '~/navigation/tabs/LabStack';
+
+interface Props {
+  navigation: StackNavigationProp<LabStackParamList, 'LabMain'>;
+}
 
 const Container = styled.View`
   flex-direction: column;
   align-items: flex-start;
 `;
 //backback
-const SutraList = () => {
+const SutraList = ({ navigation }: Props) => {
   React.useEffect(() => {
-    analytics().setCurrentScreen('SutraList');
+    analytics().setCurrentScreen("SutraList");
   }, []);
 
   return (
     <>
-      <NavBar selectedStack={'LabStack'}>
+      <NavBar
+        selectedStack={"LabStack"}
+        navigateToStack={(stackName: string) => navigation.navigate(stackName)}
+      >
         <ScrollView showsVerticalScrollIndicator={false}>
           <TopBarBackArrow />
           <Container>

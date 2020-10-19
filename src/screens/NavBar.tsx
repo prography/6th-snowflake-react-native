@@ -92,6 +92,7 @@ const NavBar = ({ children, navigateToStack, selectedStack }: Props) => {
               key={index}
               activeOpacity={1}
               onPress={() => {
+                console.log('확인',selectedStack, navigateToStack)
                 navigateToStack(tab.stackNameEng);
                 analytics().logEvent(`press_tab_${tab.stackNameEng}`);
                 analytics().setCurrentScreen(`${tab.stackNameEng}`);
