@@ -4,6 +4,8 @@ import styled from 'styled-components/native';
 import { d, l } from '~/utils/constant';
 import { withNavigation } from '@react-navigation/compat';
 import { Img } from '~/img';
+import BackButton from '../button/BackButton';
+import BackArrow from '~/img/svgIcons/BackArrow';
 
 const Container = styled.View`
   height: ${d.px * l.tB}px;
@@ -33,11 +35,14 @@ const TopBarBackArrow = ({ navigation }: Props) => {
   return (
     <Container>
       <Button onPress={() => navigation.pop()}>
-        <SnowFlake
+        {/* <SnowFlake
           style={{ resizeMode: 'contain' }}
           source={Img.icon.backArrow}
-        />
-      </Button>
+        /> */}
+        <BackArrow/>
+         </Button>
+      
+     
     </Container>
   );
 };

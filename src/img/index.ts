@@ -2,8 +2,9 @@
 import { d} from '~/utils/constant';
 export const Img = {
   iconWidthSize: {
-    extraSmall: d.px * 23,
-    small: d.px * 30
+    extraSmall: d.px * 20,
+    small: d.px * 24,
+    medium: d.px * 30
   },
   doodle: {
     cdBoxCrownFilledMint: require("~/img/doodle/doodleCdBoxCrownFilledMint.png"),
