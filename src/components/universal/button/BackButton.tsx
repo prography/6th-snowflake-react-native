@@ -3,6 +3,7 @@ import styled from 'styled-components/native';
 
 import { d, c } from '~/utils/constant';
 import { Img } from '~/img';
+import BackArrow from '~/img/svgIcons/BackArrow';
 
 interface Props {
   onPressBack: () => void;
@@ -29,10 +30,7 @@ const BackButton = ({ onPressBack }: Props) => {
     <Container
       activeOpacity={1}
       onPress={onPressBack}>
-      <SnowFlake
-        style={{ resizeMode: 'contain' }}
-        source={Img.icon.backArrow}
-      />
+      <BackArrow/>
     </Container>
   );
 };
