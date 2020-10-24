@@ -6,6 +6,7 @@ export const isAndroid = Platform.OS === "android";
 
 export const BASE_URL =
   'http://snowflakeproduction-env.eba-qnph52vm.ap-northeast-2.elasticbeanstalk.com';
+export const TEST_BASE_URL = 'http://snowflaketest-env.eba-6bzwp2je.ap-northeast-2.elasticbeanstalk.com'
 export const d = {
   width: Dimensions.get('window').width,
   height: Dimensions.get('window').height,

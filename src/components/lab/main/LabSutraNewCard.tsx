@@ -7,10 +7,14 @@ import MarginNarrow from "~/components/universal/margin/MarginNarrow";
 import MarginWide from "~/components/universal/margin/MarginWide";
 import LineGrayRightLong from "~/components/universal/line/LineGrayRightLong";
 import MarginMedium from "~/components/universal/margin/MarginMedium";
-import { ResultsRes, Card } from "~/api/interface";
-import { fetchAPI } from "~/api";
+import { ResultsRes, Card, ResultRes } from "~/api/interface";
+import { fetchAPI, fetchTestAPI } from "~/api";
 import { llog } from "~/utils/functions";
 import { getTokenItem } from "~/utils/asyncStorage";
+import TextTitlePurpleRight from "~/components/universal/text/TextTitlePurpleRight";
+import { useSelector } from "react-redux";
+import { RootState } from "~/store/modules";
+import { Img } from "~/img";
 
 interface Props {
   onPress: () => void;
@@ -60,23 +64,20 @@ const CommentText = styled.Text`
 `;
 
 const LabSutraNewCard = ({ onPress }: Props) => {
-  const [_newCard, _setNewCard] = useState(null);
+  const blindState = useSelector(
+    (state: RootState) => state.product.blind.blindState
+  );
+
+  const [_newCard, _setNewCard] = useState<Card>(null);
 
   const _getNewCard = async () => {
     try {
-      // const token = await getTokenItem();
-      // console.log(token)
-      // if (!token) { return; }
-      console.log("진행");
-
-
-      const { status, response } = await fetchAPI("labs/sutra/new-card/");
-      console.log("response", response, "st", status);
-      const json = await response.json();
+      const { response, status } = await fetchTestAPI("labs/sutra/new-card/");
+      const json: Card = await response.json();
       llog("New Card - success!", json);
-      console.log("보여줘보", json);
+
       if (status === 200) {
-        //_setNewCard(json.results);
+        _setNewCard(json);
       }
     } catch (error) {
       llog("New Card - error", error);
@@ -89,21 +90,33 @@ const LabSutraNewCard = ({ onPress }: Props) => {
 
   return (
     <>
-      <Container onPress={onPress} activeOpacity={1.0}>
-        <ImageArea>
-          <SutraImage />
-          <NewText>NEW!</NewText>
-        </ImageArea>
-        <MarginMedium />
-        <TextArea>
-          <SutraTitle>체위 이름</SutraTitle>
-          <MarginNarrow />
-          <CommentWrapper>
-            <CommentUsername>닉네임</CommentUsername>
-            <CommentText>실시간 댓글 우와우</CommentText>
-          </CommentWrapper>
-        </TextArea>
-      </Container>
+      {_newCard === null ? (
+        <TextTitlePurpleRight title={"Loading..."} />
+      ) : (
+        <Container onPress={onPress} activeOpacity={1.0}>
+          <ImageArea>
+            <SutraImage
+              style={{ resizeMode: "cover" }}
+              source={
+                blindState
+                  ? Img.doodle.cdBoxMintPurpleHeart
+                  : { uri: _newCard.thumbnail }
+              }
+            />
+            <NewText>NEW!</NewText>
+          </ImageArea>
+          <MarginMedium />
+          <TextArea>
+            <SutraTitle>{_newCard.name_kor}</SutraTitle>
+            <MarginNarrow />
+            <CommentWrapper>
+              <CommentUsername>{_newCard.comment.username}</CommentUsername>
+              <CommentText>{_newCard.comment.content}</CommentText>
+            </CommentWrapper>
+          </TextArea>
+        </Container>
+      )}
+
       <MarginMedium />
 
       <LineGrayRightLong />
