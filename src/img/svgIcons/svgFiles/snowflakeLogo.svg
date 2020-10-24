@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 24.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 100 100" style="enable-background:new 0 0 100 100;" xml:space="preserve">
+<style type="text/css">
+	.st0{fill:none;stroke:#2D2D2D;stroke-width:3.5;stroke-miterlimit:5;}
+	.st1{fill:none;stroke:#2D2D2D;stroke-width:13;stroke-miterlimit:10;}
+</style>
+<g id="thinLine">
+	<circle class="st0" cx="91.6" cy="8.5" r="6.5"/>
+	<polygon class="st0" points="21.6,98 2.1,98 2.1,78.5 	"/>
+</g>
+<g id="thickLine">
+	<line class="st1" x1="19.7" y1="42.4" x2="79.6" y2="58.5"/>
+	<line class="st1" x1="27.7" y1="72.4" x2="71.5" y2="28.5"/>
+	<line class="st1" x1="57.6" y1="80.4" x2="41.6" y2="20.5"/>
+</g>
+</svg>

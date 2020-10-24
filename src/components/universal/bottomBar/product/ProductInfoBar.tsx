@@ -12,6 +12,8 @@ import { llog } from '~/utils/functions';
 import { RootState } from '~/store/modules';
 import { fetchAPI } from '~/api';
 import { Img } from '~/img';
+import HeartUnselected from '~/img/svgIcons/HeartUnselected';
+import HeartSelected from '~/img/svgIcons/HeartSelected';
 import { alertUtil } from '~/utils/alert';
 
 interface Props {
@@ -153,10 +155,7 @@ const ProductInfoBar = ({ children, navigateToReviewUpload1, productId }: Props)
             }
           }}
         >
-          <HeartIcon
-            resizeMode="contain"
-            source={isLiked ? Img.icon.heartBlack : Img.icon.heartWhite}
-          />
+          {isLiked? <HeartSelected/> : <HeartUnselected/> }
         </Tab>
         {/* <Tab>
           <Title>공유하기</Title>

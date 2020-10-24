@@ -4,6 +4,8 @@ import styled from 'styled-components/native';
 import { d, l } from '~/utils/constant';
 import { withNavigation } from '@react-navigation/compat';
 import { Img } from '~/img';
+import BackArrow from '~/img/svgIcons/BackArrow';
+import SearchGlass from '~/img/svgIcons/SearchGlass';
 const Container = styled.View`
   height: ${d.px * l.tB}px;
   width: ${d.width - d.px * l.tB}px;
@@ -48,10 +50,7 @@ const TopBarBackArrowSearchBar = ({ navigation }: Props) => {
           navigation.pop();
         }}
       >
-        <SnowFlake
-          style={{ resizeMode: 'contain' }}
-          source={Img.icon.backArrow}
-        />
+        <BackArrow/>
       </Button>
       <SearchButton
         onPress={() => {
@@ -60,10 +59,7 @@ const TopBarBackArrowSearchBar = ({ navigation }: Props) => {
           });
         }}
       >
-        <SearchIcon
-          style={{ resizeMode: 'contain' }}
-          source={Img.icon.search}
-        />
+        <SearchGlass/>
       </SearchButton>
     </Container>
   );
