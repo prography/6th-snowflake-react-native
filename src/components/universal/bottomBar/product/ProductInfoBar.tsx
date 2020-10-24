@@ -13,6 +13,7 @@ import { RootState } from '~/store/modules';
 import { fetchAPI } from '~/api';
 import { Img } from '~/img';
 import MyModal from '~/components/universal/modal/MyModal';
+import { alertUtil } from '~/utils/alert';
 
 interface Props {
   children: React.ReactNode;
@@ -63,6 +64,7 @@ const ProductInfoBar = ({ children, navigateToReviewUpload1, productId }: Props)
       if (!token) { 
         setModalVisible(!modalVisible);
          return; }
+      // if (!token) { return; } // 이 함수 들어오기 전에 체크 함.
 
       llog('1-1.🍊like 생성 위한 token 잘 가져옴 ', token);
       llog('token', token);
@@ -113,6 +115,7 @@ const ProductInfoBar = ({ children, navigateToReviewUpload1, productId }: Props)
       if (!token) { 
         setModalVisible(!modalVisible);
         return; }
+      //if (!token) { return; }
 
       const { status, response } = await fetchAPI(`likes/?model=product&object_id=${productId}`, { token });
       if (status === 200) {

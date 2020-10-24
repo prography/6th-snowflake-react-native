@@ -25,7 +25,7 @@ function* login(email: string, password: string) {
 
     // 1. loginAPI 호출
     const json: LoginRes = yield call(authAPI.login, email, password);
-    llog("😸10. loginAPI 에서 accesToken 받아오기", json.access);
+    llog("😸10. loginAPI 에서 accesToken 받아오기", json);
 
     // 2. login 성공 처리
     yield put(loginAC.success(json));
