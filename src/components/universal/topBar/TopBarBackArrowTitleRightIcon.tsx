@@ -4,6 +4,7 @@ import styled from 'styled-components/native';
 import { d, l } from '~/utils/constant';
 import { withNavigation } from '@react-navigation/compat';
 import BackArrow from '~/img/svgIcons/BackArrow';
+import SnowflakeLogo from '~/img/svgIcons/SnowflakeLogo';
 const Container = styled.View`
   height: ${d.px * l.tB}px;
   width: ${d.width - 2 * l.mR}px;
@@ -50,10 +51,7 @@ const TopBarBackArrowTitleRightIcon = ({ navigation, title }: Props) => {
         <BackArrow/>
       </Button>
         <Title>{title}</Title>
-      <SnowFlake
-        style={{ resizeMode: 'contain' }}
-        source={require('~/img/logo.png')}
-      />
+      <SnowflakeLogo/>
     </Container>
   );
 };

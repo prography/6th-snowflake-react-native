@@ -4,7 +4,8 @@ export const Img = {
   iconWidthSize: {
     extraSmall: d.px * 20,
     small: d.px * 24,
-    medium: d.px * 30
+    medium: d.px * 30,
+    big:d.px * 42
   },
   doodle: {
     cdBoxCrownFilledMint: require("~/img/doodle/doodleCdBoxCrownFilledMint.png"),

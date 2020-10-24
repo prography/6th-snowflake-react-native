@@ -4,6 +4,7 @@ import styled from 'styled-components/native';
 
 import { d } from '~/utils/constant';
 import { Img } from '~/img';
+import SnowflakeLogo from '~/img/svgIcons/SnowflakeLogo';
 
 const Container = styled.View`
   height: ${d.px * 75}px;
@@ -20,10 +21,7 @@ const SnowFlake = styled.Image`
 const TopBarWithIcon = () => {
   return (
     <Container>
-      <SnowFlake
-        style={{ resizeMode: 'contain' }}
-        source={Img.logo}
-      />
+      <SnowflakeLogo/>
     </Container>
   );
 };
