@@ -1,11 +1,16 @@
-import * as React from 'react';
-import styled from 'styled-components/native';
+import * as React from "react";
+import { useState, useEffect } from "react";
+import styled from "styled-components/native";
 
-import { d, l, c } from '~/utils/constant';
-import MarginNarrow from '~/components/universal/margin/MarginNarrow';
-import MarginWide from '~/components/universal/margin/MarginWide';
-import LineGrayRightLong from '~/components/universal/line/LineGrayRightLong';
-import MarginMedium from '~/components/universal/margin/MarginMedium';
+import { d, l, c } from "~/utils/constant";
+import MarginNarrow from "~/components/universal/margin/MarginNarrow";
+import MarginWide from "~/components/universal/margin/MarginWide";
+import LineGrayRightLong from "~/components/universal/line/LineGrayRightLong";
+import MarginMedium from "~/components/universal/margin/MarginMedium";
+import { ResultsRes, Card } from "~/api/interface";
+import { fetchAPI } from "~/api";
+import { llog } from "~/utils/functions";
+import { getTokenItem } from "~/utils/asyncStorage";
 
 interface Props {
   onPress: () => void;
@@ -55,6 +60,33 @@ const CommentText = styled.Text`
 `;
 
 const LabSutraNewCard = ({ onPress }: Props) => {
+  const [_newCard, _setNewCard] = useState(null);
+
+  const _getNewCard = async () => {
+    try {
+      // const token = await getTokenItem();
+      // console.log(token)
+      // if (!token) { return; }
+      console.log("진행");
+
+
+      const { status, response } = await fetchAPI("labs/sutra/new-card/");
+      console.log("response", response, "st", status);
+      const json = await response.json();
+      llog("New Card - success!", json);
+      console.log("보여줘보", json);
+      if (status === 200) {
+        //_setNewCard(json.results);
+      }
+    } catch (error) {
+      llog("New Card - error", error);
+    }
+  };
+
+  useEffect(() => {
+    _getNewCard();
+  }, []);
+
   return (
     <>
       <Container onPress={onPress} activeOpacity={1.0}>
