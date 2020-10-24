@@ -170,7 +170,7 @@ const CommentText = styled.Text`
 const OneSutraCard = ({ sutra }: Props) => {
   // state
   const [bookmarked, setBookmarked] = useState(false); // FIXME: 서버에서 bookmark 가져오기
-  const [selected, setSelected] = useState(true);
+  const [selected, setSelected] = useState(true); // FIXME: 서버에서 selected 가져오기
   // sutra
   const { name_kor, thumbnail, comment, recommend_data } = sutra;
   const { content, username } = comment || {};
