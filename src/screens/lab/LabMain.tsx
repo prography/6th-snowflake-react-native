@@ -22,6 +22,14 @@ const Container = styled.View`
   align-items: flex-start;
 `;
 
+const TempButton = styled.TouchableOpacity`
+
+`;
+
+const TempText = styled.Text`
+
+`;
+
 const LabMain = ({ navigation }: Props) => {
   React.useEffect(() => {
     analytics().setCurrentScreen('LabMain');
@@ -35,6 +43,12 @@ const LabMain = ({ navigation }: Props) => {
 
           <Container>
             <LabNewCardsContainer />
+            <TempButton onPress={()=>navigation.navigate("SutraInfo")}>
+              <TempText>{"SutraInfo >"}</TempText>
+            </TempButton>
+            <TempButton onPress={()=>navigation.navigate("SutraList")}>
+              <TempText>{"SutraList >"}</TempText>
+            </TempButton>
             <LabIntroducecardsContainer />
             <MarginBottom />
           </Container>
