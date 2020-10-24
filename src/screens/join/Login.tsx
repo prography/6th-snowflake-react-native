@@ -42,11 +42,13 @@ const HeaderContainer = styled.View`
 `;
 
 // 다희 로그인: d@d.com / aaa111
+// 다희 로그인2: 98@98.com / dahee9898
+
 const Login = ({ navigation }: Props) => {
   const dispatch = useDispatch();
-  const [userEmail, setUserEmail] = useState<string>(__DEV__ ? '12@12.com' : null);
+  const [userEmail, setUserEmail] = useState<string>(__DEV__ ? '98@98.com' : null);
   const [userPassword, setUserPassword] = useState<string>(
-    __DEV__ ? '12@12.com' : null
+    __DEV__ ? 'dahee9898' : null
   );
   const [isFilled, setIsFilled] = useState<boolean>(false);
 

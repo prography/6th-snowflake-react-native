@@ -21,7 +21,7 @@ const ImageContainer = styled.View`
   align-items: center;
   width: 100%;
 `;
-const BookmarkContainer = styled.TouchableOpacity`
+const LikeContainer = styled.TouchableOpacity`
   position: absolute;
   width: ${d.px * 40}px;
   height: ${d.px * 45}px;
@@ -30,7 +30,7 @@ const BookmarkContainer = styled.TouchableOpacity`
   margin-left: ${d.px * 10}px;
   align-items: center;
 `;
-const BookmarkImage = styled.Image`
+const LikeImage = styled.Image`
   width: ${d.px * 33}px;
   height: ${d.px * 40}px;
 `;
@@ -169,20 +169,20 @@ const SutraInfoGoodBad = () => {
             style={{ resizeMode: 'cover' }}
             source={Img.sample.sutra}
           />
-          <BookmarkContainer activeOpacity={1}>
+          <LikeContainer activeOpacity={1}>
             {/* 찜했으면 보라색으로, 찜 안 한 건 하얀색으로 */}
             {bookmarked ? (
-              <BookmarkImage
+              <LikeImage
                 style={{ resizeMode: 'contain' }}
                 source={Img.icon.bookmarkSelected}
               />
             ) : (
-              <BookmarkImage
-                style={{ resizeMode: 'contain' }}
-                source={Img.icon.bookmarkUnselected}
-              />
-            )}
-          </BookmarkContainer>
+                <LikeImage
+                  style={{ resizeMode: 'contain' }}
+                  source={Img.icon.bookmarkUnselected}
+                />
+              )}
+          </LikeContainer>
         </ImageContainer>
         <MarginMedium />
         <InfoContainer>
@@ -230,20 +230,20 @@ const SutraInfoGoodBad = () => {
             </PurpleSkyScoreContainer>
           </SelectionContainer>
         ) : (
-          <SelectionContainer>
-            <GoodOrBadButtonContainer>
-              <GoodButton activeOpacity={1}>
-                <GoodBadText white={true}>추천</GoodBadText>
-              </GoodButton>
-              <BadButton activeOpacity={1}>
-                <GoodBadText white={false}>비추</GoodBadText>
-              </BadButton>
-            </GoodOrBadButtonContainer>
-            <NotYet activeOpacity={1}>
-              <GoodBadText white={true}>안 해 봤어요</GoodBadText>
-            </NotYet>
-          </SelectionContainer>
-        )}
+            <SelectionContainer>
+              <GoodOrBadButtonContainer>
+                <GoodButton activeOpacity={1}>
+                  <GoodBadText white={true}>추천</GoodBadText>
+                </GoodButton>
+                <BadButton activeOpacity={1}>
+                  <GoodBadText white={false}>비추</GoodBadText>
+                </BadButton>
+              </GoodOrBadButtonContainer>
+              <NotYet activeOpacity={1}>
+                <GoodBadText white={true}>안 해 봤어요</GoodBadText>
+              </NotYet>
+            </SelectionContainer>
+          )}
       </Container>
       <MarginMedium />
       <LineGrayMiddle />
