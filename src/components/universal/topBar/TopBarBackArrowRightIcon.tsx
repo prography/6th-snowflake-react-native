@@ -4,6 +4,8 @@ import { withNavigation } from '@react-navigation/compat';
 
 import { d, l } from '~/utils/constant';
 import { Img } from '~/img';
+import BackArrow from '~/img/svgIcons/BackArrow';
+import SnowflakeLogo from '~/img/svgIcons/SnowflakeLogo';
 
 const Container = styled.View`
   height: ${d.px * l.tB}px;
@@ -41,15 +43,9 @@ const TopBarBackArrowRightIcon = ({ navigation }: Props) => {
           navigation.pop();
         }}
       >
-        <Arrow
-          style={{ resizeMode: 'contain' }}
-          source={Img.icon.backArrow}
-        />
+        <BackArrow/>
       </Button>
-      <SnowFlake
-        style={{ resizeMode: 'contain' }}
-        source={Img.logo}
-      />
+      <SnowflakeLogo/>
     </Container>
   );
 };

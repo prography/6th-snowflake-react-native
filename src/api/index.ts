@@ -7,6 +7,8 @@ interface Option {
   params?: object;
 }
 
+
+// 배포 서버
 export const fetchAPI = async (
   url: string,
   option?: Option,
@@ -28,8 +30,7 @@ export const fetchAPI = async (
   return { status, response };
 };
 
-//테스트서버
-
+// 테스트서버
 export const fetchTestAPI = async (
   url: string,
   option?: Option,

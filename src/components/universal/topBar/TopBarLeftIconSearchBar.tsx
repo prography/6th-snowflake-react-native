@@ -4,6 +4,8 @@ import { withNavigation } from '@react-navigation/compat';
 
 import { d, l } from '~/utils/constant';
 import { Img } from '~/img';
+import SearchGlass from '~/img/svgIcons/SearchGlass';
+import SnowflakeLogo from '~/img/svgIcons/SnowflakeLogo';
 
 const Container = styled.View`
   height: ${d.px * l.tB}px;
@@ -36,10 +38,7 @@ interface Props {
 const TopBarLeftIconSearchBar = ({ navigation }: Props) => {
   return (
     <Container>
-      <SnowFlake
-        style={{ resizeMode: 'contain' }}
-        source={Img.logo}
-      />
+      <SnowflakeLogo/>
       <SearchButton
         onPress={() => {
           navigation.navigate('ProductStack', {
@@ -47,10 +46,7 @@ const TopBarLeftIconSearchBar = ({ navigation }: Props) => {
           });
         }}
       >
-        <SearchIcon
-          style={{ resizeMode: 'contain' }}
-          source={Img.icon.search}
-        />
+        <SearchGlass/>
       </SearchButton>
     </Container>
   );

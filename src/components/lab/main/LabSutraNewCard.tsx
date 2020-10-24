@@ -7,7 +7,7 @@ import MarginNarrow from "~/components/universal/margin/MarginNarrow";
 import MarginWide from "~/components/universal/margin/MarginWide";
 import LineGrayRightLong from "~/components/universal/line/LineGrayRightLong";
 import MarginMedium from "~/components/universal/margin/MarginMedium";
-import { ResultsRes, Card, ResultRes } from "~/api/interface";
+import { ResultsRes, Card } from "~/api/interface";
 import { fetchAPI, fetchTestAPI } from "~/api";
 import { llog } from "~/utils/functions";
 import { getTokenItem } from "~/utils/asyncStorage";
