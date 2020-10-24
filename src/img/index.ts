@@ -15,6 +15,9 @@ export const Img = {
     bookmarkSelected: require("~/img/icon/iconBookmarkSelected.png"),
     bookmarkUnselected: require("~/img/icon/iconBookmarkUnselected.png"),
   },
+  svgIcon:{
+    heartUnselected:"~/img/svgIcon/heart_unselected.svg"
+  },
   profile: {
     pfc2: require("~/img/profile/pfc2.png"),
     pfc8: require("~/img/profile/pfc8.png"),

@@ -5,7 +5,7 @@ import { d, l } from '~/utils/constant';
 import TextProductSpecificTitle from '~/components/universal/text/product/info/TextProductSpecificTitle';
 import TextProductSpecificContent from '~/components/universal/text/product/info/TextProductSpecificContent';
 import MarginNarrow from '~/components/universal/margin/MarginNarrow';
-
+import HeartUnselected from '~/img/svgIcon/heart_unselected.svg'
 const Container = styled.View`
   width: ${d.width - l.mR * 2}px;
   margin-left: ${l.mR}px;
@@ -48,6 +48,7 @@ const ProductInfoSpecific = ({ category, length, width, thickness }: Props) => {
         <LeftWrapper>
           <TextProductSpecificTitle title={'제품유형'} />
           <MarginNarrow />
+          <HeartUnselected width={30} height={20}/>
           <TextProductSpecificTitle title={'제품정보'} />
         </LeftWrapper>
         <RightWapper>

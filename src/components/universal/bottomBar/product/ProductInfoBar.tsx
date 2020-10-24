@@ -12,6 +12,7 @@ import { llog } from '~/utils/functions';
 import { RootState } from '~/store/modules';
 import { fetchAPI } from '~/api';
 import { Img } from '~/img';
+import HeartUnselected from '~/img/svgIcon/heart_unselected.svg'
 
 interface Props {
   children: React.ReactNode;
@@ -156,6 +157,7 @@ const ProductInfoBar = ({ children, navigateToReviewUpload1, productId }: Props)
             resizeMode="contain"
             source={isLiked ? Img.icon.heartBlack : Img.icon.heartWhite}
           />
+         
         </Tab>
         {/* <Tab>
           <Title>공유하기</Title>
