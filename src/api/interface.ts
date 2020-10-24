@@ -146,3 +146,9 @@ export interface Sutra {
   };
   recommend_data: string; // FIXME
 }
+
+export enum RecommendType {
+  RECOMMEND = "RECOMMEND",
+  UNRECOMMEND = "UNRECOMMEND",
+  NOTYET = "NOTYET",
+}

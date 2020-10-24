@@ -11,7 +11,7 @@ interface Props {
   onPress: () => void;
 }
 
-const Container = styled.View`
+const Container = styled.TouchableOpacity`
   margin-right: ${l.mR}px;
   margin-left: ${l.mL}px;
 `;
@@ -26,7 +26,7 @@ const TitleText = styled.Text`
   font-size: ${d.px * 20}px;
   color: ${c.black};
 `;
-const ArrowBox = styled.TouchableOpacity`
+const ArrowBox = styled.View`
   height: ${22 * d.px}px;
   width: ${33 * d.px}px;
   align-items: center;
@@ -48,16 +48,13 @@ const CardImage = styled.Image`
   height: ${d.px * 280}px;
 `;
 
-// hitSlop을 쓰면 터치범위를 넓혀줌. top-right-bottom-left 시계방향으로 적어준다.
-const arrowBoxHitSlop = { top: 20, right: 20, bottom: 20, left: 20 };
-
 const LabIntroduceCard = ({ onPress }: Props) => {
   return (
     <>
-      <Container>
+      <Container activeOpacity={1.0} onPress={onPress}>
         <TitleArea>
           <TitleText>눈송수트라</TitleText>
-          <ArrowBox activeOpacity={1.0} hitSlop={arrowBoxHitSlop} onPress={onPress}>
+          <ArrowBox>
             <Arrow
               resizeMode="contain"
               source={Img.icon.arrowWhite}

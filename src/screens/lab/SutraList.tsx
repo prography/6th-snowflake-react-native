@@ -35,7 +35,7 @@ const SutraList = ({ navigation }: Props) => {
         <TopBarBackArrow />
         <Container>
           <CharacInfoCard />
-          <SutraCardsList />
+          <SutraCardsList navigateToJoinStack={() => navigation.navigate('JoinStack')} />
         </Container>
       </ScrollView>
       <Blinder />
