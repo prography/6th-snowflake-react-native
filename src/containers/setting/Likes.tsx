@@ -29,12 +29,11 @@ const Container = styled.View`
   flex-direction: row;
 `;
 
-const TitleWrapper = styled.View`
+const TitleWrapper = styled.TouchableOpacity`
   flex-direction: row;
-
   align-items: center;
 `;
-const ShowLikesButton = styled.TouchableOpacity`
+const ShowLikesContainer = styled.View`
   width: ${d.px * 30}px;
   height: ${d.px * 30}px;
   align-items: center;
@@ -103,16 +102,17 @@ const Likes = ({ navigateToProductInfo }: Props) => {
       {_isLoggedin ? (
         <>
           <ProfileContainer>
-            <TitleWrapper>
-              <TextTitleDarkLeft title={'찜한 제품들'} />
-              <ShowLikesButton
-                onPress={() => {
-                  setShowLikes(!showLikes);
-                  _getLikes();
-                }}
-              >
-                <Text>{showLikes ? '▼' : '▲'}</Text>
-              </ShowLikesButton>
+            <TitleWrapper
+              activeOpacity={1}
+              onPress={() => {
+                setShowLikes(!showLikes);
+                _getLikes();
+              }}
+            >
+              <TextTitleDarkLeft title={"찜한 제품들"} />
+              <ShowLikesContainer>
+                <Text>{showLikes ? "▼" : "▲"}</Text>
+              </ShowLikesContainer>
             </TitleWrapper>
             <ScrollView
               horizontal={true}
@@ -121,38 +121,50 @@ const Likes = ({ navigateToProductInfo }: Props) => {
               {showLikes && (
                 <Container>
                   {_likeList ? (
-                    _likeList.map(({ object_detail }: CondomLiked, index: number) => {
-                      const { id, thumbnail, manufacturer_kor, name_kor } = object_detail;
-                      return (
-                        <LikeProductContainer
-                          key={index}
-                          onPress={() => navigateToProductInfo(id)}>
-                          <ImageWrapper>
-                            <ProductImage
-                              style={{ resizeMode: 'contain' }}
-                              source={
-                                blindState
-                                  ? Img.doodle.cdBoxMint
-                                  : thumbnail === null
+                    _likeList.map(
+                      ({ object_detail }: CondomLiked, index: number) => {
+                        const {
+                          id,
+                          thumbnail,
+                          manufacturer_kor,
+                          name_kor,
+                        } = object_detail;
+                        return (
+                          <LikeProductContainer
+                            key={index}
+                            onPress={() => navigateToProductInfo(id)}
+                          >
+                            <ImageWrapper>
+                              <ProductImage
+                                style={{ resizeMode: "contain" }}
+                                source={
+                                  blindState
+                                    ? Img.doodle.cdBoxMint
+                                    : thumbnail === null
                                     ? Img.icon.null
                                     : { uri: thumbnail }
-                              }
+                                }
+                              />
+                            </ImageWrapper>
+                            <TextProductCompany
+                              productCompany={manufacturer_kor}
                             />
-                          </ImageWrapper>
-                          <TextProductCompany productCompany={manufacturer_kor} />
-                          <TextProductName productName={name_kor} />
-                        </LikeProductContainer>
-                      );
-                    })
-                  ) : <TextTitlePurpleRight title={'Loading...'} />}
+                            <TextProductName productName={name_kor} />
+                          </LikeProductContainer>
+                        );
+                      }
+                    )
+                  ) : (
+                    <TextTitlePurpleRight title={"Loading..."} />
+                  )}
                 </Container>
               )}
             </ScrollView>
           </ProfileContainer>
         </>
       ) : (
-          <TextTitlePurpleRight title={'로그인 안 됨'} />
-        )}
+        <TextTitlePurpleRight title={"로그인 안 됨"} />
+      )}
     </>
   );
 };
