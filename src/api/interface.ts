@@ -134,3 +134,13 @@ export interface CondomLiked {
   updated_at: string;
   user: number; // 왜 number로 오지? userId로 오는게 맞는거같기도
 }
+
+
+// stura
+export interface Sutra {
+  id: number;
+  name_kor: string;
+  thumbnail: string;
+  comment: string;
+  recomment_data: string;
+}
