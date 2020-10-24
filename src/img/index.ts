@@ -1,4 +1,10 @@
+
+import { d} from '~/utils/constant';
 export const Img = {
+  iconWidthSize: {
+    extraSmall: d.px * 23,
+    small: d.px * 30
+  },
   doodle: {
     cdBoxCrownFilledMint: require("~/img/doodle/doodleCdBoxCrownFilledMint.png"),
     cdBoxMint: require("~/img/doodle/doodleCdBoxMint.png"),
@@ -15,9 +21,7 @@ export const Img = {
     bookmarkSelected: require("~/img/icon/iconBookmarkSelected.png"),
     bookmarkUnselected: require("~/img/icon/iconBookmarkUnselected.png"),
   },
-  svgIcon:{
-    heartUnselected:"~/img/svgIcon/heart_unselected.svg"
-  },
+  
   profile: {
     pfc2: require("~/img/profile/pfc2.png"),
     pfc8: require("~/img/profile/pfc8.png"),
