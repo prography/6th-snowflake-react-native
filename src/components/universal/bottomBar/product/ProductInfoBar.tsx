@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { useState, useEffect } from 'react';
-import { Alert } from 'react-native';
+import { Alert} from 'react-native';
 import styled from 'styled-components/native';
 import analytics from "@react-native-firebase/analytics";
 
@@ -12,6 +12,7 @@ import { llog } from '~/utils/functions';
 import { RootState } from '~/store/modules';
 import { fetchAPI } from '~/api';
 import { Img } from '~/img';
+import MyModal from '~/components/universal/modal/MyModal';
 
 interface Props {
   children: React.ReactNode;
@@ -54,10 +55,14 @@ const ProductInfoBar = ({ children, navigateToReviewUpload1, productId }: Props)
   const [likedId, setLikedId] = useState(null);
   const _isLoggedin = useSelector((state: RootState) => state.join.auth.isLoggedin);
 
+  const [modalVisible, setModalVisible] = useState<boolean>(false);
+
   const _likeProduct = async () => {
     try {
       const token = await getTokenItem();
-      if (!token) { Alert.alert('❄️', '로그인 후 이용해주세요!'); return; }
+      if (!token) { 
+        setModalVisible(!modalVisible);
+         return; }
 
       llog('1-1.🍊like 생성 위한 token 잘 가져옴 ', token);
       llog('token', token);
@@ -83,7 +88,9 @@ const ProductInfoBar = ({ children, navigateToReviewUpload1, productId }: Props)
   const _deleteLiked = async () => {
     try {
       const token = await getTokenItem();
-      if (!token) { Alert.alert('❄️', '로그인 후 이용해주세요!'); return; }
+      if (!token) { 
+        setModalVisible(!modalVisible);
+        return; }
 
       const url = `likes/${likedId}/`;
       const { status, response } = await fetchAPI(url, {
@@ -103,7 +110,9 @@ const ProductInfoBar = ({ children, navigateToReviewUpload1, productId }: Props)
   const _checkIsLiked = async () => {
     try {
       const token = await getTokenItem();
-      if (!token) { Alert.alert('❄️', '로그인 후 이용해주세요!'); return; }
+      if (!token) { 
+        setModalVisible(!modalVisible);
+        return; }
 
       const { status, response } = await fetchAPI(`likes/?model=product&object_id=${productId}`, { token });
       if (status === 200) {
@@ -139,19 +148,19 @@ const ProductInfoBar = ({ children, navigateToReviewUpload1, productId }: Props)
             if (_isLoggedin) {
               if (isLiked) {
                 analytics().logEvent("press_delete_like", { productId });
-                _deleteLiked()
+                _deleteLiked();
               } else {
                 analytics().logEvent("press_like", { productId });
-                _likeProduct()
+                _likeProduct();
               }
             } else {
-              Alert.alert(
-                '❄️',
-                '마이 탭에서 회원 가입 후 \n 찜 기능을 이용해보세요!'
-              );
+              setModalVisible(!modalVisible);
             }
           }}
         >
+          {modalVisible?(
+            <MyModal message={"마이 탭에서 로그인 후\n이용 부탁드려요!"} modalVisible={modalVisible} setModalVisible={setModalVisible}/>
+          ):null}
           <HeartIcon
             resizeMode="contain"
             source={isLiked ? Img.icon.heartBlack : Img.icon.heartWhite}
@@ -166,10 +175,7 @@ const ProductInfoBar = ({ children, navigateToReviewUpload1, productId }: Props)
               analytics().logEvent("press_review_upload", { productId });
               navigateToReviewUpload1();
             } else {
-              Alert.alert(
-                '❄️',
-                '마이 탭에서 회원 가입 후 \n 리뷰 작성 부탁드려요!'
-              );
+              setModalVisible(!modalVisible)
             }
           }}
         >
