@@ -32,7 +32,7 @@ const TempText = styled.Text`
 const LabMain = ({ navigation }: Props) => {
   React.useEffect(() => {
     eventUtil.logScreenView(eventUtil.LabMain);
-    navigation.navigate('SutraList');
+    // navigation.navigate('SutraList');
   }, []);
 
   return (
