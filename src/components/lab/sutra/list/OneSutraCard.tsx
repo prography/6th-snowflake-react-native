@@ -10,6 +10,8 @@ import ProductInfoSpecific from '~/containers/product/info/ProductInfoSpecific';
 import { Img } from '~/img';
 import { Sutra, RecommendType } from '~/api/interface';
 import { llog } from '~/utils/functions';
+import { RootState } from '~/store/modules';
+import { useSelector } from 'react-redux';
 
 const Container = styled.View`
   margin-right: ${l.mR}px;
@@ -171,6 +173,10 @@ interface Props {
 
 // 하나짜리 컴포넌트! SutraCardsList에서 데이터 받아와서 list로...!
 const OneSutraCard = ({ sutra, onPressEvaluation, onPressLike }: Props) => {
+  const blindState = useSelector(
+    (state: RootState) => state.product.blind.blindState,
+  );
+
   // state
   const [bookmarked, setBookmarked] = useState(false); // FIXME: 서버에서 bookmark 가져오기 // 나중에 삭제.
   const [selected, setSelected] = useState(true); // FIXME: 서버에서 selected 가져오기 // 나중에 삭제.
@@ -186,8 +192,12 @@ const OneSutraCard = ({ sutra, onPressEvaluation, onPressLike }: Props) => {
         <TopArea>
           <ImageContainer>
             <SutraImage
-              resizeMode="cover"
-              source={{ uri: thumbnail }}
+              resizeMode={"cover"}
+              source={
+                blindState
+                  ? Img.doodle.cdBoxMintPurpleHeart
+                  : { uri: thumbnail }
+              }
             />
             <LikeContainer activeOpacity={1.0} onPress={() => onPressLike(id)}>
               {/* 찜했으면 보라색으로, 찜 안 한 건 하얀색으로 */}
@@ -223,7 +233,7 @@ const OneSutraCard = ({ sutra, onPressEvaluation, onPressLike }: Props) => {
                     <PurpleScore score={84.6} />
                   </PurpleScoreWrapper>
                   <PurpleHead
-                    style={{ resizeMode: 'contain' }}
+                    style={{ resizeMode: "contain" }}
                     source={Img.sample.purpleCharacHead}
                   />
                 </PurpleScoreContainer>
@@ -232,7 +242,7 @@ const OneSutraCard = ({ sutra, onPressEvaluation, onPressLike }: Props) => {
                     <SkyScore score={68.3} />
                   </SkyScoreWrapper>
                   <SkyHead
-                    style={{ resizeMode: 'contain' }}
+                    style={{ resizeMode: "contain" }}
                     source={Img.sample.skyCharacHead}
                   />
                 </SkyScoreContainer>

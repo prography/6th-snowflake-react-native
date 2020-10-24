@@ -180,9 +180,9 @@ const SutraCardsList = ({ navigateToJoinStack }: Props) => {
       <TempBtnText>클릭해서 Filter, Order 선택 (어떻게 될지 몰라서 초기값을 none으로 해놓음)</TempBtnText>
       <TempContainer>
         <TempBtnText>Filter</TempBtnText>
-        {filters.map((f: Filter) => {
+        {filters.map((f: Filter, index: number) => {
           return (
-            <TempBtn selected={selectedFilter === f.enum} onPress={() => setSelectedFilter(f.enum)}>
+            <TempBtn key={index} selected={selectedFilter === f.enum} onPress={() => setSelectedFilter(f.enum)}>
               <TempBtnText>{f.text}</TempBtnText>
             </TempBtn>
           );
@@ -190,9 +190,9 @@ const SutraCardsList = ({ navigateToJoinStack }: Props) => {
       </TempContainer>
       <TempContainer>
         <TempBtnText>Order</TempBtnText>
-        {orders.map((o: Order) => {
+        {orders.map((o: Order, index: number) => {
           return (
-            <TempBtn selected={selectedOrder === o.enum} onPress={() => setSelectedOrder(o.enum)}>
+            <TempBtn key={index} selected={selectedOrder === o.enum} onPress={() => setSelectedOrder(o.enum)}>
               <TempBtnText>{o.text}</TempBtnText>
             </TempBtn>
           );
@@ -203,6 +203,7 @@ const SutraCardsList = ({ navigateToJoinStack }: Props) => {
 
       {_sutraCardsList?.map((sutra: Sutra) => (
         <OneSutraCard
+          key={sutra.id}
           sutra={sutra}
           onPressEvaluation={onPressEvaluation}
           onPressLike={onPressLike}
