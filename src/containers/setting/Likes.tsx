@@ -1,21 +1,21 @@
-import * as React from 'react';
-import { useEffect, useState, useCallback } from 'react';
-import { ScrollView, Text } from 'react-native';
-import { useSelector } from 'react-redux';
-import styled from 'styled-components/native';
-import { useFocusEffect } from '@react-navigation/native';
+import * as React from "react";
+import { useEffect, useState, useCallback } from "react";
+import { ScrollView, Text } from "react-native";
+import { useSelector } from "react-redux";
+import styled from "styled-components/native";
+import { useFocusEffect } from "@react-navigation/native";
 
-import TextTitlePurpleRight from '~/components/universal/text/TextTitlePurpleRight';
-import { d, c, l } from '~/utils/constant';
-import TextTitleDarkLeft from '~/components/universal/text/TextTitleDarkLeft';
-import TextProductCompany from '~/components/universal/text/product/TextProductCompany';
-import TextProductName from '~/components/universal/text/product/TextProductName';
-import { getTokenItem } from '~/utils/asyncStorage';
-import { RootState } from '~/store/modules';
-import { fetchAPI } from '~/api';
-import { llog } from '~/utils/functions';
-import { Img } from '~/img'
-import { ResultsRes, CondomLiked } from '~/api/interface';
+import TextTitlePurpleRight from "~/components/universal/text/TextTitlePurpleRight";
+import { d, c, l } from "~/utils/constant";
+import TextTitleDarkLeft from "~/components/universal/text/TextTitleDarkLeft";
+import TextProductCompany from "~/components/universal/text/product/TextProductCompany";
+import TextProductName from "~/components/universal/text/product/TextProductName";
+import { getTokenItem } from "~/utils/asyncStorage";
+import { RootState } from "~/store/modules";
+import { fetchAPI } from "~/api";
+import { llog } from "~/utils/functions";
+import { Img } from "~/img";
+import { ResultsRes, CondomLiked } from "~/api/interface";
 
 interface Props {
   navigateToProductInfo: (productId: number) => void;
@@ -60,9 +60,11 @@ const ProductImage = styled.Image`
 
 const Likes = ({ navigateToProductInfo }: Props) => {
   const blindState = useSelector(
-    (state: RootState) => state.product.blind.blindState,
+    (state: RootState) => state.product.blind.blindState
   );
-  const _isLoggedin = useSelector((state: RootState) => state.join.auth.isLoggedin);
+  const _isLoggedin = useSelector(
+    (state: RootState) => state.join.auth.isLoggedin
+  );
 
   const [_likeList, _setLikeList] = useState<CondomLiked[]>(null);
   const [showLikes, setShowLikes] = useState<boolean>(false);
@@ -70,20 +72,22 @@ const Likes = ({ navigateToProductInfo }: Props) => {
   const _getLikes = async () => {
     try {
       const token = await getTokenItem();
-      if (!token) { return; }
+      if (!token) {
+        return;
+      }
 
       const { status, response } = await fetchAPI(
         `likes/?model=product&is_product_detail=true`,
-        { token },
+        { token }
       );
       const json: ResultsRes<CondomLiked> = await response.json();
-      llog('2.🐰Like List 불러옴 - 성공!', json);
+      llog("2.🐰Like List 불러옴 - 성공!", json);
 
       if (status === 200) {
         _setLikeList(json.results);
       }
     } catch (error) {
-      llog('🐰Like List - error', error);
+      llog("🐰Like List - error", error);
     }
   };
 
