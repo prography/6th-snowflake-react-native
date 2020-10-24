@@ -135,12 +135,14 @@ export interface CondomLiked {
   user: number; // 왜 number로 오지? userId로 오는게 맞는거같기도
 }
 
-
-// stura
+// sutra
 export interface Sutra {
   id: number;
   name_kor: string;
   thumbnail: string;
-  comment: string;
-  recomment_data: string;
+  comment?: {
+    username: string;
+    content: string;
+  };
+  recommend_data: string; // FIXME
 }

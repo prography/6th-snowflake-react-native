@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { ScrollView } from 'react-native';
 import styled from 'styled-components/native';
-import analytics from "@react-native-firebase/analytics";
 import { StackNavigationProp } from '@react-navigation/stack';
 
 import NavBar from '~/screens/NavBar';
@@ -12,14 +11,14 @@ import LabIntroducecardsContainer from '~/containers/lab/main/LabIntroduceCardsC
 import Blinder from '~/components/product/Blinder';
 import MarginBottom from '~/components/universal/margin/MarginBottom';
 import { LabStackParamList } from '~/navigation/tabs/LabStack';
+import { eventUtil } from '~/utils/firebase/event';
 
 interface Props {
   navigation: StackNavigationProp<LabStackParamList, 'LabMain'>;
 }
 
 const Container = styled.View`
-  flex-direction: column;
-  align-items: flex-start;
+  align-items: flex-start; 
 `;
 
 const TempButton = styled.TouchableOpacity`
@@ -32,7 +31,8 @@ const TempText = styled.Text`
 
 const LabMain = ({ navigation }: Props) => {
   React.useEffect(() => {
-    analytics().setCurrentScreen('LabMain');
+    eventUtil.logScreenView(eventUtil.LabMain);
+    navigation.navigate('SutraList');
   }, []);
 
   return (
@@ -42,14 +42,8 @@ const LabMain = ({ navigation }: Props) => {
           <TopBarLeftIcon />
 
           <Container>
-            <LabNewCardsContainer />
-            <TempButton onPress={()=>navigation.navigate("SutraInfo")}>
-              <TempText>{"SutraInfo >"}</TempText>
-            </TempButton>
-            <TempButton onPress={()=>navigation.navigate("SutraList")}>
-              <TempText>{"SutraList >"}</TempText>
-            </TempButton>
-            <LabIntroducecardsContainer />
+            <LabNewCardsContainer onPress={() => navigation.navigate('SutraInfo')} />
+            <LabIntroducecardsContainer onPress={() => navigation.navigate('SutraList')} />
             <MarginBottom />
           </Container>
         </ScrollView>

@@ -22,8 +22,8 @@ const SutraCardsList = () => {
         return;
       }
 
-      const { status, response } = await fetchAPI(`labs/sutra/`, {
-        token,
+      const { status, response } = await fetchAPI('labs/sutra/', {
+        token, // FIXME 토큰 없이
       });
       const json: ResultsRes<Sutra> = await response.json();
       llog("SutraList - success!", json);
@@ -38,13 +38,11 @@ const SutraCardsList = () => {
 
   useEffect(() => {
     _getSutraList();
-    console.log(_sutraCardsList)
   }, []);
 
   return (
     <>
-      
-      <OneSutraCard />
+      {_sutraCardsList?.map((sutra: Sutra) => <OneSutraCard sutra={sutra} />)}
     </>
   );
 };

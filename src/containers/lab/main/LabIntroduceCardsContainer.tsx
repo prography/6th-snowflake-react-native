@@ -4,10 +4,14 @@ import { View, Text } from 'react-native';
 
 import LabIntroduceCard from '~/components/lab/main/LabIntroduceCard';
 
-const LabIntroducecardsContainer = () => {
+interface Props {
+  onPress: () => void;
+}
+
+const LabIntroducecardsContainer = ({ onPress }: Props) => {
   return (
     <>
-      <LabIntroduceCard />
+      <LabIntroduceCard onPress={onPress} />
     </>
   );
 };

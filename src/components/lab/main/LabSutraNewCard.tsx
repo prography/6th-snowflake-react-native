@@ -7,7 +7,11 @@ import MarginWide from '~/components/universal/margin/MarginWide';
 import LineGrayRightLong from '~/components/universal/line/LineGrayRightLong';
 import MarginMedium from '~/components/universal/margin/MarginMedium';
 
-const Container = styled.View`
+interface Props {
+  onPress: () => void;
+}
+
+const Container = styled.TouchableOpacity`
   margin-right: ${l.mR}px;
   margin-left: ${l.mL}px;
 `;
@@ -50,10 +54,10 @@ const CommentText = styled.Text`
   color: ${c.darkGray};
 `;
 
-const LabSutraNewCard = () => {
+const LabSutraNewCard = ({ onPress }: Props) => {
   return (
     <>
-      <Container>
+      <Container onPress={onPress} activeOpacity={1.0}>
         <ImageArea>
           <SutraImage />
           <NewText>NEW!</NewText>
