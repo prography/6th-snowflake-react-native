@@ -35,10 +35,6 @@ const TopBarBackArrow = ({ navigation }: Props) => {
   return (
     <Container>
       <Button onPress={() => navigation.pop()}>
-        {/* <SnowFlake
-          style={{ resizeMode: 'contain' }}
-          source={Img.icon.backArrow}
-        /> */}
         <BackArrow/>
          </Button>
       

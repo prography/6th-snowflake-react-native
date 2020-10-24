@@ -4,6 +4,7 @@ import { withNavigation } from '@react-navigation/compat';
 
 import { d, l } from '~/utils/constant';
 import { Img } from '~/img';
+import SearchGlass from '~/img/svgIcons/SearchGlass';
 
 const Container = styled.View`
   height: ${d.px * l.tB}px;
@@ -47,10 +48,7 @@ const TopBarLeftIconSearchBar = ({ navigation }: Props) => {
           });
         }}
       >
-        <SearchIcon
-          style={{ resizeMode: 'contain' }}
-          source={Img.icon.search}
-        />
+        <SearchGlass/>
       </SearchButton>
     </Container>
   );
