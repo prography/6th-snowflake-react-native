@@ -134,3 +134,21 @@ export interface CondomLiked {
   updated_at: string;
   user: number; // 왜 number로 오지? userId로 오는게 맞는거같기도
 }
+
+// sutra
+export interface Sutra {
+  id: number;
+  name_kor: string;
+  thumbnail: string;
+  comment?: {
+    username: string;
+    content: string;
+  };
+  recommend_data: string; // FIXME
+}
+
+export enum RecommendType {
+  RECOMMEND = "RECOMMEND",
+  UNRECOMMEND = "UNRECOMMEND",
+  NOTYET = "NOTYET",
+}

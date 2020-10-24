@@ -7,7 +7,11 @@ import MarginWide from '~/components/universal/margin/MarginWide';
 import LineGrayRightLong from '~/components/universal/line/LineGrayRightLong';
 import { Img } from '~/img';
 
-const Container = styled.View`
+interface Props {
+  onPress: () => void;
+}
+
+const Container = styled.TouchableOpacity`
   margin-right: ${l.mR}px;
   margin-left: ${l.mL}px;
 `;
@@ -43,15 +47,16 @@ const CardImage = styled.Image`
   width: ${d.width - l.mL}px;
   height: ${d.px * 280}px;
 `;
-const LabIntroduceCard = () => {
+
+const LabIntroduceCard = ({ onPress }: Props) => {
   return (
     <>
-      <Container>
+      <Container activeOpacity={1.0} onPress={onPress}>
         <TitleArea>
           <TitleText>눈송수트라</TitleText>
           <ArrowBox>
             <Arrow
-              style={{ resizeMode: 'contain' }}
+              resizeMode="contain"
               source={Img.icon.arrowWhite}
             />
           </ArrowBox>

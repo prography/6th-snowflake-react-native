@@ -5,10 +5,14 @@ import LabSutraNewCard from '~/components/lab/main/LabSutraNewCard';
 
 // 여기에서 데이터 받아와서 map 돌려서 LabSutraNewCard에 넘겨주면 됩니다!
 
-const LabNewCardsContainer = () => {
+interface Props {
+  onPress: () => void;
+}
+
+const LabNewCardsContainer = ({ onPress }: Props) => {
   return (
     <>
-      <LabSutraNewCard />
+      <LabSutraNewCard onPress={onPress} />
     </>
   );
 };

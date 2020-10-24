@@ -8,6 +8,10 @@ import MarginWide from '~/components/universal/margin/MarginWide';
 import MarginNarrow from '~/components/universal/margin/MarginNarrow';
 import ProductInfoSpecific from '~/containers/product/info/ProductInfoSpecific';
 import { Img } from '~/img';
+import { Sutra, RecommendType } from '~/api/interface';
+import { llog } from '~/utils/functions';
+import { RootState } from '~/store/modules';
+import { useSelector } from 'react-redux';
 
 const Container = styled.View`
   margin-right: ${l.mR}px;
@@ -21,7 +25,7 @@ const ImageContainer = styled.View`
   margin-right: ${d.px * 15}px;
   flex: 1;
 `;
-const BookmarkContainer = styled.TouchableOpacity`
+const LikeContainer = styled.TouchableOpacity`
   position: absolute;
   width: ${d.px * 40}px;
   height: ${d.px * 45}px;
@@ -30,7 +34,7 @@ const BookmarkContainer = styled.TouchableOpacity`
 
   align-items: center;
 `;
-const BookmarkImage = styled.Image`
+const LikeImage = styled.Image`
   width: ${d.px * 33}px;
   height: ${d.px * 40}px;
 `;
@@ -161,33 +165,54 @@ const CommentText = styled.Text`
   color: ${c.darkGray};
 `;
 
+interface Props {
+  sutra: Sutra;
+  onPressEvaluation: (id: number, rcType: RecommendType) => void;
+  onPressLike: (id: number) => void;
+}
+
 // 하나짜리 컴포넌트! SutraCardsList에서 데이터 받아와서 list로...!
-const OneSutraCard = () => {
-  const [bookmarked, setBookmarked] = useState(false);
-  const [selected, setSelected] = useState(true);
+const OneSutraCard = ({ sutra, onPressEvaluation, onPressLike }: Props) => {
+  const blindState = useSelector(
+    (state: RootState) => state.product.blind.blindState,
+  );
+
+  // state
+  const [bookmarked, setBookmarked] = useState(false); // FIXME: 서버에서 bookmark 가져오기 // 나중에 삭제.
+  const [selected, setSelected] = useState(true); // FIXME: 서버에서 selected 가져오기 // 나중에 삭제.
+  // sutra
+  const { id, name_kor, thumbnail, comment, recommend_data } = sutra;
+  const { content, username } = comment || {};
+  llog('sutra', sutra);
+  llog('recommend_data', recommend_data);
+
   return (
     <>
       <Container>
         <TopArea>
           <ImageContainer>
             <SutraImage
-              style={{ resizeMode: 'cover' }}
-              source={Img.sample.sutra}
+              resizeMode={"cover"}
+              source={
+                blindState
+                  ? Img.doodle.cdBoxMintPurpleHeart
+                  : { uri: thumbnail }
+              }
             />
-            <BookmarkContainer activeOpacity={1}>
+            <LikeContainer activeOpacity={1.0} onPress={() => onPressLike(id)}>
               {/* 찜했으면 보라색으로, 찜 안 한 건 하얀색으로 */}
               {bookmarked ? (
-                <BookmarkImage
-                  style={{ resizeMode: 'contain' }}
+                <LikeImage
+                  resizeMode="contain"
                   source={Img.icon.bookmarkSelected}
                 />
               ) : (
-                <BookmarkImage
-                  style={{ resizeMode: 'contain' }}
-                  source={Img.icon.bookmarkUnselected}
-                />
-              )}
-            </BookmarkContainer>
+                  <LikeImage
+                    resizeMode="contain"
+                    source={Img.icon.bookmarkUnselected}
+                  />
+                )}
+            </LikeContainer>
           </ImageContainer>
           <Text />
           {/* 내가 추천/비추/안해봤 중에 하나를 누르면 
@@ -208,7 +233,7 @@ const OneSutraCard = () => {
                     <PurpleScore score={84.6} />
                   </PurpleScoreWrapper>
                   <PurpleHead
-                    style={{ resizeMode: 'contain' }}
+                    style={{ resizeMode: "contain" }}
                     source={Img.sample.purpleCharacHead}
                   />
                 </PurpleScoreContainer>
@@ -217,35 +242,39 @@ const OneSutraCard = () => {
                     <SkyScore score={68.3} />
                   </SkyScoreWrapper>
                   <SkyHead
-                    style={{ resizeMode: 'contain' }}
+                    style={{ resizeMode: "contain" }}
                     source={Img.sample.skyCharacHead}
                   />
                 </SkyScoreContainer>
               </PurpleSkyScoreContainer>
             </SelectionContainer>
           ) : (
-            <SelectionContainer>
-              <GoodOrBadButtonContainer>
-                <GoodButton activeOpacity={1}>
-                  <GoodBadText white={true}>추천</GoodBadText>
-                </GoodButton>
-                <BadButton activeOpacity={1}>
-                  <GoodBadText white={false}>비추</GoodBadText>
-                </BadButton>
-              </GoodOrBadButtonContainer>
-              <NotYet activeOpacity={1}>
-                <GoodBadText white={true}>안 해 봤어요</GoodBadText>
-              </NotYet>
-            </SelectionContainer>
-          )}
+              <SelectionContainer>
+                <GoodOrBadButtonContainer>
+                  <GoodButton onPress={() => onPressEvaluation(id, RecommendType.RECOMMEND)} activeOpacity={1}>
+                    <GoodBadText white={true}>추천</GoodBadText>
+                  </GoodButton>
+                  <BadButton onPress={() => onPressEvaluation(id, RecommendType.UNRECOMMEND)} activeOpacity={1}>
+                    <GoodBadText white={false}>비추</GoodBadText>
+                  </BadButton>
+                </GoodOrBadButtonContainer>
+                <NotYet onPress={() => onPressEvaluation(id, RecommendType.NOTYET)} activeOpacity={1}>
+                  <GoodBadText white={true}>안 해 봤어요</GoodBadText>
+                </NotYet>
+              </SelectionContainer>
+            )}
         </TopArea>
         <MarginNarrow />
-        <SutraTitle>체위 한글 이름</SutraTitle>
-        <MarginNarrow />
-        <CommentWrapper>
-          <CommentUsername>닉네임</CommentUsername>
-          <CommentText>실시간 댓글 우와우</CommentText>
-        </CommentWrapper>
+        <SutraTitle>{name_kor}</SutraTitle>
+        {comment && (
+          <>
+            <MarginNarrow />
+            <CommentWrapper>
+              <CommentUsername>{username}</CommentUsername>
+              <CommentText>{content}</CommentText>
+            </CommentWrapper>
+          </>
+        )}
       </Container>
 
       <MarginWide />
