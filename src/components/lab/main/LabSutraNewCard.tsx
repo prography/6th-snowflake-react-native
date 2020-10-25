@@ -8,8 +8,8 @@ import MarginWide from "~/components/universal/margin/MarginWide";
 import LineGrayRightLong from "~/components/universal/line/LineGrayRightLong";
 import MarginMedium from "~/components/universal/margin/MarginMedium";
 import { ResultsRes, Card } from "~/api/interface";
-import { fetchAPI, fetchTestAPI } from "~/api";
-import { llog } from "~/utils/functions";
+import { fetchAPI } from "~/api";
+import { consoleError, llog } from "~/utils/functions";
 import { getTokenItem } from "~/utils/asyncStorage";
 import TextTitlePurpleRight from "~/components/universal/text/TextTitlePurpleRight";
 import { useSelector } from "react-redux";
@@ -72,7 +72,7 @@ const LabSutraNewCard = ({ onPress }: Props) => {
 
   const _getNewCard = async () => {
     try {
-      const { response, status } = await fetchTestAPI("labs/sutra/new-card/");
+      const { response, status } = await fetchAPI("labs/sutra/new-card/");
       const json: Card = await response.json();
       llog("New Card - success!", json);
 
@@ -80,7 +80,7 @@ const LabSutraNewCard = ({ onPress }: Props) => {
         _setNewCard(json);
       }
     } catch (error) {
-      llog("New Card - error", error);
+      consoleError("New Card - error", error);
     }
   };
 
@@ -96,7 +96,7 @@ const LabSutraNewCard = ({ onPress }: Props) => {
         <Container onPress={onPress} activeOpacity={1.0}>
           <ImageArea>
             <SutraImage
-              style={{ resizeMode: "cover" }}
+              resizeMode="cover"
               source={
                 blindState
                   ? Img.doodle.cdBoxMintPurpleHeart

@@ -4,9 +4,8 @@ import styled from "styled-components/native";
 
 export const isAndroid = Platform.OS === "android";
 
-export const BASE_URL =
+export const BASE_URL = __DEV__? 'http://snowflaketest-env.eba-6bzwp2je.ap-northeast-2.elasticbeanstalk.com':
   'http://snowflakeproduction-env.eba-qnph52vm.ap-northeast-2.elasticbeanstalk.com';
-export const TEST_BASE_URL = 'http://snowflaketest-env.eba-6bzwp2je.ap-northeast-2.elasticbeanstalk.com'
 export const d = {
   width: Dimensions.get('window').width,
   height: Dimensions.get('window').height,
