@@ -11,8 +11,8 @@ import BaseModal from "./BaseModal";
 
 interface Props {
   message: string;
-  toggleModal: () => void;
-  modalVisible: boolean;
+  onCancel: () => void;
+  isVisible: boolean;
   navigation: StackNavigationProp<RootTabParamList>;
 }
 
@@ -52,17 +52,17 @@ const CancelButton = styled.TouchableOpacity`
 
 const LoginModal = ({
   message,
-  modalVisible,
-  toggleModal,
+  isVisible,
+  onCancel,
   navigation,
 }: Props) => {
   const navigateTo = (screen: string) => {
-    toggleModal();
+    onCancel();
     navigation.navigate("JoinStack", { screen });
   };
 
   return (
-    <BaseModal isVisible={modalVisible}>
+    <BaseModal isVisible={isVisible} onBackdropPress={onCancel}>
       <Container>
         <Message>{"❄️"}</Message>
         <Message>{message}</Message>
@@ -73,7 +73,7 @@ const LoginModal = ({
           <MoveLoginButton onPress={() => navigateTo("SettimgMain")}>
             <Message>{"로그인"}</Message>
           </MoveLoginButton>
-          <CancelButton onPress={toggleModal}>
+          <CancelButton onPress={onCancel}>
             <Message>{"취소"}</Message>
           </CancelButton>
         </ButtonContainer>

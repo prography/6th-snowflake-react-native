@@ -65,13 +65,15 @@ const ProductInfoBar = ({
     (state: RootState) => state.join.auth.isLoggedin
   );
 
-  const [modalVisible, setModalVisible] = useState<boolean>(false);
-  const toggleModal = () => setModalVisible(!modalVisible);
+  const [isLoginModalVisible, setIsLoginModalVisible] = useState<boolean>(
+    false
+  );
+  const onCancel = () => setIsLoginModalVisible(false);
   const _likeProduct = async () => {
     try {
       const token = await getTokenItem();
       if (!token) {
-        toggleModal();
+        setIsLoginModalVisible(true);
         return;
       }
       // if (!token) { return; } // 이 함수 들어오기 전에 체크 함.
@@ -101,7 +103,7 @@ const ProductInfoBar = ({
     try {
       const token = await getTokenItem();
       if (!token) {
-        toggleModal();
+        setIsLoginModalVisible(true);
         return;
       }
 
@@ -124,7 +126,7 @@ const ProductInfoBar = ({
     try {
       const token = await getTokenItem();
       if (!token) {
-        toggleModal();
+        setIsLoginModalVisible(true);
         return;
       }
 
@@ -169,7 +171,7 @@ const ProductInfoBar = ({
                 _likeProduct();
               }
             } else {
-              setModalVisible(true);
+              setIsLoginModalVisible(true);
             }
           }}
         >
@@ -184,7 +186,7 @@ const ProductInfoBar = ({
               analytics().logEvent("press_review_upload", { productId });
               navigateToReviewUpload1();
             } else {
-              setModalVisible(true);
+              setIsLoginModalVisible(true);
             }
           }}
         >
@@ -192,9 +194,9 @@ const ProductInfoBar = ({
         </Tab>
       </Container>
       <LoginModal
-        modalVisible={modalVisible}
+        isVisible={isLoginModalVisible}
         message={"마이 탭에서 로그인 후\n이용 부탁드려요!"}
-        toggleModal={toggleModal}
+        onCancel={onCancel}
       />
     </Screen>
   );
