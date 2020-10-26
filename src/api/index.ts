@@ -7,6 +7,7 @@ interface Option {
   params?: object;
 }
 
+
 export const fetchAPI = async (
   url: string,
   option?: Option,

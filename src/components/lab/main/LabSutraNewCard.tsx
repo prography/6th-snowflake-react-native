@@ -1,11 +1,20 @@
-import * as React from 'react';
-import styled from 'styled-components/native';
+import * as React from "react";
+import { useState, useEffect } from "react";
+import styled from "styled-components/native";
 
-import { d, l, c } from '~/utils/constant';
-import MarginNarrow from '~/components/universal/margin/MarginNarrow';
-import MarginWide from '~/components/universal/margin/MarginWide';
-import LineGrayRightLong from '~/components/universal/line/LineGrayRightLong';
-import MarginMedium from '~/components/universal/margin/MarginMedium';
+import { d, l, c } from "~/utils/constant";
+import MarginNarrow from "~/components/universal/margin/MarginNarrow";
+import MarginWide from "~/components/universal/margin/MarginWide";
+import LineGrayRightLong from "~/components/universal/line/LineGrayRightLong";
+import MarginMedium from "~/components/universal/margin/MarginMedium";
+import { ResultsRes, Card } from "~/api/interface";
+import { fetchAPI } from "~/api";
+import { consoleError, llog } from "~/utils/functions";
+import { getTokenItem } from "~/utils/asyncStorage";
+import TextTitlePurpleRight from "~/components/universal/text/TextTitlePurpleRight";
+import { useSelector } from "react-redux";
+import { RootState } from "~/store/modules";
+import { Img } from "~/img";
 
 interface Props {
   onPress: () => void;
@@ -55,23 +64,59 @@ const CommentText = styled.Text`
 `;
 
 const LabSutraNewCard = ({ onPress }: Props) => {
+  const blindState = useSelector(
+    (state: RootState) => state.product.blind.blindState
+  );
+
+  const [_newCard, _setNewCard] = useState<Card>(null);
+
+  const _getNewCard = async () => {
+    try {
+      const { response, status } = await fetchAPI("labs/sutra/new-card/");
+      const json: Card = await response.json();
+      llog("New Card - success!", json);
+
+      if (status === 200) {
+        _setNewCard(json);
+      }
+    } catch (error) {
+      consoleError("New Card - error", error);
+    }
+  };
+
+  useEffect(() => {
+    _getNewCard();
+  }, []);
+
   return (
     <>
-      <Container onPress={onPress} activeOpacity={1.0}>
-        <ImageArea>
-          <SutraImage />
-          <NewText>NEW!</NewText>
-        </ImageArea>
-        <MarginMedium />
-        <TextArea>
-          <SutraTitle>체위 이름</SutraTitle>
-          <MarginNarrow />
-          <CommentWrapper>
-            <CommentUsername>닉네임</CommentUsername>
-            <CommentText>실시간 댓글 우와우</CommentText>
-          </CommentWrapper>
-        </TextArea>
-      </Container>
+      {_newCard === null ? (
+        <TextTitlePurpleRight title={"Loading..."} />
+      ) : (
+        <Container onPress={onPress} activeOpacity={1.0}>
+          <ImageArea>
+            <SutraImage
+              resizeMode="cover"
+              source={
+                blindState
+                  ? Img.doodle.cdBoxMintPurpleHeart
+                  : { uri: _newCard.thumbnail }
+              }
+            />
+            <NewText>NEW!</NewText>
+          </ImageArea>
+          <MarginMedium />
+          <TextArea>
+            <SutraTitle>{_newCard.name_kor}</SutraTitle>
+            <MarginNarrow />
+            <CommentWrapper>
+              <CommentUsername>{_newCard.comment.username}</CommentUsername>
+              <CommentText>{_newCard.comment.content}</CommentText>
+            </CommentWrapper>
+          </TextArea>
+        </Container>
+      )}
+
       <MarginMedium />
 
       <LineGrayRightLong />

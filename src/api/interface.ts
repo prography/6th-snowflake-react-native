@@ -135,8 +135,8 @@ export interface CondomLiked {
   user: number; // 왜 number로 오지? userId로 오는게 맞는거같기도
 }
 
-// sutra
-export interface Sutra {
+// card
+export interface Card {
   id: number;
   name_kor: string;
   thumbnail: string;
@@ -144,6 +144,10 @@ export interface Sutra {
     username: string;
     content: string;
   };
+}
+
+// sutra
+export interface Sutra extends Card{
   recommend_data: string; // FIXME
 }
 
@@ -152,3 +156,4 @@ export enum RecommendType {
   UNRECOMMEND = "UNRECOMMEND",
   NOTYET = "NOTYET",
 }
+
