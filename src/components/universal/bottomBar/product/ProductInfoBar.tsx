@@ -73,7 +73,6 @@ const ProductInfoBar = ({
     try {
       const token = await getTokenItem();
       if (!token) {
-        setIsLoginModalVisible(true);
         return;
       }
       // if (!token) { return; } // 이 함수 들어오기 전에 체크 함.
@@ -103,7 +102,6 @@ const ProductInfoBar = ({
     try {
       const token = await getTokenItem();
       if (!token) {
-        setIsLoginModalVisible(true);
         return;
       }
 
@@ -126,7 +124,6 @@ const ProductInfoBar = ({
     try {
       const token = await getTokenItem();
       if (!token) {
-        setIsLoginModalVisible(true);
         return;
       }
 
@@ -152,6 +149,11 @@ const ProductInfoBar = ({
       llog("🍊 check like 에러 ", error);
     }
   };
+
+  useEffect(()=>{
+    if(!_isLoggedin)
+      setIsLoginModalVisible(true)
+  }, [_isLoggedin])
 
   useEffect(() => {
     _checkIsLiked();
