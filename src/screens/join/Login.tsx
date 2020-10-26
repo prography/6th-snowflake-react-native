@@ -2,7 +2,6 @@ import * as React from 'react';
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components/native';
-import analytics from "@react-native-firebase/analytics";
 import { StackActions } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 
@@ -16,6 +15,7 @@ import { llog } from '~/utils/functions';
 import { JoinStackParamList } from '~/navigation/tabs/JoinStack';
 import { RootState } from '~/store/modules';
 import { loginAC } from '~/store/modules/join/auth';
+import { eventUtil } from '~/utils/firebase/event';
 
 interface Props {
   navigation: StackNavigationProp<JoinStackParamList, 'Login'>;
@@ -94,7 +94,7 @@ const Login = ({ navigation }: Props) => {
   ];
 
   React.useEffect(() => {
-    analytics().setCurrentScreen("Login");
+    eventUtil.logScreenView("Login");
   }, []);
 
   return (

@@ -1,13 +1,13 @@
 import * as React from 'react';
 import styled from 'styled-components/native';
 import { Text } from 'react-native';
-import analytics from "@react-native-firebase/analytics";
 import { WebView } from 'react-native-webview';
 import { StackNavigationProp } from '@react-navigation/stack';
 
 import { d, c, l } from '~/utils/constant';
 import { useRemoteConfigs } from '~/context/CommonContext';
 import { JoinStackParamList } from '~/navigation/tabs/JoinStack';
+import { eventUtil } from '~/utils/firebase/event';
 
 const feedbackLink = 'https://docs.google.com/forms/d/e/1FAIpQLSc7Xar8USMoiSKfV2ucJtlkAw8eZ47MdXSCEk3knbmg1KuyFw/viewform'; // remote config 못불러올 수도 있으니까
 
@@ -28,7 +28,7 @@ interface Props {
 const Feedback = ({ navigation }: Props) => {
   const { remoteConfigs } = useRemoteConfigs();
   React.useEffect(() => {
-    analytics().setCurrentScreen("Feedback");
+    eventUtil.logScreenView("Feedback");
   }, []);
   return (
     <>

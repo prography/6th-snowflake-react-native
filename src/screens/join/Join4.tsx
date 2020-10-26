@@ -2,7 +2,6 @@ import * as React from 'react';
 import styled from 'styled-components/native';
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import analytics from "@react-native-firebase/analytics";
 import { StackActions, RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 
@@ -16,6 +15,7 @@ import MarginMedium from '~/components/universal/margin/MarginMedium';
 import { JoinStackParamList } from '~/navigation/tabs/JoinStack';
 import { fetchAPI } from '~/api';
 import { llog } from '~/utils/functions';
+import { eventUtil } from '~/utils/firebase/event';
 
 const OneLineWrapper = styled.View`
   flex-direction: row;
@@ -153,7 +153,7 @@ const Join4 = ({ navigation, route }: Props) => {
   };
 
   useEffect(() => {
-    analytics().setCurrentScreen("Join4_Our_Statement");
+    eventUtil.logScreenView("Join4_Our_Statement");
   }, []);
 
   return (

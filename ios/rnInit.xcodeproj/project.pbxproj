@@ -27,8 +27,8 @@
 		CC47724678E1AABE4BED3CA5 /* libPods-rnInit-rnInitTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C2A623C82AD171B3E6766A9C /* libPods-rnInit-rnInitTests.a */; };
 		CF1F4A59F423764F305FF4DC /* libPods-rnInit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 93BF63EF13CD33E4909D8CEE /* libPods-rnInit.a */; };
 		DEAD981CA3BA7B76C6F80DD7 /* libPods-rnInit-tvOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6C8C2B711C7009B6A3915FA4 /* libPods-rnInit-tvOSTests.a */; };
-		F409345B24C0B00700FAC035 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F409345724C0AD9B00FAC035 /* GoogleService-Info.plist */; };
-		F409345E24C0B12B00FAC035 /* GoogleService-Info-debug.plist in Resources */ = {isa = PBXBuildFile; fileRef = F409345D24C0B12B00FAC035 /* GoogleService-Info-debug.plist */; };
+		F4771B6525471F7800BFF7D6 /* GoogleService-Info-Dev.plist in Resources */ = {isa = PBXBuildFile; fileRef = F4771B6325471F7800BFF7D6 /* GoogleService-Info-Dev.plist */; };
+		F4771B6625471F7800BFF7D6 /* GoogleService-Info-Release.plist in Resources */ = {isa = PBXBuildFile; fileRef = F4771B6425471F7800BFF7D6 /* GoogleService-Info-Release.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -50,21 +50,21 @@
 
 /* Begin PBXFileReference section */
 		008F07F21AC5B25A0029DE68 /* main.jsbundle */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = main.jsbundle; sourceTree = "<group>"; };
-		00E356EE1AD99517003FC87E /* rnInitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = rnInitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		00E356EE1AD99517003FC87E /* rnInitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; name = rnInitTests.xctest; path = "/Users/daheeahn/Desktop/6th-snowflake-react-native-desktop/ios/build/Debug-iphoneos/rnInitTests.xctest"; sourceTree = "<absolute>"; };
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00E356F21AD99517003FC87E /* rnInitTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = rnInitTests.m; sourceTree = "<group>"; };
 		037417D8DD1F48278F1A0855 /* Jost-Light.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Jost-Light.otf"; path = "../src/assets/fonts/Jost-Light.otf"; sourceTree = "<group>"; };
 		0D34D775E40E489C86D3BF77 /* Jost-Medium.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Jost-Medium.otf"; path = "../src/assets/fonts/Jost-Medium.otf"; sourceTree = "<group>"; };
 		1161EDD488944217B61DD3F1 /* Jost-Black.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Jost-Black.otf"; path = "../src/assets/fonts/Jost-Black.otf"; sourceTree = "<group>"; };
-		13B07F961A680F5B00A75B9A /* 눈송이.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "눈송이.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		13B07F961A680F5B00A75B9A /* Snowflake.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = Snowflake.app; path = "/Users/daheeahn/Desktop/6th-snowflake-react-native-desktop/ios/build/Debug-iphoneos/Snowflake.app"; sourceTree = "<absolute>"; };
 		13B07FB01A68108700A75B9A /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = rnInit/AppDelegate.m; sourceTree = "<group>"; };
 		13B07FB21A68108700A75B9A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = rnInit/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = rnInit/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = rnInit/main.m; sourceTree = "<group>"; };
 		194141E9BD444498BBA08642 /* Jost-Book.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Jost-Book.otf"; path = "../src/assets/fonts/Jost-Book.otf"; sourceTree = "<group>"; };
-		2D02E47B1E0B4A5D006451C7 /* rnInit-tvOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "rnInit-tvOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		2D02E4901E0B4A5D006451C7 /* rnInit-tvOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "rnInit-tvOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		2D02E47B1E0B4A5D006451C7 /* rnInit-tvOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = "rnInit-tvOS.app"; path = "/Users/daheeahn/Desktop/6th-snowflake-react-native-desktop/ios/build/Debug-appletvos/rnInit-tvOS.app"; sourceTree = "<absolute>"; };
+		2D02E4901E0B4A5D006451C7 /* rnInit-tvOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; name = "rnInit-tvOSTests.xctest"; path = "/Users/daheeahn/Desktop/6th-snowflake-react-native-desktop/ios/build/Debug-appletvos/rnInit-tvOSTests.xctest"; sourceTree = "<absolute>"; };
 		3784BDAF35E8DFFF0BD00ABB /* Pods-rnInit-tvOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-rnInit-tvOSTests.release.xcconfig"; path = "Target Support Files/Pods-rnInit-tvOSTests/Pods-rnInit-tvOSTests.release.xcconfig"; sourceTree = "<group>"; };
 		400C9106C44089C3EBAB423B /* Pods-rnInit-rnInitTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-rnInit-rnInitTests.debug.xcconfig"; path = "Target Support Files/Pods-rnInit-rnInitTests/Pods-rnInit-rnInitTests.debug.xcconfig"; sourceTree = "<group>"; };
 		4836A4A39BD99B3A5BECF07D /* Pods-rnInit-tvOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-rnInit-tvOS.release.xcconfig"; path = "Target Support Files/Pods-rnInit-tvOS/Pods-rnInit-tvOS.release.xcconfig"; sourceTree = "<group>"; };
@@ -82,9 +82,9 @@
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		ED2971642150620600B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS12.0.sdk/System/Library/Frameworks/JavaScriptCore.framework; sourceTree = DEVELOPER_DIR; };
 		F030A1820DEE433DA324D26B /* Jost-Bold.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Jost-Bold.otf"; path = "../src/assets/fonts/Jost-Bold.otf"; sourceTree = "<group>"; };
-		F409345724C0AD9B00FAC035 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		F409345D24C0B12B00FAC035 /* GoogleService-Info-debug.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info-debug.plist"; sourceTree = "<group>"; };
 		F41BE80624CABCF300C25BFA /* rnInit.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = rnInit.entitlements; path = rnInit/rnInit.entitlements; sourceTree = "<group>"; };
+		F4771B6325471F7800BFF7D6 /* GoogleService-Info-Dev.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info-Dev.plist"; sourceTree = "<group>"; };
+		F4771B6425471F7800BFF7D6 /* GoogleService-Info-Release.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info-Release.plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -145,9 +145,7 @@
 			children = (
 				F41BE80624CABCF300C25BFA /* rnInit.entitlements */,
 				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
-				F409345724C0AD9B00FAC035 /* GoogleService-Info.plist */,
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
-				F409345D24C0B12B00FAC035 /* GoogleService-Info-debug.plist */,
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
 				13B07FB61A68108700A75B9A /* Info.plist */,
 				13B07FB11A68108700A75B9A /* LaunchScreen.xib */,
@@ -208,10 +206,11 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				F4771B6325471F7800BFF7D6 /* GoogleService-Info-Dev.plist */,
+				F4771B6425471F7800BFF7D6 /* GoogleService-Info-Release.plist */,
 				13B07FAE1A68108700A75B9A /* rnInit */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				00E356EF1AD99517003FC87E /* rnInitTests */,
-				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				3CAA5C4B9D645B241ACF041A /* Pods */,
 				2BA61BED4C0049D5A5058BC4 /* Resources */,
@@ -220,17 +219,6 @@
 			sourceTree = "<group>";
 			tabWidth = 2;
 			usesTabs = 0;
-		};
-		83CBBA001A601CBA00E9B192 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				13B07F961A680F5B00A75B9A /* 눈송이.app */,
-				00E356EE1AD99517003FC87E /* rnInitTests.xctest */,
-				2D02E47B1E0B4A5D006451C7 /* rnInit-tvOS.app */,
-				2D02E4901E0B4A5D006451C7 /* rnInit-tvOSTests.xctest */,
-			);
-			name = Products;
-			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
@@ -269,6 +257,9 @@
 				F47A77101EEB50DFBEA0B836 /* [CP] Copy Pods Resources */,
 				FAAB2E476DF236B851F24726 /* [CP-User] [RNFB] Core Configuration */,
 				CB4C587DFE702135BD08D40D /* [CP] Embed Pods Frameworks */,
+				F4771A0A2547047B00BFF7D6 /* Run Script Firebase */,
+				F4771B6B2547213700BFF7D6 /* Run Script Crashlytics */,
+				9D64E25148C6000FC00C9ABA /* [CP-User] [RNFB] Crashlytics Configuration */,
 			);
 			buildRules = (
 			);
@@ -276,7 +267,7 @@
 			);
 			name = rnInit;
 			productName = rnInit;
-			productReference = 13B07F961A680F5B00A75B9A /* 눈송이.app */;
+			productReference = 13B07F961A680F5B00A75B9A /* Snowflake.app */;
 			productType = "com.apple.product-type.application";
 		};
 		2D02E47A1E0B4A5D006451C7 /* rnInit-tvOS */ = {
@@ -357,7 +348,7 @@
 				Base,
 			);
 			mainGroup = 83CBB9F61A601CBA00E9B192;
-			productRefGroup = 83CBBA001A601CBA00E9B192 /* Products */;
+			productRefGroup = 83CBB9F61A601CBA00E9B192;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
@@ -381,13 +372,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F409345B24C0B00700FAC035 /* GoogleService-Info.plist in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
-				F409345E24C0B12B00FAC035 /* GoogleService-Info-debug.plist in Resources */,
 				BA76CC5A3F5B433EA9A5B657 /* Jost-Black.otf in Resources */,
+				F4771B6625471F7800BFF7D6 /* GoogleService-Info-Release.plist in Resources */,
 				9A0CDE381B04449A8DA1C787 /* Jost-Bold.otf in Resources */,
 				B8E1E34B224745D5895A21E7 /* Jost-Book.otf in Resources */,
+				F4771B6525471F7800BFF7D6 /* GoogleService-Info-Dev.plist in Resources */,
 				2B39DAF00B994F438323EAB7 /* Jost-Heavy.otf in Resources */,
 				C39083C441A54932AFA0E4FA /* Jost-Light.otf in Resources */,
 				90A31ACB36944234AC636E75 /* Jost-Medium.otf in Resources */,
@@ -529,6 +520,16 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-rnInit-rnInitTests/Pods-rnInit-rnInitTests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+		9D64E25148C6000FC00C9ABA /* [CP-User] [RNFB] Crashlytics Configuration */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			name = "[CP-User] [RNFB] Crashlytics Configuration";
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "#!/usr/bin/env bash\n#\n# Copyright (c) 2016-present Invertase Limited & Contributors\n#\n# Licensed under the Apache License, Version 2.0 (the \"License\");\n# you may not use this library except in compliance with the License.\n# You may obtain a copy of the License at\n#\n#   http://www.apache.org/licenses/LICENSE-2.0\n#\n# Unless required by applicable law or agreed to in writing, software\n# distributed under the License is distributed on an \"AS IS\" BASIS,\n# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\n# See the License for the specific language governing permissions and\n# limitations under the License.\n#\nset -e\n\nif [[ ${PODS_ROOT} ]]; then\n  echo \"info: Exec FirebaseCrashlytics Run from Pods\"\n  \"${PODS_ROOT}/FirebaseCrashlytics/run\"\nelse\n  echo \"info: Exec FirebaseCrashlytics Run from framework\"\n  \"${PROJECT_DIR}/FirebaseCrashlytics.framework/run\"\nfi\n";
+		};
 		B8263CF0E9E05F3B9D963539 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -612,6 +613,43 @@
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
+		};
+		F4771A0A2547047B00BFF7D6 /* Run Script Firebase */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Run Script Firebase";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "case \"${CONFIGURATION}\" in\n  \"Debug\" )\ncp -r \"$SRCROOT/GoogleService-Info-Dev.plist\" \"${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}.app/GoogleService-Info.plist\" ;;\n  \"Release\" )\ncp -r \"$SRCROOT/GoogleService-Info-Release.plist\" \"${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}.app/GoogleService-Info.plist\" ;;\n*)\n;;\nesac\n";
+		};
+		F4771B6B2547213700BFF7D6 /* Run Script Crashlytics */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/$(BUILT_PRODUCTS_DIR)/$(INFOPLIST_PATH)",
+			);
+			name = "Run Script Crashlytics";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/FirebaseCrashlytics/run\"\n";
 		};
 		F47A77101EEB50DFBEA0B836 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -844,7 +882,7 @@
 					"-lc++",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.snowflake.safelove;
-				PRODUCT_NAME = "눈송이";
+				PRODUCT_NAME = Snowflake;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -869,7 +907,7 @@
 					"-lc++",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.snowflake.safelove;
-				PRODUCT_NAME = "눈송이";
+				PRODUCT_NAME = Snowflake;
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 			};

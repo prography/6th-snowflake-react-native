@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { useEffect } from 'react';
 import { ScrollView, Alert } from 'react-native';
-import analytics from "@react-native-firebase/analytics";
 import { useSelector, useDispatch } from 'react-redux';
 import { useAsyncStorage } from '@react-native-community/async-storage';
 import { StackNavigationProp } from '@react-navigation/stack';
@@ -20,6 +19,7 @@ import { RootState } from '~/store/modules';
 import { ProductStackParamList } from '~/navigation/tabs/ProductStack';
 import { fetchAPI } from '~/api';
 import { llog } from '~/utils/functions';
+import { eventUtil } from '~/utils/firebase/event';
 
 interface Props {
   navigation: StackNavigationProp<ProductStackParamList, 'ReviewUpload3'>;
@@ -98,7 +98,7 @@ const ReviewUpload3 = ({ navigation, route }: Props) => {
   };
 
   useEffect(() => {
-    analytics().setCurrentScreen("ReviewUpload3_Write_Review");
+    eventUtil.logScreenView("ReviewUpload3_Write_Review");
   }, []);
 
   return (

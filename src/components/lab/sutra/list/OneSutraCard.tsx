@@ -24,6 +24,7 @@ const TopArea = styled.View`
 const ImageContainer = styled.View`
   margin-right: ${d.px * 15}px;
   flex: 1;
+  /* background-color: ${c.purple}; */
 `;
 const LikeContainer = styled.TouchableOpacity`
   position: absolute;
@@ -41,6 +42,7 @@ const LikeImage = styled.Image`
 const SutraImage = styled.Image`
   width: 100%;
   height: ${d.px * 120}px;
+  /* background-color: ${c.purple}; */
 `;
 const SelectionContainer = styled.View`
   flex: 1;

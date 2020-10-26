@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import analytics from "@react-native-firebase/analytics";
 import { StackNavigationProp } from '@react-navigation/stack';
 
 import Content from '../../containers/home/main/Content';
@@ -12,6 +11,7 @@ import { setUserGender, setUserPartnerGender } from '~/store/modules/join/userIn
 import { getUserInfoAC } from '~/store/modules/join/userInfo';
 import { RootState } from '~/store/modules';
 import { HomeStackParamList } from '~/navigation/tabs/HomeStack';
+import { eventUtil } from '~/utils/firebase/event';
 
 interface Props {
   navigation: StackNavigationProp<HomeStackParamList, 'HomeMain'>;
@@ -23,7 +23,7 @@ const HomeMain = ({ navigation }: Props) => {
   const { loading, data: userInfo, error } = useSelector((state: RootState) => state.join.userInfo.userInfo);
 
   useEffect(() => {
-    analytics().setCurrentScreen("HomeMain");
+    eventUtil.logScreenView("HomeMain");
   }, []);
 
   useEffect(() => {

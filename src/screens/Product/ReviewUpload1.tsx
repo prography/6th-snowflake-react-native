@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { ScrollView } from 'react-native';
-import analytics from "@react-native-firebase/analytics";
 import { useSelector } from 'react-redux';
 import { RouteProp } from '@react-navigation/native';
 
@@ -14,6 +13,7 @@ import MarginBottom from '~/components/universal/margin/MarginBottom';
 import BottomBtnCollectData from '~/components/universal/bottomBar/BottomBtnCollectData';
 import { RootState } from '~/store/modules';
 import { ProductStackParamList } from '~/navigation/tabs/ProductStack';
+import { eventUtil } from '~/utils/firebase/event';
 
 interface Props {
   route: RouteProp<ProductStackParamList, 'ReviewUpload1'>;
@@ -26,7 +26,7 @@ const ReviewUpload1 = ({ route }: Props) => {
   );
 
   React.useEffect(() => {
-    analytics().setCurrentScreen("ReviewUpload1_Triple");
+    eventUtil.logScreenView("ReviewUpload1_Triple");
   }, []);
 
   return (

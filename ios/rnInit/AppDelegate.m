@@ -35,19 +35,8 @@ static void InitializeFlipper(UIApplication *application) {
 #if DEBUG
   InitializeFlipper(application);
 #endif
-  
-  
-  NSString *filePath;
-  #ifdef DEBUG
-    NSLog(@"[FIREBASE] Development mode.");
-    filePath = [[NSBundle mainBundle] pathForResource:@"GoogleService-Info-debug" ofType:@"plist"];
-  #else
-    NSLog(@"[FIREBASE] Production mode.");
-    filePath = [[NSBundle mainBundle] pathForResource:@"GoogleService-Info" ofType:@"plist"];
-  #endif
     
-  FIROptions *options = [[FIROptions alloc] initWithContentsOfFile:filePath];
-  [FIRApp configureWithOptions:options];
+  [FIRApp configure];
 
   RCTBridge *bridge = [[RCTBridge alloc] initWithDelegate:self launchOptions:launchOptions];
   RCTRootView *rootView = [[RCTRootView alloc] initWithBridge:bridge

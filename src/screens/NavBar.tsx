@@ -1,8 +1,8 @@
 import * as React from 'react';
 import styled from 'styled-components/native';
-import analytics from '@react-native-firebase/analytics';
 
 import { d, c, l } from '~/utils/constant';
+import { eventUtil } from '~/utils/firebase/event';
 
 interface Tab {
   key: number;
@@ -92,10 +92,10 @@ const NavBar = ({ children, navigateToStack, selectedStack }: Props) => {
               key={index}
               activeOpacity={1}
               onPress={() => {
-                console.log('확인',selectedStack, navigateToStack)
+                console.log('확인', selectedStack, navigateToStack)
                 navigateToStack(tab.stackNameEng);
-                analytics().logEvent(`press_tab_${tab.stackNameEng}`);
-                analytics().setCurrentScreen(`${tab.stackNameEng}`);
+                eventUtil.logEvent(`press_tab_${tab.stackNameEng}`);
+                eventUtil.logScreenView(`${tab.stackNameEng}`);
               }}
             >
               {selectedStack === tab.stackNameEng ? <SelectedCircle /> : null}

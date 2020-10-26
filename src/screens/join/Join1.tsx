@@ -1,7 +1,6 @@
 import * as React from 'react';
 import styled from 'styled-components/native';
 import { useState, useEffect } from 'react';
-import analytics from '@react-native-firebase/analytics';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scrollview';
 
 import LinePurpleWhenFocused from '~/components/universal/line/LinePurpleWhenFocused';
@@ -16,6 +15,7 @@ import TopBarBackArrowRightIcon from '~/components/universal/topBar/TopBarBackAr
 import { fetchAPI } from '~/api';
 import { llog } from '~/utils/functions';
 import { MsgRes } from '~/api/interface';
+import { eventUtil } from '~/utils/firebase/event';
 
 const Container = styled.View`
   margin: 0 ${l.mR}px;
@@ -158,7 +158,7 @@ const Join1 = () => {
   ];
 
   useEffect(() => {
-    analytics().setCurrentScreen('Join1_Email_Password');
+    eventUtil.logScreenView('Join1_Email_Password');
   }, []);
 
   return (

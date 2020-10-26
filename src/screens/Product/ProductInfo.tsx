@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { useState, useEffect } from 'react';
 import { ScrollView } from 'react-native';
-import analytics from "@react-native-firebase/analytics";
 import styled from 'styled-components/native';
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
@@ -22,6 +21,7 @@ import { llog } from '~/utils/functions';
 import { ProductStackParamList } from '~/navigation/tabs/ProductStack';
 import { fetchAPI } from '~/api';
 import { CondomProduct } from '~/api/interface';
+import { eventUtil } from '~/utils/firebase/event';
 
 const Container = styled.View`
   flex-direction: column;
@@ -53,7 +53,7 @@ const ProductInfo = ({ navigation, route }: Props) => {
   };
 
   useEffect(() => {
-    analytics().setCurrentScreen("ProductInfo");
+    eventUtil.logScreenView("ProductInfo");
     _getProductInfo();
   }, []);
 

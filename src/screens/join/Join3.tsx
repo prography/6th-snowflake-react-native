@@ -3,7 +3,6 @@ import { View, Text } from 'react-native';
 import styled from 'styled-components/native';
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import analytics from "@react-native-firebase/analytics";
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { RouteProp } from '@react-navigation/native';
 
@@ -20,6 +19,7 @@ import MarginMedium from '~/components/universal/margin/MarginMedium';
 import { WomanColor, ManColor } from '~/utils/asyncStorage';
 import { RootState } from '~/store/modules';
 import { JoinStackParamList } from '~/navigation/tabs/JoinStack';
+import { eventUtil } from '~/utils/firebase/event';
 
 const Container = styled.View`
   margin: 0 ${l.mR}px;
@@ -100,7 +100,7 @@ const Join3 = ({ navigation, route }: Props) => {
   const [noneColor, setNoneColor] = useState<string>(c.black);
 
   useEffect(() => {
-    analytics().setCurrentScreen("Join3_UerGender");
+    eventUtil.logScreenView("Join3_UerGender");
   }, []);
 
   return (

@@ -16,6 +16,7 @@ import MarginMedium from '~/components/universal/margin/MarginMedium';
 import ButtonGenderColor from '~/containers/join/ColorCircles/ButtonGenderColor';
 import TopBarBackArrowRightIcon from '~/components/universal/topBar/TopBarBackArrowRightIcon';
 import { RootState } from '~/store/modules';
+import { eventUtil } from '~/utils/firebase/event';
 
 const Container = styled.View`
   flex-direction: column;
@@ -51,7 +52,7 @@ const GenderColor = () => {
   );
 
   React.useEffect(() => {
-    analytics().setCurrentScreen("Select_GenderColor");
+    eventUtil.logScreenView("Select_GenderColor");
   }, []);
 
   return (

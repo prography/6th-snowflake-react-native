@@ -1,4 +1,5 @@
 import analytics from "@react-native-firebase/analytics";
+import crashlytics from "@react-native-firebase/crashlytics";
 
 const logEvent = (s: string, obj?: object) => {
   if (obj) {
@@ -8,8 +9,13 @@ const logEvent = (s: string, obj?: object) => {
   }
 };
 
-const logScreenView = (screenName: string) => {
-  analytics().setCurrentScreen(screenName);
+const logScreenView = async (screen_name: string) => {
+  // console.log("💢", analytics().setCurrentScreen);
+  // crashlytics().crash();
+  // throw Error();
+  // returnl;
+  // await analytics().logScreenView({ screen_name });
+  // await analytics().logScreenView({ screen_name: screen });
 };
 
 export const eventUtil = {
