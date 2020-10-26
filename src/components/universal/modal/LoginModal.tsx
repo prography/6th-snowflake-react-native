@@ -7,10 +7,12 @@ import { c, d } from "~/utils/constant";
 import { withNavigation } from "@react-navigation/compat";
 import { RootTabParamList } from "~/navigation/RootTabNavigation";
 import { StackNavigationProp } from "@react-navigation/stack";
+import BaseModal from "./BaseModal";
 
 interface Props {
   message: string;
   toggleModal: () => void;
+  modalVisible: boolean;
   navigation: StackNavigationProp<RootTabParamList>;
 }
 
@@ -48,8 +50,9 @@ const CancelButton = styled.TouchableOpacity`
   margin: ${d.px * 11}px;
 `;
 
-const MyModal = ({
+const LoginModal = ({
   message,
+  modalVisible,
   toggleModal,
   navigation,
 }: Props) => {
@@ -59,7 +62,7 @@ const MyModal = ({
   };
 
   return (
-    <Modal isVisible={true} useNativeDriver={true}>
+    <BaseModal isVisible={modalVisible}>
       <Container>
         <Message>{"❄️"}</Message>
         <Message>{message}</Message>
@@ -75,8 +78,8 @@ const MyModal = ({
           </CancelButton>
         </ButtonContainer>
       </Container>
-    </Modal>
+    </BaseModal>
   );
 };
 
-export default withNavigation(MyModal);
+export default withNavigation(LoginModal);

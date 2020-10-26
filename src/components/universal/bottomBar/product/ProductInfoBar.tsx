@@ -12,10 +12,11 @@ import { llog } from "~/utils/functions";
 import { RootState } from "~/store/modules";
 import { fetchAPI } from "~/api";
 import { Img } from "~/img";
-import MyModal from "~/components/universal/modal/MyModal";
+import MyModal from "~/components/universal/modal/LoginModal";
 import HeartUnselected from "~/img/svgIcons/HeartUnselected";
 import HeartSelected from "~/img/svgIcons/HeartSelected";
 import { alertUtil } from "~/utils/alert";
+import LoginModal from "~/components/universal/modal/LoginModal";
 
 interface Props {
   children: React.ReactNode;
@@ -172,12 +173,6 @@ const ProductInfoBar = ({
             }
           }}
         >
-          {modalVisible ? (
-            <MyModal
-              message={"마이 탭에서 로그인 후\n이용 부탁드려요!"}
-              toggleModal={toggleModal}
-            />
-          ) : null}
           {isLiked ? <HeartSelected /> : <HeartUnselected />}
         </Tab>
         {/* <Tab>
@@ -196,6 +191,11 @@ const ProductInfoBar = ({
           <Title>리뷰 쓰러 가기</Title>
         </Tab>
       </Container>
+      <LoginModal
+        modalVisible={modalVisible}
+        message={"마이 탭에서 로그인 후\n이용 부탁드려요!"}
+        toggleModal={toggleModal}
+      />
     </Screen>
   );
 };
