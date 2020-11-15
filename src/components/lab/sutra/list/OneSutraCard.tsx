@@ -184,6 +184,7 @@ const OneSutraCard = ({
 
   // sutra
   const { id, name_kor, thumbnail, comment, recommend_data, is_user_like } = sutra;
+  const { percentage, purple_count, sky_count } = recommend_data || {};
 
   return (
     <>
@@ -221,18 +222,18 @@ const OneSutraCard = ({
             통계를 볼 수 있게끔
             => 평가 했으면 recommend_data != null, 평가 안했으면 recommend_data = null 임
           */}
-          {recommend_data ? (
+          {recommend_data !== null ? (
             <SelectionContainer>
               <GoodScoreContainer>
                 {/* score들의 숫자는 임의로 넣은 점수... 받아온 점수가 들어가면 됨! */}
-                <GoodScore score={recommend_data.percentage} />
-                <GoodScoreText>추천 {recommend_data.percentage}%</GoodScoreText>
+                <GoodScore score={percentage} />
+                <GoodScoreText>추천 {Number.isInteger(percentage) ? percentage : percentage.toFixed(1)}%</GoodScoreText>
               </GoodScoreContainer>
 
               <PurpleSkyScoreContainer>
                 <PurpleScoreContainer>
                   <PurpleScoreWrapper>
-                    <PurpleScore score={recommend_data.purple_count} />
+                    <PurpleScore score={purple_count} />
                   </PurpleScoreWrapper>
                   <PurpleHead
                     style={{ resizeMode: "contain" }}
@@ -241,7 +242,7 @@ const OneSutraCard = ({
                 </PurpleScoreContainer>
                 <SkyScoreContainer>
                   <SkyScoreWrapper>
-                    <SkyScore score={recommend_data.sky_count} />
+                    <SkyScore score={sky_count} />
                   </SkyScoreWrapper>
                   <SkyHead
                     style={{ resizeMode: "contain" }}

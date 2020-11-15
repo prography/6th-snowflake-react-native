@@ -104,6 +104,11 @@ export interface Review {
 }
 
 // join
+export enum Position {
+  PURPLE = "PURPLE",
+  SKY = "SKY",
+  NONE = "NONE",
+}
 export interface UserInfoMain {
   // Review.user에서 UserInfoMain만 쓰여서 따로 만든거
   birth_year: number;
@@ -119,6 +124,7 @@ export interface UserInfo extends UserInfoMain {
   icon: string;
   partner_gender: GenderEnum;
   social: string;
+  position: Position;
 }
 
 export interface LoginRes {

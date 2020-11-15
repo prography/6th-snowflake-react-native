@@ -1,19 +1,19 @@
 import * as React from "react";
 import styled from 'styled-components';
 import { useState, useEffect } from "react";
-import { View, Text } from "react-native";
 
 import OneSutraCard from "~/components/lab/sutra/list/OneSutraCard";
 import { getTokenItem } from "~/utils/asyncStorage";
 import { fetchAPI } from "~/api";
 import { llog, consoleError } from "~/utils/functions";
-import { ResultsRes, Sutra, RecommendType } from "~/api/interface";
+import { ResultsRes, Sutra, RecommendType, Position } from "~/api/interface";
 import MarginMedium from "~/components/universal/margin/MarginMedium";
 import { alertUtil } from "~/utils/alert";
-import { toast } from "~/utils/toast";
 
 interface Props {
   navigateToJoinStack: () => void;
+  openQuestionModal: () => void;
+  position: Position;
 }
 
 // [x] 여기에서 데이터 받아와서 map 돌려서 OneSutraCard에 넘겨주면 됩니다!
@@ -80,7 +80,7 @@ const orders: Order[] = [
 // order => default: 최신순 | 평가개수순: evaluation | 추천순: recommend | 비추천순: unrecommend | 안해봤어요 순: notyet | 찜순: like
 // filter => 추천: recommend | 비추천: unrecommend | 안해봤어요: notyet | 찜: like
 
-const SutraCardsList = ({ navigateToJoinStack }: Props) => {
+const SutraCardsList = ({ navigateToJoinStack, openQuestionModal, position }: Props) => {
   /* 1. Sutra List */
   const [_sutraCardsList, _setSutraCardsList] = useState<Sutra[]>(null);
   const [selectedFilter, setSelectedFilter] = useState<FilterEnum>(FilterEnum.none);
@@ -124,6 +124,11 @@ const SutraCardsList = ({ navigateToJoinStack }: Props) => {
       const token = await getTokenItem();
       if (!token) {
         alertUtil.needLogin(navigateToJoinStack, '로그인');
+        return;
+      }
+
+      if (position === Position.NONE) {
+        openQuestionModal();
         return;
       }
 

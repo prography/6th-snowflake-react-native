@@ -20,4 +20,5 @@ export const eventUtil = {
   LabMain: "LabMain",
   SutraInfo: "SutraInfo",
   SutraList: "SutraList",
+  SutraQuestion: "SutraQuestion",
 };
