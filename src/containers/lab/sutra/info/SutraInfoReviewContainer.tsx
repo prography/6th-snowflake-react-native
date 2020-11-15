@@ -1,26 +1,25 @@
-import * as React from 'react';
-import styled from 'styled-components/native';
-import { SutraReview } from '~/api/interface';
-import SutraInfoReviewLike from '~/components/lab/sutra/info/SutraInfoReviewLike';
-import SutraInfoReviewReport from '~/components/lab/sutra/info/SutraInfoReviewReport';
-import { Img } from '~/img';
-import { c, d, dateCutter, l } from '~/utils/constant';
+import * as React from "react";
+import styled from "styled-components/native";
+import { SutraReview } from "~/api/interface";
+import SutraInfoReviewLike from "~/components/lab/sutra/info/SutraInfoReviewLike";
+import SutraInfoReviewReport from "~/components/lab/sutra/info/SutraInfoReviewReport";
+import { Img } from "~/img";
+import { c, d, dateCutter, l } from "~/utils/constant";
 interface Props {
   review: SutraReview;
   sutra_id: number;
 }
 
-
 const Container = styled.View`
-  border-bottom-width: ${d.px*1}px;
+  border-bottom-width: ${d.px * 1}px;
   border-bottom-color: ${c.lightGray};
-  padding: ${d.px*3}px;
+  padding: ${d.px * 3}px;
 `;
 
 const UserContainer = styled.View`
-flex-direction: row;
-align-items: center;
-margin-bottom: ${d.px*7}px;
+  flex-direction: row;
+  align-items: center;
+  margin-bottom: ${d.px * 7}px;
 `;
 
 const PurpleHead = styled.Image`
@@ -42,11 +41,11 @@ const UserName = styled.Text`
 `;
 
 const DateText = styled.Text`
-font-family: Jost-Light;
-font-size: ${d.px * 12}px;
-line-height: ${d.px * 20}px;
-color: ${c.lightGray};
-margin-right: ${d.px * 5}px;
+  font-family: Jost-Light;
+  font-size: ${d.px * 12}px;
+  line-height: ${d.px * 20}px;
+  color: ${c.lightGray};
+  margin-right: ${d.px * 5}px;
 `;
 
 const ReviewText = styled.Text`
@@ -66,7 +65,6 @@ const BottomSubContainer = styled.View`
   flex-direction: row;
 `;
 
-
 const SutraInfoReviewContainer = ({ review, sutra_id }: Props) => {
   return (
     <Container>
@@ -81,8 +79,12 @@ const SutraInfoReviewContainer = ({ review, sutra_id }: Props) => {
       <BottomContainer>
         <DateText>{dateCutter(review.created_at)}</DateText>
         <BottomSubContainer>
-          <SutraInfoReviewLike comment_id={review.id} sutra_id={sutra_id}/>
-          <SutraInfoReviewReport comment_id={review.id} sutra_id={sutra_id}/>
+          <SutraInfoReviewLike
+            comment_id={review.id}
+            sutra_id={sutra_id}
+            likes_count={review.likes_count}
+          />
+          <SutraInfoReviewReport comment_id={review.id} />
         </BottomSubContainer>
       </BottomContainer>
     </Container>
