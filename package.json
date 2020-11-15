@@ -35,6 +35,7 @@
     "react": "16.11.0",
     "react-native": "0.62.0",
     "react-native-code-push": "6.3.0",
+    "react-native-fix-image": "^2.0.1",
     "react-native-gesture-handler": "1.6.1",
     "react-native-keyboard-aware-scrollview": "2.1.0",
     "react-native-modal": "11.5.6",
