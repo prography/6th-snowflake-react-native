@@ -11,7 +11,7 @@ import TextTitlePurpleRight from "~/components/universal/text/TextTitlePurpleRig
 import { View } from "react-native";
 
 interface Props {
-  newSutraId: int;
+  newSutraId: number;
 }
 
 const Container = styled.View`

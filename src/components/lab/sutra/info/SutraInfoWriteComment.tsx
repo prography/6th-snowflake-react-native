@@ -1,9 +1,16 @@
 import * as React from "react";
 import { useState } from "react";
 import styled from "styled-components/native";
-import { View, Text } from "react-native";
+import { View, Text, Alert } from "react-native";
 import { d, l, c } from "~/utils/constant";
 import { Img } from "~/img";
+import { getTokenItem } from "~/utils/asyncStorage";
+import { fetchAPI } from "~/api";
+import { consoleError, llog } from "~/utils/functions";
+
+interface Props {
+  newSutraId: number;
+}
 
 const Container = styled.View`
   margin-right: ${l.mR}px;
@@ -58,13 +65,36 @@ const SubContainer = styled.View`
   margin-bottom: ${d.px*7}px;
 `;
 
-const SutraInfoWriteComment = () => {
-  const [review, setReview] = useState<string>("");
-  console.log("review", review);
+const SutraInfoWriteComment = ({newSutraId: sutra_id}:Props) => {
+  const [content, setContent] = useState<string>("");
 
-  const submitReview = () => {
-    console.log('리뷰포스트');
-  }
+  const submitContent = async () => {
+    try {
+      const token = await getTokenItem();
+      if (!token) {
+        Alert.alert("❄️", "로그인 후 이용해주세요!");
+        return;
+      }
+      console.log('등록?');
+      const { status, response } = await fetchAPI(`labs/sutras/${sutra_id}/comments/`, {
+        method: 'POST',
+        token,
+        params: {
+          content
+        },
+      });
+      console.log(status, response)
+      
+      if (status === 201) {
+        Alert.alert("☃️", "리뷰 등록 완료");
+        llog("Sutra Review 등록 성공", response);
+      }
+      
+    } catch (err) {
+      consoleError("🍊sutra review 등록 에러", err);
+    }
+  };
+
 
   return (
     <>
@@ -84,9 +114,9 @@ const SutraInfoWriteComment = () => {
             placeholderTextColor={c.lightGray}
             placeholder={"리뷰를 입력해주세요."}
             style={{padding:d.px*3}}
-            onChangeText={(text) => setReview(text)}
+            onChangeText={(text) => setContent(text)}
           />
-          <SaveComment onPress={submitReview}>
+          <SaveComment onPress={submitContent}>
             <SaveText>작성</SaveText>
           </SaveComment>
         </SubContainer>

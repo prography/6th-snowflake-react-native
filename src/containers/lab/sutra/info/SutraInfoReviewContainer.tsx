@@ -1,9 +1,12 @@
 import * as React from "react";
+import { useSelector } from "react-redux";
 import styled from "styled-components/native";
 import { SutraReview } from "~/api/interface";
 import SutraInfoReviewLike from "~/components/lab/sutra/info/SutraInfoReviewLike";
 import SutraInfoReviewReport from "~/components/lab/sutra/info/SutraInfoReviewReport";
+import SutraReviewController from "~/components/lab/sutra/info/SutraReviewController";
 import { Img } from "~/img";
+import { RootState } from "~/store/modules";
 import { c, d, dateCutter, l } from "~/utils/constant";
 interface Props {
   review: SutraReview;
@@ -18,8 +21,13 @@ const Container = styled.View`
 
 const UserContainer = styled.View`
   flex-direction: row;
+  justify-content: space-between;
   align-items: center;
   margin-bottom: ${d.px * 7}px;
+`;
+
+const UserSubContainer = styled.View`
+  flex-direction: row;
 `;
 
 const PurpleHead = styled.Image`
@@ -66,14 +74,23 @@ const BottomSubContainer = styled.View`
 `;
 
 const SutraInfoReviewContainer = ({ review, sutra_id }: Props) => {
+  const { loading, data: userInfo, error } = useSelector(
+    (state: RootState) => state.join.userInfo.userInfo
+  );
+  console.log(userInfo.id);
   return (
     <Container>
       <UserContainer>
-        <PurpleHead
-          style={{ resizeMode: "contain" }}
-          source={Img.sample.purpleCharacHead}
-        />
-        <UserName>{review.user.username}</UserName>
+        <UserSubContainer>
+          <PurpleHead
+            style={{ resizeMode: "contain" }}
+            source={Img.sample.purpleCharacHead}
+          />
+          <UserName>{review.user.username}</UserName>
+        </UserSubContainer>
+        {!loading && !error && review.user.id === userInfo.id ? (
+          <SutraReviewController comment_id={review.id} sutra_id={sutra_id} />
+        ) : null}
       </UserContainer>
       <ReviewText>{review.content}</ReviewText>
       <BottomContainer>
