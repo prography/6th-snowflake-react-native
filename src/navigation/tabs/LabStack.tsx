@@ -3,6 +3,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import LabMain from '~/screens/lab/LabMain';
 import SutraList from '~/screens/lab/SutraList';
 import SutraInfo from '~/screens/lab/SutraInfo';
+import SutraQuestion from '~/screens/lab/SutraQuestion';
 
 export type LabStackParamList = {
   LabMain: undefined;

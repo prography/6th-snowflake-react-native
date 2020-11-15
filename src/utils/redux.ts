@@ -20,9 +20,10 @@ export const getActionCreator = <T>(ACTION: ApiAction) => {
     llog("😸 dispatch request");
     const fetchResult: RFetchResult<T> = {
       loading: true,
-      data: undefined,
+      data: params.data, // 이미 data가 있으면 그걸 유지하기 위해. 없으면 undefined
       error: undefined,
     };
+    // TODO userInfo 하드코딩 삭제 후 추상화
     return {
       type: ACTION.REQUEST,
       userInfo: fetchResult,
