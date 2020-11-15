@@ -9,16 +9,17 @@ const Container = styled.View`
   margin-right: ${l.mR}px;
   margin-left: ${l.mR}px;
   width: ${d.width - l.mR * 2}px;
+  padding: ${d.px*3}px;
 `;
 const PurpleHead = styled.Image`
   height: ${d.px * 23}px;
   width: ${d.px * 35}px;
-  margin-right: ${d.px * 5}px;
+  margin-right: ${d.px * 9}px;
 `;
 const SkyHead = styled.Image`
   height: ${d.px * 23}px;
   width: ${d.px * 35}px;
-  margin-right: ${d.px * 5}px;
+  margin-right: ${d.px * 9}px;
 `;
 const UserName = styled.Text`
   font-family: Jost-Medium;
@@ -69,11 +70,11 @@ const SutraInfoWriteComment = () => {
     <>
       <Container>
         <SubContainer>
-        <PurpleHead
-          style={{ resizeMode: "contain" }}
-          source={Img.sample.purpleCharacHead}
-        />
-        <UserName>지그레기</UserName>
+          <PurpleHead
+            style={{ resizeMode: "contain" }}
+            source={Img.sample.purpleCharacHead}
+          />
+          <UserName>지그레기</UserName>
         </SubContainer>
         <SubContainer>
           <CommentInput
@@ -82,6 +83,7 @@ const SutraInfoWriteComment = () => {
             blurOnSubmit={true}
             placeholderTextColor={c.lightGray}
             placeholder={"리뷰를 입력해주세요."}
+            style={{padding:d.px*3}}
             onChangeText={(text) => setReview(text)}
           />
           <SaveComment onPress={submitReview}>
