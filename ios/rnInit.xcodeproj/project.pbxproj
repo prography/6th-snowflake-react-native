@@ -50,21 +50,20 @@
 
 /* Begin PBXFileReference section */
 		008F07F21AC5B25A0029DE68 /* main.jsbundle */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = main.jsbundle; sourceTree = "<group>"; };
-		00E356EE1AD99517003FC87E /* rnInitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = rnInitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		00E356EE1AD99517003FC87E /* rnInitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; name = rnInitTests.xctest; path = "/Users/daheeahn/Desktop/6th-snowflake-react-native-desktop/ios/build/Debug-iphoneos/rnInitTests.xctest"; sourceTree = "<absolute>"; };
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00E356F21AD99517003FC87E /* rnInitTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = rnInitTests.m; sourceTree = "<group>"; };
 		037417D8DD1F48278F1A0855 /* Jost-Light.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Jost-Light.otf"; path = "../src/assets/fonts/Jost-Light.otf"; sourceTree = "<group>"; };
 		0D34D775E40E489C86D3BF77 /* Jost-Medium.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Jost-Medium.otf"; path = "../src/assets/fonts/Jost-Medium.otf"; sourceTree = "<group>"; };
 		1161EDD488944217B61DD3F1 /* Jost-Black.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Jost-Black.otf"; path = "../src/assets/fonts/Jost-Black.otf"; sourceTree = "<group>"; };
-		13B07F961A680F5B00A75B9A /* 눈송이.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "눈송이.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FB01A68108700A75B9A /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = rnInit/AppDelegate.m; sourceTree = "<group>"; };
 		13B07FB21A68108700A75B9A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = rnInit/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = rnInit/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = rnInit/main.m; sourceTree = "<group>"; };
 		194141E9BD444498BBA08642 /* Jost-Book.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Jost-Book.otf"; path = "../src/assets/fonts/Jost-Book.otf"; sourceTree = "<group>"; };
-		2D02E47B1E0B4A5D006451C7 /* rnInit-tvOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "rnInit-tvOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		2D02E4901E0B4A5D006451C7 /* rnInit-tvOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "rnInit-tvOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		2D02E47B1E0B4A5D006451C7 /* rnInit-tvOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = "rnInit-tvOS.app"; path = "/Users/daheeahn/Desktop/6th-snowflake-react-native-desktop/ios/build/Debug-appletvos/rnInit-tvOS.app"; sourceTree = "<absolute>"; };
+		2D02E4901E0B4A5D006451C7 /* rnInit-tvOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; name = "rnInit-tvOSTests.xctest"; path = "/Users/daheeahn/Desktop/6th-snowflake-react-native-desktop/ios/build/Debug-appletvos/rnInit-tvOSTests.xctest"; sourceTree = "<absolute>"; };
 		3784BDAF35E8DFFF0BD00ABB /* Pods-rnInit-tvOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-rnInit-tvOSTests.release.xcconfig"; path = "Target Support Files/Pods-rnInit-tvOSTests/Pods-rnInit-tvOSTests.release.xcconfig"; sourceTree = "<group>"; };
 		400C9106C44089C3EBAB423B /* Pods-rnInit-rnInitTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-rnInit-rnInitTests.debug.xcconfig"; path = "Target Support Files/Pods-rnInit-rnInitTests/Pods-rnInit-rnInitTests.debug.xcconfig"; sourceTree = "<group>"; };
 		4836A4A39BD99B3A5BECF07D /* Pods-rnInit-tvOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-rnInit-tvOS.release.xcconfig"; path = "Target Support Files/Pods-rnInit-tvOS/Pods-rnInit-tvOS.release.xcconfig"; sourceTree = "<group>"; };
@@ -85,6 +84,7 @@
 		F409345724C0AD9B00FAC035 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		F409345D24C0B12B00FAC035 /* GoogleService-Info-debug.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info-debug.plist"; sourceTree = "<group>"; };
 		F41BE80624CABCF300C25BFA /* rnInit.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = rnInit.entitlements; path = rnInit/rnInit.entitlements; sourceTree = "<group>"; };
+		F4BECC952560D1050085223C /* Snowflake.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Snowflake.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -211,26 +211,15 @@
 				13B07FAE1A68108700A75B9A /* rnInit */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				00E356EF1AD99517003FC87E /* rnInitTests */,
-				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				3CAA5C4B9D645B241ACF041A /* Pods */,
 				2BA61BED4C0049D5A5058BC4 /* Resources */,
+				F4BECC952560D1050085223C /* Snowflake.app */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
 			tabWidth = 2;
 			usesTabs = 0;
-		};
-		83CBBA001A601CBA00E9B192 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				13B07F961A680F5B00A75B9A /* 눈송이.app */,
-				00E356EE1AD99517003FC87E /* rnInitTests.xctest */,
-				2D02E47B1E0B4A5D006451C7 /* rnInit-tvOS.app */,
-				2D02E4901E0B4A5D006451C7 /* rnInit-tvOSTests.xctest */,
-			);
-			name = Products;
-			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
@@ -276,7 +265,7 @@
 			);
 			name = rnInit;
 			productName = rnInit;
-			productReference = 13B07F961A680F5B00A75B9A /* 눈송이.app */;
+			productReference = F4BECC952560D1050085223C /* Snowflake.app */;
 			productType = "com.apple.product-type.application";
 		};
 		2D02E47A1E0B4A5D006451C7 /* rnInit-tvOS */ = {
@@ -357,7 +346,7 @@
 				Base,
 			);
 			mainGroup = 83CBB9F61A601CBA00E9B192;
-			productRefGroup = 83CBBA001A601CBA00E9B192 /* Products */;
+			productRefGroup = 83CBB9F61A601CBA00E9B192;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
@@ -844,7 +833,7 @@
 					"-lc++",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.snowflake.safelove;
-				PRODUCT_NAME = "눈송이";
+				PRODUCT_NAME = Snowflake;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -869,7 +858,7 @@
 					"-lc++",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.snowflake.safelove;
-				PRODUCT_NAME = "눈송이";
+				PRODUCT_NAME = Snowflake;
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
