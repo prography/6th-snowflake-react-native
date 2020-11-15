@@ -7,6 +7,6 @@ export const ManColor = "ManColor";
 
 export const getTokenItem = async () => {
   const tokenFS = await AsyncStorage.getItem(AsyncAccessToken);
-  llog("🥕 tokenFS", tokenFS);
+  // llog("🥕 tokenFS", tokenFS);
   return tokenFS;
 };

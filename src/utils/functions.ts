@@ -1,5 +1,8 @@
+const show = true;
+// const show = false;
+
 export const llog = (...params: any[]) => {
-  if (__DEV__) {
+  if (__DEV__ && show) {
     console.log(...params);
   }
 };

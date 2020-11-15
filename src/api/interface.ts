@@ -104,6 +104,11 @@ export interface Review {
 }
 
 // join
+export enum Position {
+  PURPLE = "PURPLE",
+  SKY = "SKY",
+  NONE = "NONE",
+}
 export interface UserInfoMain {
   // Review.user에서 UserInfoMain만 쓰여서 따로 만든거
   birth_year: number;
@@ -119,6 +124,7 @@ export interface UserInfo extends UserInfoMain {
   icon: string;
   partner_gender: GenderEnum;
   social: string;
+  position: Position;
 }
 
 export interface LoginRes {
@@ -140,15 +146,20 @@ export interface Card {
   id: number;
   name_kor: string;
   thumbnail: string;
-  comment?: {
+  is_user_like: boolean;
+  comment: {
     username: string;
     content: string;
-  };
+  } | null;
 }
 
 // sutra
-export interface Sutra extends Card{
-  recommend_data: string; // FIXME
+export interface Sutra extends Card {
+  recommend_data: {
+    percentage: number;
+    purple_count: number;
+    sky_count: number;
+  } | null;
 }
 
 export interface SutraReviewUser{
@@ -172,4 +183,3 @@ export enum RecommendType {
   UNRECOMMEND = "UNRECOMMEND",
   NOTYET = "NOTYET",
 }
-

@@ -96,29 +96,29 @@ const LabSutraNewCard = ({ onPress, setNewSutraId }: Props) => {
       {_newCard === null ? (
         <TextTitlePurpleRight title={"Loading..."} />
       ) : (
-        <Container onPress={onPress} activeOpacity={1.0}>
-          <ImageArea>
-            <SutraImage
-              resizeMode="cover"
-              source={
-                blindState
-                  ? Img.doodle.cdBoxMintPurpleHeart
-                  : { uri: _newCard.thumbnail }
-              }
-            />
-            <NewText>NEW!</NewText>
-          </ImageArea>
-          <MarginMedium />
-          <TextArea>
-            <SutraTitle>{_newCard.name_kor}</SutraTitle>
-            <MarginNarrow />
-            <CommentWrapper>
-              <CommentUsername>{_newCard.comment.username}</CommentUsername>
-              <CommentText>{_newCard.comment.content}</CommentText>
-            </CommentWrapper>
-          </TextArea>
-        </Container>
-      )}
+          <Container onPress={onPress} activeOpacity={1.0}>
+            <ImageArea>
+              <SutraImage
+                resizeMode="cover"
+                source={
+                  blindState
+                    ? Img.doodle.cdBoxMintPurpleHeart
+                    : { uri: _newCard.thumbnail }
+                }
+              />
+              <NewText>NEW!</NewText>
+            </ImageArea>
+            <MarginMedium />
+            <TextArea>
+              <SutraTitle>{_newCard.name_kor}</SutraTitle>
+              <MarginNarrow />
+              <CommentWrapper>
+                <CommentUsername>{_newCard.comment.username}</CommentUsername>
+                <CommentText>{_newCard.comment.content}</CommentText>
+              </CommentWrapper>
+            </TextArea>
+          </Container>
+        )}
 
       <MarginMedium />
 
