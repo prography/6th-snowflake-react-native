@@ -14,7 +14,7 @@ const SutraInfoContainer = ({newSutraId}: Props) => {
       <SutraInfoGoodBad newSutraId={newSutraId}/>
       <MarginWide />
       <SutraInfoWriteComment/>
-      <SutraInfoComment />
+      <SutraInfoComment newSutraId={newSutraId}/>
     </>
   );
 };

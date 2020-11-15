@@ -151,6 +151,22 @@ export interface Sutra extends Card{
   recommend_data: string; // FIXME
 }
 
+export interface SutraReviewUser{
+  id: number;
+  username: string;
+  position: string;
+  image: string;
+}
+export interface SutraReview {
+  id: number;
+  user: SutraReviewUser;
+  user_position: string;
+  content: string;
+  likes_count: number;
+  created_at: string;
+  updated_at: string;
+}
+
 export enum RecommendType {
   RECOMMEND = "RECOMMEND",
   UNRECOMMEND = "UNRECOMMEND",
