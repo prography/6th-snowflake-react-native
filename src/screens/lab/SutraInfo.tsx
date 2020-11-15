@@ -15,9 +15,12 @@ import SutraInfoContainer from '~/containers/lab/sutra/info/SutraInfoContainer';
 import { LabStackParamList } from '~/navigation/tabs/LabStack';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { eventUtil } from '~/utils/firebase/event';
+import { RouteProp } from '@react-navigation/native';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 interface Props {
   navigation: StackNavigationProp<LabStackParamList, 'LabMain'>;
+  route: RouteProp<LabStackParamList, 'SutraInfo'>;
 }
 
 const Container = styled.View`
@@ -25,19 +28,23 @@ const Container = styled.View`
   align-items: flex-start;
 `;
 
-const SutraInfo = ({ navigation }: Props) => {
+const SutraInfo = ({ navigation, route }: Props) => {
+  const {
+    newSutraId,
+  } = route.params;
+
   React.useEffect(() => {
     eventUtil.logScreenView(eventUtil.SutraInfo)
   }, []);
 
   return (
     <>
-      <ScrollView showsVerticalScrollIndicator={false} style={{ flex: 1 }}>
+      <KeyboardAwareScrollView showsVerticalScrollIndicator={false} style={{ flex: 1 }}>
         <TopBarBackArrow />
         <Container>
-          <SutraInfoContainer />
+          <SutraInfoContainer newSutraId={newSutraId}/>
         </Container>
-      </ScrollView>
+      </KeyboardAwareScrollView>
       <Blinder />
     </>
   );

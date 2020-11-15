@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import styled from 'styled-components/native';
 import { View, Text } from 'react-native';
 
@@ -12,6 +12,14 @@ import MarginWide from '~/components/universal/margin/MarginWide';
 import { FirebaseAnalyticsTypes } from '@react-native-firebase/analytics';
 import { useSelector } from 'react-redux';
 import { RootState } from '~/store/modules';
+import { Card } from '~/api/interface';
+import { consoleError, llog } from '~/utils/functions';
+import { fetchAPI } from '~/api';
+import { getTokenItem } from '~/utils/asyncStorage';
+
+interface Props {
+  newSutraId: string;
+}
 
 const Container = styled.View`
   margin-right: ${l.mR}px;
@@ -160,13 +168,39 @@ const NotYet = styled.TouchableOpacity`
   align-items: center;
   background-color: ${c.darkGray};
 `;
-const SutraInfoGoodBad = () => {
+const SutraInfoGoodBad = ({newSutraId}: Props) => {
   const [bookmarked, setBookmarked] = useState(false);
   const [selected, setSelected] = useState(FirebaseAnalyticsTypes);
 
   const blindState = useSelector(
     (state: RootState) => state.product.blind.blindState,
   );
+
+const [_newCard, _setNewCard] = useState<Card>(null);
+
+  const _getNewCard = async () => {
+    try {
+      const token = await getTokenItem();
+      if (!token) {
+        return;
+      }
+
+      const { response, status } = await fetchAPI(`labs/sutras/${newSutraId}/`, { token });
+      const json: Card = await response.json();
+      llog("New Card Info - success!", json);
+
+      if (status === 200) {
+        _setNewCard(json);
+      }
+    } catch (error) {
+      consoleError("New Card - error", error);
+    }
+  };
+
+  useEffect(() => {
+    console.log('newSUtraId', newSutraId)
+    _getNewCard();
+  }, []);
 
   return (
     <>

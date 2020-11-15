@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useState, useEffect } from "react";
 import { ScrollView } from 'react-native';
 import styled from 'styled-components/native';
 import { StackNavigationProp } from '@react-navigation/stack';
@@ -30,7 +31,9 @@ const TempText = styled.Text`
 `;
 
 const LabMain = ({ navigation }: Props) => {
-  React.useEffect(() => {
+  const [newSutraId, setNewSutraId] = useState<string>("");
+
+  useEffect(() => {
     eventUtil.logScreenView(eventUtil.LabMain);
     // navigation.navigate('SutraList'); // for test
   }, []);
@@ -42,7 +45,7 @@ const LabMain = ({ navigation }: Props) => {
           <TopBarLeftIcon />
 
           <Container>
-            <LabNewCardsContainer onPress={() => navigation.navigate('SutraInfo')} />
+            <LabNewCardsContainer setNewSutraId={setNewSutraId} onPress={() => navigation.navigate('SutraInfo', {newSutraId})} />
             <LabIntroducecardsContainer onPress={() => navigation.navigate('SutraList')} />
             <MarginBottom />
           </Container>
