@@ -10,6 +10,7 @@ import { llog, consoleError } from "~/utils/functions";
 import { ResultsRes, Sutra, RecommendType } from "~/api/interface";
 import MarginMedium from "~/components/universal/margin/MarginMedium";
 import { alertUtil } from "~/utils/alert";
+import { toast } from "~/utils/toast";
 
 interface Props {
   navigateToJoinStack: () => void;
@@ -87,11 +88,10 @@ const SutraCardsList = ({ navigateToJoinStack }: Props) => {
 
   const _getSutraList = async () => {
     try {
-      // TODO 없애기
       const token = await getTokenItem();
       if (!token) { return; }
 
-      let url = `labs/sutra?`;
+      let url = `labs/sutras?`;
       if (selectedFilter !== FilterEnum.none) {
         url += `filter=${selectedFilter}&`;
       }
@@ -117,13 +117,9 @@ const SutraCardsList = ({ navigateToJoinStack }: Props) => {
     }
   };
 
-  useEffect(() => {
-    _getSutraList();
-  }, [selectedFilter, selectedOrder]);
-
   /* 2. 추천, 비추천, 안해봤어요, 찜 */
   // 추천, 비추천, 안해봤어요
-  const onPressEvaluation = async (id: number, rcType: RecommendType) => {
+  const onPressEvaluation = async (sutraId: number, rcType: RecommendType) => {
     try {
       const token = await getTokenItem();
       if (!token) {
@@ -131,11 +127,8 @@ const SutraCardsList = ({ navigateToJoinStack }: Props) => {
         return;
       }
 
-      // TODO 안됨
-      const { status, response } = await fetchAPI(`labs/sutra/evaluation/${id}/`, { method: 'POST', token, params: { recommend_type: rcType } });
-      // const json: ResultsRes<CondomLiked> = await response.json();
-      const json = await response.json();
-      llog('2.🐰 Sutra', rcType, '성공은 201인데 과연?', status, json);
+      const { status } = await fetchAPI(`labs/sutras/${sutraId}/evaluations/`, { method: 'POST', token, params: { recommend_type: rcType } });
+      llog('🐰 Sutra', rcType, '성공 = 201', status);
 
       if (status === 201) {
         _getSutraList();
@@ -144,8 +137,8 @@ const SutraCardsList = ({ navigateToJoinStack }: Props) => {
       consoleError(`SutraList - ${rcType} error`, error);
     }
   };
-  // 찜
-  const onPressLike = async (id: number) => {
+  // 평가 삭제
+  const onPressDeleteEvaluation = async (sutraId: number) => {
     try {
       const token = await getTokenItem();
       if (!token) {
@@ -153,18 +146,34 @@ const SutraCardsList = ({ navigateToJoinStack }: Props) => {
         return;
       }
 
-      // TODO 안됨
-      const { status, response } = await fetchAPI(`likes/`, {
+      const { status } = await fetchAPI(`labs/sutras/${sutraId}/evaluations/`, { method: 'DELETE', token });
+      llog('🐰 Sutra 삭제', '성공 = 204', status);
+
+      if (status === 204) {
+        _getSutraList();
+      }
+    } catch (error) {
+      consoleError(`SutraList - delete 평가 error`, error);
+    }
+  }
+  // 찜
+  const onPressLike = async (sutraId: number) => {
+    try {
+      const token = await getTokenItem();
+      if (!token) {
+        alertUtil.needLogin(navigateToJoinStack, '로그인');
+        return;
+      }
+
+      const { status } = await fetchAPI('likes/', {
         method: 'POST',
         token,
         params: {
           model: 'sutra',
-          object_id: id,
+          object_id: sutraId,
         },
       });
-      // const json: ResultsRes<CondomLiked> = await response.json();
-      const json = await response.json();
-      llog('2.🐰 Sutra Like List 불러옴 - 성공은 201', status, json);
+      llog('🐰 Sutra Like - 성공 = 201', status);
 
       if (status === 201) {
         _getSutraList();
@@ -173,6 +182,35 @@ const SutraCardsList = ({ navigateToJoinStack }: Props) => {
       consoleError('SutraList - 찜 error', error);
     }
   };
+  // 찜 삭제
+  const onPressDeleteLike = async (likeId: number) => {
+    try {
+      const token = await getTokenItem();
+      if (!token) {
+        alertUtil.needLogin(navigateToJoinStack, '로그인');
+        return;
+      }
+
+      const { status, response } = await fetchAPI(`likes/${likeId}`, {
+        method: 'DELETE',
+        token,
+      });
+
+      const json = await response.json();
+      llog('🐰 Sutra Delete Like - 성공 = 204', status, json);
+
+      if (status === 204) {
+        _getSutraList();
+      }
+    } catch (error) {
+      consoleError('SutraList - 찜 delete error', error);
+    }
+  };
+
+  useEffect(() => {
+    _getSutraList();
+    // TODO _getSutraList n초 단위로 새로고침
+  }, [selectedFilter, selectedOrder]);
 
   return (
     <>
@@ -206,7 +244,9 @@ const SutraCardsList = ({ navigateToJoinStack }: Props) => {
           key={sutra.id}
           sutra={sutra}
           onPressEvaluation={onPressEvaluation}
+          onPressDeleteEvaluation={onPressDeleteEvaluation}
           onPressLike={onPressLike}
+          onPressDeleteLike={onPressDeleteLike}
         />
       ))}
     </>

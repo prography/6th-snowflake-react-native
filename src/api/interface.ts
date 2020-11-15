@@ -140,15 +140,20 @@ export interface Card {
   id: number;
   name_kor: string;
   thumbnail: string;
-  comment?: {
+  is_user_like: boolean;
+  comment: {
     username: string;
     content: string;
-  };
+  } | null;
 }
 
 // sutra
-export interface Sutra extends Card{
-  recommend_data: string; // FIXME
+export interface Sutra extends Card {
+  recommend_data: {
+    percentage: number;
+    purple_count: number;
+    sky_count: number;
+  } | null;
 }
 
 export enum RecommendType {
@@ -156,4 +161,3 @@ export enum RecommendType {
   UNRECOMMEND = "UNRECOMMEND",
   NOTYET = "NOTYET",
 }
-

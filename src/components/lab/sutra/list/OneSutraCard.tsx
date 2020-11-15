@@ -1,6 +1,5 @@
 import * as React from 'react';
-import { Text } from 'react-native';
-import { useState } from 'react';
+import { Text, TouchableOpacity } from 'react-native';
 import styled from 'styled-components/native';
 
 import { d, l, c } from '~/utils/constant';
@@ -9,7 +8,6 @@ import MarginNarrow from '~/components/universal/margin/MarginNarrow';
 import ProductInfoSpecific from '~/containers/product/info/ProductInfoSpecific';
 import { Img } from '~/img';
 import { Sutra, RecommendType } from '~/api/interface';
-import { llog } from '~/utils/functions';
 import { RootState } from '~/store/modules';
 import { useSelector } from 'react-redux';
 
@@ -167,24 +165,25 @@ const CommentText = styled.Text`
 
 interface Props {
   sutra: Sutra;
-  onPressEvaluation: (id: number, rcType: RecommendType) => void;
-  onPressLike: (id: number) => void;
+  onPressEvaluation: (sutraId: number, rcType: RecommendType) => void;
+  onPressDeleteEvaluation: (sutraId: number) => void;
+  onPressLike: (sutraId: number) => void;
+  onPressDeleteLike: (likeId: number) => void;
 }
 
-// 하나짜리 컴포넌트! SutraCardsList에서 데이터 받아와서 list로...!
-const OneSutraCard = ({ sutra, onPressEvaluation, onPressLike }: Props) => {
+const OneSutraCard = ({
+  sutra,
+  onPressEvaluation,
+  onPressDeleteEvaluation,
+  onPressLike,
+  onPressDeleteLike,
+}: Props) => {
   const blindState = useSelector(
     (state: RootState) => state.product.blind.blindState,
   );
 
-  // state
-  const [bookmarked, setBookmarked] = useState(false); // FIXME: 서버에서 bookmark 가져오기 // 나중에 삭제.
-  const [selected, setSelected] = useState(true); // FIXME: 서버에서 selected 가져오기 // 나중에 삭제.
   // sutra
-  const { id, name_kor, thumbnail, comment, recommend_data } = sutra;
-  const { content, username } = comment || {};
-  llog('sutra', sutra);
-  llog('recommend_data', recommend_data);
+  const { id, name_kor, thumbnail, comment, recommend_data, is_user_like } = sutra;
 
   return (
     <>
@@ -199,9 +198,11 @@ const OneSutraCard = ({ sutra, onPressEvaluation, onPressLike }: Props) => {
                   : { uri: thumbnail }
               }
             />
-            <LikeContainer activeOpacity={1.0} onPress={() => onPressLike(id)}>
+            <LikeContainer
+              activeOpacity={1.0}
+              onPress={() => is_user_like ? onPressDeleteLike(id) : onPressLike(id)}>
               {/* 찜했으면 보라색으로, 찜 안 한 건 하얀색으로 */}
-              {bookmarked ? (
+              {is_user_like ? (
                 <LikeImage
                   resizeMode="contain"
                   source={Img.icon.bookmarkSelected}
@@ -218,19 +219,20 @@ const OneSutraCard = ({ sutra, onPressEvaluation, onPressLike }: Props) => {
           {/* 내가 추천/비추/안해봤 중에 하나를 누르면 
             selected가 true가 되면서,
             통계를 볼 수 있게끔
+            => 평가 했으면 recommend_data != null, 평가 안했으면 recommend_data = null 임
           */}
-          {selected ? (
+          {recommend_data ? (
             <SelectionContainer>
               <GoodScoreContainer>
                 {/* score들의 숫자는 임의로 넣은 점수... 받아온 점수가 들어가면 됨! */}
-                <GoodScore score={74.5} />
-                <GoodScoreText>추천 74.5%</GoodScoreText>
+                <GoodScore score={recommend_data.percentage} />
+                <GoodScoreText>추천 {recommend_data.percentage}%</GoodScoreText>
               </GoodScoreContainer>
 
               <PurpleSkyScoreContainer>
                 <PurpleScoreContainer>
                   <PurpleScoreWrapper>
-                    <PurpleScore score={84.6} />
+                    <PurpleScore score={recommend_data.purple_count} />
                   </PurpleScoreWrapper>
                   <PurpleHead
                     style={{ resizeMode: "contain" }}
@@ -239,7 +241,7 @@ const OneSutraCard = ({ sutra, onPressEvaluation, onPressLike }: Props) => {
                 </PurpleScoreContainer>
                 <SkyScoreContainer>
                   <SkyScoreWrapper>
-                    <SkyScore score={68.3} />
+                    <SkyScore score={recommend_data.sky_count} />
                   </SkyScoreWrapper>
                   <SkyHead
                     style={{ resizeMode: "contain" }}
@@ -247,6 +249,9 @@ const OneSutraCard = ({ sutra, onPressEvaluation, onPressLike }: Props) => {
                   />
                 </SkyScoreContainer>
               </PurpleSkyScoreContainer>
+              <TouchableOpacity onPress={() => onPressDeleteEvaluation(id)} style={{ width: 100, height: 20, backgroundColor: 'pink' }}>
+                <Text>평가 삭제하기</Text>
+              </TouchableOpacity>
             </SelectionContainer>
           ) : (
               <SelectionContainer>
@@ -270,8 +275,8 @@ const OneSutraCard = ({ sutra, onPressEvaluation, onPressLike }: Props) => {
           <>
             <MarginNarrow />
             <CommentWrapper>
-              <CommentUsername>{username}</CommentUsername>
-              <CommentText>{content}</CommentText>
+              <CommentUsername>{comment.username}</CommentUsername>
+              <CommentText>{comment.content}</CommentText>
             </CommentWrapper>
           </>
         )}
