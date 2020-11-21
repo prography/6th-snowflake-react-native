@@ -22,25 +22,28 @@ const initialState: AuthState = {
 // action
 export const SET_IS_LOGGEDIN = "SET_IS_LOGGEDIN";
 export const LOGIN = createAction("LOGIN");
+export const REFRESH_TOKEN = createAction("REFRESH_TOKEN");
 
 // action creator
 export const setIsLoggedin = (isLoggedin: boolean) => {
   llog("😸12. isLoggedin에 저장!", isLoggedin);
   return {
     type: SET_IS_LOGGEDIN,
-    isLoggedin,
+    payload: isLoggedin,
   };
 };
 export const loginAC = getActionCreator<LoginRes>(LOGIN);
+export const refreshTokenAC = getActionCreator<LoginRes>(REFRESH_TOKEN); // TODO LoginRes인지 확인 필요
 
 export default (state = initialState, action): AuthState => {
+  llog("🏆 Action 🏆", action);
   switch (action.type) {
     case SET_IS_LOGGEDIN:
-      return { ...state, isLoggedin: action.isLoggedin };
+      return { ...state, isLoggedin: action.payload };
     case LOGIN.REQUEST:
     case LOGIN.SUCCESS:
     case LOGIN.ERROR:
-      return { ...state, login: action.login };
+      return { ...state, login: action.payload };
     default:
       return state;
   }

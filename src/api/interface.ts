@@ -21,6 +21,9 @@ export interface Pagination {
 export interface ResultsRes<T> extends Pagination {
   results: T[];
 }
+export interface RequestType {
+  refetch: () => void;
+}
 
 export interface MsgRes {
   message: string;
@@ -129,6 +132,7 @@ export interface UserInfo extends UserInfoMain {
 
 export interface LoginRes {
   access: string;
+  refresh: string;
 }
 
 export interface CondomLiked {

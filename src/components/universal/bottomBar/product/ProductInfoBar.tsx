@@ -7,7 +7,7 @@ import analytics from "@react-native-firebase/analytics";
 import { RootTabParamList } from "~/navigation/RootTabNavigation";
 import { d, c, l } from "~/utils/constant";
 import { getTokenItem } from "~/utils/asyncStorage";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { llog } from "~/utils/functions";
 import { RootState } from "~/store/modules";
 import { fetchAPI } from "~/api";
@@ -17,6 +17,9 @@ import HeartUnselected from "~/img/svgIcons/HeartUnselected";
 import HeartSelected from "~/img/svgIcons/HeartSelected";
 import { alertUtil } from "~/utils/alert";
 import LoginModal from "~/components/universal/modal/LoginModal";
+import { toast } from "~/utils/toast";
+import { refreshTokenAC } from "~/store/modules/join/auth";
+import { LoginRes, RequestType } from "~/api/interface";
 
 interface Props {
   children: React.ReactNode;
@@ -64,12 +67,15 @@ const ProductInfoBar = ({
   const _isLoggedin = useSelector(
     (state: RootState) => state.join.auth.isLoggedin
   );
+  const dispatch = useDispatch();
 
   const [isLoginModalVisible, setIsLoginModalVisible] = useState<boolean>(
     false
   );
   const onCancel = () => setIsLoginModalVisible(false);
-  const _likeProduct = async () => {
+
+  // FIXME: 테스트로 일단 항상 토큰 재요청함. 11월 말에 다희가 고칠 것임!
+  const _likeProduct = async (force = false) => {
     try {
       const token = await getTokenItem();
       if (!token) {
@@ -82,6 +88,14 @@ const ProductInfoBar = ({
       llog("token", token);
       llog("productId", productId);
 
+      llog('🥰🥰🥰🥰', force)
+      if (force === false) {
+        llog('😂 토큰 만료');
+        // 토큰을 다시 요청한다.
+        dispatch(refreshTokenAC.request<RequestType>({ refetch: () => _likeProduct(true) }));
+        return;
+      }
+
       const { status, response } = await fetchAPI(`likes/`, {
         method: "POST",
         token,
@@ -90,12 +104,27 @@ const ProductInfoBar = ({
           object_id: productId,
         },
       });
-      if (status === 201) {
-        llog("2. 🍊like post 성공? ", response);
-        await _checkIsLiked();
+      switch (status) {
+        case 201:
+          llog("2. 🍊like post 성공");
+          await _checkIsLiked();
+          break;
+        case 401:
+          llog('😂 토큰 만료', response);
+          // 토큰을 다시 요청한다. (모든 API마다 이렇게 해야하는데...)
+          dispatch(refreshTokenAC.request<RequestType>({
+            refetch: () => _likeProduct(true),
+          }));
+          break;
+        default:
+          toast('처리 중 오류가 발생했어요.');
+          const json = await response.json()
+          llog('🍊 default json', status, json)
+          break;
       }
     } catch (error) {
       llog("🍊like 생성 에러 ", error);
+      toast('처리 중 오류가 발생했어요.');
     }
   };
 
