@@ -82,7 +82,7 @@ const SearchProduct = ({ navigation }: Props) => {
 
   const _searchProduct = async (text: string) => {
     try {
-      const _searchInput = searchInput ? searchInput.replace(/(\s*)/g, '') : '';
+      const _searchInput = text ? text.replace(/(\s*)/g, '') : '';
       const { response, status } = await fetchAPI(`products/search/?keyword=${_searchInput}`);
       const json: ResultsRes<CondomProductForSearch> = await response.json();
       llog('💎검색 - 성공!', _searchInput, status, json);
@@ -98,7 +98,7 @@ const SearchProduct = ({ navigation }: Props) => {
   useEffect(() => {
     analytics().setCurrentScreen("SearchProduct");
   }, []);
-
+console.log('searhchInpt', searchInput)
   return (
     <Container>
       <TopBarContainer>
@@ -119,7 +119,7 @@ const SearchProduct = ({ navigation }: Props) => {
       {searchInput ? (
         <ScrollView showsVerticalScrollIndicator={false}>
           <ResultContainer>
-            {_searchResult && _searchResult.length === 0 ? (
+            {!_searchResult ? (
               <WarningText>검색 결과가 없습니다</WarningText>
             ) : (
                 _searchResult.map((product: CondomProductForSearch, index: number) => {

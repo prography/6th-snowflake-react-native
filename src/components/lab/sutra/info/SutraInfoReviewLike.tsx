@@ -17,16 +17,15 @@ interface Props {
 const Container = styled.View`
   flex-direction: row;
   align-items: center;
-  border-width: ${d.px*1}px;
-  margin-right:${d.px*10}px;
-  padding: ${d.px*2}px ${d.px*5}px;
-  background-color: ${c.mint}
+  border-width: ${d.px * 1}px;
+  margin-right: ${d.px * 10}px;
+  padding: ${d.px * 2}px ${d.px * 5}px;
+  background-color: ${c.mint};
 `;
 
-
 const LikeButton = styled.TouchableOpacity`
-  margin-right: ${d.px*3}px;
-  `;
+  margin-right: ${d.px * 3}px;
+`;
 
 const LikeText = styled.Text`
   font-family: Jost-Book;
@@ -34,9 +33,7 @@ const LikeText = styled.Text`
   color: ${c.black};
 `;
 
-const CountContainer = styled.View`
-  
-`;
+const CountContainer = styled.View``;
 
 const CountText = styled.Text`
   font-family: Jost-Book;

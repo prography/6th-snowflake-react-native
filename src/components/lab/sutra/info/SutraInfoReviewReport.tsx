@@ -36,7 +36,7 @@ const SutraInfoReviewReport = ({ comment_id }: Props) => {
         Alert.alert("❄️", "로그인 후 이용해주세요!");
         return;
       }
-
+      console.log('신고 눌림?');
       const { status, response } = await fetchAPI(`reports/`, {
         method: "POST",
         token,
@@ -45,9 +45,14 @@ const SutraInfoReviewReport = ({ comment_id }: Props) => {
           object_id: comment_id,
         },
       });
+      console.log(status)
       if (status === 201) {
         Alert.alert("☃️", "신고완료!");
         llog("신고 성공", response);
+      }
+      if (status === 400) {
+        Alert.alert("☃️", "신고가 접수된 상태입니다!");
+        llog("이미 신고함", response);
       }
     } catch (err) {
       consoleError("🍊sutra review 신고 에러", err);
