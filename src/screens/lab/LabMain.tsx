@@ -31,7 +31,7 @@ const TempText = styled.Text`
 `;
 
 const LabMain = ({ navigation }: Props) => {
-  const [newSutraId, setNewSutraId] = useState<string>("");
+  const [newSutraId, setNewSutraId] = useState<number>(null);
 
   useEffect(() => {
     eventUtil.logScreenView(eventUtil.LabMain);

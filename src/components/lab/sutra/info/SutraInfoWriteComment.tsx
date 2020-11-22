@@ -1,22 +1,26 @@
 import * as React from "react";
 import { useState } from "react";
 import styled from "styled-components/native";
-import { View, Text, Alert } from "react-native";
+import { Alert } from "react-native";
+import { useSelector } from "react-redux";
+import { RootState } from "~/store/modules";
 import { d, l, c } from "~/utils/constant";
 import { Img } from "~/img";
 import { getTokenItem } from "~/utils/asyncStorage";
 import { fetchAPI } from "~/api";
 import { consoleError, llog } from "~/utils/functions";
+import { SutraReview } from "~/api/interface";
 
 interface Props {
   newSutraId: number;
+  _setSutraReviews: any;
 }
 
 const Container = styled.View`
   margin-right: ${l.mR}px;
   margin-left: ${l.mR}px;
   width: ${d.width - l.mR * 2}px;
-  padding: ${d.px*3}px;
+  padding: ${d.px * 3}px;
 `;
 const PurpleHead = styled.Image`
   height: ${d.px * 23}px;
@@ -62,11 +66,34 @@ const CommentInput = styled.TextInput`
 const SubContainer = styled.View`
   flex-direction: row;
   align-items: center;
-  margin-bottom: ${d.px*7}px;
+  margin-bottom: ${d.px * 7}px;
 `;
 
-const SutraInfoWriteComment = ({newSutraId: sutra_id}:Props) => {
+const SutraInfoWriteComment = ({
+  newSutraId: sutra_id,
+  _setSutraReviews,
+}: Props) => {
   const [content, setContent] = useState<string>("");
+  const { loading, data: userInfo, error } = useSelector(
+    (state: RootState) => state.join.userInfo.userInfo
+  );
+
+  const _getSutraReviews = async () => {
+    try {
+      const { response, status } = await fetchAPI(
+        `labs/sutras/${sutra_id}/comments/`
+      );
+      const json = await response.json();
+      const results: SutraReview[] = json.results;
+      llog("Sutra Reviews Info - success!", results);
+      if (status === 200) {
+        _setSutraReviews(results);
+        console.log("Review Refetch - Success");
+      }
+    } catch (error) {
+      consoleError("Review Refetch - error", error);
+    }
+  };
 
   const submitContent = async () => {
     try {
@@ -75,27 +102,30 @@ const SutraInfoWriteComment = ({newSutraId: sutra_id}:Props) => {
         Alert.alert("❄️", "로그인 후 이용해주세요!");
         return;
       }
-      console.log('등록?');
-      console.log(sutra_id)
-      const { status, response } = await fetchAPI(`labs/sutras/${sutra_id}/comments/`, {
-        method: 'POST',
-        token,
-        params: {
-          content
-        },
-      });
-      console.log(status, response)
-      
+      console.log("등록?");
+      console.log(token);
+      console.log(sutra_id);
+      const { status, response } = await fetchAPI(
+        `labs/sutras/${sutra_id}/comments/`,
+        {
+          method: "POST",
+          token,
+          params: {
+            content,
+          },
+        }
+      );
+      console.log(status, response);
       if (status === 201) {
+        setContent("");
         Alert.alert("☃️", "리뷰 등록 완료");
         llog("Sutra Review 등록 성공", response);
+        _getSutraReviews();
       }
-      
     } catch (err) {
       consoleError("🍊sutra review 등록 에러", err);
     }
   };
-
 
   return (
     <>
@@ -105,7 +135,7 @@ const SutraInfoWriteComment = ({newSutraId: sutra_id}:Props) => {
             style={{ resizeMode: "contain" }}
             source={Img.sample.purpleCharacHead}
           />
-          <UserName>지그레기</UserName>
+          <UserName>{!loading && !error && userInfo.username}</UserName>
         </SubContainer>
         <SubContainer>
           <CommentInput
@@ -114,7 +144,8 @@ const SutraInfoWriteComment = ({newSutraId: sutra_id}:Props) => {
             blurOnSubmit={true}
             placeholderTextColor={c.lightGray}
             placeholder={"리뷰를 입력해주세요."}
-            style={{padding:d.px*3}}
+            style={{ padding: d.px * 3 }}
+            value={content}
             onChangeText={(text) => setContent(text)}
           />
           <SaveComment onPress={submitContent}>

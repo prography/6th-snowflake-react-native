@@ -6,7 +6,7 @@ import SutraInfo from '~/screens/lab/SutraInfo';
 import SutraQuestion from '~/screens/lab/SutraQuestion';
 
 export type SutraInfoParams = {
-  newSutraId: string;
+  newSutraId: number;
 };
 
 export type LabStackParamList = {

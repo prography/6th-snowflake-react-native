@@ -7,7 +7,7 @@ import { Img } from "~/img";
 import { getTokenItem } from "~/utils/asyncStorage";
 import { c, d, dateCutter, l } from "~/utils/constant";
 import { consoleError, llog } from "~/utils/functions";
-
+import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 interface Props {
   comment_id: number;
 }
@@ -15,10 +15,8 @@ interface Props {
 const Container = styled.TouchableOpacity`
   flex-direction: row;
   align-items: center;
-  border-width: ${d.px * 1}px;
   margin-right: ${d.px * 10}px;
-  padding: ${d.px * 2}px ${d.px * 5}px;
-  background-color: ${c.red};
+  padding: ${d.px * 2}px ${d.px * 3}px;
 `;
 
 const ReportText = styled.Text`
@@ -36,7 +34,7 @@ const SutraInfoReviewReport = ({ comment_id }: Props) => {
         Alert.alert("❄️", "로그인 후 이용해주세요!");
         return;
       }
-      console.log('신고 눌림?');
+      console.log("신고 눌림?");
       const { status, response } = await fetchAPI(`reports/`, {
         method: "POST",
         token,
@@ -45,7 +43,7 @@ const SutraInfoReviewReport = ({ comment_id }: Props) => {
           object_id: comment_id,
         },
       });
-      console.log(status)
+      console.log(status);
       if (status === 201) {
         Alert.alert("☃️", "신고완료!");
         llog("신고 성공", response);
@@ -61,7 +59,11 @@ const SutraInfoReviewReport = ({ comment_id }: Props) => {
 
   return (
     <Container onPress={pressReport} activeOpacity={1}>
-      <ReportText>신고</ReportText>
+      <MaterialCommunityIcons
+        name={"alarm-light-outline"}
+        color={c.red}
+        size={17}
+      />
     </Container>
   );
 };

@@ -16,6 +16,7 @@ import { Card } from '~/api/interface';
 import { consoleError, llog } from '~/utils/functions';
 import { fetchAPI } from '~/api';
 import { getTokenItem } from '~/utils/asyncStorage';
+import TextTitlePurpleRight from '~/components/universal/text/TextTitlePurpleRight';
 
 interface Props {
   newSutraId: number;
@@ -204,38 +205,42 @@ const [_newCard, _setNewCard] = useState<Card>(null);
 
   return (
     <>
+    {!_newCard ? <TextTitlePurpleRight title={"Loading..."} />:(
+      <>
       <Container>
         <ImageContainer>
           <SutraImage
             style={{ resizeMode: "cover" }}
             source={
-              blindState ? Img.doodle.cdBoxMintPurpleHeart : Img.sample.sutra
+              blindState
+                ? Img.doodle.cdBoxMintPurpleHeart
+                : { uri: _newCard?.image }
             }
           />
           <LikeContainer activeOpacity={1}>
             {/* 찜했으면 보라색으로, 찜 안 한 건 하얀색으로 */}
             {bookmarked ? (
               <LikeImage
-                style={{ resizeMode: 'contain' }}
+                style={{ resizeMode: "contain" }}
                 source={Img.icon.bookmarkSelected}
               />
             ) : (
-                <LikeImage
-                  style={{ resizeMode: 'contain' }}
-                  source={Img.icon.bookmarkUnselected}
-                />
-              )}
+              <LikeImage
+                style={{ resizeMode: "contain" }}
+                source={Img.icon.bookmarkUnselected}
+              />
+            )}
           </LikeContainer>
         </ImageContainer>
         <MarginMedium />
         <InfoContainer>
           <NameContainer>
-            <KoreanNameText>체위 한글 이름</KoreanNameText>
-            <EnglishNameText>Sutra English Name</EnglishNameText>
+            <KoreanNameText>{_newCard.name_kor}</KoreanNameText>
+            <EnglishNameText>{_newCard.name_eng}</EnglishNameText>
           </NameContainer>
           <MarginNarrow />
           <DetailContainer>
-            <DetailText>체위에 대한 간략한 설명이 들어갑니다.</DetailText>
+            <DetailText>{_newCard.description}</DetailText>
           </DetailContainer>
         </InfoContainer>
       </Container>
@@ -273,21 +278,24 @@ const [_newCard, _setNewCard] = useState<Card>(null);
             </PurpleSkyScoreContainer>
           </SelectionContainer>
         ) : (
-            <SelectionContainer>
-              <GoodOrBadButtonContainer>
-                <GoodButton activeOpacity={1}>
-                  <GoodBadText white={true}>추천</GoodBadText>
-                </GoodButton>
-                <BadButton activeOpacity={1}>
-                  <GoodBadText white={false}>비추</GoodBadText>
-                </BadButton>
-              </GoodOrBadButtonContainer>
-              <NotYet activeOpacity={1}>
-                <GoodBadText white={true}>안 해 봤어요</GoodBadText>
-              </NotYet>
-            </SelectionContainer>
-          )}
+          <SelectionContainer>
+            <GoodOrBadButtonContainer>
+              <GoodButton activeOpacity={1}>
+                <GoodBadText white={true}>추천</GoodBadText>
+              </GoodButton>
+              <BadButton activeOpacity={1}>
+                <GoodBadText white={false}>비추</GoodBadText>
+              </BadButton>
+            </GoodOrBadButtonContainer>
+            <NotYet activeOpacity={1}>
+              <GoodBadText white={true}>안 해 봤어요</GoodBadText>
+            </NotYet>
+          </SelectionContainer>
+        )}
       </Container>
+      </>
+    )}
+      
       <MarginMedium />
       <LineGrayMiddle />
     </>

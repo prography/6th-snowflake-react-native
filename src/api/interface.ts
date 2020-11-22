@@ -149,8 +149,13 @@ export interface CondomLiked {
 export interface Card {
   id: number;
   name_kor: string;
+  name_eng: string;
   thumbnail: string;
+  image: string;
+  likes_count: number;
+  not_yet_count: number;
   is_user_like: boolean;
+  description: string;
   comment: {
     username: string;
     content: string;

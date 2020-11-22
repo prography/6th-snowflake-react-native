@@ -16,7 +16,7 @@ interface Props {
 const Container = styled.View`
   border-bottom-width: ${d.px * 1}px;
   border-bottom-color: ${c.lightGray};
-  padding: ${d.px * 3}px;
+  padding: ${d.px * 5}px ${d.px * 3}px ${d.px * 10}px ${d.px * 3}px;
 `;
 
 const UserContainer = styled.View`

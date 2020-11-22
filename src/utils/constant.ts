@@ -68,6 +68,7 @@ export const c: Color = {
   mint: '#B2FFF9',
   red: '#F76B6B',
   blue: '#6BA4F7',
+  white: '#EEEEEE'
 };
 
 export const circleColor1 = [
@@ -110,6 +111,7 @@ interface Color {
   mint: string;
   red: string;
   blue: string;
+  white: string;
 }
 
 export const theme = {

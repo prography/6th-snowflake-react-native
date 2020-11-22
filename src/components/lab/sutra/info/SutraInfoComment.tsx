@@ -12,6 +12,8 @@ import { View } from "react-native";
 
 interface Props {
   newSutraId: number;
+  _setSutraReviews: any;
+  _sutraReviews: SutraReview[];
 }
 
 const Container = styled.View`
@@ -32,8 +34,7 @@ const SkyHead = styled.Image`
   margin-right: ${d.px * 5}px;
 `;
 
-const SutraInfoComment = ({ newSutraId }: Props) => {
-  const [_sutraReviews, _setSutraReviews] = useState<SutraReview[]>(null);
+const SutraInfoComment = ({ newSutraId, _sutraReviews, _setSutraReviews }: Props) => {
 
   const _getSutraReviews = async () => {
     try {
