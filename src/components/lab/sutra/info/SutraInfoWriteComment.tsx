@@ -76,6 +76,7 @@ const SutraInfoWriteComment = ({newSutraId: sutra_id}:Props) => {
         return;
       }
       console.log('등록?');
+      console.log(sutra_id)
       const { status, response } = await fetchAPI(`labs/sutras/${sutra_id}/comments/`, {
         method: 'POST',
         token,

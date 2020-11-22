@@ -5,7 +5,7 @@ import SutraInfoComment from '~/components/lab/sutra/info/SutraInfoComment';
 import MarginWide from '~/components/universal/margin/MarginWide';
 import SutraInfoWriteComment from '~/components/lab/sutra/info/SutraInfoWriteComment';
 interface Props {
-  newSutraId: string;
+  newSutraId: number;
 }
 
 const SutraInfoContainer = ({newSutraId}: Props) => {

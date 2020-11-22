@@ -12,7 +12,7 @@ import TextContentLightLeft from '~/components/universal/text/TextContentLightLe
 import { d, l } from '~/utils/constant';
 
 interface Props {
-  tag: string;
+  tag: [string];
   title: string;
   btnText: string;
   link: string;

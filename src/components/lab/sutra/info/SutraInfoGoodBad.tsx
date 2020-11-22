@@ -18,7 +18,7 @@ import { fetchAPI } from '~/api';
 import { getTokenItem } from '~/utils/asyncStorage';
 
 interface Props {
-  newSutraId: string;
+  newSutraId: number;
 }
 
 const Container = styled.View`
@@ -187,7 +187,7 @@ const [_newCard, _setNewCard] = useState<Card>(null);
 
       const { response, status } = await fetchAPI(`labs/sutras/${newSutraId}/`, { token });
       const json: Card = await response.json();
-      llog("New Card Info - success!", json);
+      llog("New Card Detail Info - success!", json);
 
       if (status === 200) {
         _setNewCard(json);

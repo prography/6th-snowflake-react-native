@@ -77,7 +77,6 @@ const SutraInfoReviewContainer = ({ review, sutra_id }: Props) => {
   const { loading, data: userInfo, error } = useSelector(
     (state: RootState) => state.join.userInfo.userInfo
   );
-  console.log(userInfo.id);
   return (
     <Container>
       <UserContainer>

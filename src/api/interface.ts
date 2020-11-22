@@ -36,10 +36,10 @@ export interface WelcomeCardContent {
   category: string; // NONE |
   col: number;
   description: string;
-  design_type: string; // notice |
+  design_type: number; // notice: 1 | 
   image: string;
   status: string; // PUB |
-  tag_txt: string;
+  tag_txt: [string];
   title: string;
   created_at: string;
   updated_at: string;
