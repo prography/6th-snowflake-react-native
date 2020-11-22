@@ -150,6 +150,7 @@ const ProductInfoReviewFilter = ({ setReviewArray, productId }: Props) => {
     try {
       const { status, response } = await fetchAPI(url);
       const json: ResultsRes<Review> = await response.json();
+      llog('✅ url', url);
       llog('🌮 id', productId, '의 review array success!', json);
       if (status === 200) {
         setReviewArray(json.results);

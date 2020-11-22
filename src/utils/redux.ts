@@ -13,20 +13,21 @@ export const createAction = (prefix: string): ApiAction => ({
   SUCCESS: `${prefix}_SUCCESS`,
   ERROR: `${prefix}_ERROR`,
 });
+
 // 여기서 해주는 작업은 사실 reducer에서 하지만, 편의를 위해 action creator에서 해준다.
 export const getActionCreator = <T>(ACTION: ApiAction) => {
   // 주의: ...params를 해버리면 request()에 대한 에러를 안잡아줌
-  const request = (params: object = {}) => {
+  const request = <Params>(params?: Params) => {
     llog("😸 dispatch request");
     const fetchResult: RFetchResult<T> = {
       loading: true,
-      data: params.data, // 이미 data가 있으면 그걸 유지하기 위해. 없으면 undefined
+      data: params?.data, // 이미 data가 있으면 그걸 유지하기 위해. 없으면 undefined // 이건 타입에 없음
       error: undefined,
     };
     // TODO userInfo 하드코딩 삭제 후 추상화
     return {
       type: ACTION.REQUEST,
-      userInfo: fetchResult,
+      payload: fetchResult,
       ...params,
     };
   };
@@ -39,7 +40,7 @@ export const getActionCreator = <T>(ACTION: ApiAction) => {
     };
     return {
       type: ACTION.SUCCESS,
-      userInfo: fetchResult,
+      payload: fetchResult,
     };
   };
 
@@ -52,7 +53,7 @@ export const getActionCreator = <T>(ACTION: ApiAction) => {
     };
     return {
       type: ACTION.ERROR,
-      userInfo: fetchResult,
+      payload: fetchResult,
     };
   };
 

@@ -91,7 +91,7 @@ export default (state = initialState, action): UserInfoState => {
     case GET_USER_INFO.REQUEST:
     case GET_USER_INFO.SUCCESS:
     case GET_USER_INFO.ERROR:
-      return { ...state, userInfo: action.userInfo };
+      return { ...state, userInfo: action.payload };
 
     default:
       return state;
