@@ -4,7 +4,6 @@ import { Alert } from 'react-native';
 import styled from 'styled-components/native';
 import { StackActions } from '@react-navigation/native';
 import KakaoLogins from '@react-native-seoul/kakao-login';
-import { NaverLogin, getProfile, TokenResponse as NaverTokenResponse } from "@react-native-seoul/naver-login";
 
 import appleAuth, {
   AppleAuthRequestOperation,
@@ -12,7 +11,6 @@ import appleAuth, {
   AppleAuthCredentialState,
   AppleAuthRequestResponse,
 } from '@invertase/react-native-apple-authentication';
-import analytics from "@react-native-firebase/analytics";
 
 import { d, c, l, BASE_URL, isAndroid } from '~/utils/constant';
 import BottomBtnCollectData from '~/components/universal/bottomBar/BottomBtnCollectData';
@@ -22,10 +20,11 @@ import { KakaoLoginResponse } from '~/utils/interface';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { JoinStackParamList } from '~/navigation/tabs/JoinStack';
 import { manageLoginLogout } from '~/store/modules/join/auth';
+import { eventUtil } from '~/utils/firebase/event';
 
 interface JoinInfo {
   guideText: string;
-  guide: 'email' | 'kakao' | 'apple' | 'naver';
+  guide: 'email' | 'kakao' | 'apple';
   screen?: string;
   function: (() => Promise<void>) | 'none';
 }
@@ -65,35 +64,10 @@ interface Props {
   navigation: StackNavigationProp<JoinStackParamList, 'JoinScreen'>;
 }
 
-const iosKeys = {
-  // test
-  // kConsumerKey: "VC5CPfjRigclJV_TFACU",
-  // kConsumerSecret: "f7tLFw0AHn",
-  kConsumerKey: "uH3FW_nhGyuxxOcckFcp",
-  kConsumerSecret: "E85tv_Brxc",
-  kServiceAppName: "눈송이",
-  kServiceAppUrlScheme: "naverlogin" // only for iOS
-  // kServiceAppUrlScheme: "testapp" // only for iOS
-};
-
-const androidKeys = {
-  // test
-  // kConsumerKey: "QfXNXVO8RnqfbPS9x0LR",
-  // kConsumerSecret: "6ZGEYZabM9",
-  kConsumerKey: "uH3FW_nhGyuxxOcckFcp",
-  kConsumerSecret: "E85tv_Brxc",
-  kServiceAppName: "눈송이"
-};
-
-const naverInitials = {
-  callback: 'http://snowflakeproduction-env.eba-qnph52vm.ap-northeast-2.elasticbeanstalk.com/accounts/social/naver-login-callback',
-  ...isAndroid ? androidKeys : iosKeys,
-};
-
 const JoinScreen = ({ navigation }: Props) => {
   const _signInWithKakao = async () => {
     try {
-      analytics().logEvent("press_kakao_login_btn");
+      eventUtil.logEvent(eventUtil.press_kakao_login_btn);
       llog('🥎 카카오 가입을 해보자');
       const result: KakaoLoginResponse = await KakaoLogins.login();
       llog('🥎 카카오 서버와 통신', result);
@@ -149,7 +123,7 @@ const JoinScreen = ({ navigation }: Props) => {
 
   const _signInWithApple = async () => {
     try {
-      analytics().logEvent("press_apple_login_btn");
+      eventUtil.logEvent(eventUtil.press_apple_login_btn);
       const appleAuthRequestResponse: AppleAuthRequestResponse = await appleAuth.performRequest(
         {
           requestedOperation: AppleAuthRequestOperation.LOGIN,
@@ -215,48 +189,6 @@ const JoinScreen = ({ navigation }: Props) => {
     }
   };
 
-
-  const naverLogin = props => {
-    return new Promise((resolve, reject) => {
-      NaverLogin.login(props, (err, token) => {
-        llog('🤢 naver token', token);
-        if (err) {
-          reject(err);
-          return;
-        }
-        resolve(token);
-      });
-    });
-  };
-  const getUserProfile = async (accessToken: string) => {
-    const profileResult = await getProfile(accessToken);
-    if (profileResult.resultcode === "024") {
-      Alert.alert("로그인 실패", profileResult.message);
-      return;
-    }
-    console.log("profileResult", profileResult);
-  };
-  const _signInWithNaver = async () => {
-    // 코드 미완.
-    try {
-      // const response = await fetch(`https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=${naverInitials.kConsumerKey}&redirect_uri=${naverInitials.callback}&state=DAHEE`);
-      // const json = await response.json();
-      // llog('🤢🤢 json', response.status, json);
-      // return
-
-      analytics().logEvent("press_naver_login_btn");
-      llog('🤢 네이버 가입을 해보자');
-      const result: NaverTokenResponse = await naverLogin(naverInitials);
-      llog('🤢result', result.accessToken);
-      // getUserProfile(result.accessToken);
-      // ??
-
-    } catch (error) {
-      llog('💢 naver error', error);
-      Alert.alert('오류', '네이버 로그인 실패');
-    }
-  };
-
   const joinArray: JoinInfo[] = [
     {
       guideText: '이메일로 가입하기',
@@ -274,15 +206,10 @@ const JoinScreen = ({ navigation }: Props) => {
       guide: 'apple',
       function: _signInWithApple,
     },
-    // {
-    //   guideText: '네이버로 가입하기',
-    //   guide: 'naver',
-    //   function: _signInWithNaver,
-    // },
   ];
 
   useEffect(() => {
-    analytics().setCurrentScreen("JoinScreen");
+    eventUtil.logScreenView(eventUtil.JoinScreen);
   }, []);
 
   return (

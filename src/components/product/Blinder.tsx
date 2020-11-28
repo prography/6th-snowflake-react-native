@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import analytics from "@react-native-firebase/analytics";
 import { Text } from 'react-native';
 import styled from 'styled-components/native';
 
@@ -8,6 +7,7 @@ import { d, c, l } from '~/utils/constant';
 import { llog } from '~/utils/functions';
 import { setBlinder } from '~/store/modules/product/blind';
 import { RootState } from '~/store/modules';
+import { eventUtil } from '~/utils/firebase/event';
 
 const Container = styled.View`
   width: ${d.px * l.tB}px;
@@ -36,7 +36,7 @@ const Blinder = () => {
   llog('blindState:', blindState);
 
   const onPress = () => {
-    analytics().logEvent(`blinder_to_${blindState ? 'show' : 'hidden'}`);
+    eventUtil.logEvent(blindState ? eventUtil.blinder_to_show : eventUtil.blinder_to_hidden)
     dispatch(setBlinder(blindState));
   };
 

@@ -17,44 +17,51 @@ PODS:
     - React-Core (= 0.62.0)
     - React-jsi (= 0.62.0)
     - ReactCommon/turbomodule/core (= 0.62.0)
-  - Firebase/Analytics (6.34.0):
+
+  - Firebase/Analytics (6.30.0):
     - Firebase/Core
-  - Firebase/Core (6.34.0):
+  - Firebase/Core (6.30.0):
     - Firebase/CoreOnly
-    - FirebaseAnalytics (= 6.9.0)
-  - Firebase/CoreOnly (6.34.0):
-    - FirebaseCore (= 6.10.4)
-  - Firebase/Crashlytics (6.34.0):
+    - FirebaseAnalytics (= 6.7.2)
+  - Firebase/CoreOnly (6.30.0):
+    - FirebaseCore (= 6.10.0)
+  - Firebase/Crashlytics (6.30.0):
     - Firebase/CoreOnly
-    - FirebaseCrashlytics (~> 4.6.2)
-  - Firebase/RemoteConfig (6.34.0):
+    - FirebaseCrashlytics (~> 4.4.0)
+  - Firebase/Messaging (6.30.0):
     - Firebase/CoreOnly
-    - FirebaseRemoteConfig (~> 4.9.1)
+    - FirebaseMessaging (~> 4.6.1)
+  - Firebase/RemoteConfig (6.30.0):
+    - Firebase/CoreOnly
+    - FirebaseRemoteConfig (~> 4.9.0)
   - FirebaseABTesting (4.2.0):
     - FirebaseCore (~> 6.10)
-  - FirebaseAnalytics (6.9.0):
-    - FirebaseCore (~> 6.10)
-    - FirebaseInstallations (~> 1.7)
-    - GoogleAppMeasurement (= 6.9.0)
+  - FirebaseAnalytics (6.7.2):
+    - FirebaseCore (~> 6.8)
+    - FirebaseInstallations (~> 1.4)
+    - GoogleAppMeasurement (= 6.7.2)
+
     - GoogleUtilities/AppDelegateSwizzler (~> 6.7)
     - GoogleUtilities/MethodSwizzler (~> 6.7)
     - GoogleUtilities/Network (~> 6.7)
     - "GoogleUtilities/NSData+zlib (~> 6.7)"
-    - nanopb (~> 1.30906.0)
-  - FirebaseCore (6.10.4):
-    - FirebaseCoreDiagnostics (~> 1.6)
+
+    - nanopb (~> 1.30905.0)
+  - FirebaseCore (6.10.0):
+    - FirebaseCoreDiagnostics (~> 1.3)
     - GoogleUtilities/Environment (~> 6.7)
     - GoogleUtilities/Logger (~> 6.7)
-  - FirebaseCoreDiagnostics (1.7.0):
-    - GoogleDataTransport (~> 7.4)
+  - FirebaseCoreDiagnostics (1.5.0):
+    - GoogleDataTransport (~> 7.0)
     - GoogleUtilities/Environment (~> 6.7)
     - GoogleUtilities/Logger (~> 6.7)
-    - nanopb (~> 1.30906.0)
-  - FirebaseCrashlytics (4.6.2):
+    - nanopb (~> 1.30905.0)
+  - FirebaseCrashlytics (4.4.0):
     - FirebaseCore (~> 6.10)
     - FirebaseInstallations (~> 1.6)
     - GoogleDataTransport (~> 7.2)
-    - nanopb (~> 1.30906.0)
+    - nanopb (~> 1.30905.0)
+
     - PromisesObjC (~> 1.2)
   - FirebaseInstallations (1.7.0):
     - FirebaseCore (~> 6.10)
@@ -71,12 +78,12 @@ PODS:
     - Flipper-Folly (~> 2.1)
     - Flipper-RSocket (~> 1.0)
   - Flipper-DoubleConversion (1.1.7)
-  - Flipper-Folly (2.2.0):
+  - Flipper-Folly (2.3.0):
     - boost-for-react-native
     - CocoaLibEvent (~> 1.0)
     - Flipper-DoubleConversion
     - Flipper-Glog
-    - OpenSSL-Universal (= 1.0.2.19)
+    - OpenSSL-Universal (= 1.0.2.20)
   - Flipper-Glog (0.3.6)
   - Flipper-PeerTalk (0.0.4)
   - Flipper-RSocket (1.1.0):
@@ -123,14 +130,18 @@ PODS:
     - DoubleConversion
     - glog
   - glog (0.3.5)
-  - GoogleAppMeasurement (6.9.0):
+
+  - GoogleAppMeasurement (6.7.2):
+
     - GoogleUtilities/AppDelegateSwizzler (~> 6.7)
     - GoogleUtilities/MethodSwizzler (~> 6.7)
     - GoogleUtilities/Network (~> 6.7)
     - "GoogleUtilities/NSData+zlib (~> 6.7)"
-    - nanopb (~> 1.30906.0)
-  - GoogleDataTransport (7.5.1):
-    - nanopb (~> 1.30906.0)
+
+    - nanopb (~> 1.30905.0)
+  - GoogleDataTransport (7.2.0):
+    - nanopb (~> 1.30905.0)
+
   - GoogleUtilities/AppDelegateSwizzler (6.7.2):
     - GoogleUtilities/Environment
     - GoogleUtilities/Logger
@@ -168,16 +179,18 @@ PODS:
   - KakaoOpenSDK/KakaoNavi (1.20.0):
     - KakaoOpenSDK/KakaoCommon
   - KakaoOpenSDK/KakaoOpenSDK (1.20.0)
-  - nanopb (1.30906.0):
-    - nanopb/decode (= 1.30906.0)
-    - nanopb/encode (= 1.30906.0)
-  - nanopb/decode (1.30906.0)
-  - nanopb/encode (1.30906.0)
-  - naveridlogin-sdk-ios (4.1.2)
-  - OpenSSL-Universal (1.0.2.19):
-    - OpenSSL-Universal/Static (= 1.0.2.19)
-  - OpenSSL-Universal/Static (1.0.2.19)
+
+  - nanopb (1.30905.0):
+    - nanopb/decode (= 1.30905.0)
+    - nanopb/encode (= 1.30905.0)
+  - nanopb/decode (1.30905.0)
+  - nanopb/encode (1.30905.0)
+  - OpenSSL-Universal (1.0.2.20):
+    - OpenSSL-Universal/Static (= 1.0.2.20)
+  - OpenSSL-Universal/Static (1.0.2.20)
   - PromisesObjC (1.2.11)
+  - Protobuf (3.13.0)
+
   - RCTRequired (0.62.0)
   - RCTTypeSafety (0.62.0):
     - FBLazyVector (= 0.62.0)
@@ -415,21 +428,28 @@ PODS:
     - React
   - RNCPicker (1.6.1):
     - React
-  - RNFBAnalytics (7.6.10):
-    - Firebase/Analytics (~> 6.34.0)
-    - React-Core
+
+  - RNFBAnalytics (7.6.1):
+    - Firebase/Analytics (~> 6.30.0)
+    - React
     - RNFBApp
-  - RNFBApp (8.4.7):
-    - Firebase/CoreOnly (~> 6.34.0)
-    - React-Core
-  - RNFBRemoteConfig (8.2.1):
-    - Firebase/RemoteConfig (~> 6.34.0)
+  - RNFBApp (8.4.1):
+    - Firebase/CoreOnly (~> 6.30.0)
+    - React
+  - RNFBCrashlytics (8.4.2):
+    - Firebase/Crashlytics (~> 6.30.0)
+
+    - React
+    - RNFBApp
+  - RNFBMessaging (7.8.4):
+    - Firebase/Messaging (~> 6.30.0)
+    - React
+    - RNFBApp
+  - RNFBRemoteConfig (9.0.2):
+    - Firebase/RemoteConfig (~> 6.30.0)
     - React
     - RNFBApp
   - RNGestureHandler (1.6.1):
-    - React
-  - RNNaverLogin (2.1.0):
-    - naveridlogin-sdk-ios (~> 4.1)
     - React
   - RNReanimated (1.8.0):
     - React
@@ -491,9 +511,10 @@ DEPENDENCIES:
   - "RNCPicker (from `../node_modules/@react-native-community/picker`)"
   - "RNFBAnalytics (from `../node_modules/@react-native-firebase/analytics`)"
   - "RNFBApp (from `../node_modules/@react-native-firebase/app`)"
+  - "RNFBCrashlytics (from `../node_modules/@react-native-firebase/crashlytics`)"
+  - "RNFBMessaging (from `../node_modules/@react-native-firebase/messaging`)"
   - "RNFBRemoteConfig (from `../node_modules/@react-native-firebase/remote-config`)"
   - RNGestureHandler (from `../node_modules/react-native-gesture-handler`)
-  - "RNNaverLogin (from `../node_modules/@react-native-seoul/naver-login`)"
   - RNReanimated (from `../node_modules/react-native-reanimated`)
   - RNScreens (from `../node_modules/react-native-screens`)
   - RNSVG (from `../node_modules/react-native-svg`)
@@ -513,6 +534,8 @@ SPEC REPOS:
     - FirebaseCoreDiagnostics
     - FirebaseCrashlytics
     - FirebaseInstallations
+    - FirebaseInstanceID
+    - FirebaseMessaging
     - FirebaseRemoteConfig
     - Flipper
     - Flipper-DoubleConversion
@@ -527,7 +550,6 @@ SPEC REPOS:
     - JWT
     - KakaoOpenSDK
     - nanopb
-    - naveridlogin-sdk-ios
     - OpenSSL-Universal
     - PromisesObjC
     - SSZipArchive
@@ -605,12 +627,14 @@ EXTERNAL SOURCES:
     :path: "../node_modules/@react-native-firebase/analytics"
   RNFBApp:
     :path: "../node_modules/@react-native-firebase/app"
+  RNFBCrashlytics:
+    :path: "../node_modules/@react-native-firebase/crashlytics"
+  RNFBMessaging:
+    :path: "../node_modules/@react-native-firebase/messaging"
   RNFBRemoteConfig:
     :path: "../node_modules/@react-native-firebase/remote-config"
   RNGestureHandler:
     :path: "../node_modules/react-native-gesture-handler"
-  RNNaverLogin:
-    :path: "../node_modules/@react-native-seoul/naver-login"
   RNReanimated:
     :path: "../node_modules/react-native-reanimated"
   RNScreens:
@@ -631,33 +655,41 @@ SPEC CHECKSUMS:
   DoubleConversion: 5805e889d232975c086db112ece9ed034df7a0b2
   FBLazyVector: 545eccf4f6ef2de8fd450fd8a1edb3f913c7371a
   FBReactNativeSpec: 85c7f8347f4a6e911742228e89e245187afa298e
-  Firebase: c23a36d9e4cdf7877dfcba8dd0c58add66358999
+
+  Firebase: 210f41ca352067d83b1ba4fd2e7fb49a0c017397
   FirebaseABTesting: 8a9d8df3acc2b43f4a22014ddf9f601bca6af699
-  FirebaseAnalytics: 3bb096873ee0d7fa4b6c70f5e9166b6da413cc7f
-  FirebaseCore: d3a978a3cfa3240bf7e4ba7d137fdf5b22b628ec
-  FirebaseCoreDiagnostics: 770ac5958e1372ce67959ae4b4f31d8e127c3ac1
-  FirebaseCrashlytics: 1a747c9cc084a24dc6d9511c991db1cd078154eb
+  FirebaseAnalytics: a299a86ef70fcc6aa011418bc65a7e101fb9636c
+  FirebaseCore: 9a41e2de78fef10f63cee30ab10e2945266bc1fc
+  FirebaseCoreDiagnostics: 7535fe695737f8c5b350584292a70b7f8ff0357b
+  FirebaseCrashlytics: 859918905322e8816d2b5ab7fe54bf5a0c84d21c
   FirebaseInstallations: 466c7b4d1f58fe16707693091da253726a731ed2
+  FirebaseInstanceID: bd3ffc24367f901a43c063b36c640b345a4a5dd1
+  FirebaseMessaging: 82d75b3770a78bbce470769a6980429608b4c407
+
   FirebaseRemoteConfig: 35a729305f254fb15a2e541d4b36f3a379da7fdc
   Flipper: 6c1f484f9a88d30ab3e272800d53688439e50f69
   Flipper-DoubleConversion: 38631e41ef4f9b12861c67d17cb5518d06badc41
-  Flipper-Folly: c12092ea368353b58e992843a990a3225d4533c3
+  Flipper-Folly: e4493b013c02d9347d5e0cb4d128680239f6c78a
   Flipper-Glog: 1dfd6abf1e922806c52ceb8701a3599a79a200a6
   Flipper-PeerTalk: 116d8f857dc6ef55c7a5a75ea3ceaafe878aadc9
   Flipper-RSocket: 64e7431a55835eb953b0bf984ef3b90ae9fdddd7
   FlipperKit: 6dc9b8f4ef60d9e5ded7f0264db299c91f18832e
   Folly: 30e7936e1c45c08d884aa59369ed951a8e68cf51
   glog: 1f3da668190260b06b429bb211bfbee5cd790c28
-  GoogleAppMeasurement: a6a3a066369828db64eda428cb2856dc1cdc7c4e
-  GoogleDataTransport: f56af7caa4ed338dc8e138a5d7c5973e66440833
+
+  GoogleAppMeasurement: 3def7652b1f5b5a576178dc332e2a36a260fbef6
+  GoogleDataTransport: 672fb0ce96fe7f7f31d43672fca62ad2c9c86f7b
+
   GoogleUtilities: 7f2f5a07f888cdb145101d6042bc4422f57e70b3
   JWT: 9b5c05abbcc1a0e69c3c91e1655b3387fc7e581d
   kakao-login: 0a270ca2d3c68f6f0f14895bc3487b37d21203f5
   KakaoOpenSDK: 797d97ec4a7074a23d7175147f13ec274c81c9b9
-  nanopb: 59317e09cf1f1a0af72f12af412d54edf52603fc
-  naveridlogin-sdk-ios: cf8afccdb1793d4ecfcd5d46aa8729d8b5058c70
-  OpenSSL-Universal: 8b48cc0d10c1b2923617dfe5c178aa9ed2689355
+
+  nanopb: c43f40fadfe79e8b8db116583945847910cbabc9
+  OpenSSL-Universal: ff34003318d5e1163e9529b08470708e389ffcdd
   PromisesObjC: 8c196f5a328c2cba3e74624585467a557dcb482f
+  Protobuf: 3dac39b34a08151c6d949560efe3f86134a3f748
+
   RCTRequired: 0873f5bdb1762d2b9b1ae16a01c4f91d6ee3b6dd
   RCTTypeSafety: a605e0cc0e4220f6e65896bd9e675073c2978f35
   React: 8abf6bdd2b05538e9445f7bbda800df744068bfe
@@ -684,11 +716,14 @@ SPEC CHECKSUMS:
   RNCAsyncStorage: cb9a623793918c6699586281f0b51cbc38f046f9
   RNCMaskedView: f5c7d14d6847b7b44853f7acb6284c1da30a3459
   RNCPicker: b8c53479842804a3e7b721e01def0ce2c89ddc69
-  RNFBAnalytics: 6414e9fe1f36c3074f39cd6265b3def777dbfbdb
-  RNFBApp: 804b98033f45c3a3e35b56de8c894f85ef5e4388
-  RNFBRemoteConfig: 14246d18d86f069c567cb710e15616885b962326
+
+  RNFBAnalytics: ffd9149d1fe0ecee0f2571b234d53c25349b9899
+  RNFBApp: e4321cad5dd23b43b3b4f0ca060300b9f85cb7a4
+  RNFBCrashlytics: accacec7be2426085b715b93cdb7b0a1308eb8eb
+  RNFBMessaging: f28096dc79edf6b0a094e95c265c7224122d051d
+  RNFBRemoteConfig: a115c8631ef84ebca54abe62583332958722a603
+
   RNGestureHandler: 8f09cd560f8d533eb36da5a6c5a843af9f056b38
-  RNNaverLogin: e3c76c8f589f3751f7d7e6f79dbacbfb080c91a4
   RNReanimated: 955cf4068714003d2f1a6e2bae3fb1118f359aff
   RNScreens: cf198f915f8a2bf163de94ca9f5bfc8d326c3706
   RNSVG: ce9d996113475209013317e48b05c21ee988d42e

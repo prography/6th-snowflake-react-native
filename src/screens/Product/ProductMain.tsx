@@ -2,7 +2,6 @@ import * as React from 'react';
 import { useEffect } from 'react';
 import { ScrollView } from 'react-native';
 import styled from 'styled-components/native';
-import analytics from '@react-native-firebase/analytics';
 import { useLinkTo } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 
@@ -16,6 +15,7 @@ import MarginBottom from '~/components/universal/margin/MarginBottom';
 import Blinder from '~/components/product/Blinder';
 import TopBarLeftIconSearchBar from '~/components/universal/topBar/TopBarLeftIconSearchBar';
 import { ProductStackParamList } from '~/navigation/tabs/ProductStack';
+import { eventUtil } from '~/utils/firebase/event';
 
 interface Props {
   navigation: StackNavigationProp<ProductStackParamList, 'ProductMain'>;
@@ -31,7 +31,7 @@ const ProductMain = ({ navigation }: Props) => {
 
   //제품 리스트에 현재 id 안 오고 있음
   useEffect(() => {
-    analytics().setCurrentScreen("ProductMain");
+    eventUtil.logScreenView(eventUtil.ProductMain);
 
     // 딥링크 테스트용 코드
     // setTimeout(() => { // 이거 없으면 가끔 안넘어감

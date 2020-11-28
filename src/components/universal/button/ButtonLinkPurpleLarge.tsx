@@ -1,12 +1,12 @@
 import * as React from 'react';
 import styled from 'styled-components/native';
 import { withNavigation } from '@react-navigation/compat';
-import analytics from "@react-native-firebase/analytics";
 import { useLinkTo } from '@react-navigation/native';
 
 import { d, c } from '~/utils/constant';
 import TextBottomBtn from '../text/TextBottomBtn';
 import { Img } from '~/img';
+import { eventUtil } from '~/utils/firebase/event';
 
 interface Props {
   buttonText: string;
@@ -45,7 +45,7 @@ const ButtonLinkPurpleLarge = ({ buttonText, link, navigation }: Props) => {
     <Container
       activeOpacity={1}
       onPress={() => {
-        analytics().logEvent("press_btn_in_home", { link });
+        eventUtil.logEvent(eventUtil.press_btn_in_home, { link });
         navigation.navigate(link);
 
         // 딥링크 테스트용 코드

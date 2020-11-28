@@ -8,6 +8,3 @@
 #   http://developer.android.com/guide/developing/tools/proguard.html
 
 # Add any project specific keep options here:
--keep public class com.nhn.android.naverlogin.** {
-       public protected *;
-}
