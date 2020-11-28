@@ -8,7 +8,8 @@ import SnowflakeLogo from '~/img/svgIcons/SnowflakeLogo';
 const Container = styled.View`
   height: ${d.px * l.tB}px;
   width: 100%;
-  margin-left: ${d.px * 30}px;
+  margin-left: ${props => props.theme.paddingWidth.wideLeftRight.paddingLeft};
+  
   align-items: flex-start;
   justify-content: center;
   background-color: transparent;

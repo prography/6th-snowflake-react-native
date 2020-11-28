@@ -7,7 +7,7 @@ import { RootState } from '~/store/modules';
 import { Img } from '~/img';
 
 const Container = styled.View`
-  margin: 0 ${l.mR}px;
+margin-left: ${props => props.theme.paddingWidth.wideLeftRight.paddingLeft};
   height: ${d.px * 130}px;
   align-self: center;
   justify-content: center;

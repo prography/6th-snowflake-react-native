@@ -1,6 +1,5 @@
 import * as React from "react";
 import { Dimensions, Platform } from "react-native";
-import styled from "styled-components/native";
 
 export const isAndroid = Platform.OS === "android";
 
@@ -112,7 +111,4 @@ interface Color {
   blue: string;
 }
 
-export const theme = {
-  purpleTitleRight: 'Jost-Bold',
-  mL: d.width * 20,
-};
+

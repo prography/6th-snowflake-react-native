@@ -21,8 +21,7 @@ interface Props {
 }
 
 const Container = styled.TouchableOpacity`
-  margin-right: ${l.mR}px;
-  margin-left: ${l.mL}px;
+${props => props.theme.paddingWidth.wideLeftRight}
 `;
 
 const ImageArea = styled.View`
@@ -36,9 +35,7 @@ const SutraImage = styled.Image`
   background-color: ${c.purple};
 `;
 const NewText = styled.Text`
-  font-family: Jost-Bold;
-  font-size: ${d.px * 20}px;
-  color: ${c.purple};
+  ${props => props.theme.fonts.title.purpleLarge}
 `;
 const TextArea = styled.View``;
 

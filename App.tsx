@@ -6,7 +6,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { LinkingOptions } from '@react-navigation/native/lib/typescript/src/types';
 
-import { theme } from '~/utils/constant';
+import  theme  from '~/utils/theme';
 import { Provider } from 'react-redux';
 import store from '~/store';
 import NavController from '~/screens/NavController';

@@ -19,6 +19,7 @@ interface Props {
 
 const Container = styled.View`
   align-items: flex-start; 
+  ${props=> props.theme.screenContainer}
 `;
 
 const TempButton = styled.TouchableOpacity`
