@@ -2,7 +2,6 @@ import * as React from 'react';
 import { ScrollView } from 'react-native';
 import { useState, useEffect } from 'react';
 import styled from 'styled-components/native';
-import analytics from "@react-native-firebase/analytics";
 import { useSelector } from 'react-redux';
 import { StackNavigationProp } from '@react-navigation/stack';
 
@@ -17,6 +16,7 @@ import { fetchAPI } from '~/api';
 import { llog } from '~/utils/functions';
 import { ResultsRes, CondomProductForSearch } from '~/api/interface';
 import { Img } from '~/img';
+import { eventUtil } from '~/utils/firebase/event';
 
 const Container = styled.View`
   flex: 1;
@@ -96,7 +96,7 @@ const SearchProduct = ({ navigation }: Props) => {
   };
 
   useEffect(() => {
-    analytics().setCurrentScreen("SearchProduct");
+    eventUtil.logScreenView(eventUtil.SearchProduct);
   }, []);
 console.log('searhchInpt', searchInput)
   return (

@@ -2,7 +2,6 @@ import * as React from 'react';
 import { useSelector } from 'react-redux';
 import { View } from 'react-native';
 import styled from 'styled-components/native';
-import analytics from "@react-native-firebase/analytics";
 
 import { d, c } from '~/utils/constant';
 import ColorCircles1 from '~/containers/join/ColorCircles/ColorCircles1';
@@ -16,6 +15,7 @@ import MarginMedium from '~/components/universal/margin/MarginMedium';
 import ButtonGenderColor from '~/containers/join/ColorCircles/ButtonGenderColor';
 import TopBarBackArrowRightIcon from '~/components/universal/topBar/TopBarBackArrowRightIcon';
 import { RootState } from '~/store/modules';
+import { eventUtil } from '~/utils/firebase/event';
 
 const Container = styled.View`
   flex-direction: column;
@@ -51,7 +51,7 @@ const GenderColor = () => {
   );
 
   React.useEffect(() => {
-    analytics().setCurrentScreen("Select_GenderColor");
+    eventUtil.logScreenView(eventUtil.Select_GenderColor);
   }, []);
 
   return (

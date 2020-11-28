@@ -3,7 +3,6 @@ import { useEffect } from 'react';
 import styled from 'styled-components/native';
 import { ScrollView } from 'react-native';
 import { useSelector } from 'react-redux';
-import analytics from "@react-native-firebase/analytics";
 import { StackNavigationProp } from '@react-navigation/stack';
 
 import NavBar from '~/screens/NavBar';
@@ -20,6 +19,7 @@ import MarginMedium from '~/components/universal/margin/MarginMedium';
 import { llog } from '~/utils/functions';
 import { JoinStackParamList } from '~/navigation/tabs/JoinStack';
 import { RootState } from '~/store/modules';
+import { eventUtil } from '~/utils/firebase/event';
 
 interface Props {
   navigation: StackNavigationProp<JoinStackParamList, 'SettimgMain'>;
@@ -37,7 +37,7 @@ const SettingMain = ({ navigation }: Props) => {
   llog('로그인됨?', _isLoggedin);
 
   useEffect(() => {
-    analytics().setCurrentScreen("SettingMain");
+    eventUtil.logScreenView(eventUtil.ProductInfo);
   }, []);
 
   return (

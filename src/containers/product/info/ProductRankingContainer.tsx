@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { useState, useEffect } from 'react';
 import { ScrollView } from 'react-native';
-import analytics from "@react-native-firebase/analytics";
 import styled from 'styled-components/native';
 
 import { d, c, l } from '~/utils/constant';
@@ -14,6 +13,7 @@ import { llog } from '~/utils/functions';
 import { RankingParamList } from '~/navigation/tabs/ProductStack';
 import { fetchAPI } from '~/api';
 import { CondomProductForRank, ResultsRes } from '~/api/interface';
+import { eventUtil } from '~/utils/firebase/event';
 
 const NARROW_MARGIN = d.px * 9;
 const TEXT_HEIGHT = d.px * 16;
@@ -259,7 +259,7 @@ const ProductRankingContainer = ({ serverParams, navigateToProductInfo }: Props)
                 first={category.first}
                 last={category.last}
                 onPress={() => {
-                  analytics().logEvent("press_category_in_ranking", { category: category.categoryEnum });
+                  eventUtil.logEvent(eventUtil.press_category_in_ranking, { category: category.categoryEnum });
                   setSelectedCategory(category.categoryEnum);
                 }}
               >
@@ -282,7 +282,7 @@ const ProductRankingContainer = ({ serverParams, navigateToProductInfo }: Props)
           selectedOrder={selectedOrder}
           showOrderFilter={showOrderFilter}
           onPress={() => {
-            analytics().logEvent("press_show_order_filter", { to: !showOrderFilter });
+            eventUtil.logEvent(eventUtil.press_show_order_filter, { to: !showOrderFilter });
             setShowOrderFilter(!showOrderFilter);
           }}
         >
@@ -296,7 +296,7 @@ const ProductRankingContainer = ({ serverParams, navigateToProductInfo }: Props)
               <OrderFilterBox
                 key={index + 100}
                 onPress={() => {
-                  analytics().logEvent("press_order_in_ranking", { order: filter.orderEnum });
+                  eventUtil.logEvent(eventUtil.press_order_in_ranking, { order: filter.orderEnum });
                   setSelectedOrder(filter.orderEnum);
                 }}>
                 <OrderFilterText
