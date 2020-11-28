@@ -32,7 +32,7 @@ const Feedback = ({ navigation }: Props) => {
   }, []);
   return (
     <>
-      <WebView source={{ uri: remoteConfigs.feedback_link?.asString() || feedbackLink }} />
+      <WebView source={{ uri: remoteConfigs?.feedback_link?.asString() || feedbackLink }} />
       <Container
         activeOpacity={1}
         onPress={() => {
