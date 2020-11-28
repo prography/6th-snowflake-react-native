@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { useEffect, useState } from 'react';
 import styled from 'styled-components/native';
-import analytics from "@react-native-firebase/analytics";
 import { useSelector, shallowEqual } from 'react-redux';
 
 import { d, l, c } from '~/utils/constant';
@@ -13,6 +12,7 @@ import { fetchAPI } from '~/api';
 import { llog } from '~/utils/functions';
 import { Review, ResultsRes } from '~/api/interface';
 import { GenderEnum } from '~/utils/interface';
+import { eventUtil } from '~/utils/firebase/event';
 
 const NARROW_MARGIN = d.px * 9;
 const TEXT_HEIGHT = d.px * 16;
@@ -171,7 +171,7 @@ const ProductInfoReviewFilter = ({ setReviewArray, productId }: Props) => {
           showFilter={showGenderPartnerFilter}
           selected={genderParam === GenderEnum.NONE && partnerParam === GenderEnum.NONE && ''}
           onPress={() => {
-            analytics().logEvent("press_show_gender_partner_filter", { to: !showGenderPartnerFilter });
+            eventUtil.logEvent(eventUtil.press_show_gender_partner_filter, { to: !showGenderPartnerFilter });
             setShowGenderPartnerFilter(!showGenderPartnerFilter);
           }}
         >
@@ -206,7 +206,7 @@ const ProductInfoReviewFilter = ({ setReviewArray, productId }: Props) => {
                     <SelectCircleTouchArea
                       key={index}
                       onPress={() => {
-                        analytics().logEvent("press_write_gender_select", { to: filter.genderEnum });
+                        eventUtil.logEvent(eventUtil.press_write_gender_select, { to: filter.genderEnum });
                         setGenderParam(filter.genderEnum);
                       }}
                     >
@@ -231,7 +231,7 @@ const ProductInfoReviewFilter = ({ setReviewArray, productId }: Props) => {
                     <SelectCircleTouchArea
                       key={index + 100}
                       onPress={() => {
-                        analytics().logEvent("press_partner_gender_select", { to: filter.partnerEnum });
+                        eventUtil.logEvent(eventUtil.press_partner_gender_select, { to: filter.partnerEnum });
                         setPartnerParam(filter.partnerEnum);
                       }}
                     >

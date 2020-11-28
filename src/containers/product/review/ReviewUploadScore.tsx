@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { useState, useEffect } from 'react';
-import analytics from "@react-native-firebase/analytics";
 import styled from 'styled-components/native';
 import { useSelector, useDispatch } from 'react-redux';
 
@@ -8,6 +7,7 @@ import { d, c, l } from '~/utils/constant';
 import TextMiddleTitleDark from '~/components/universal/text/TextMiddleTitleDark';
 import { RootState } from '~/store/modules';
 import { setReviewInfo2_score, setReviewInfo2_average, InitalReviewInfo } from '~/store/modules/product/reviewUpload';
+import { eventUtil } from '~/utils/firebase/event';
 
 interface Props {
   productId: number;
@@ -157,10 +157,10 @@ const ReviewUploadScore = ({ productId }: Props) => {
         activeOpacity={1}
         onPress={() => {
           if (checked) {
-            analytics().logEvent("set_score_to_custom_average");
+            eventUtil.logEvent(eventUtil.set_score_to_custom_average);
             dispatch(setReviewInfo2_average({ productId, average: Math.round(average) }))
           } else {
-            analytics().logEvent("set_score_to_trio_average");
+            eventUtil.logEvent(eventUtil.set_score_to_trio_average);
             dispatch(setReviewInfo2_average({ productId, average }))
           }
           setChecked(!checked);

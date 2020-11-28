@@ -2,7 +2,6 @@ import * as React from 'react';
 import { useSelector } from 'react-redux';
 import { View } from 'react-native';
 import styled from 'styled-components/native';
-import analytics from "@react-native-firebase/analytics";
 
 import { d, c } from '~/utils/constant';
 import ColorCircles1 from '~/containers/join/ColorCircles/ColorCircles1';

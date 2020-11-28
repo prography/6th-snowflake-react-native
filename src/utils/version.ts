@@ -1,7 +1,7 @@
 import { RemoteConfigs } from "~/context/CommonContext";
 import { isAndroid } from "./constant";
 
-export const verNums = [1, 3, 0];
+export const verNums = [1, 4, 0];
 export const verNumsToString = `${verNums[0]}.${verNums[1]}.${verNums[2]}`;
 export const getVerString = () => `${verNums[0]}.${verNums[1]}.${verNums[2]}`;
 export const getCpVerString = (remoteConfigs: RemoteConfigs) => {

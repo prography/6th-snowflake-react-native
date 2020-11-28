@@ -1,8 +1,6 @@
 import * as React from "react";
 import { useState, useEffect } from "react";
-import { Alert } from "react-native";
 import styled from "styled-components/native";
-import analytics from "@react-native-firebase/analytics";
 
 import { RootTabParamList } from "~/navigation/RootTabNavigation";
 import { d, c, l } from "~/utils/constant";
@@ -15,11 +13,11 @@ import { Img } from "~/img";
 import MyModal from "~/components/universal/modal/LoginModal";
 import HeartUnselected from "~/img/svgIcons/HeartUnselected";
 import HeartSelected from "~/img/svgIcons/HeartSelected";
-import { alertUtil } from "~/utils/alert";
 import LoginModal from "~/components/universal/modal/LoginModal";
 import { toast } from "~/utils/toast";
 import { refreshTokenAC } from "~/store/modules/join/auth";
 import { LoginRes, RequestType } from "~/api/interface";
+import { eventUtil } from "~/utils/firebase/event";
 
 interface Props {
   children: React.ReactNode;
@@ -193,10 +191,10 @@ const ProductInfoBar = ({
           onPress={() => {
             if (_isLoggedin) {
               if (isLiked) {
-                analytics().logEvent("press_delete_like", { productId });
+                eventUtil.logEvent(eventUtil.press_delete_like, { productId });
                 _deleteLiked();
               } else {
-                analytics().logEvent("press_like", { productId });
+                eventUtil.logEvent(eventUtil.press_like, { productId });
                 _likeProduct();
               }
             } else {
@@ -212,7 +210,7 @@ const ProductInfoBar = ({
         <Tab
           onPress={() => {
             if (_isLoggedin) {
-              analytics().logEvent("press_review_upload", { productId });
+              eventUtil.logEvent(eventUtil.press_review_upload, { productId });
               navigateToReviewUpload1();
             } else {
               setIsLoginModalVisible(true);

@@ -2,7 +2,6 @@ import * as React from 'react';
 import { useEffect } from 'react';
 import { Alert, Linking } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
-import analytics from "@react-native-firebase/analytics";
 import { StackNavigationProp } from '@react-navigation/stack';
 
 import Content from '../../containers/home/main/Content';

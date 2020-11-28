@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components/native';
-import analytics from "@react-native-firebase/analytics";
 
 import { d, c } from '~/utils/constant';
 import TextProductCompany from '~/components/universal/text/product/TextProductCompany';
@@ -10,6 +9,7 @@ import TextRankNum from '~/components/universal/text/product/TextRankNum';
 import TextProductScore from '~/components/universal/text/product/TextProductScore';
 import { RootState } from '~/store/modules';
 import { Img } from '~/img';
+import { eventUtil } from '~/utils/firebase/event';
 
 interface Props {
   rankNum: number;
@@ -65,7 +65,7 @@ const RankBar = ({
     <Container
       activeOpacity={1}
       onPress={() => {
-        analytics().logEvent("press_product", { productId: id });
+        eventUtil.logEvent(eventUtil.press_product, { productId: id });
         navigateToProductInfo(id);
       }}
     >

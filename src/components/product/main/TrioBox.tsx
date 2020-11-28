@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components/native';
-import analytics from "@react-native-firebase/analytics";
 
 import { d, c } from '~/utils/constant';
 import TextMiddleTitleDark from '~/components/universal/text/TextMiddleTitleDark';
@@ -11,6 +10,7 @@ import TextLink from '~/components/universal/text/TextLink';
 import { RootState } from '~/store/modules';
 import TextProductFlowName from '~/components/universal/text/product/TextProductFlowName';
 import { Img } from '~/img';
+import { eventUtil } from '~/utils/firebase/event';
 
 
 const Container = styled.View`
@@ -83,7 +83,7 @@ const TrioBox = ({
       <Link
         activeOpacity={0.5}
         onPress={() => {
-          analytics().logEvent("press_go_to_ranking", { from: title });
+          eventUtil.logEvent(eventUtil.press_go_to_ranking, { from: title });
           navigateToRanking();
         }}
       >

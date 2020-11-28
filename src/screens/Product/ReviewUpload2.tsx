@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { ScrollView } from 'react-native';
 import { useSelector } from 'react-redux';
-import analytics from "@react-native-firebase/analytics";
 
 import { d, l } from '~/utils/constant';
 import Blinder from '~/components/product/Blinder';
@@ -17,6 +16,7 @@ import BottomBtnCollectData from '~/components/universal/bottomBar/BottomBtnColl
 import { RootState } from '~/store/modules';
 import { ProductStackParamList } from '~/navigation/tabs/ProductStack';
 import { RouteProp } from '@react-navigation/native';
+import { eventUtil } from '~/utils/firebase/event';
 
 interface Props {
   route: RouteProp<ProductStackParamList, 'ReviewUpload2'>;
@@ -30,7 +30,7 @@ const ReviewUpload2 = ({ route }: Props) => {
   );
 
   React.useEffect(() => {
-    analytics().setCurrentScreen("ReviewUpload2_Recommend_Gener");
+    eventUtil.logScreenView(eventUtil.ReviewUpload2_Recommend_Gener);
   }, []);
 
   return (

@@ -11,7 +11,6 @@ import appleAuth, {
   AppleAuthCredentialState,
   AppleAuthRequestResponse,
 } from '@invertase/react-native-apple-authentication';
-import analytics from "@react-native-firebase/analytics";
 
 import { d, c, l, BASE_URL, isAndroid } from '~/utils/constant';
 import BottomBtnCollectData from '~/components/universal/bottomBar/BottomBtnCollectData';
@@ -21,6 +20,7 @@ import { KakaoLoginResponse } from '~/utils/interface';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { JoinStackParamList } from '~/navigation/tabs/JoinStack';
 import { manageLoginLogout } from '~/store/modules/join/auth';
+import { eventUtil } from '~/utils/firebase/event';
 
 interface JoinInfo {
   guideText: string;
@@ -67,7 +67,7 @@ interface Props {
 const JoinScreen = ({ navigation }: Props) => {
   const _signInWithKakao = async () => {
     try {
-      analytics().logEvent("press_kakao_login_btn");
+      eventUtil.logEvent(eventUtil.press_kakao_login_btn);
       llog('🥎 카카오 가입을 해보자');
       const result: KakaoLoginResponse = await KakaoLogins.login();
       llog('🥎 카카오 서버와 통신', result);
@@ -123,7 +123,7 @@ const JoinScreen = ({ navigation }: Props) => {
 
   const _signInWithApple = async () => {
     try {
-      analytics().logEvent("press_apple_login_btn");
+      eventUtil.logEvent(eventUtil.press_apple_login_btn);
       const appleAuthRequestResponse: AppleAuthRequestResponse = await appleAuth.performRequest(
         {
           requestedOperation: AppleAuthRequestOperation.LOGIN,
@@ -209,7 +209,7 @@ const JoinScreen = ({ navigation }: Props) => {
   ];
 
   useEffect(() => {
-    analytics().setCurrentScreen("JoinScreen");
+    eventUtil.logScreenView(eventUtil.JoinScreen);
   }, []);
 
   return (

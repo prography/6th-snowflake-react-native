@@ -1,7 +1,6 @@
 import * as React from 'react';
 import styled from 'styled-components/native';
 import { useState, useEffect } from 'react';
-import analytics from "@react-native-firebase/analytics";
 import { Picker } from '@react-native-community/picker';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RouteProp } from '@react-navigation/native';
@@ -13,6 +12,7 @@ import { JoinStackParamList } from '~/navigation/tabs/JoinStack';
 import { fetchAPI } from '~/api';
 import { llog, getAvailableYears } from '~/utils/functions';
 import { MsgRes } from '~/api/interface';
+import { eventUtil } from '~/utils/firebase/event';
 
 const Container = styled.View`
   margin: 0 ${l.mR}px;
@@ -122,7 +122,7 @@ const Join2 = ({ navigation, route }: Props) => {
   };
 
   useEffect(() => {
-    analytics().setCurrentScreen("Join2_Nickname_Birthyear");
+    eventUtil.logScreenView(eventUtil.Join2_Nickname_Birthyear);
   }, []);
 
   return (
