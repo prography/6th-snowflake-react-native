@@ -115,7 +115,7 @@ const ProductInfoBar = ({
           }));
           break;
         default:
-          toast('처리 중 오류가 발생했어요.');
+          toast(`처리 중 오류가 발생했어요. (${status})`);
           const json = await response.json()
           llog('🍊 default json', status, json)
           break;

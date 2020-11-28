@@ -1,14 +1,18 @@
 import * as React from "react";
 import styled from 'styled-components';
 import { useState, useEffect } from "react";
+import { useDispatch } from "react-redux";
 
 import OneSutraCard from "~/components/lab/sutra/list/OneSutraCard";
 import { getTokenItem } from "~/utils/asyncStorage";
 import { fetchAPI } from "~/api";
 import { llog, consoleError } from "~/utils/functions";
-import { ResultsRes, Sutra, RecommendType, Position } from "~/api/interface";
+import { ResultsRes, Sutra, RecommendType, Position, RequestType } from "~/api/interface";
 import MarginMedium from "~/components/universal/margin/MarginMedium";
 import { alertUtil } from "~/utils/alert";
+import { BASE_URL } from "~/utils/constant";
+import { refreshTokenAC } from "~/store/modules/join/auth";
+import { toast } from "~/utils/toast";
 
 interface Props {
   navigateToJoinStack: () => void;
@@ -86,6 +90,9 @@ const SutraCardsList = ({ navigateToJoinStack, openQuestionModal, position }: Pr
   const [selectedFilter, setSelectedFilter] = useState<FilterEnum>(FilterEnum.none);
   const [selectedOrder, setSelectedOrder] = useState<OrderEnum>(OrderEnum.none);
 
+  // redux
+  const dispatch = useDispatch();
+
   const _getSutraList = async () => {
     try {
       const token = await getTokenItem();
@@ -151,14 +158,31 @@ const SutraCardsList = ({ navigateToJoinStack, openQuestionModal, position }: Pr
         return;
       }
 
-      const { status } = await fetchAPI(`labs/sutras/${sutraId}/evaluations/`, { method: 'DELETE', token });
-      llog('🐰 Sutra 삭제', '성공 = 204', status);
+      const { status, response } = await fetchAPI(`labs/sutras/${sutraId}/evaluations/`, {
+        method: 'DELETE',
+        token,
+      });
 
-      if (status === 204) {
-        _getSutraList();
+      switch (status) {
+        case 204:
+          _getSutraList();
+          break;
+        case 401:
+          llog('😂 토큰 만료');
+          // 토큰을 다시 요청한다. (모든 API마다 이렇게 해야하는데...)
+          dispatch(refreshTokenAC.request<RequestType>({
+            refetch: () => onPressDeleteEvaluation(sutraId),
+          }));
+          break;
+        default:
+          toast(`처리 중 오류가 발생했어요. (${response.status})`);
+          const json = await response.json()
+          llog('🍊 default json', status, json)
+          break;
       }
     } catch (error) {
       consoleError(`SutraList - delete 평가 error`, error);
+      _getSutraList();
     }
   }
   // 찜

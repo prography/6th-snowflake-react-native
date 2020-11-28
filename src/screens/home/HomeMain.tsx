@@ -16,6 +16,7 @@ import { useRemoteConfigs, APP_VERSION_STATE, useAppVersionState } from '~/conte
 import { isAndroid } from '~/utils/constant';
 import { getRCValue, RemoteKey } from '~/utils/firebase/remoteConfig';
 import { eventUtil } from '~/utils/firebase/event';
+import { toast } from '~/utils/toast';
 
 interface Props {
   navigation: StackNavigationProp<HomeStackParamList, 'HomeMain'>;
