@@ -55,6 +55,10 @@ declare module "styled-components" {
         paddingRight: string;
       };
     };
+    marginAndWidth: {
+        marginLeft:string;
+        width: string;
+    }
     marginWidth: {
       wideLeftRight: {
         marginLeft: string;

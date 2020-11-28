@@ -15,8 +15,7 @@ interface Props {
 }
 
 const Container = styled.View`
-  width: ${d.width - d.px * 50}px;
-  margin-left: ${d.px * 30}px;
+${props => props.theme.marginAndWidth}
 `;
 
 const TopFive = ({ navigateToProductInfo }: Props) => {

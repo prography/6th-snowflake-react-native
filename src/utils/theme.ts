@@ -79,6 +79,10 @@ const theme: DefaultTheme = {
       paddingRight: `${PADDING_WIDTH.wide}px`,
     },
   },
+  marginAndWidth: {
+    marginLeft: `${PADDING_WIDTH.wide}px`,
+    width: `${Number(dimensions.width)- PADDING_WIDTH.wide *2}px`,
+  },
   marginWidth: {
     wideLeftRight: {
       marginLeft: `${PADDING_WIDTH.wide}px`,
