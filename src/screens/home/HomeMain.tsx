@@ -16,6 +16,7 @@ import { HomeStackParamList } from '~/navigation/tabs/HomeStack';
 import { useRemoteConfigs, APP_VERSION_STATE, useAppVersionState } from '~/context/CommonContext';
 import { isAndroid } from '~/utils/constant';
 import { getRCValue, RemoteKey } from '~/utils/firebase/remoteConfig';
+import { eventUtil } from '~/utils/firebase/event';
 
 interface Props {
   navigation: StackNavigationProp<HomeStackParamList, 'HomeMain'>;
@@ -70,7 +71,7 @@ const HomeMain = ({ navigation }: Props) => {
   }, [userInfo]);
 
   useEffect(() => {
-    analytics().setCurrentScreen("HomeMain");
+    eventUtil.logScreenView(eventUtil.HomeMain);
     dispatch(getUserInfoAC.request())
   }, []);
 
