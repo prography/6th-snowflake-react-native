@@ -45,11 +45,11 @@ const SutraInfoReviewReport = ({ comment_id }: Props) => {
       });
       console.log(status);
       if (status === 201) {
-        Alert.alert("☃️", "신고완료!");
+        Alert.alert("☃️", "신고가 접수되었습니다!");
         llog("신고 성공", response);
       }
       if (status === 400) {
-        Alert.alert("☃️", "신고가 접수된 상태입니다!");
+        Alert.alert("☃️", "신고를 이미 한 상태입니다!");
         llog("이미 신고함", response);
       }
     } catch (err) {

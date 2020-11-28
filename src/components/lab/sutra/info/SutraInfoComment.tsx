@@ -12,8 +12,8 @@ import { View } from "react-native";
 
 interface Props {
   newSutraId: number;
-  _setSutraReviews: any;
   _sutraReviews: SutraReview[];
+  _setSutraReviews: any;
 }
 
 const Container = styled.View`
@@ -62,7 +62,7 @@ const SutraInfoComment = ({ newSutraId, _sutraReviews, _setSutraReviews }: Props
       <Container>
         {_sutraReviews ? (
           _sutraReviews.map((review, i) => (
-            <SutraInfoReviewContainer key={i} review={review} sutra_id={newSutraId}/>
+            <SutraInfoReviewContainer key={i} review={review} sutra_id={newSutraId} _setSutraReviews={_setSutraReviews}/>
           ))
         ) : (
           <View style={{ marginRight: l.mR }}>

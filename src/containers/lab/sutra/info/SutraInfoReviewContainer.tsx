@@ -1,4 +1,5 @@
 import * as React from "react";
+import { useState } from "react";
 import { useSelector } from "react-redux";
 import styled from "styled-components/native";
 import { SutraReview } from "~/api/interface";
@@ -11,6 +12,7 @@ import { c, d, dateCutter, l } from "~/utils/constant";
 interface Props {
   review: SutraReview;
   sutra_id: number;
+  _setSutraReviews: any;
 }
 
 const Container = styled.View`
@@ -73,7 +75,29 @@ const BottomSubContainer = styled.View`
   flex-direction: row;
 `;
 
-const SutraInfoReviewContainer = ({ review, sutra_id }: Props) => {
+const CommentInput = styled.TextInput`
+  font-family: Jost-Book;
+  font-size: ${d.px * 15}px;
+  line-height: ${d.px * 23}px;
+  font-family: "Jost-Bold";
+  color: ${c.black};
+  justify-content: center;
+  align-items: center;
+  justify-content: center;
+  width: ${d.width - d.px * 80}px;
+  border-color: ${c.purple};
+  border-width: ${d.px * 1}px;
+  margin-bottom: ${d.px * 7}px;
+`;
+
+const SutraInfoReviewContainer = ({
+  review,
+  sutra_id,
+  _setSutraReviews,
+}: Props) => {
+  const [editCheck, setEditCheck] = useState<Boolean>(false);
+  const [editContent, setEditContent] = useState<string>("");
+
   const { loading, data: userInfo, error } = useSelector(
     (state: RootState) => state.join.userInfo.userInfo
   );
@@ -88,10 +112,31 @@ const SutraInfoReviewContainer = ({ review, sutra_id }: Props) => {
           <UserName>{review.user.username}</UserName>
         </UserSubContainer>
         {!loading && !error && review.user.id === userInfo.id ? (
-          <SutraReviewController comment_id={review.id} sutra_id={sutra_id} />
+          <SutraReviewController
+            comment_id={review.id}
+            sutra_id={sutra_id}
+            _setSutraReviews={_setSutraReviews}
+            editCheck={editCheck}
+            setEditCheck={setEditCheck}
+            editContent={editContent === "" ? review.content : editContent}
+          />
         ) : null}
       </UserContainer>
-      <ReviewText>{review.content}</ReviewText>
+      {editCheck ? (
+        <CommentInput
+          returnKeyType={"done"}
+          multiline={true}
+          blurOnSubmit={true}
+          placeholderTextColor={c.lightGray}
+          placeholder={"리뷰를 입력해주세요."}
+          style={{ padding: d.px * 3 }}
+          defaultValue={review.content}
+          onChangeText={(text) => setEditContent(text)}
+        />
+      ) : (
+        <ReviewText>{review.content}</ReviewText>
+      )}
+
       <BottomContainer>
         <DateText>{dateCutter(review.created_at)}</DateText>
         <BottomSubContainer>

@@ -15,7 +15,7 @@ interface Props {
   likes_count: number;
 }
 
-const Container = styled.View`
+const Container = styled.TouchableOpacity`
   flex-direction: row;
   align-items: center;
   border-width: ${d.px * 1}px;
@@ -26,7 +26,7 @@ const Container = styled.View`
   border-radius: ${d.px*10}px;
 `;
 
-const LikeButton = styled.TouchableOpacity`
+const LikeView = styled.View`
   margin-right: ${d.px * 3}px;
 `;
 
@@ -37,7 +37,7 @@ const CountText = styled.Text`
   font-size: ${d.px * 15}px;
   color: ${c.black};
 `;
-//Like API 바뀌어서 수정 필요
+
 const SutraInfoReviewLike = ({ comment_id, sutra_id, likes_count }: Props) => {
   const pressLike = async () => {
     try {
@@ -46,13 +46,17 @@ const SutraInfoReviewLike = ({ comment_id, sutra_id, likes_count }: Props) => {
         Alert.alert("❄️", "로그인 후 이용해주세요!");
         return;
       }
-      const { status, response } = await fetchAPI(
-        `labs/sutras/${sutra_id}/comments/${comment_id}/likes/`,
-        {
-          method: "POST",
-          token,
-        }
-      );
+      console.log("좋아요누름");
+
+      const { status, response } = await fetchAPI(`likes/`, {
+        method: "POST",
+        token,
+        params: {
+          model: "sutracomment",
+          object_id: comment_id,
+        },
+      });
+      console.log(response);
       if (status === 201) {
         llog("수트라 리뷰 좋아요", response);
       }
@@ -61,11 +65,31 @@ const SutraInfoReviewLike = ({ comment_id, sutra_id, likes_count }: Props) => {
     }
   };
 
+  const pressDeleteLike = async () => {
+    try {
+      const token = await getTokenItem();
+      if (!token) {
+        Alert.alert("❄️", "로그인 후 이용해주세요!");
+        return;
+      }
+
+      const { status, response } = await fetchAPI(`likes/${comment_id}`, {
+        method: "POST",
+        token,
+      });
+      if (status === 204) {
+        llog("수트라 리뷰 좋아요 삭제", response);
+      }
+    } catch (err) {
+      consoleError("🍊sutra review like 생성 에러", err);
+    }
+  };
+
   return (
-    <Container>
-      <LikeButton onPress={pressLike} activeOpacity={1}>
+    <Container onPress={pressLike} activeOpacity={1}>
+      <LikeView>
         <AntDesign name={"like2"} color={c.purple} size={15} />
-      </LikeButton>
+      </LikeView>
       <CountContainer>
         <CountText>{likes_count}</CountText>
       </CountContainer>

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { useState, useEffect } from 'react';
 import styled from 'styled-components/native';
-import { View, Text } from 'react-native';
+import { View, Text, Alert } from 'react-native';
 
 import { d, l, c } from '~/utils/constant';
 import { Img } from '~/img';
@@ -12,11 +12,12 @@ import MarginWide from '~/components/universal/margin/MarginWide';
 import { FirebaseAnalyticsTypes } from '@react-native-firebase/analytics';
 import { useSelector } from 'react-redux';
 import { RootState } from '~/store/modules';
-import { Card } from '~/api/interface';
+import { Card, RecommendType } from '~/api/interface';
 import { consoleError, llog } from '~/utils/functions';
 import { fetchAPI } from '~/api';
 import { getTokenItem } from '~/utils/asyncStorage';
 import TextTitlePurpleRight from '~/components/universal/text/TextTitlePurpleRight';
+import { alertUtil } from '~/utils/alert';
 
 interface Props {
   newSutraId: number;
@@ -173,6 +174,8 @@ const SutraInfoGoodBad = ({newSutraId}: Props) => {
   const [bookmarked, setBookmarked] = useState(false);
   const [selected, setSelected] = useState(FirebaseAnalyticsTypes);
 
+  const { data: userInfo } = useSelector((state: RootState) => state.join.userInfo.userInfo);
+
   const blindState = useSelector(
     (state: RootState) => state.product.blind.blindState,
   );
@@ -197,6 +200,114 @@ const [_newCard, _setNewCard] = useState<Card>(null);
       consoleError("New Card - error", error);
     }
   };
+
+
+
+
+  // const onPressEvaluation = async (sutraId: number, rcType: RecommendType) => {
+  //   try {
+  //     const token = await getTokenItem();
+  //     if (!token) {
+  //       Alert.alert("❄️", "로그인 후 이용해주세요!");
+  //       return;
+  //     }
+
+  //     if (position === Position.NONE) {
+  //       openQuestionModal();
+  //       return;
+  //     }
+
+  //     const { status } = await fetchAPI(`labs/sutras/${sutraId}/evaluations/`, { method: 'POST', token, params: { recommend_type: rcType } });
+  //     llog('🐰 Sutra', rcType, '성공 = 201', status);
+
+  //     if (status === 201) {
+  //       _getSutraList();
+  //     }
+  //   } catch (error) {
+  //     consoleError(`SutraList - ${rcType} error`, error);
+  //   }
+  // };
+  // // 평가 삭제
+  // const onPressDeleteEvaluation = async (sutraId: number) => {
+  //   try {
+  //     const token = await getTokenItem();
+  //     if (!token) {
+  //       alertUtil.needLogin(navigateToJoinStack, '로그인');
+  //       return;
+  //     }
+
+  //     const { status } = await fetchAPI(`labs/sutras/${sutraId}/evaluations/`, { method: 'DELETE', token });
+  //     llog('🐰 Sutra 삭제', '성공 = 204', status);
+
+  //     if (status === 204) {
+  //       _getSutraList();
+  //     }
+  //   } catch (error) {
+  //     consoleError(`SutraList - delete 평가 error`, error);
+  //   }
+  // }
+  // // 찜
+  // const onPressLike = async (sutraId: number) => {
+  //   try {
+  //     const token = await getTokenItem();
+  //     if (!token) {
+  //       alertUtil.needLogin(navigateToJoinStack, '로그인');
+  //       return;
+  //     }
+
+  //     const { status } = await fetchAPI('likes/', {
+  //       method: 'POST',
+  //       token,
+  //       params: {
+  //         model: 'sutra',
+  //         object_id: sutraId,
+  //       },
+  //     });
+  //     llog('🐰 Sutra Like - 성공 = 201', status);
+
+  //     if (status === 201) {
+  //       _getSutraList();
+  //     }
+  //   } catch (error) {
+  //     consoleError('SutraList - 찜 error', error);
+  //   }
+  // };
+  // // 찜 삭제
+  // const onPressDeleteLike = async (likeId: number) => {
+  //   try {
+  //     const token = await getTokenItem();
+  //     if (!token) {
+  //       alertUtil.needLogin(navigateToJoinStack, '로그인');
+  //       return;
+  //     }
+
+  //     const { status, response } = await fetchAPI(`likes/${likeId}`, {
+  //       method: 'DELETE',
+  //       token,
+  //     });
+
+  //     const json = await response.json();
+  //     llog('🐰 Sutra Delete Like - 성공 = 204', status, json);
+
+  //     if (status === 204) {
+  //       _getSutraList();
+  //     }
+  //   } catch (error) {
+  //     consoleError('SutraList - 찜 delete error', error);
+  //   }
+  // };
+
+
+
+
+
+
+
+
+
+
+
+
 
   useEffect(() => {
     console.log('newSUtraId', newSutraId)
