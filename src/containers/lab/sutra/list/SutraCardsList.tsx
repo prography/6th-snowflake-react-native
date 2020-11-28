@@ -1,5 +1,5 @@
 import * as React from "react";
-import styled from 'styled-components';
+import styled from 'styled-components/native';
 import { useState, useEffect } from "react";
 
 import OneSutraCard from "~/components/lab/sutra/list/OneSutraCard";
@@ -9,13 +9,15 @@ import { llog, consoleError } from "~/utils/functions";
 import { ResultsRes, Sutra, RecommendType, Position } from "~/api/interface";
 import MarginMedium from "~/components/universal/margin/MarginMedium";
 import { alertUtil } from "~/utils/alert";
+import LineGrayMiddle from "~/components/universal/line/LineGrayMiddle";
 
 interface Props {
   navigateToJoinStack: () => void;
   openQuestionModal: () => void;
   position: Position;
 }
-
+const NARROW_MARGIN = 9;
+const TEXT_HEIGHT = 16;
 // [x] 여기에서 데이터 받아와서 map 돌려서 OneSutraCard에 넘겨주면 됩니다!
 
 // [ ] TempContainer 대신 필터 디자인
@@ -37,7 +39,64 @@ const TempBtnText = styled.Text`
   align-self: center;
   margin-bottom: 10px;
 `;
+// filter style
+const FilterButtonContainer = styled.View`
+  flex-direction: row;
+  height: ${ props => props.theme.dimensions.px * 60}px;
+  justify-content: flex-end;
+  align-items: center;
+`
 
+const FilterWrapper = styled.View`
+  padding: 0 ${props=> props.theme.paddingWidth.wideLeftRight.paddingLeft};
+  flex-direction: row;
+  justify-content: flex-end;
+`;
+
+const FilterBox = styled.TouchableOpacity`
+  height: ${props => props.theme.dimensions.px * 30}px;
+  justify-content: center;
+  border-width: 1px;
+  border-style: solid;
+  border-color: ${props=>props.theme.themeColor.extraLightGray};
+  padding: 0 ${NARROW_MARGIN}px;
+  background-color: ${(props) =>
+    props.showOrderFilter
+      ? props.theme.themeColor.purple
+      : props.selectedOrder === props.notSelectedEnum
+        ? 'white'
+        : props.theme.themeColor.mint};
+`;
+
+const FilterText = styled.Text`
+  ${props=> props.theme.fonts.button.filter};
+  color: ${(props) => (props.showOrderFilter ? 'white' : props.theme.themeColor.black)};
+`;
+const OrderFilterWrapper = styled.View`
+  padding: 0 ${props=> props.theme.paddingWidth.wideLeftRight.paddingLeft}
+`;
+const OrderFilterBox = styled.TouchableOpacity`
+  width: 100%;
+height: ${ props => props.theme.dimensions.px * 55}px;
+align-items: center;
+  flex-direction: row;
+  justify-content: space-between;
+`;
+const OrderFilterText = styled.Text`
+  font-size: ${props=> props.theme.dimensions.px * 14}px;
+  line-height: ${TEXT_HEIGHT}px;
+  font-family: ${(props) =>
+    props.orderEnum === props.selectedOrder ? 'Jost-Medium' : 'Jost-Light'};
+  color: ${(props) =>
+    props.orderEnum === props.selectedOrder ?props.theme.themeColor.black : props.theme.themeColor.lightGray};
+`;
+const SelectedCircle = styled.View`
+  width: ${TEXT_HEIGHT / 2}px;
+  height: ${TEXT_HEIGHT / 2}px;
+  background-color: ${props=> props.theme.themeColor.purple};
+  border-radius: 1000px;
+`;
+/* enum */
 enum FilterEnum {
   none = 'none',
   recommend = 'recommend',
@@ -63,10 +122,11 @@ interface Order {
   text: string;
 }
 const filters: Filter[] = [
-  { enum: FilterEnum.recommend, text: '추천' },
-  { enum: FilterEnum.unrecommend, text: '비추천' },
+  { enum: FilterEnum.none, text: '선택 취소' },
+  { enum: FilterEnum.recommend, text: '내가 추천한' },
+  { enum: FilterEnum.unrecommend, text: '내가 비추천한' },
   { enum: FilterEnum.notyet, text: '안해봤어요' },
-  { enum: FilterEnum.like, text: '찜' },
+  { enum: FilterEnum.like, text: '찜 리스트' },
 ];
 const orders: Order[] = [
   { enum: OrderEnum.default, text: '최신순' }, // order 아예 설정 안하면 얘가 디폴트임. 
@@ -84,8 +144,9 @@ const SutraCardsList = ({ navigateToJoinStack, openQuestionModal, position }: Pr
   /* 1. Sutra List */
   const [_sutraCardsList, _setSutraCardsList] = useState<Sutra[]>(null);
   const [selectedFilter, setSelectedFilter] = useState<FilterEnum>(FilterEnum.none);
-  const [selectedOrder, setSelectedOrder] = useState<OrderEnum>(OrderEnum.none);
-
+  const [selectedOrder, setSelectedOrder] = useState<OrderEnum>(OrderEnum.default);
+  const [showFilter, setShowFilter] = useState<boolean>(false);
+  const [showOrderFilter, setShowOrderFilter] = useState<boolean>(false)
   const _getSutraList = async () => {
     try {
       const token = await getTokenItem();
@@ -217,32 +278,79 @@ const SutraCardsList = ({ navigateToJoinStack, openQuestionModal, position }: Pr
     // TODO _getSutraList n초 단위로 새로고침
   }, [selectedFilter, selectedOrder]);
 
+
   return (
     <>
-      {/* 임시 View Start */}
-      <TempBtnText>클릭해서 Filter, Order 선택 (어떻게 될지 몰라서 초기값을 none으로 해놓음)</TempBtnText>
-      <TempContainer>
-        <TempBtnText>Filter</TempBtnText>
-        {filters.map((f: Filter, index: number) => {
-          return (
-            <TempBtn key={index} selected={selectedFilter === f.enum} onPress={() => setSelectedFilter(f.enum)}>
-              <TempBtnText>{f.text}</TempBtnText>
-            </TempBtn>
-          );
-        })}
-      </TempContainer>
-      <TempContainer>
-        <TempBtnText>Order</TempBtnText>
-        {orders.map((o: Order, index: number) => {
-          return (
-            <TempBtn key={index} selected={selectedOrder === o.enum} onPress={() => setSelectedOrder(o.enum)}>
-              <TempBtnText>{o.text}</TempBtnText>
-            </TempBtn>
-          );
-        })}
-      </TempContainer>
-      <MarginMedium />
-      {/* 임시 View End */}
+    <LineGrayMiddle/>
+      <FilterButtonContainer>
+        <FilterWrapper>
+          <FilterBox
+            notSelectedEnum = {FilterEnum.none}
+            selectedOrder={selectedFilter }
+            showOrderFilter={showFilter}
+            onPress={() =>setShowFilter(!showFilter)}
+          >
+            <FilterText showOrderFilter={showFilter}>{selectedFilter===FilterEnum.none? '모아보기': selectedFilter}</FilterText>
+          </FilterBox>
+        </FilterWrapper>
+        <FilterWrapper>
+          <FilterBox
+             notSelectedEnum = {OrderEnum.default}
+            selectedOrder={selectedOrder }
+            showOrderFilter={showOrderFilter}
+            onPress={() =>setShowOrderFilter(!showOrderFilter)}
+          >
+            <FilterText showOrderFilter={showOrderFilter}>{selectedOrder===OrderEnum.default? '최신순':  selectedOrder}</FilterText>
+          </FilterBox>
+        </FilterWrapper>
+        
+      </FilterButtonContainer>
+      <LineGrayMiddle/>
+      {showFilter && 
+      <>
+        <OrderFilterWrapper>
+          {filters.map((f: Filter, index: number) => {
+            return (
+              <OrderFilterBox
+                key={index}
+                onPress={() => [setSelectedFilter(f.enum), setShowFilter(!showFilter)]}>
+                <OrderFilterText
+                  selectedOrder={selectedFilter}
+                  orderEnum={ f.enum}
+                >
+                {f.text}
+                </OrderFilterText>
+                {selectedFilter ===  f.enum && <SelectedCircle />}
+              </OrderFilterBox>
+            );
+      })}
+        </OrderFilterWrapper>
+        <LineGrayMiddle/>
+        </>
+        }
+       
+      {showOrderFilter && 
+      <>
+        <OrderFilterWrapper>
+          {orders.map((o: Order, index: number) => {
+            return (
+              <OrderFilterBox
+                key={index}
+                onPress={() => [setSelectedOrder(o.enum), setShowOrderFilter(!showOrderFilter)]}>
+                <OrderFilterText
+                  selectedOrder={selectedOrder}
+                  orderEnum={ o.enum}
+                >
+                {o.text}
+                </OrderFilterText>
+                {selectedOrder ===  o.enum && <SelectedCircle />}
+              </OrderFilterBox>
+            );
+      })}
+        </OrderFilterWrapper>
+        <LineGrayMiddle/>
+        </>
+        }
 
       {_sutraCardsList?.map((sutra: Sutra) => (
         <OneSutraCard

@@ -98,6 +98,13 @@ const theme: DefaultTheme = {
         color:THEME_COLOR.purple
        },
    },
+   button: {
+       filter: {
+        fontFamily: `${FONT_FAMILY}-Medium`,
+        fontSize:  `${Number(calcPx(14))}px`,
+        lineHeight: `${Number(calcPx(16))}px`,
+       },
+   },
   },    
  
 };

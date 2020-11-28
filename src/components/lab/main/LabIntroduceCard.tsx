@@ -12,14 +12,12 @@ interface Props {
 }
 
 const Container = styled.TouchableOpacity`
-  margin-right: ${l.mR}px;
-  margin-left: ${l.mL}px;
+${ props => props.theme.paddingWidth.wideLeftRight}
 `;
 const TitleArea = styled.View`
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  width: ${d.width - l.mR - l.mL}px;
 `;
 const TitleText = styled.Text`
   font-family: Jost-Bold;

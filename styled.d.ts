@@ -74,6 +74,13 @@ declare module "styled-components" {
             color:string;
            },
       };
+      button: {
+          filter:{
+              fontFamily: string;
+              fontSize: string;
+              lineHeight: string;
+          }
+      }
      
     };
  
