@@ -33,7 +33,7 @@ const ImageArea = styled.View`
 const SutraImage = styled.Image`
   height: ${d.px * 120}px;
   width: ${d.px * 250}px;
-  background-color: ${c.purple};
+  
 `;
 const NewText = styled.Text`
   ${props => props.theme.fonts.title.purpleLarge}
@@ -96,7 +96,7 @@ const LabSutraNewCard = ({ onPress, setNewSutraId }: Props) => {
           <Container onPress={onPress} activeOpacity={1.0}>
             <ImageArea>
               <SutraImage
-                resizeMode="cover"
+                resizeMode="contain"
                 source={
                   blindState
                     ? Img.doodle.cdBoxMintPurpleHeart
@@ -109,10 +109,10 @@ const LabSutraNewCard = ({ onPress, setNewSutraId }: Props) => {
             <TextArea>
               <SutraTitle>{_newCard.name_kor}</SutraTitle>
               <MarginNarrow />
-              <CommentWrapper>
+              {/* <CommentWrapper>
                 <CommentUsername>{_newCard.comment.username}</CommentUsername>
                 <CommentText>{_newCard.comment.content}</CommentText>
-              </CommentWrapper>
+              </CommentWrapper> */}
             </TextArea>
           </Container>
         )}

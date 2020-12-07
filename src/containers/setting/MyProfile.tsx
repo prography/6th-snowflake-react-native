@@ -53,7 +53,10 @@ const MyProfile = () => {
             />
           </>
         ) : (
+          <>
+        
           <TextTitlePurpleRight title={"로딩☁️"} />
+          </>
         )
       ) : (
         <TextTitlePurpleRight title={"Please join us! ☁️"} />

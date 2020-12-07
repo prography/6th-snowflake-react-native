@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Text, TouchableOpacity } from 'react-native';
 import styled from 'styled-components/native';
-
+import {HIT_SLOP} from '~/utils/theme';
 import { d, l, c } from '~/utils/constant';
 import MarginWide from '~/components/universal/margin/MarginWide';
 import MarginNarrow from '~/components/universal/margin/MarginNarrow';
@@ -10,10 +10,13 @@ import { Img } from '~/img';
 import { Sutra, RecommendType } from '~/api/interface';
 import { RootState } from '~/store/modules';
 import { useSelector } from 'react-redux';
+import LineGrayMiddle from '~/components/universal/line/LineGrayMiddle';
+import MarginMedium from '~/components/universal/margin/MarginMedium';
 
 const Container = styled.View`
   margin-right: ${l.mR}px;
   margin-left: ${l.mR}px;
+  
 `;
 const TopArea = styled.View`
   flex-direction: row;
@@ -25,16 +28,15 @@ const ImageContainer = styled.View`
 `;
 const LikeContainer = styled.TouchableOpacity`
   position: absolute;
-  width: ${d.px * 40}px;
-  height: ${d.px * 45}px;
-  top: ${-d.px * 1}px;
-  margin-left: ${d.px * 10}px;
-
-  align-items: center;
+  right: 0;
+  top: ${props=> -props.theme.dimensions. px*10}px;
+  align-items: flex-start;
+  justify-content: flex-start;
 `;
 const LikeImage = styled.Image`
-  width: ${d.px * 33}px;
-  height: ${d.px * 40}px;
+  width: ${d.px * 22}px;
+  height: ${d.px * 30}px;
+  
 `;
 const SutraImage = styled.Image`
   width: 100%;
@@ -190,33 +192,20 @@ const OneSutraCard = ({
     <>
       <Container>
         <TopArea>
+        
+        
           <ImageContainer>
+          <SutraTitle>{name_kor}</SutraTitle>
             <SutraImage
-              resizeMode={"cover"}
+              resizeMode={"contain"}
               source={
                 blindState
                   ? Img.doodle.cdBoxMintPurpleHeart
                   : { uri: thumbnail }
               }
             />
-            <LikeContainer
-              activeOpacity={1.0}
-              onPress={() => is_user_like ? onPressDeleteLike(id) : onPressLike(id)}>
-              {/* 찜했으면 보라색으로, 찜 안 한 건 하얀색으로 */}
-              {is_user_like ? (
-                <LikeImage
-                  resizeMode="contain"
-                  source={Img.icon.bookmarkSelected}
-                />
-              ) : (
-                  <LikeImage
-                    resizeMode="contain"
-                    source={Img.icon.bookmarkUnselected}
-                  />
-                )}
-            </LikeContainer>
+          
           </ImageContainer>
-          <Text />
           {/* 내가 추천/비추/안해봤 중에 하나를 누르면 
             selected가 true가 되면서,
             통계를 볼 수 있게끔
@@ -224,6 +213,7 @@ const OneSutraCard = ({
           */}
           {recommend_data !== null ? (
             <SelectionContainer>
+             
               <GoodScoreContainer>
                 {/* score들의 숫자는 임의로 넣은 점수... 받아온 점수가 들어가면 됨! */}
                 <GoodScore score={percentage} />
@@ -269,9 +259,26 @@ const OneSutraCard = ({
                 </NotYet>
               </SelectionContainer>
             )}
+             <LikeContainer
+              hitslop={HIT_SLOP}
+              activeOpacity={1.0}
+              onPress={() => is_user_like ? onPressDeleteLike(id) : onPressLike(id)}>
+              {/* 찜했으면 보라색으로, 찜 안 한 건 하얀색으로 */}
+              {is_user_like ? (
+                <LikeImage
+                  resizeMode="contain"
+                  source={Img.icon.bookmarkSelected}
+                />
+              ) : (
+                  <LikeImage
+                    resizeMode="contain"
+                    source={Img.icon.bookmarkUnselected}
+                  />
+                )}
+            </LikeContainer>
         </TopArea>
         <MarginNarrow />
-        <SutraTitle>{name_kor}</SutraTitle>
+       
         {comment && (
           <>
             <MarginNarrow />
@@ -282,8 +289,10 @@ const OneSutraCard = ({
           </>
         )}
       </Container>
-
+      <MarginMedium/>
+      <LineGrayMiddle/>
       <MarginWide />
+      
     </>
   );
 };

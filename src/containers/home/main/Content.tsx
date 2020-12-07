@@ -18,7 +18,7 @@ const Content = () => {
       const { status, response } = await fetchAPI('home/welcome-cards/');
       if (status === 200) {
         const json: ResultsRes<WelcomeCardContent> = await response.json();
-        llog('👻 welcome-cards success', json);
+        llog('👻 welcome-cards success', json.results);
         setContentArray(json.results);
       }
     } catch (error) {

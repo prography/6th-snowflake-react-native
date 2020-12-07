@@ -73,6 +73,14 @@ declare module "styled-components" {
             fontSize:  string;
             color:string;
            },
+        semi17: {
+          fontFamily: string;
+            fontSize:  string;   
+        },
+        semi15: {
+          fontFamily: string;
+            fontSize:  string;   
+        }
       };
       button: {
           filter:{

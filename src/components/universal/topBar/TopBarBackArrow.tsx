@@ -6,7 +6,7 @@ import BackArrow from '~/img/svgIcons/BackArrow';
 
 const Container = styled.View`
   height: ${d.px * l.tB}px;
-  padding-left: ${l.mR}px;
+  padding-left: ${props=> props.theme.paddingWidth.wideLeftRight.paddingLeft};
   align-items: flex-start;
   justify-content: center;
   background-color: ${props => props.theme.themeColor.background}

@@ -12,39 +12,34 @@ import { Position } from '~/api/interface';
 const Container = styled.View`
   margin-right: ${l.mR}px;
   margin-left: ${l.mR}px;
-`;
-const PurpleArea = styled.View`
   flex-direction: row;
-  width: ${d.width - l.mL * 2}px;
-  justify-content: space-between;
+ 
+  justify-content: center;
   align-items: center;
 `;
-const PurpleDetailText = styled.Text`
-  font-family: Jost-Medium;
-  color: ${c.darkGray};
-  font-size: ${d.px * 12}px;
-`;
-const PurpleCharac = styled.Image`
-  width: ${d.px * 60}px;
-  height: ${d.px * 80}px;
-  margin-right: ${d.px * 20}px;
-`;
-const SkyArea = styled.View`
+const Wrapper = styled.View`
   flex-direction: row;
-  width: ${d.width - l.mL * 2}px;
+  width: ${d.px * 250}px;
   justify-content: space-between;
-  align-items: center;
-`;
-const SkyDetailText = styled.Text`
-  font-family: Jost-Medium;
-  color: ${c.darkGray};
-  font-size: ${d.px * 12}px;
-`;
-const SkyCharac = styled.Image`
-  width: ${d.px * 70}px;
-  height: ${d.px * 100}px;
-`;
+  
+`
 
+const CharacImg = styled.Image`
+  width: ${d.px * 90}px;
+  height: ${d.px * 90}px;
+`;
+const CharacArea = styled.View`
+   justify-content: center;
+   flex-direction: column;
+   align-items: center;
+`
+interface CharacText {
+  selected: boolean;
+}
+const CharacText = styled.Text <CharacText>`
+  ${props=> props.theme.fonts.title.semi15};
+  color: ${props=> props.selected? props.theme.themeColor.darkGray : props.theme.themeColor.lightGray};
+`
 interface Props {
   position: Position;
 }
@@ -54,32 +49,23 @@ const CharacInfoCard = ({ position }: Props) => {
   return (
     <>
       <Container>
-        <PurpleArea>
-          <PurpleCharac
-            style={{ resizeMode: 'contain' }}
-            source={Img.sample.purpleCharac}
-          />
-          <PurpleDetailText>
-            {position === Position.PURPLE ? '(선택됨) ' : ''}
-          </PurpleDetailText>
-          <PurpleDetailText>
-            ** 이거 클릭하면 포지션 선택 모달 뜹니다~~~ (임시) **{'\n'}
-            보라색 친구! 설명은 좀 더 정리가 필요하네용.
-          </PurpleDetailText>
-        </PurpleArea>
-        <MarginNarrow />
-        <SkyArea>
-          <SkyDetailText>
-            {position === Position.SKY ? '(선택됨) ' : ''}
-          </SkyDetailText>
-          <SkyDetailText>
-            하늘색 친구! 설명은 좀 더 정리가 필요하네용
-          </SkyDetailText>
-          <SkyCharac
-            style={{ resizeMode: 'contain' }}
-            source={Img.sample.skyCharac}
-          />
-        </SkyArea>
+        <Wrapper>
+          <CharacArea>
+          { <CharacImg
+              style={{ resizeMode: 'contain' }}
+              source={position === Position.PURPLE ?Img.sutra.purpleSelected :Img.sutra.purpleUnselected}
+            />}
+            <CharacText selected = { position === Position.PURPLE ? true: false}>오목이</CharacText>
+          </CharacArea>
+          <CharacArea>
+          {  <CharacImg
+              style={{ resizeMode: 'contain' }}
+              source={position === Position.SKY ? Img.sutra.skySelected: Img.sutra.skyUnselected}
+            />}
+            <CharacText selected = { position === Position.SKY ? true: false}>볼록이</CharacText>
+          </CharacArea>
+        
+        </Wrapper>
       </Container>
      
     </>

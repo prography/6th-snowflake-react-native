@@ -97,6 +97,15 @@ const theme: DefaultTheme = {
         fontSize:  `${Number(calcPx(20))}px`,
         color:THEME_COLOR.purple
        },
+     semi17:{
+        fontFamily: `${FONT_FAMILY}-Semi`,
+        fontSize:  `${Number(calcPx(17))}px`,    
+       },
+       semi15:{
+        fontFamily: `${FONT_FAMILY}-Semi`,
+        fontSize:  `${Number(calcPx(15))}px`,    
+       },
+    
    },
    button: {
        filter: {
