@@ -20,10 +20,7 @@ function* manageLoginLogout(value: boolean, loginRes?: LoginRes) {
   yield put(setIsLoggedin(value));
   if (value === true && loginRes) {
     yield AsyncStorage.setItem(AsyncAccessToken, loginRes.access);
-    if (loginRes.refresh) {
-      // TODO: 201121 api/token/refresh 응답에 refresh가 안옴. 와야하는거 아닌가? 물어봤음.
-      yield AsyncStorage.setItem(asyncUtil.refreshToken, loginRes.refresh);
-    }
+    yield AsyncStorage.setItem(asyncUtil.refreshToken, loginRes.refresh);
   }
   if (value === false) {
     yield AsyncStorage.removeItem(AsyncAccessToken);

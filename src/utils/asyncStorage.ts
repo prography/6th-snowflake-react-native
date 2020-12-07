@@ -8,7 +8,9 @@ const refreshToken = "refreshToken";
 
 export const getTokenItem = async () => {
   const tokenFS = await AsyncStorage.getItem(AsyncAccessToken);
+  const refresh = await AsyncStorage.getItem(asyncUtil.refreshToken);
   llog("🥕 tokenFS", tokenFS);
+  llog("🥕 refresh", refresh);
   return tokenFS;
 };
 

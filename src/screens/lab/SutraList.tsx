@@ -23,8 +23,7 @@ interface Props {
 }
 
 const Container = styled.View`
-  flex-direction: column;
-  align-items: flex-start;
+${props => props.theme.screenContainer}
 `;
 //backback
 const SutraList = ({ navigation }: Props) => {

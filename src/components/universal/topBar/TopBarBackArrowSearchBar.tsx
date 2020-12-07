@@ -9,7 +9,7 @@ import SearchGlass from '~/img/svgIcons/SearchGlass';
 const Container = styled.View`
   height: ${d.px * l.tB}px;
   width: ${d.width - d.px * l.tB}px;
-  margin-left: ${l.mR}px;
+  margin-left: ${props => props.theme.paddingWidth.wideLeftRight.paddingLeft};
   flex-direction: row;
   align-items: center;
   justify-content: space-between;

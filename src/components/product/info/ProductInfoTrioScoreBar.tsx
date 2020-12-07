@@ -13,7 +13,7 @@ const Container = styled.View``;
 const TrioNameContainer = styled.View`
   /* padding: 0 ${d.px * 12.5}px; */
   /* 이 값 주면 점수가 0, 5일 때 좌우 딱 맞아들지만 가운데 왔을 때는 중심이 안 맞음 */
-  left: ${-d.px * 25}px;
+  margin-left: ${props => props.theme.paddingWidth.wideLeftRight.paddingLeft};
 `;
 const TrioName = styled.Text`
   font-family: Jost-Semi;

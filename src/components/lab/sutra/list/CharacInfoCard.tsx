@@ -81,9 +81,7 @@ const CharacInfoCard = ({ position }: Props) => {
           />
         </SkyArea>
       </Container>
-      <MarginMedium />
-      <LineGrayMiddle />
-      <MarginWide />
+     
     </>
   );
 };
