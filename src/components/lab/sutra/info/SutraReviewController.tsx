@@ -74,16 +74,8 @@ const SutraReviewController = ({
         Alert.alert("❄️", "로그인 후 이용해주세요!");
         return;
       }
-      console.log(
-        "sutra_id",
-        sutra_id,
-        "commentid",
-        comment_id,
-        "editContent",
-        editContent,
-        "token",
-        token
-      );
+
+      
       const { status, response } = await fetchAPI(
         `labs/sutras/${sutra_id}/comments/${comment_id}/`,
         {

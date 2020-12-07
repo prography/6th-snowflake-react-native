@@ -21,17 +21,11 @@
     "@react-native-community/async-storage": "1.12.1",
     "@react-native-community/masked-view": "0.1.10",
     "@react-native-community/picker": "1.6.1",
-<<<<<<< HEAD
-    "@react-native-firebase/analytics": "7.6.10",
-    "@react-native-firebase/app": "8.4.7",
-    "@react-native-firebase/remote-config": "8.2.1",
-=======
     "@react-native-firebase/analytics": "^7.6.1",
     "@react-native-firebase/app": "^8.4.1",
     "@react-native-firebase/crashlytics": "^8.4.2",
     "@react-native-firebase/messaging": "^7.8.4",
     "@react-native-firebase/remote-config": "^9.0.2",
->>>>>>> b86cfe6cbfc9788e022f02b042dd4cbd37e38ff6
     "@react-native-seoul/kakao-login": "2.4.1",
     "@react-navigation/bottom-tabs": "5.3.4",
     "@react-navigation/compat": "5.1.20",
