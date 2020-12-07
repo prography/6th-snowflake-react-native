@@ -7,12 +7,13 @@ import LabSutraNewCard from '~/components/lab/main/LabSutraNewCard';
 
 interface Props {
   onPress: () => void;
+  setNewSutraId: any;
 }
 
-const LabNewCardsContainer = ({ onPress }: Props) => {
+const LabNewCardsContainer = ({ onPress, setNewSutraId }: Props) => {
   return (
     <>
-      <LabSutraNewCard onPress={onPress} />
+      <LabSutraNewCard onPress={onPress} setNewSutraId={setNewSutraId}/>
     </>
   );
 };

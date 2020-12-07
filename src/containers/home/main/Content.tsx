@@ -39,7 +39,7 @@ const Content = () => {
       ) : (
           contentArray.map((card: WelcomeCardContent, index: number) => {
             switch (card.design_type) {
-              case 'default':
+              case 1:
                 return (
                   <HomeCardDefaultContentPurpleButton
                     key={index}
@@ -51,7 +51,7 @@ const Content = () => {
                   />
                 );
               //임시로 productStack 고쳐야함
-              case 'notice':
+              case 2:
                 return (
                   <HomeCardNoticePurple
                     key={index}

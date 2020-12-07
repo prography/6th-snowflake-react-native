@@ -18,6 +18,7 @@ import { Img } from "~/img";
 
 interface Props {
   onPress: () => void;
+  setNewSutraId: any;
 }
 
 const Container = styled.TouchableOpacity`
@@ -60,7 +61,7 @@ const CommentText = styled.Text`
   color: ${c.darkGray};
 `;
 
-const LabSutraNewCard = ({ onPress }: Props) => {
+const LabSutraNewCard = ({ onPress, setNewSutraId }: Props) => {
   const blindState = useSelector(
     (state: RootState) => state.product.blind.blindState
   );
@@ -75,6 +76,7 @@ const LabSutraNewCard = ({ onPress }: Props) => {
 
       if (status === 200) {
         _setNewCard(json);
+        setNewSutraId(json.id);
       }
     } catch (error) {
       consoleError("New Card - error", error);
@@ -83,6 +85,7 @@ const LabSutraNewCard = ({ onPress }: Props) => {
 
   useEffect(() => {
     _getNewCard();
+    setNewSutraId()
   }, []);
 
   return (

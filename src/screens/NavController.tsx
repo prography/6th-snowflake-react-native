@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useAsyncStorage } from '@react-native-community/async-storage';
+import AsyncStorage, { useAsyncStorage } from '@react-native-community/async-storage';
 import { useSelector, useDispatch } from 'react-redux';
 
 import RootTabNavigation from '~/navigation/RootTabNavigation';
@@ -16,6 +16,7 @@ export default () => {
   const { getItem } = useAsyncStorage(AsyncAccessToken);
   const settingIsLoggedin = async () => {
     const accessTokenFS = await getItem();
+    // AsyncStorage.removeItem(AsyncAccessToken); //토큰만료시 토큰 임시로 지워주는 코드
 
     if (accessTokenFS) {
       llog('🥭 accessTokenFS 있다', accessTokenFS);

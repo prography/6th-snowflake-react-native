@@ -5,9 +5,13 @@ import SutraList from '~/screens/lab/SutraList';
 import SutraInfo from '~/screens/lab/SutraInfo';
 import SutraQuestion from '~/screens/lab/SutraQuestion';
 
+export type SutraInfoParams = {
+  newSutraId: number;
+};
+
 export type LabStackParamList = {
   LabMain: undefined;
-  SutraInfo: undefined;
+  SutraInfo: SutraInfoParams;
   SutraList: undefined;
 };
 

@@ -46,7 +46,7 @@ export const getAgeEra = (birthyear: number) => {
 };
 export const dateCutter = (date) => {
   const year = date.slice(0, 4);
-  const month = date.slice(6, 7);
+  const month = date.slice(5, 7);
   const day = date.slice(8, 10);
   const newDate = `${year}.${month}.${day}`;
   return newDate;
@@ -67,6 +67,7 @@ export const c: Color = {
   mint: '#B2FFF9',
   red: '#F76B6B',
   blue: '#6BA4F7',
+  white: '#EEEEEE'
 };
 
 export const circleColor1 = [
@@ -109,6 +110,7 @@ interface Color {
   mint: string;
   red: string;
   blue: string;
+  white: string;
 }
 
 

@@ -36,10 +36,10 @@ export interface WelcomeCardContent {
   category: string; // NONE |
   col: number;
   description: string;
-  design_type: string; // notice |
+  design_type: number; // notice: 1 | 
   image: string;
   status: string; // PUB |
-  tag_txt: string;
+  tag_txt: [string];
   title: string;
   created_at: string;
   updated_at: string;
@@ -149,8 +149,13 @@ export interface CondomLiked {
 export interface Card {
   id: number;
   name_kor: string;
+  name_eng: string;
   thumbnail: string;
+  image: string;
+  likes_count: number;
+  not_yet_count: number;
   is_user_like: boolean;
+  description: string;
   comment: {
     username: string;
     content: string;
@@ -164,6 +169,22 @@ export interface Sutra extends Card {
     purple_count: number;
     sky_count: number;
   } | null;
+}
+
+export interface SutraReviewUser{
+  id: number;
+  username: string;
+  position: string;
+  image: string;
+}
+export interface SutraReview {
+  id: number;
+  user: SutraReviewUser;
+  user_position: string;
+  content: string;
+  likes_count: number;
+  created_at: string;
+  updated_at: string;
 }
 
 export enum RecommendType {

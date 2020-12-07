@@ -44,7 +44,6 @@ const EditInfo = ({navigation}: Props) => {
 
   const editInfo = async () => {
     //PATCH account
-
     try {
       llog('😸2. /accounts 정보수정 api 호출');
       const { status, response } = await fetchAPI('accounts/', {
@@ -55,7 +54,7 @@ const EditInfo = ({navigation}: Props) => {
           password,
         },
       });
-      console.log('응다븡ㄴ?',status, response)
+
       if (status === 201){
         navigation.navigate("JoinStack", {screen: "SettingMain"})
         alert('정보수정 완료');
