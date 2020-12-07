@@ -156,7 +156,7 @@ const SutraCardsList = ({ navigateToJoinStack, openQuestionModal, position }: Pr
   const [showFilter, setShowFilter] = useState<boolean>(false);
   const [showOrderFilter, setShowOrderFilter] = useState<boolean>(false)
 
-  const [selectedOrder, setSelectedOrder] = useState<OrderEnum>(OrderEnum.none);
+  
 
   // redux
   const dispatch = useDispatch();
@@ -383,7 +383,7 @@ const SutraCardsList = ({ navigateToJoinStack, openQuestionModal, position }: Pr
         <LineGrayMiddle/>
         </>
         }
-
+      <MarginMedium/>
       {_sutraCardsList?.map((sutra: Sutra) => (
         <OneSutraCard
           key={sutra.id}

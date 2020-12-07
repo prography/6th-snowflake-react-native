@@ -35,6 +35,15 @@ export const Img = {
     purpleCharacHead: require("~/img/sample/purpleCharacHeadSample.png"),
     skyCharacHead: require("~/img/sample/skyCharacHeadSample.png"),
   },
+  sutra: {
+    sutraMain: require("~/img/sutra/sutraMain.jpeg"),
+    purpleHead: require("~/img/sutra/purple_head.png"),
+    skyHead: require("~/img/sutra/sky_head.png"),
+    purpleSelected:  require("~/img/sutra/purple_selected.png"),
+    purpleUnselected:  require("~/img/sutra/purple_unselected.png"),
+    skySelected:  require("~/img/sutra/sky_selected.png"),
+    skyUnselected:  require("~/img/sutra/sky_unselected.png"),
+  },
   logo: require("~/img/logo.png"),
   triangleArrow: require("~/img/triangleArrow.png"),
 };

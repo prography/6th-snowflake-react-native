@@ -17,6 +17,7 @@ import { eventUtil } from '~/utils/firebase/event';
 import { useSelector } from 'react-redux';
 import { RootState } from '~/store/modules';
 import QuestionModal from '~/containers/lab/sutra/QuestionModal';
+import MarginWide from '~/components/universal/margin/MarginWide';
 
 interface Props {
   navigation: StackNavigationProp<LabStackParamList, 'LabMain'>;
@@ -47,6 +48,7 @@ const SutraList = ({ navigation }: Props) => {
           <TouchableOpacity onPress={() => setShowQuestionModal(true)} activeOpacity={1.0}>
             <CharacInfoCard position={userInfo.position} />
           </TouchableOpacity>
+          <MarginWide/>
           <SutraCardsList
             navigateToJoinStack={navigateToJoinStack}
             openQuestionModal={() => setShowQuestionModal(true)}

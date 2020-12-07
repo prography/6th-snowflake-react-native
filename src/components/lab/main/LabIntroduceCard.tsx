@@ -60,15 +60,15 @@ const LabIntroduceCard = ({ onPress }: Props) => {
           </ArrowBox>
         </TitleArea>
         <MarginNarrow />
-        <DetailText>보라두리와 하늘이가 소개하는 다양한 체위!</DetailText>
+        <DetailText>오목이와 볼록이가 소개하는 다양한 체위!</DetailText>
         <MarginNarrow />
         <CardImage
           style={{ resizeMode: 'cover' }}
-          source={Img.sample.sutra}
+          source={Img.sutra.sutraMain}
         />
       </Container>
       <MarginWide />
-      <LineGrayRightLong />
+      
       <MarginWide />
     </>
   );
