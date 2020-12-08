@@ -249,7 +249,7 @@ console.log(recommend_data)
               resizeMode={"contain"}
               source={
                 blindState
-                  ? Img.doodle.cdBoxMintPurpleHeart
+                  ? Img.sutra.sutraHidden
                   : { uri: thumbnail }
               }
             />

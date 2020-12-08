@@ -45,6 +45,7 @@ export const Img = {
     skySelected:  require("~/img/sutra/sky_selected.png"),
     skyUnselected:  require("~/img/sutra/sky_unselected.png"),
     skyUnselectedBW:  require("~/img/sutra/sky_unselected_bw.png"),
+    sutraHidden: require("~/img/sutra/sutra_hidden.png"),
   },
   logo: require("~/img/logo.png"),
   triangleArrow: require("~/img/triangleArrow.png"),
