@@ -80,8 +80,19 @@ declare module "styled-components" {
         semi15: {
           fontFamily: string;
             fontSize:  string;   
+        },
+        semi14: {
+          fontFamily: string;
+            fontSize:  string;   
         }
       };
+      content: {
+        book14:{
+          fontFamily: string;
+          fontSize:  string;   
+
+        }
+      }
       button: {
           filter:{
               fontFamily: string;

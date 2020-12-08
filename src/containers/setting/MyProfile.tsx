@@ -54,7 +54,24 @@ const MyProfile = () => {
           </>
         ) : (
           <>
-        
+        <ProfileContainer>
+             {/* 일단 로그아웃 버튼 달아놓긴 했는데 이러한 경우가 있을려나
+             로그인은 되어있지만 userinfo가 없는... */}
+            </ProfileContainer>
+            <MarginNarrow />
+            <TextTitleDarkPurpleLink
+              title={""}
+              buttonText={"LOGOUT"}
+              onPress={() => manageLoginLogout(dispatch, false)}
+            />
+            <MarginNarrow />
+
+            <TextTitleDarkPurpleLink
+              title={""}
+              buttonText={"정보수정"}
+              stack={"JoinStack"}
+              screen={"EditInfo"}
+            />
           <TextTitlePurpleRight title={"로딩☁️"} />
           </>
         )

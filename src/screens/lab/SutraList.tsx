@@ -24,7 +24,7 @@ interface Props {
 }
 
 const Container = styled.View`
-${props => props.theme.screenContainer}
+  ${props => props.theme.screenContainer}
 `;
 //backback
 const SutraList = ({ navigation }: Props) => {
@@ -32,6 +32,8 @@ const SutraList = ({ navigation }: Props) => {
   const [showQuestionModal, setShowQuestionModal] = React.useState<boolean>(false);
   // redux
   const { data: userInfo } = useSelector((state: RootState) => state.join.userInfo.userInfo);
+  
+  
   // navigate
   const navigateToJoinStack = () => navigation.navigate('JoinStack');
 
@@ -40,13 +42,13 @@ const SutraList = ({ navigation }: Props) => {
   }, []);
 
   return (
-    <>
-      <ScrollView showsVerticalScrollIndicator={false}>
-        <TopBarBackArrow />
+    <>   
+    <TopBarBackArrow />
+      <ScrollView showsVerticalScrollIndicator={false} style={{backgroundColor: 'white'}}>
         <Container>
           {/* [ ] TouchableOpacity는 테스트로 QuestionModal 띄우기 위함. 나중에 삭제하기. */}
           <TouchableOpacity onPress={() => setShowQuestionModal(true)} activeOpacity={1.0}>
-            <CharacInfoCard position={userInfo.position} />
+            <CharacInfoCard position={userInfo.position} username={userInfo.username}/>
           </TouchableOpacity>
           <MarginWide/>
           <SutraCardsList

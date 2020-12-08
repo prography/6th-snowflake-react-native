@@ -105,7 +105,17 @@ const theme: DefaultTheme = {
         fontFamily: `${FONT_FAMILY}-Semi`,
         fontSize:  `${Number(calcPx(15))}px`,    
        },
-    
+       semi14:{
+        fontFamily: `${FONT_FAMILY}-Semi`,
+        fontSize:  `${Number(calcPx(14))}px`,    
+       },
+   },
+   content: {
+    book14:{
+      fontFamily: `${FONT_FAMILY}-Book`,
+      fontSize:  `${Number(calcPx(14))}px`,    
+     },
+
    },
    button: {
        filter: {

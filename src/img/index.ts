@@ -22,6 +22,7 @@ export const Img = {
     null: require("~/img/icon/imageNull.png"),
     bookmarkSelected: require("~/img/icon/iconBookmarkSelected.png"),
     bookmarkUnselected: require("~/img/icon/iconBookmarkUnselected.png"),
+    againIcon: require("~/img/icon/again_icon.png"),
   },
   
   profile: {
@@ -41,8 +42,11 @@ export const Img = {
     skyHead: require("~/img/sutra/sky_head.png"),
     purpleSelected:  require("~/img/sutra/purple_selected.png"),
     purpleUnselected:  require("~/img/sutra/purple_unselected.png"),
+    purpleUnselectedBW: require("~/img/sutra/purple_unselected_bw.png"),
     skySelected:  require("~/img/sutra/sky_selected.png"),
     skyUnselected:  require("~/img/sutra/sky_unselected.png"),
+    skyUnselectedBW:  require("~/img/sutra/sky_unselected_bw.png"),
+    sutraHidden: require("~/img/sutra/sutra_hidden.png"),
   },
   logo: require("~/img/logo.png"),
   triangleArrow: require("~/img/triangleArrow.png"),

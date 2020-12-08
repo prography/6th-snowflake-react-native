@@ -99,7 +99,7 @@ const LabSutraNewCard = ({ onPress, setNewSutraId }: Props) => {
                 resizeMode="contain"
                 source={
                   blindState
-                    ? Img.doodle.cdBoxMintPurpleHeart
+                    ? Img.sutra.sutraHidden
                     : { uri: _newCard.thumbnail }
                 }
               />
