@@ -285,6 +285,7 @@ console.log(recommend_data)
                         borderBottomLeftRadius: SCORE_BORDER_RADIUS,
                         borderTopLeftRadius: SCORE_BORDER_RADIUS,
                         height:'100%', 
+                        /* width: '50%', */
                         width: `${(percentage)}%`,
                         justifyContent: 'center',
                         alignItems: 'center',
