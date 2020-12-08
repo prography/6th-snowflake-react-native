@@ -22,6 +22,7 @@ export const Img = {
     null: require("~/img/icon/imageNull.png"),
     bookmarkSelected: require("~/img/icon/iconBookmarkSelected.png"),
     bookmarkUnselected: require("~/img/icon/iconBookmarkUnselected.png"),
+    againIcon: require("~/img/icon/again_icon.png"),
   },
   
   profile: {

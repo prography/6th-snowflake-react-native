@@ -37,12 +37,19 @@ const AgainLikeWrapper = styled.View`
   
 `
 const AgainIcon = styled.View`
-  width: ${props => props.theme.dimensions.px * 15}px;
-  height: ${props => props.theme.dimensions.px * 15}px;
+  width: ${props => props.theme.dimensions.px * 20}px;
+  height: ${props => props.theme.dimensions.px * 20}px;
   border-radius: 1000px;
   background-color: ${props=> props.theme.themeColor.extraLightGray};
   margin-right: ${props=> props.theme.dimensions.px * 15}px;
   margin-top:${props => props.theme.dimensions.px * (LIKE_HEIGHT - 20)/2}px;
+  justify-content: center;
+  align-items: center;
+`
+const AgainIconImg = styled.Image`
+   width: ${props => props.theme.dimensions.px * 13}px;
+  height: ${props => props.theme.dimensions.px * 13}px;
+  margin-bottom:  ${props => props.theme.dimensions.px * 1}px;
 `
 const MiddleArea = styled.View`
   flex-direction: row;
@@ -221,7 +228,9 @@ console.log(recommend_data)
         <SutraTitle>{name_kor}</SutraTitle>
        <AgainLikeWrapper>
          {recommend_data !== null && <TouchableOpacity  hitSlop={HIT_SLOP}  onPress={() => onPressDeleteEvaluation(id)} >
-                  <AgainIcon></AgainIcon>
+                  <AgainIcon>
+                    <AgainIconImg source ={Img.icon.againIcon} resizeMode='contain'/>
+                  </AgainIcon>
                 </TouchableOpacity>}
           <LikeContainer
                 hitslop={HIT_SLOP}
@@ -276,8 +285,7 @@ console.log(recommend_data)
                         borderBottomLeftRadius: SCORE_BORDER_RADIUS,
                         borderTopLeftRadius: SCORE_BORDER_RADIUS,
                         height:'100%', 
-                        width: '70%',
-                        // width: `${(percentage)}%`,
+                        width: `${(percentage)}%`,
                         justifyContent: 'center',
                         alignItems: 'center',
                         left: 0
