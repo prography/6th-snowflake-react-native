@@ -234,7 +234,7 @@ const OneSutraCard = ({
               </AgainIcon>
             </TouchableOpacity>}
             <LikeContainer
-              hitslop={HIT_SLOP}
+              hitSlop={HIT_SLOP}
               activeOpacity={1.0}
               onPress={() => is_user_like ? onPressDeleteLike(id) : onPressLike(id)}>
               {/* 찜했으면 보라색으로, 찜 안 한 건 하얀색으로 */}

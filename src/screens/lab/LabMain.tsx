@@ -13,6 +13,10 @@ import Blinder from '~/components/product/Blinder';
 import MarginBottom from '~/components/universal/margin/MarginBottom';
 import { LabStackParamList } from '~/navigation/tabs/LabStack';
 import { eventUtil } from '~/utils/firebase/event';
+import { useSelector } from 'react-redux';
+import { RootState } from '~/store/modules';
+import { toast } from '~/utils/toast';
+import { alertUtil } from '~/utils/alert';
 
 interface Props {
   navigation: StackNavigationProp<LabStackParamList, 'LabMain'>;
@@ -20,7 +24,7 @@ interface Props {
 
 const Container = styled.View`
   align-items: flex-start; 
-  ${props=> props.theme.screenContainer}
+  ${props => props.theme.screenContainer}
 `;
 
 const TempButton = styled.TouchableOpacity`
@@ -32,7 +36,25 @@ const TempText = styled.Text`
 `;
 
 const LabMain = ({ navigation }: Props) => {
+  // redux
+  const isLoggedin = useSelector((state: RootState) => state.join.auth.isLoggedin);
+  // state
   const [newSutraId, setNewSutraId] = useState<number>(null);
+
+  const navigateSutraInfo = () => {
+    if (isLoggedin) {
+      navigation.navigate('SutraInfo', { newSutraId });
+    } else {
+      alertUtil.needLogin(() => navigation.navigate('JoinStack'), '로그인');
+    }
+  }
+  const navigateSutraList = () => {
+    if (isLoggedin) {
+      navigation.navigate('SutraList');
+    } else {
+      alertUtil.needLogin(() => navigation.navigate('JoinStack'), '로그인');
+    }
+  }
 
   useEffect(() => {
     eventUtil.logScreenView(eventUtil.LabMain);
@@ -46,8 +68,8 @@ const LabMain = ({ navigation }: Props) => {
           <TopBarLeftIcon />
 
           <Container>
-            <LabNewCardsContainer setNewSutraId={setNewSutraId} onPress={() => navigation.navigate('SutraInfo', {newSutraId})} />
-            <LabIntroducecardsContainer onPress={() => navigation.navigate('SutraList')} />
+            <LabNewCardsContainer setNewSutraId={setNewSutraId} onPress={navigateSutraInfo} />
+            <LabIntroducecardsContainer onPress={navigateSutraList} />
             <MarginBottom />
           </Container>
         </ScrollView>

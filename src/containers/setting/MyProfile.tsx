@@ -30,7 +30,7 @@ const MyProfile = () => {
   return (
     <Container>
       {_isLoggedin ? (
-        !loading ? (
+        !loading && userInfo ? (
           <>
             <ProfileContainer>
               <TextTitlePurpleRight

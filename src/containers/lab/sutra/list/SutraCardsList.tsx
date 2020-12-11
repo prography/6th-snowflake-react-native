@@ -182,7 +182,7 @@ const SutraCardsList = ({ navigateToJoinStack, openQuestionModal, position, navi
       }
       llog('🍎 url', url);
 
-      const { status, response } = await fetchAPI(`${url}/`); // TODO token 없앴음 (서버 고쳐져야함.)
+      const { status, response } = await fetchAPI(`${url}/`, { token }); // TODO token 없앴음 (서버 고쳐져야함.)
       const json: ResultsRes<Sutra> = await response.json();
       llog("SutraList - success is 200", status, json);
 
@@ -209,8 +209,9 @@ const SutraCardsList = ({ navigateToJoinStack, openQuestionModal, position, navi
         return;
       }
 
-      const { status } = await fetchAPI(`labs/sutras/${sutraId}/evaluations/`, { method: 'POST', token, params: { recommend_type: rcType } });
-      llog('🐰 Sutra', rcType, '성공 = 201', status);
+      const { status, response } = await fetchAPI(`labs/sutras/${sutraId}/evaluations/`, { method: 'POST', token, params: { recommend_type: rcType } });
+      const json = await response.json();
+      llog('🐰 Sutra', rcType, '성공 = 201', status, json);
 
       if (status === 201) {
         _getSutraList();
@@ -264,7 +265,7 @@ const SutraCardsList = ({ navigateToJoinStack, openQuestionModal, position, navi
         return;
       }
 
-      const { status } = await fetchAPI('likes/', {
+      const { status, response } = await fetchAPI('likes/', {
         method: 'POST',
         token,
         params: {
@@ -272,7 +273,8 @@ const SutraCardsList = ({ navigateToJoinStack, openQuestionModal, position, navi
           object_id: sutraId,
         },
       });
-      llog('🐰 Sutra Like - 성공 = 201', status);
+      const json = await response.json();
+      llog('🐰 Sutra Like - 성공 = 201', sutraId, status, json);
 
       if (status === 201) {
         _getSutraList();
@@ -290,16 +292,44 @@ const SutraCardsList = ({ navigateToJoinStack, openQuestionModal, position, navi
         return;
       }
 
-      const { status, response } = await fetchAPI(`likes/${likeId}`, {
+      llog('🐰 1 Sutra Delete Like - likeId', likeId);
+      // const response = await fetch(`${BASE_URL}/likes/${likeId}`, {
+      //   method: 'DELETE',
+      //   headers: {
+      //     Authorization: token ? `Bearer ${token}` : "",
+      //     Accept: "application/json",
+      //     "Content-Type": "application/json",
+      //   },
+      // });
+
+      const { status, response } = await fetchAPI(`likes`, {
         method: 'DELETE',
         token,
+        params: {
+          model: 'sutra',
+          object_id: likeId,
+        }
       });
-
       const json = await response.json();
-      llog('🐰 Sutra Delete Like - 성공 = 204', status, json);
 
-      if (status === 204) {
-        _getSutraList();
+      llog('🐰 2 Sutra Delete Like - 성공 = 204, 실제: ', status, json);
+
+      switch (status) {
+        case 204:
+          _getSutraList();
+          break;
+        case 401:
+          llog('😂 토큰 만료');
+          // 토큰을 다시 요청한다. (모든 API마다 이렇게 해야하는데...)
+          dispatch(refreshTokenAC.request<RequestType>({
+            refetch: () => onPressDeleteLike(likeId),
+          }));
+          break;
+        default:
+          toast(`처리 중 오류가 발생했어요. (${response.status})`);
+          const json = await response.json()
+          llog('🍊 default json', status, json)
+          break;
       }
     } catch (error) {
       consoleError('SutraList - 찜 delete error', error);
