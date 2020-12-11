@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Text, TouchableOpacity, StyleSheet } from 'react-native';
 import styled from 'styled-components/native';
-import {HIT_SLOP} from '~/utils/theme';
+import { HIT_SLOP } from '~/utils/theme';
 import { d, l, c } from '~/utils/constant';
 import MarginWide from '~/components/universal/margin/MarginWide';
 import MarginNarrow from '~/components/universal/margin/MarginNarrow';
@@ -24,13 +24,12 @@ const SCORE_AREA_MARGIN = 15
 const Container = styled.View`
   margin-right: ${l.mR}px;
   margin-left: ${l.mR}px;
-  
 `;
 const TopArea = styled.View`
   flex-direction: row;
   width: 100%;
   justify-content: space-between;
-  height: ${props=> props.theme.dimensions.px * TOP_AREA}px;
+  height: ${props => props.theme.dimensions.px * TOP_AREA}px;
 `;
 const AgainLikeWrapper = styled.View`
   flex-direction: row;
@@ -40,9 +39,9 @@ const AgainIcon = styled.View`
   width: ${props => props.theme.dimensions.px * 20}px;
   height: ${props => props.theme.dimensions.px * 20}px;
   border-radius: 1000px;
-  background-color: ${props=> props.theme.themeColor.extraLightGray};
-  margin-right: ${props=> props.theme.dimensions.px * 15}px;
-  margin-top:${props => props.theme.dimensions.px * (LIKE_HEIGHT - 20)/2}px;
+  background-color: ${props => props.theme.themeColor.extraLightGray};
+  margin-right: ${props => props.theme.dimensions.px * 15}px;
+  margin-top:${props => props.theme.dimensions.px * (LIKE_HEIGHT - 20) / 2}px;
   justify-content: center;
   align-items: center;
 `
@@ -54,7 +53,7 @@ const AgainIconImg = styled.Image`
 const MiddleArea = styled.View`
   flex-direction: row;
 `
-const ImageContainer = styled.View`
+const ImageContainer = styled.TouchableOpacity`
   margin-right: ${d.px * 15}px;
   flex: 1;
 `;
@@ -87,7 +86,7 @@ const GoodScoreContainer = styled.View`
   border-radius: 10;
   border-width: 1px;
   border-style: solid;
-  border-color: ${props=> props.theme.themeColor.extraLightGray}
+  border-color: ${props => props.theme.themeColor.extraLightGray};
 `;
 
 const GoodScoreText = styled.Text`
@@ -98,11 +97,11 @@ const GoodScoreText = styled.Text`
 const PurpleSkyScoreContainer = styled.View`
   flex-direction: column;
   width: 100%;
-  height: ${d.px * CHARAC_HEAD_HEIGHT*2}px;
+  height: ${d.px * CHARAC_HEAD_HEIGHT * 2}px;
 `;
 const OneScoreContainer = styled.View`
   flex-direction: column;
-  height: ${d.px * CHARAC_HEAD_HEIGHT }px;
+  height: ${d.px * CHARAC_HEAD_HEIGHT}px;
 `;
 const CharacHead = styled.Image`
   height: ${d.px * CHARAC_HEAD_HEIGHT * 0.9}px;
@@ -119,7 +118,7 @@ const ScoreWrapper = styled.View`
 
 
 interface ScoreBar {
-  score : number;
+  score: number;
 }
 const ScoreBar = styled.View<ScoreBar>`
   height: ${d.px * 5}px;
@@ -144,7 +143,7 @@ const GoodButton = styled.TouchableOpacity`
   border-top-right-radius: 0;
   border-bottom-right-radius: 0;
   border-bottom-left-radius:${SCORE_BORDER_RADIUS};
-  border-top-left-radius: ${SCORE_BORDER_RADIUS}
+  border-top-left-radius: ${SCORE_BORDER_RADIUS};
 `;
 const BadButton = styled.TouchableOpacity`
   flex: 1;
@@ -165,7 +164,7 @@ const GoodBadText = styled.Text`
   color: ${(props) => (props.white ? 'white' : c.black)};
 `;
 const NotYetWrapper = styled.View`
-   height: ${d.px * CHARAC_HEAD_HEIGHT *2}px;
+   height: ${d.px * CHARAC_HEAD_HEIGHT * 2}px;
 `
 const NotYet = styled.TouchableOpacity`
   width: 100%;
@@ -181,7 +180,7 @@ const SutraTitle = styled.Text`
   color: ${c.black};
   
 `;
-const CommentWrapper = styled.View`
+const CommentWrapper = styled.TouchableOpacity`
   flex-direction: row;
   align-items: center;
 `;
@@ -200,6 +199,7 @@ const CommentText = styled.Text`
 
 interface Props {
   sutra: Sutra;
+  navigateSutraInfo: () => void;
   onPressEvaluation: (sutraId: number, rcType: RecommendType) => void;
   onPressDeleteEvaluation: (sutraId: number) => void;
   onPressLike: (sutraId: number) => void;
@@ -208,6 +208,7 @@ interface Props {
 
 const OneSutraCard = ({
   sutra,
+  navigateSutraInfo,
   onPressEvaluation,
   onPressDeleteEvaluation,
   onPressLike,
@@ -220,39 +221,39 @@ const OneSutraCard = ({
   // sutra
   const { id, name_kor, thumbnail, comment, recommend_data, is_user_like } = sutra;
   const { percentage, purple_count, sky_count } = recommend_data || {};
-console.log(recommend_data)
+
   return (
     <>
       <Container>
         <TopArea>
-        <SutraTitle>{name_kor}</SutraTitle>
-       <AgainLikeWrapper>
-         {recommend_data !== null && <TouchableOpacity  hitSlop={HIT_SLOP}  onPress={() => onPressDeleteEvaluation(id)} >
-                  <AgainIcon>
-                    <AgainIconImg source ={Img.icon.againIcon} resizeMode='contain'/>
-                  </AgainIcon>
-                </TouchableOpacity>}
-          <LikeContainer
-                hitslop={HIT_SLOP}
-                activeOpacity={1.0}
-                onPress={() => is_user_like ? onPressDeleteLike(id) : onPressLike(id)}>
-                {/* 찜했으면 보라색으로, 찜 안 한 건 하얀색으로 */}
-                {is_user_like ? (
+          <SutraTitle onPress={navigateSutraInfo}>{name_kor}</SutraTitle>
+          <AgainLikeWrapper>
+            {recommend_data !== null && <TouchableOpacity hitSlop={HIT_SLOP} onPress={() => onPressDeleteEvaluation(id)} >
+              <AgainIcon>
+                <AgainIconImg source={Img.icon.againIcon} resizeMode='contain' />
+              </AgainIcon>
+            </TouchableOpacity>}
+            <LikeContainer
+              hitslop={HIT_SLOP}
+              activeOpacity={1.0}
+              onPress={() => is_user_like ? onPressDeleteLike(id) : onPressLike(id)}>
+              {/* 찜했으면 보라색으로, 찜 안 한 건 하얀색으로 */}
+              {is_user_like ? (
+                <LikeImage
+                  resizeMode="contain"
+                  source={Img.icon.bookmarkSelected}
+                />
+              ) : (
                   <LikeImage
                     resizeMode="contain"
-                    source={Img.icon.bookmarkSelected}
+                    source={Img.icon.bookmarkUnselected}
                   />
-                ) : (
-                    <LikeImage
-                      resizeMode="contain"
-                      source={Img.icon.bookmarkUnselected}
-                    />
-                  )}
-              </LikeContainer>
-       </AgainLikeWrapper>
-            </TopArea>
-            <MiddleArea>
-          <ImageContainer>
+                )}
+            </LikeContainer>
+          </AgainLikeWrapper>
+        </TopArea>
+        <MiddleArea>
+          <ImageContainer activeOpacity={1.0} onPress={navigateSutraInfo}>
 
             <SutraImage
               resizeMode={"contain"}
@@ -262,7 +263,7 @@ console.log(recommend_data)
                   : { uri: thumbnail }
               }
             />
-          
+
           </ImageContainer>
           {/* 내가 추천/비추/안해봤 중에 하나를 누르면 
             selected가 true가 되면서,
@@ -271,42 +272,43 @@ console.log(recommend_data)
           */}
           {recommend_data !== null ? (
             <SelectionContainer>
-             
+
               <GoodScoreContainer>
                 {/* score들의 숫자는 임의로 넣은 점수... 받아온 점수가 들어가면 됨! */}
-                
-                <LinearGradient 
-                      
-                      colors={['#9BE4FA',  c.mint]} 
-                      style={{
-                        position: 'absolute',
-                        borderTopRightRadius: 0,
-                        borderBottomRightRadius: 0,
-                        borderBottomLeftRadius: SCORE_BORDER_RADIUS,
-                        borderTopLeftRadius: SCORE_BORDER_RADIUS,
-                        height:'100%', 
-                        /* width: '50%', */
-                        width: `${(percentage)}%`,
-                        justifyContent: 'center',
-                        alignItems: 'center',
-                        left: 0
-                        }}>
-            
-                      </LinearGradient>
-                      <GoodScoreText>{Number.isInteger(percentage) ? percentage : percentage.toFixed(1)}%</GoodScoreText>   
+
+                <LinearGradient
+
+                  colors={['#9BE4FA', c.mint]}
+                  style={{
+                    position: 'absolute',
+                    borderTopRightRadius: 0,
+                    borderBottomRightRadius: 0,
+                    borderBottomLeftRadius: SCORE_BORDER_RADIUS,
+                    borderTopLeftRadius: SCORE_BORDER_RADIUS,
+                    height: '100%',
+                    /* width: '50%', */
+                    width: `${(percentage)}%`,
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    left: 0
+                  }}>
+
+                </LinearGradient>
+                <GoodScoreText>{Number.isInteger(percentage) ? percentage : percentage.toFixed(1)}%</GoodScoreText>
               </GoodScoreContainer>
 
               <PurpleSkyScoreContainer>
                 <OneScoreContainer>
                   <ScoreWrapper>
-                    <LinearGradient 
-                      start={{x: 0, y: 0}} end={{x: 1, y: 0}}
-                      colors={['#9BE4FA',  '#C289F6']} 
+                    <LinearGradient
+                      start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }}
+                      colors={['#9BE4FA', '#C289F6']}
                       style={{
                         borderRadius: SCORE_BORDER_RADIUS,
-                        height: d.px *7, 
-                        width: `${(purple_count / (purple_count + sky_count)*100)}%` }}></LinearGradient>
-                    
+                        height: d.px * 7,
+                        width: `${(purple_count / (purple_count + sky_count) * 100)}%`
+                      }}></LinearGradient>
+
                   </ScoreWrapper>
                   <CharacHead
                     resizeMode='contain'
@@ -315,14 +317,15 @@ console.log(recommend_data)
                 </OneScoreContainer>
                 <OneScoreContainer>
                   <ScoreWrapper>
-                  <LinearGradient 
-                      start={{x: 0, y: 0}} end={{x: 1, y: 0}}
-                      colors={['#C289F6','#9BE4FA' ]} 
+                    <LinearGradient
+                      start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }}
+                      colors={['#C289F6', '#9BE4FA']}
                       style={{
                         borderRadius: 500,
-                        height: 7, 
-                        width: `${(sky_count / (purple_count + sky_count)*100)}%` }}></LinearGradient>
-                    
+                        height: 7,
+                        width: `${(sky_count / (purple_count + sky_count) * 100)}%`
+                      }}></LinearGradient>
+
                   </ScoreWrapper>
                   <CharacHead
                     resizeMode='contain'
@@ -330,7 +333,7 @@ console.log(recommend_data)
                   />
                 </OneScoreContainer>
               </PurpleSkyScoreContainer>
-             
+
             </SelectionContainer>
           ) : (
               <SelectionContainer>
@@ -349,25 +352,25 @@ console.log(recommend_data)
                 </NotYetWrapper>
               </SelectionContainer>
             )}
-            
-            </MiddleArea>
-            <MarginMedium/>
-       
+
+        </MiddleArea>
+        <MarginMedium />
+
         {comment && (
           <>
             <MarginNarrow />
-            <CommentWrapper>
+            <CommentWrapper activeOpacity={1.0} onPress={navigateSutraInfo}>
               <CommentUsername>{comment.username}</CommentUsername>
               <CommentText>{comment.content}</CommentText>
             </CommentWrapper>
           </>
         )}
       </Container>
-      <MarginWide/>
-      <LineGrayMiddle/>
-      <MarginWide/>
-      
-      
+      <MarginWide />
+      <LineGrayMiddle />
+      <MarginWide />
+
+
     </>
   );
 };

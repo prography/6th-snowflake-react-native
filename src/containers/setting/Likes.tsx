@@ -6,7 +6,7 @@ import styled from "styled-components/native";
 import { useFocusEffect } from "@react-navigation/native";
 
 import TextTitlePurpleRight from "~/components/universal/text/TextTitlePurpleRight";
-import { d, c, l } from "~/utils/constant";
+import { d, c, l, BASE_URL } from "~/utils/constant";
 import TextTitleDarkLeft from "~/components/universal/text/TextTitleDarkLeft";
 import TextProductCompany from "~/components/universal/text/product/TextProductCompany";
 import TextProductName from "~/components/universal/text/product/TextProductName";
@@ -81,7 +81,7 @@ const Likes = ({ navigateToProductInfo }: Props) => {
         { token }
       );
       const json: ResultsRes<CondomLiked> = await response.json();
-      llog("2.🐰Like List 불러옴 - 성공!", json);
+      llog("2.🐰Like List 불러옴", status, json);
 
       if (status === 200) {
         _setLikeList(json.results);
@@ -145,8 +145,8 @@ const Likes = ({ navigateToProductInfo }: Props) => {
                                   blindState
                                     ? Img.doodle.cdBoxMint
                                     : thumbnail === null
-                                    ? Img.icon.null
-                                    : { uri: thumbnail }
+                                      ? Img.icon.null
+                                      : { uri: thumbnail }
                                 }
                               />
                             </ImageWrapper>
@@ -159,16 +159,16 @@ const Likes = ({ navigateToProductInfo }: Props) => {
                       }
                     )
                   ) : (
-                    <TextTitlePurpleRight title={"Loading..."} />
-                  )}
+                      <TextTitlePurpleRight title={"Loading..."} />
+                    )}
                 </Container>
               )}
             </ScrollView>
           </ProfileContainer>
         </>
       ) : (
-        <TextTitlePurpleRight title={"로그인 안 됨"} />
-      )}
+          <TextTitlePurpleRight title={"로그인 안 됨"} />
+        )}
     </>
   );
 };

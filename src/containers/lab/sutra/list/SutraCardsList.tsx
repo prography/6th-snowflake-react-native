@@ -22,6 +22,7 @@ interface Props {
   navigateToJoinStack: () => void;
   openQuestionModal: () => void;
   position: Position;
+  navigateSutraInfo: (id: number) => void;
 }
 const NARROW_MARGIN = 9;
 const TEXT_HEIGHT = 16;
@@ -55,7 +56,7 @@ const FilterButtonContainer = styled.View`
 `
 
 const FilterWrapper = styled.View`
-  padding: 0 ${props=> props.theme.paddingWidth.wideLeftRight.paddingLeft};
+  padding: 0 ${props => props.theme.paddingWidth.wideLeftRight.paddingLeft};
   flex-direction: row;
   justify-content: flex-end;
 `;
@@ -65,7 +66,7 @@ const FilterBox = styled.TouchableOpacity`
   justify-content: center;
   border-width: 1px;
   border-style: solid;
-  border-color: ${props=>props.theme.themeColor.extraLightGray};
+  border-color: ${props => props.theme.themeColor.extraLightGray};
   padding: 0 ${NARROW_MARGIN}px;
   background-color: ${(props) =>
     props.showOrderFilter
@@ -76,11 +77,11 @@ const FilterBox = styled.TouchableOpacity`
 `;
 
 const FilterText = styled.Text`
-  ${props=> props.theme.fonts.button.filter};
+  ${props => props.theme.fonts.button.filter};
   color: ${(props) => (props.showOrderFilter ? 'white' : props.theme.themeColor.black)};
 `;
 const OrderFilterWrapper = styled.View`
-  padding: 0 ${props=> props.theme.paddingWidth.wideLeftRight.paddingLeft}
+  padding: 0 ${props => props.theme.paddingWidth.wideLeftRight.paddingLeft};
 `;
 const OrderFilterBox = styled.TouchableOpacity`
   width: 100%;
@@ -90,17 +91,17 @@ align-items: center;
   justify-content: space-between;
 `;
 const OrderFilterText = styled.Text`
-  font-size: ${props=> props.theme.dimensions.px * 14}px;
+  font-size: ${props => props.theme.dimensions.px * 14}px;
   line-height: ${TEXT_HEIGHT}px;
   font-family: ${(props) =>
     props.orderEnum === props.selectedOrder ? 'Jost-Medium' : 'Jost-Light'};
   color: ${(props) =>
-    props.orderEnum === props.selectedOrder ?props.theme.themeColor.black : props.theme.themeColor.lightGray};
+    props.orderEnum === props.selectedOrder ? props.theme.themeColor.black : props.theme.themeColor.lightGray};
 `;
 const SelectedCircle = styled.View`
   width: ${TEXT_HEIGHT / 2}px;
   height: ${TEXT_HEIGHT / 2}px;
-  background-color: ${props=> props.theme.themeColor.purple};
+  background-color: ${props => props.theme.themeColor.purple};
   border-radius: 1000px;
 `;
 /* enum */
@@ -147,7 +148,7 @@ const orders: Order[] = [
 // order => default: 최신순 | 평가개수순: evaluation | 추천순: recommend | 비추천순: unrecommend | 안해봤어요 순: notyet | 찜순: like
 // filter => 추천: recommend | 비추천: unrecommend | 안해봤어요: notyet | 찜: like
 
-const SutraCardsList = ({ navigateToJoinStack, openQuestionModal, position }: Props) => {
+const SutraCardsList = ({ navigateToJoinStack, openQuestionModal, position, navigateSutraInfo }: Props) => {
   /* 1. Sutra List */
   const [_sutraCardsList, _setSutraCardsList] = useState<Sutra[]>(null);
   const [selectedFilter, setSelectedFilter] = useState<FilterEnum>(FilterEnum.none);
@@ -156,7 +157,7 @@ const SutraCardsList = ({ navigateToJoinStack, openQuestionModal, position }: Pr
   const [showFilter, setShowFilter] = useState<boolean>(false);
   const [showOrderFilter, setShowOrderFilter] = useState<boolean>(false)
 
-  
+
 
   // redux
   const dispatch = useDispatch();
@@ -181,7 +182,7 @@ const SutraCardsList = ({ navigateToJoinStack, openQuestionModal, position }: Pr
       }
       llog('🍎 url', url);
 
-      const { status, response } = await fetchAPI(`${url}/`, { token }); // TODO token 나중에 없애기 (서버 고쳐지면)
+      const { status, response } = await fetchAPI(`${url}/`); // TODO token 없앴음 (서버 고쳐져야함.)
       const json: ResultsRes<Sutra> = await response.json();
       llog("SutraList - success is 200", status, json);
 
@@ -313,81 +314,82 @@ const SutraCardsList = ({ navigateToJoinStack, openQuestionModal, position }: Pr
 
   return (
     <>
-    <LineGrayMiddle/>
+      <LineGrayMiddle />
       <FilterButtonContainer>
         <FilterWrapper>
           <FilterBox
-            notSelectedEnum = {FilterEnum.none}
-            selectedOrder={selectedFilter }
+            notSelectedEnum={FilterEnum.none}
+            selectedOrder={selectedFilter}
             showOrderFilter={showFilter}
-            onPress={() =>setShowFilter(!showFilter)}
+            onPress={() => setShowFilter(!showFilter)}
           >
-            <FilterText showOrderFilter={showFilter}>{selectedFilter===FilterEnum.none? '모아보기': selectedFilter}</FilterText>
+            <FilterText showOrderFilter={showFilter}>{selectedFilter === FilterEnum.none ? '모아보기' : selectedFilter}</FilterText>
           </FilterBox>
         </FilterWrapper>
         <FilterWrapper>
           <FilterBox
-             notSelectedEnum = {OrderEnum.default}
-            selectedOrder={selectedOrder }
+            notSelectedEnum={OrderEnum.default}
+            selectedOrder={selectedOrder}
             showOrderFilter={showOrderFilter}
-            onPress={() =>setShowOrderFilter(!showOrderFilter)}
+            onPress={() => setShowOrderFilter(!showOrderFilter)}
           >
-            <FilterText showOrderFilter={showOrderFilter}>{selectedOrder===OrderEnum.default? '최신순':  selectedOrder}</FilterText>
+            <FilterText showOrderFilter={showOrderFilter}>{selectedOrder === OrderEnum.default ? '최신순' : selectedOrder}</FilterText>
           </FilterBox>
         </FilterWrapper>
-        
+
       </FilterButtonContainer>
-      <LineGrayMiddle/>
-      {showFilter && 
-      <>
-        <OrderFilterWrapper>
-          {filters.map((f: Filter, index: number) => {
-            return (
-              <OrderFilterBox
-                key={index}
-                onPress={() => [setSelectedFilter(f.enum), setShowFilter(!showFilter)]}>
-                <OrderFilterText
-                  selectedOrder={selectedFilter}
-                  orderEnum={ f.enum}
-                >
-                {f.text}
-                </OrderFilterText>
-                {selectedFilter ===  f.enum && <SelectedCircle />}
-              </OrderFilterBox>
-            );
-      })}
-        </OrderFilterWrapper>
-        <LineGrayMiddle/>
+      <LineGrayMiddle />
+      {showFilter &&
+        <>
+          <OrderFilterWrapper>
+            {filters.map((f: Filter, index: number) => {
+              return (
+                <OrderFilterBox
+                  key={index}
+                  onPress={() => [setSelectedFilter(f.enum), setShowFilter(!showFilter)]}>
+                  <OrderFilterText
+                    selectedOrder={selectedFilter}
+                    orderEnum={f.enum}
+                  >
+                    {f.text}
+                  </OrderFilterText>
+                  {selectedFilter === f.enum && <SelectedCircle />}
+                </OrderFilterBox>
+              );
+            })}
+          </OrderFilterWrapper>
+          <LineGrayMiddle />
         </>
-        }
-       
-      {showOrderFilter && 
-      <>
-        <OrderFilterWrapper>
-          {orders.map((o: Order, index: number) => {
-            return (
-              <OrderFilterBox
-                key={index}
-                onPress={() => [setSelectedOrder(o.enum), setShowOrderFilter(!showOrderFilter)]}>
-                <OrderFilterText
-                  selectedOrder={selectedOrder}
-                  orderEnum={ o.enum}
-                >
-                {o.text}
-                </OrderFilterText>
-                {selectedOrder ===  o.enum && <SelectedCircle />}
-              </OrderFilterBox>
-            );
-      })}
-        </OrderFilterWrapper>
-        <LineGrayMiddle/>
+      }
+
+      {showOrderFilter &&
+        <>
+          <OrderFilterWrapper>
+            {orders.map((o: Order, index: number) => {
+              return (
+                <OrderFilterBox
+                  key={index}
+                  onPress={() => [setSelectedOrder(o.enum), setShowOrderFilter(!showOrderFilter)]}>
+                  <OrderFilterText
+                    selectedOrder={selectedOrder}
+                    orderEnum={o.enum}
+                  >
+                    {o.text}
+                  </OrderFilterText>
+                  {selectedOrder === o.enum && <SelectedCircle />}
+                </OrderFilterBox>
+              );
+            })}
+          </OrderFilterWrapper>
+          <LineGrayMiddle />
         </>
-        }
-      <MarginMedium/>
+      }
+      <MarginMedium />
       {_sutraCardsList?.map((sutra: Sutra) => (
         <OneSutraCard
           key={sutra.id}
           sutra={sutra}
+          navigateSutraInfo={() => navigateSutraInfo(sutra.id)}
           onPressEvaluation={onPressEvaluation}
           onPressDeleteEvaluation={onPressDeleteEvaluation}
           onPressLike={onPressLike}

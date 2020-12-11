@@ -32,29 +32,31 @@ const SutraList = ({ navigation }: Props) => {
   const [showQuestionModal, setShowQuestionModal] = React.useState<boolean>(false);
   // redux
   const { data: userInfo } = useSelector((state: RootState) => state.join.userInfo.userInfo);
-  
-  
+
+
   // navigate
   const navigateToJoinStack = () => navigation.navigate('JoinStack');
+  const navigateSutraInfo = (id: number) => navigation.navigate('SutraInfo', { newSutraId: id });
 
   React.useEffect(() => {
     eventUtil.logScreenView(eventUtil.SutraList);
   }, []);
 
   return (
-    <>   
-    <TopBarBackArrow />
-      <ScrollView showsVerticalScrollIndicator={false} style={{backgroundColor: 'white'}}>
+    <>
+      <TopBarBackArrow />
+      <ScrollView showsVerticalScrollIndicator={false} style={{ backgroundColor: 'white' }}>
         <Container>
           {/* [ ] TouchableOpacity는 테스트로 QuestionModal 띄우기 위함. 나중에 삭제하기. */}
           <TouchableOpacity onPress={() => setShowQuestionModal(true)} activeOpacity={1.0}>
-            <CharacInfoCard position={userInfo.position} username={userInfo.username}/>
+            <CharacInfoCard position={userInfo.position} username={userInfo.username} />
           </TouchableOpacity>
-          <MarginWide/>
+          <MarginWide />
           <SutraCardsList
             navigateToJoinStack={navigateToJoinStack}
             openQuestionModal={() => setShowQuestionModal(true)}
-            position={userInfo.position} />
+            position={userInfo.position}
+            navigateSutraInfo={navigateSutraInfo} />
         </Container>
         <QuestionModal
           isVisible={showQuestionModal}
