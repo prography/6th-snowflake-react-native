@@ -8,6 +8,8 @@ import { Img } from "~/img";
 import { getTokenItem } from "~/utils/asyncStorage";
 import { c, d, dateCutter, l } from "~/utils/constant";
 import { consoleError, llog } from "~/utils/functions";
+import { toast } from "~/utils/toast";
+import { alertUtil } from "~/utils/alert";
 
 interface Props {
   comment_id: number;
@@ -16,6 +18,7 @@ interface Props {
   setEditCheck: any;
   editContent: string;
   refetch: () => void;
+  navigateToJoinStack: () => void;
 }
 
 const Container = styled.View`
@@ -47,18 +50,18 @@ const SutraReviewController = ({
   setEditCheck,
   editContent,
   refetch,
+  navigateToJoinStack,
 }: Props) => {
   const pressFunc = async (type: string) => {
     if (type === "edit") setEditCheck(!editCheck);
     try {
       const token = await getTokenItem();
       if (!token) {
-        Alert.alert("❄️", "로그인 후 이용해주세요!");
+        alertUtil.needLogin(navigateToJoinStack, '로그인');
         return;
       }
 
-
-      const { status, response } = await fetchAPI(
+      const { status } = await fetchAPI(
         `labs/sutras/${sutra_id}/comments/${comment_id}/`,
         {
           method: type === "edit" ? "PATCH" : "DELETE",
@@ -72,16 +75,18 @@ const SutraReviewController = ({
         }
       );
       if (type === "edit" && status === 200) {
-        llog("수트라 댓글 수정 성공", response);
+        llog("수트라 댓글 수정 성공");
         refetch();
+        return;
       }
-
       if (type === "delete" && status === 204) {
-        llog("수트라 댓글 삭제 성공", response);
+        llog("수트라 댓글 삭제 성공");
         refetch();
+        return;
       }
 
-      console.log("response", response);
+      // 그 외는 모두 오류
+      toast(`오류가 발생했어요 ${status}`)
     } catch (err) {
       consoleError("🍊sutra review 수정 or 삭제 에러", err);
     }
@@ -99,11 +104,13 @@ const SutraReviewController = ({
           <ControlText>{editCheck ? "수정완료" : "수정"}</ControlText>
         </ControlView>
       </EditButton>
-      <DeleteButton onPress={() => pressFunc("delete")} activeOpacity={1}>
-        <ControlView>
-          <ControlText>삭제</ControlText>
-        </ControlView>
-      </DeleteButton>
+      {!editCheck && (
+        <DeleteButton onPress={() => pressFunc("delete")} activeOpacity={1}>
+          <ControlView>
+            <ControlText>삭제</ControlText>
+          </ControlView>
+        </DeleteButton>
+      )}
     </Container>
   );
 };

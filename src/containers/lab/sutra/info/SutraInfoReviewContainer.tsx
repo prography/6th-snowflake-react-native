@@ -209,6 +209,7 @@ const SutraInfoReviewContainer = ({
             setEditCheck={setEditCheck}
             editContent={editContent === "" ? review.content : editContent}
             refetch={refetch}
+            navigateToJoinStack={navigateToJoinStack}
           />
         ) : null}
       </UserContainer>
@@ -236,7 +237,10 @@ const SutraInfoReviewContainer = ({
             pressLike={pressLike}
             pressDeleteLike={pressDeleteLike}
           />
-          <SutraInfoReviewReport pressReport={pressReport} />
+          <SutraInfoReviewReport
+            isMyReport={userInfo?.id === review.user.id}
+            pressReport={pressReport}
+          />
         </BottomSubContainer>
       </BottomContainer>
     </Container>

@@ -9,6 +9,7 @@ import { c, d, dateCutter, l } from "~/utils/constant";
 import { consoleError, llog } from "~/utils/functions";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 interface Props {
+  isMyReport: boolean;
   pressReport: () => void;
 }
 
@@ -26,14 +27,16 @@ const ReportText = styled.Text`
   color: ${c.black};
 `;
 
-const SutraInfoReviewReport = ({ pressReport }: Props) => {
+const SutraInfoReviewReport = ({ isMyReport, pressReport }: Props) => {
 
   return (
-    <Container onPress={pressReport} activeOpacity={1}>
+    <Container onPress={pressReport} disabled={isMyReport} activeOpacity={1}>
       <MaterialCommunityIcons
         name={"alarm-light-outline"}
+        // color={isMyReport ? 'transparent' : c.red}
         color={c.red}
         size={17}
+        style={{ opacity: isMyReport ? 0.3 : 1.0 }}
       />
     </Container>
   );
