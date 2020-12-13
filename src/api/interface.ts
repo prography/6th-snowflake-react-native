@@ -36,7 +36,7 @@ export interface WelcomeCardContent {
   category: string; // NONE |
   col: number;
   description: string;
-  design_type: number; // notice: 1 | 
+  design_type: number; // notice: 1 |
   image: string;
   status: string; // PUB |
   tag_txt: [string];
@@ -171,7 +171,7 @@ export interface Sutra extends Card {
   } | null;
 }
 
-export interface SutraReviewUser{
+export interface SutraReviewUser {
   id: number;
   username: string;
   position: string;
@@ -183,6 +183,7 @@ export interface SutraReview {
   user_position: string;
   content: string;
   likes_count: number;
+  is_user_like: boolean;
   created_at: string;
   updated_at: string;
 }

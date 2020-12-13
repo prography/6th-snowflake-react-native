@@ -49,13 +49,13 @@ const SutraList = ({ navigation }: Props) => {
         <Container>
           {/* [ ] TouchableOpacity는 테스트로 QuestionModal 띄우기 위함. 나중에 삭제하기. */}
           <TouchableOpacity onPress={() => setShowQuestionModal(true)} activeOpacity={1.0}>
-            <CharacInfoCard position={userInfo.position} username={userInfo.username} />
+            <CharacInfoCard position={userInfo?.position} username={userInfo?.username} />
           </TouchableOpacity>
           <MarginWide />
           <SutraCardsList
             navigateToJoinStack={navigateToJoinStack}
             openQuestionModal={() => setShowQuestionModal(true)}
-            position={userInfo.position}
+            position={userInfo?.position}
             navigateSutraInfo={navigateSutraInfo} />
         </Container>
         <QuestionModal

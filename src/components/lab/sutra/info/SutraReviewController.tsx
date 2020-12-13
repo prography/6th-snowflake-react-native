@@ -12,10 +12,10 @@ import { consoleError, llog } from "~/utils/functions";
 interface Props {
   comment_id: number;
   sutra_id: number;
-  _setSutraReviews: any;
   editCheck: Boolean;
   setEditCheck: any;
   editContent: string;
+  refetch: () => void;
 }
 
 const Container = styled.View`
@@ -43,29 +43,11 @@ const ControlText = styled.Text`
 const SutraReviewController = ({
   comment_id,
   sutra_id,
-  _setSutraReviews,
   editCheck,
   setEditCheck,
-  editContent
+  editContent,
+  refetch,
 }: Props) => {
-  const _getSutraReviews = async () => {
-    try {
-      const { response, status } = await fetchAPI(
-        `labs/sutras/${sutra_id}/comments/`
-      );
-      const json = await response.json();
-      const results: SutraReview[] = json.results;
-      llog("Sutra Reviews Info - success!", results);
-
-      if (status === 200) {
-        _setSutraReviews(results);
-        console.log("다시 불러오기 성공");
-      }
-    } catch (error) {
-      consoleError("Get Sutra Review - error", error);
-    }
-  };
-
   const pressFunc = async (type: string) => {
     if (type === "edit") setEditCheck(!editCheck);
     try {
@@ -75,7 +57,7 @@ const SutraReviewController = ({
         return;
       }
 
-      
+
       const { status, response } = await fetchAPI(
         `labs/sutras/${sutra_id}/comments/${comment_id}/`,
         {
@@ -84,19 +66,19 @@ const SutraReviewController = ({
           params:
             type === "edit"
               ? {
-                  content: editContent,
-                }
+                content: editContent,
+              }
               : null,
         }
       );
       if (type === "edit" && status === 200) {
         llog("수트라 댓글 수정 성공", response);
-        _getSutraReviews();
+        refetch();
       }
 
       if (type === "delete" && status === 204) {
         llog("수트라 댓글 삭제 성공", response);
-        _getSutraReviews();
+        refetch();
       }
 
       console.log("response", response);

@@ -13,7 +13,8 @@ import { View } from "react-native";
 interface Props {
   newSutraId: number;
   _sutraReviews: SutraReview[];
-  _setSutraReviews: any;
+  refetch: () => void;
+  navigateToJoinStack: () => void;
 }
 
 const Container = styled.View`
@@ -34,41 +35,26 @@ const SkyHead = styled.Image`
   margin-right: ${d.px * 5}px;
 `;
 
-const SutraInfoComment = ({ newSutraId, _sutraReviews, _setSutraReviews }: Props) => {
-
-  const _getSutraReviews = async () => {
-    try {
-      const { response, status } = await fetchAPI(
-        `labs/sutras/${newSutraId}/comments/`
-      );
-      const json = await response.json();
-      const results: SutraReview[] = json.results;
-      llog("Sutra Reviews Info - success!", results);
-
-      if (status === 200) {
-        _setSutraReviews(results);
-      }
-    } catch (error) {
-      consoleError("New Card - error", error);
-    }
-  };
-
-  useEffect(() => {
-    _getSutraReviews();
-  }, []);
+const SutraInfoComment = ({ newSutraId, _sutraReviews, refetch, navigateToJoinStack }: Props) => {
 
   return (
     <>
       <Container>
         {_sutraReviews ? (
           _sutraReviews.map((review, i) => (
-            <SutraInfoReviewContainer key={i} review={review} sutra_id={newSutraId} _setSutraReviews={_setSutraReviews}/>
+            <SutraInfoReviewContainer
+              key={i}
+              review={review}
+              sutra_id={newSutraId}
+              refetch={refetch}
+              navigateToJoinStack={navigateToJoinStack}
+            />
           ))
         ) : (
-          <View style={{ marginRight: l.mR }}>
-            <TextTitlePurpleRight title={"Loading..."} />
-          </View>
-        )}
+            <View style={{ marginRight: l.mR }}>
+              <TextTitlePurpleRight title={"Loading..."} />
+            </View>
+          )}
       </Container>
     </>
   );

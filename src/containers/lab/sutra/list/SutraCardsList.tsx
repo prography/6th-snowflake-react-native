@@ -1,20 +1,17 @@
 import * as React from "react";
 import styled from 'styled-components/native';
 import { useState, useEffect } from "react";
-import { useDispatch } from "react-redux";
 
 import OneSutraCard from "~/components/lab/sutra/list/OneSutraCard";
 import { getTokenItem } from "~/utils/asyncStorage";
 import { fetchAPI } from "~/api";
 import { llog, consoleError } from "~/utils/functions";
-import { ResultsRes, Sutra, RecommendType, Position, RequestType } from "~/api/interface";
+import { ResultsRes, Sutra, RecommendType, Position } from "~/api/interface";
 import MarginMedium from "~/components/universal/margin/MarginMedium";
 import { alertUtil } from "~/utils/alert";
 
 import LineGrayMiddle from "~/components/universal/line/LineGrayMiddle";
 
-import { BASE_URL } from "~/utils/constant";
-import { refreshTokenAC } from "~/store/modules/join/auth";
 import { toast } from "~/utils/toast";
 
 
@@ -158,11 +155,6 @@ const SutraCardsList = ({ navigateToJoinStack, openQuestionModal, position, navi
   const [showOrderFilter, setShowOrderFilter] = useState<boolean>(false)
 
 
-
-  // redux
-  const dispatch = useDispatch();
-
-
   const _getSutraList = async () => {
     try {
       const token = await getTokenItem();
@@ -184,7 +176,7 @@ const SutraCardsList = ({ navigateToJoinStack, openQuestionModal, position, navi
 
       const { status, response } = await fetchAPI(`${url}/`, { token }); // TODO token 없앴음 (서버 고쳐져야함.)
       const json: ResultsRes<Sutra> = await response.json();
-      llog("SutraList - success is 200", status, json);
+      llog("SutraList", status, json);
 
       if (status === 200) {
         _setSutraCardsList(json.results);
@@ -211,10 +203,12 @@ const SutraCardsList = ({ navigateToJoinStack, openQuestionModal, position, navi
 
       const { status, response } = await fetchAPI(`labs/sutras/${sutraId}/evaluations/`, { method: 'POST', token, params: { recommend_type: rcType } });
       const json = await response.json();
-      llog('🐰 Sutra', rcType, '성공 = 201', status, json);
+      llog('🐰 Sutra', rcType, status, json);
 
       if (status === 201) {
         _getSutraList();
+      } else {
+        toast(`처리 중 오류가 발생했어요. (${status})`);
       }
     } catch (error) {
       consoleError(`SutraList - ${rcType} error`, error);
@@ -234,30 +228,17 @@ const SutraCardsList = ({ navigateToJoinStack, openQuestionModal, position, navi
         token,
       });
 
-      switch (status) {
-        case 204:
-          _getSutraList();
-          break;
-        case 401:
-          llog('😂 토큰 만료');
-          // 토큰을 다시 요청한다. (모든 API마다 이렇게 해야하는데...)
-          dispatch(refreshTokenAC.request<RequestType>({
-            refetch: () => onPressDeleteEvaluation(sutraId),
-          }));
-          break;
-        default:
-          toast(`처리 중 오류가 발생했어요. (${response.status})`);
-          const json = await response.json()
-          llog('🍊 default json', status, json)
-          break;
+      if (status === 204) {
+        _getSutraList();
+      } else {
+        toast(`처리 중 오류가 발생했어요. (${response.status})`);
       }
     } catch (error) {
-      consoleError(`SutraList - delete 평가 error`, error);
-      _getSutraList();
+      consoleError('SutraList - delete 평가 error', error);
     }
   }
-  // 찜
-  const onPressLike = async (sutraId: number) => {
+  // 찜 or 찜 삭제
+  const onPressLikeOrDeleteLike = async (action: 'like' | 'deleteLike', sutraId: number) => {
     try {
       const token = await getTokenItem();
       if (!token) {
@@ -265,74 +246,26 @@ const SutraCardsList = ({ navigateToJoinStack, openQuestionModal, position, navi
         return;
       }
 
-      const { status, response } = await fetchAPI('likes/', {
-        method: 'POST',
+      const { status } = await fetchAPI('likes/', {
+        method: action === 'like' ? 'POST' : 'DELETE',
         token,
         params: {
           model: 'sutra',
           object_id: sutraId,
         },
       });
-      const json = await response.json();
-      llog('🐰 Sutra Like - 성공 = 201', sutraId, status, json);
+      // NOP!!! const json = await response.json(); // 204 일 때 .json() 하면 서버쪽에서 보내주는게 없어서 에러남
+      llog('🐰 Sutra Like or DeleteLike', status, sutraId);
 
-      if (status === 201) {
+      if (action === 'like' && status === 201) {
         _getSutraList();
+      } else if (action === 'deleteLike' && status === 204) {
+        _getSutraList();
+      } else {
+        toast('오류가 발생했어요');
       }
     } catch (error) {
-      consoleError('SutraList - 찜 error', error);
-    }
-  };
-  // 찜 삭제
-  const onPressDeleteLike = async (likeId: number) => {
-    try {
-      const token = await getTokenItem();
-      if (!token) {
-        alertUtil.needLogin(navigateToJoinStack, '로그인');
-        return;
-      }
-
-      llog('🐰 1 Sutra Delete Like - likeId', likeId);
-      // const response = await fetch(`${BASE_URL}/likes/${likeId}`, {
-      //   method: 'DELETE',
-      //   headers: {
-      //     Authorization: token ? `Bearer ${token}` : "",
-      //     Accept: "application/json",
-      //     "Content-Type": "application/json",
-      //   },
-      // });
-
-      const { status, response } = await fetchAPI(`likes`, {
-        method: 'DELETE',
-        token,
-        params: {
-          model: 'sutra',
-          object_id: likeId,
-        }
-      });
-      const json = await response.json();
-
-      llog('🐰 2 Sutra Delete Like - 성공 = 204, 실제: ', status, json);
-
-      switch (status) {
-        case 204:
-          _getSutraList();
-          break;
-        case 401:
-          llog('😂 토큰 만료');
-          // 토큰을 다시 요청한다. (모든 API마다 이렇게 해야하는데...)
-          dispatch(refreshTokenAC.request<RequestType>({
-            refetch: () => onPressDeleteLike(likeId),
-          }));
-          break;
-        default:
-          toast(`처리 중 오류가 발생했어요. (${response.status})`);
-          const json = await response.json()
-          llog('🍊 default json', status, json)
-          break;
-      }
-    } catch (error) {
-      consoleError('SutraList - 찜 delete error', error);
+      consoleError(`SutraList - ${action === 'like' ? '찜' : '찜 삭제'}  error`, error);
     }
   };
 
@@ -422,8 +355,7 @@ const SutraCardsList = ({ navigateToJoinStack, openQuestionModal, position, navi
           navigateSutraInfo={() => navigateSutraInfo(sutra.id)}
           onPressEvaluation={onPressEvaluation}
           onPressDeleteEvaluation={onPressDeleteEvaluation}
-          onPressLike={onPressLike}
-          onPressDeleteLike={onPressDeleteLike}
+          onPressLikeOrDeleteLike={onPressLikeOrDeleteLike}
         />
       ))}
     </>

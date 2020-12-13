@@ -196,16 +196,16 @@ const JoinScreen = ({ navigation }: Props) => {
       screen: 'Join1',
       function: 'none',
     },
-    {
-      guideText: '카카오로 가입하기',
-      guide: 'kakao',
-      function: _signInWithKakao,
-    },
-    {
-      guideText: '애플로 가입하기',
-      guide: 'apple',
-      function: _signInWithApple,
-    },
+    // {
+    //   guideText: '카카오로 가입하기',
+    //   guide: 'kakao',
+    //   function: _signInWithKakao,
+    // },
+    // {
+    //   guideText: '애플로 가입하기',
+    //   guide: 'apple',
+    //   function: _signInWithApple,
+    // },
   ];
 
   useEffect(() => {

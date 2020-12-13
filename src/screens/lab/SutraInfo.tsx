@@ -33,6 +33,8 @@ const SutraInfo = ({ navigation, route }: Props) => {
     newSutraId,
   } = route.params;
 
+  const navigateToJoinStack = () => navigation.navigate('JoinStack');
+
   React.useEffect(() => {
     eventUtil.logScreenView(eventUtil.SutraInfo)
   }, []);
@@ -42,7 +44,10 @@ const SutraInfo = ({ navigation, route }: Props) => {
       <KeyboardAwareScrollView showsVerticalScrollIndicator={false} style={{ flex: 1 }}>
         <TopBarBackArrow />
         <Container>
-          <SutraInfoContainer newSutraId={newSutraId}/>
+          <SutraInfoContainer
+            newSutraId={newSutraId}
+            navigateToJoinStack={navigateToJoinStack}
+          />
         </Container>
       </KeyboardAwareScrollView>
       <Blinder />

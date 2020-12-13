@@ -1,7 +1,9 @@
 import * as React from "react";
 import { useState } from "react";
 import { useSelector } from "react-redux";
+import { Alert } from "react-native";
 import styled from "styled-components/native";
+
 import { SutraReview } from "~/api/interface";
 import SutraInfoReviewLike from "~/components/lab/sutra/info/SutraInfoReviewLike";
 import SutraInfoReviewReport from "~/components/lab/sutra/info/SutraInfoReviewReport";
@@ -9,10 +11,15 @@ import SutraReviewController from "~/components/lab/sutra/info/SutraReviewContro
 import { Img } from "~/img";
 import { RootState } from "~/store/modules";
 import { c, d, dateCutter, l } from "~/utils/constant";
+import { alertUtil } from "~/utils/alert";
+import { getTokenItem } from "~/utils/asyncStorage";
+import { consoleError, llog } from "~/utils/functions";
+import { fetchAPI } from "~/api";
 interface Props {
   review: SutraReview;
   sutra_id: number;
-  _setSutraReviews: any;
+  refetch: () => void;
+  navigateToJoinStack: () => void;
 }
 
 const Container = styled.View`
@@ -93,7 +100,8 @@ const CommentInput = styled.TextInput`
 const SutraInfoReviewContainer = ({
   review,
   sutra_id,
-  _setSutraReviews,
+  refetch,
+  navigateToJoinStack,
 }: Props) => {
   const [editCheck, setEditCheck] = useState<Boolean>(false);
   const [editContent, setEditContent] = useState<string>("");
@@ -101,6 +109,88 @@ const SutraInfoReviewContainer = ({
   const { loading, data: userInfo, error } = useSelector(
     (state: RootState) => state.join.userInfo.userInfo
   );
+
+  const pressLike = async () => {
+    try {
+      const token = await getTokenItem();
+      if (!token) {
+        alertUtil.needLogin(navigateToJoinStack, '로그인');
+        return;
+      }
+
+      const { status, response } = await fetchAPI(`likes/`, {
+        method: "POST",
+        token,
+        params: {
+          model: "sutracomment",
+          object_id: review.id,
+        },
+      });
+      const json = await response.json();
+      console.log('🍊 수트라 리뷰 좋아요 누름', status, json);
+      if (status === 201) {
+        llog("수트라 리뷰 좋아요", response);
+        refetch();
+      }
+    } catch (err) {
+      consoleError("🍊sutra review like 생성 에러", err);
+    }
+  };
+
+  const pressDeleteLike = async () => {
+    try {
+      const token = await getTokenItem();
+      if (!token) {
+        alertUtil.needLogin(navigateToJoinStack, '로그인');
+        return;
+      }
+
+      const { status, response } = await fetchAPI(`likes/`, {
+        method: "DELETE",
+        token,
+        params: {
+          model: "sutracomment",
+          object_id: review.id,
+        },
+      });
+      console.log('🍊 수트라 리뷰 좋아요 취소 누름', status);
+      if (status === 204) {
+        llog("수트라 리뷰 좋아요 취소", response);
+        refetch();
+      }
+    } catch (err) {
+      consoleError("🍊sutra review like 생성 에러", err);
+    }
+  };
+
+  const pressReport = async () => {
+    try {
+      const token = await getTokenItem();
+      if (!token) {
+        alertUtil.needLogin(navigateToJoinStack, '로그인');
+        return;
+      }
+      const { status, response } = await fetchAPI(`reports/`, {
+        method: "POST",
+        token,
+        params: {
+          model: "sutracomment",
+          object_id: review.id,
+        },
+      });
+      if (status === 201) {
+        Alert.alert("☃️", "신고가 접수되었습니다!");
+        llog("신고 성공", response);
+      }
+      if (status === 400) {
+        Alert.alert("☃️", "신고를 이미 한 상태입니다!");
+        llog("이미 신고함", response);
+      }
+    } catch (err) {
+      consoleError("🍊sutra review 신고 에러", err);
+    }
+  };
+
   return (
     <Container>
       <UserContainer>
@@ -111,14 +201,14 @@ const SutraInfoReviewContainer = ({
           />
           <UserName>{review.user.username}</UserName>
         </UserSubContainer>
-        {!loading && !error && review.user.id === userInfo.id ? (
+        {!loading && !error && review.user.id === userInfo?.id ? (
           <SutraReviewController
             comment_id={review.id}
             sutra_id={sutra_id}
-            _setSutraReviews={_setSutraReviews}
             editCheck={editCheck}
             setEditCheck={setEditCheck}
             editContent={editContent === "" ? review.content : editContent}
+            refetch={refetch}
           />
         ) : null}
       </UserContainer>
@@ -134,18 +224,19 @@ const SutraInfoReviewContainer = ({
           onChangeText={(text) => setEditContent(text)}
         />
       ) : (
-        <ReviewText>{review.content}</ReviewText>
-      )}
+          <ReviewText>{review.content}</ReviewText>
+        )}
 
       <BottomContainer>
         <DateText>{dateCutter(review.created_at)}</DateText>
         <BottomSubContainer>
           <SutraInfoReviewLike
-            comment_id={review.id}
-            sutra_id={sutra_id}
             likes_count={review.likes_count}
+            isLiked={review.is_user_like}
+            pressLike={pressLike}
+            pressDeleteLike={pressDeleteLike}
           />
-          <SutraInfoReviewReport comment_id={review.id} />
+          <SutraInfoReviewReport pressReport={pressReport} />
         </BottomSubContainer>
       </BottomContainer>
     </Container>

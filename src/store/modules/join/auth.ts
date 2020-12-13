@@ -8,6 +8,7 @@ import {
   createAction,
   getActionCreator,
 } from "~/utils/redux";
+import { getUserInfoAC } from "~/store/modules/join/userInfo";
 
 export type AuthState = {
   isLoggedin: boolean;
@@ -58,5 +59,6 @@ export const manageLoginLogout = (dispatch, value: boolean, jwt?: string) => {
   }
   if (value === false) {
     AsyncStorage.removeItem(AsyncAccessToken);
+    dispatch(getUserInfoAC.success(null));
   }
 };

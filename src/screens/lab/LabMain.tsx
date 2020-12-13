@@ -42,18 +42,10 @@ const LabMain = ({ navigation }: Props) => {
   const [newSutraId, setNewSutraId] = useState<number>(null);
 
   const navigateSutraInfo = () => {
-    if (isLoggedin) {
-      navigation.navigate('SutraInfo', { newSutraId });
-    } else {
-      alertUtil.needLogin(() => navigation.navigate('JoinStack'), '로그인');
-    }
+    navigation.navigate('SutraInfo', { newSutraId });
   }
   const navigateSutraList = () => {
-    if (isLoggedin) {
-      navigation.navigate('SutraList');
-    } else {
-      alertUtil.needLogin(() => navigation.navigate('JoinStack'), '로그인');
-    }
+    navigation.navigate('SutraList');
   }
 
   useEffect(() => {

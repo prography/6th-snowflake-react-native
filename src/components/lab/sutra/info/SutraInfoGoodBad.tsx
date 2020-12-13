@@ -1,26 +1,26 @@
 import * as React from 'react';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
+import { Button } from 'react-native';
 import styled from 'styled-components/native';
-import { View, Text, Alert } from 'react-native';
 
 import { d, l, c } from '~/utils/constant';
 import { Img } from '~/img';
 import MarginMedium from '~/components/universal/margin/MarginMedium';
 import MarginNarrow from '~/components/universal/margin/MarginNarrow';
 import LineGrayMiddle from '~/components/universal/line/LineGrayMiddle';
-import MarginWide from '~/components/universal/margin/MarginWide';
 import { FirebaseAnalyticsTypes } from '@react-native-firebase/analytics';
 import { useSelector } from 'react-redux';
 import { RootState } from '~/store/modules';
-import { Card, RecommendType } from '~/api/interface';
+import { Card, RecommendType, Sutra } from '~/api/interface';
 import { consoleError, llog } from '~/utils/functions';
-import { fetchAPI } from '~/api';
-import { getTokenItem } from '~/utils/asyncStorage';
 import TextTitlePurpleRight from '~/components/universal/text/TextTitlePurpleRight';
-import { alertUtil } from '~/utils/alert';
 
 interface Props {
-  newSutraId: number;
+  _sutra: Sutra;
+  refetch: () => void;
+  onPressEvaluation: (sutraId: number, rcType: RecommendType) => void;
+  onPressDeleteEvaluation: (sutraId: number) => void;
+  onPressLikeOrDeleteLike: (action: 'like' | 'deleteLike', sutraId: number) => void;
 }
 
 const Container = styled.View`
@@ -170,243 +170,116 @@ const NotYet = styled.TouchableOpacity`
   align-items: center;
   background-color: ${c.darkGray};
 `;
-const SutraInfoGoodBad = ({newSutraId}: Props) => {
+const SutraInfoGoodBad = ({
+  _sutra,
+  refetch,
+  onPressEvaluation,
+  onPressDeleteEvaluation,
+  onPressLikeOrDeleteLike,
+}: Props) => {
   const [bookmarked, setBookmarked] = useState(false);
   const [selected, setSelected] = useState(FirebaseAnalyticsTypes);
 
+  // redux
   const { data: userInfo } = useSelector((state: RootState) => state.join.userInfo.userInfo);
-
   const blindState = useSelector(
     (state: RootState) => state.product.blind.blindState,
   );
 
-const [_newCard, _setNewCard] = useState<Card>(null);
-
-  const _getNewCard = async () => {
-    try {
-      const token = await getTokenItem();
-      if (!token) {
-        return;
-      }
-
-      const { response, status } = await fetchAPI(`labs/sutras/${newSutraId}/`, { token });
-      const json: Card = await response.json();
-      llog("New Card Detail Info - success!", json);
-
-      if (status === 200) {
-        _setNewCard(json);
-      }
-    } catch (error) {
-      consoleError("New Card - error", error);
-    }
-  };
-
-
-
-
-  // const onPressEvaluation = async (sutraId: number, rcType: RecommendType) => {
-  //   try {
-  //     const token = await getTokenItem();
-  //     if (!token) {
-  //       Alert.alert("❄️", "로그인 후 이용해주세요!");
-  //       return;
-  //     }
-
-  //     if (position === Position.NONE) {
-  //       openQuestionModal();
-  //       return;
-  //     }
-
-  //     const { status } = await fetchAPI(`labs/sutras/${sutraId}/evaluations/`, { method: 'POST', token, params: { recommend_type: rcType } });
-  //     llog('🐰 Sutra', rcType, '성공 = 201', status);
-
-  //     if (status === 201) {
-  //       _getSutraList();
-  //     }
-  //   } catch (error) {
-  //     consoleError(`SutraList - ${rcType} error`, error);
-  //   }
-  // };
-  // // 평가 삭제
-  // const onPressDeleteEvaluation = async (sutraId: number) => {
-  //   try {
-  //     const token = await getTokenItem();
-  //     if (!token) {
-  //       alertUtil.needLogin(navigateToJoinStack, '로그인');
-  //       return;
-  //     }
-
-  //     const { status } = await fetchAPI(`labs/sutras/${sutraId}/evaluations/`, { method: 'DELETE', token });
-  //     llog('🐰 Sutra 삭제', '성공 = 204', status);
-
-  //     if (status === 204) {
-  //       _getSutraList();
-  //     }
-  //   } catch (error) {
-  //     consoleError(`SutraList - delete 평가 error`, error);
-  //   }
-  // }
-  // // 찜
-  // const onPressLike = async (sutraId: number) => {
-  //   try {
-  //     const token = await getTokenItem();
-  //     if (!token) {
-  //       alertUtil.needLogin(navigateToJoinStack, '로그인');
-  //       return;
-  //     }
-
-  //     const { status } = await fetchAPI('likes/', {
-  //       method: 'POST',
-  //       token,
-  //       params: {
-  //         model: 'sutra',
-  //         object_id: sutraId,
-  //       },
-  //     });
-  //     llog('🐰 Sutra Like - 성공 = 201', status);
-
-  //     if (status === 201) {
-  //       _getSutraList();
-  //     }
-  //   } catch (error) {
-  //     consoleError('SutraList - 찜 error', error);
-  //   }
-  // };
-  // // 찜 삭제
-  // const onPressDeleteLike = async (likeId: number) => {
-  //   try {
-  //     const token = await getTokenItem();
-  //     if (!token) {
-  //       alertUtil.needLogin(navigateToJoinStack, '로그인');
-  //       return;
-  //     }
-
-  //     const { status, response } = await fetchAPI(`likes/${likeId}`, {
-  //       method: 'DELETE',
-  //       token,
-  //     });
-
-  //     const json = await response.json();
-  //     llog('🐰 Sutra Delete Like - 성공 = 204', status, json);
-
-  //     if (status === 204) {
-  //       _getSutraList();
-  //     }
-  //   } catch (error) {
-  //     consoleError('SutraList - 찜 delete error', error);
-  //   }
-  // };
-
-
-
-
-
-
-
-
-
-
-
-
-
-  useEffect(() => {
-    console.log('newSUtraId', newSutraId)
-    _getNewCard();
-  }, []);
+  // sutra
+  const { id, name_kor, thumbnail, comment, recommend_data, is_user_like } = _sutra || {};
+  const { percentage, purple_count, sky_count } = recommend_data || {};
 
   return (
     <>
-    {!_newCard ? <TextTitlePurpleRight title={"Loading..."} />:(
-      <>
-      <Container>
-        <ImageContainer>
-          <SutraImage
-            style={{ resizeMode: "cover" }}
-            source={
-              blindState
-                ? Img.doodle.cdBoxMintPurpleHeart
-                : { uri: _newCard?.image }
-            }
-          />
-          <LikeContainer activeOpacity={1}>
-            {/* 찜했으면 보라색으로, 찜 안 한 건 하얀색으로 */}
-            {bookmarked ? (
-              <LikeImage
+      {!_sutra ? <TextTitlePurpleRight title={"Loading..."} /> : (
+        <>
+          <Container>
+            <ImageContainer>
+              <SutraImage
                 style={{ resizeMode: "contain" }}
-                source={Img.icon.bookmarkSelected}
+                source={
+                  blindState
+                    ? Img.doodle.cdBoxMintPurpleHeart
+                    : { uri: _sutra?.image }
+                }
               />
-            ) : (
-              <LikeImage
-                style={{ resizeMode: "contain" }}
-                source={Img.icon.bookmarkUnselected}
-              />
-            )}
-          </LikeContainer>
-        </ImageContainer>
-        <MarginMedium />
-        <InfoContainer>
-          <NameContainer>
-            <KoreanNameText>{_newCard.name_kor}</KoreanNameText>
-            <EnglishNameText>{_newCard.name_eng}</EnglishNameText>
-          </NameContainer>
+              <LikeContainer
+                activeOpacity={1}
+                onPress={() => onPressLikeOrDeleteLike(is_user_like ? 'deleteLike' : 'like', id)}>
+                {/* 찜했으면 보라색으로, 찜 안 한 건 하얀색으로 */}
+                <LikeImage
+                  style={{ resizeMode: "contain" }}
+                  source={is_user_like ? Img.icon.bookmarkSelected : Img.icon.bookmarkUnselected}
+                />
+              </LikeContainer>
+            </ImageContainer>
+            <MarginMedium />
+            <MarginMedium />
+            <InfoContainer>
+              <NameContainer>
+                <KoreanNameText>{_sutra.name_kor}</KoreanNameText>
+                <EnglishNameText>{_sutra.name_eng}</EnglishNameText>
+              </NameContainer>
+              <MarginNarrow />
+              <DetailContainer>
+                <DetailText>{_sutra.description}</DetailText>
+              </DetailContainer>
+            </InfoContainer>
+          </Container>
           <MarginNarrow />
-          <DetailContainer>
-            <DetailText>{_newCard.description}</DetailText>
-          </DetailContainer>
-        </InfoContainer>
-      </Container>
-      <MarginNarrow />
-      <LineGrayMiddle />
-      <MarginMedium />
-      <Container>
-        {selected ? (
-          <SelectionContainer>
-            <GoodScoreContainer>
-              {/* score들의 숫자는 임의로 넣은 점수... 받아온 점수가 들어가면 됨! */}
-              <GoodScore score={74.5} />
-              <GoodScoreText>추천 74.5%</GoodScoreText>
-            </GoodScoreContainer>
+          <LineGrayMiddle />
+          <MarginMedium />
+          <Container>
+            {recommend_data !== null ? (
+              <SelectionContainer>
+                <Button title="평가 삭제(디자인 필요)" onPress={() => onPressDeleteEvaluation(id)} />
+                <GoodScoreContainer>
+                  {/* score들의 숫자는 임의로 넣은 점수... 받아온 점수가 들어가면 됨! */}
+                  <GoodScore score={74.5} />
+                  <GoodScoreText>추천 74.5%</GoodScoreText>
+                </GoodScoreContainer>
 
-            <PurpleSkyScoreContainer>
-              <PurpleScoreContainer>
-                <PurpleScoreWrapper>
-                  <PurpleScore score={84.6} />
-                </PurpleScoreWrapper>
-                <PurpleHead
-                  style={{ resizeMode: "contain" }}
-                  source={Img.sample.purpleCharacHead}
-                />
-              </PurpleScoreContainer>
-              <SkyScoreContainer>
-                <SkyScoreWrapper>
-                  <SkyScore score={68.3} />
-                </SkyScoreWrapper>
-                <SkyHead
-                  style={{ resizeMode: "contain" }}
-                  source={Img.sample.skyCharacHead}
-                />
-              </SkyScoreContainer>
-            </PurpleSkyScoreContainer>
-          </SelectionContainer>
-        ) : (
-          <SelectionContainer>
-            <GoodOrBadButtonContainer>
-              <GoodButton activeOpacity={1}>
-                <GoodBadText white={true}>추천</GoodBadText>
-              </GoodButton>
-              <BadButton activeOpacity={1}>
-                <GoodBadText white={false}>비추</GoodBadText>
-              </BadButton>
-            </GoodOrBadButtonContainer>
-            <NotYet activeOpacity={1}>
-              <GoodBadText white={true}>안 해 봤어요</GoodBadText>
-            </NotYet>
-          </SelectionContainer>
-        )}
-      </Container>
-      </>
-    )}
-      
+                <PurpleSkyScoreContainer>
+                  <PurpleScoreContainer>
+                    <PurpleScoreWrapper>
+                      <PurpleScore score={84.6} />
+                    </PurpleScoreWrapper>
+                    <PurpleHead
+                      style={{ resizeMode: "contain" }}
+                      source={Img.sample.purpleCharacHead}
+                    />
+                  </PurpleScoreContainer>
+                  <SkyScoreContainer>
+                    <SkyScoreWrapper>
+                      <SkyScore score={68.3} />
+                    </SkyScoreWrapper>
+                    <SkyHead
+                      style={{ resizeMode: "contain" }}
+                      source={Img.sample.skyCharacHead}
+                    />
+                  </SkyScoreContainer>
+                </PurpleSkyScoreContainer>
+              </SelectionContainer>
+            ) : (
+                <SelectionContainer>
+                  <GoodOrBadButtonContainer>
+                    <GoodButton onPress={() => onPressEvaluation(id, RecommendType.RECOMMEND)} activeOpacity={1}>
+                      <GoodBadText white={true}>추천</GoodBadText>
+                    </GoodButton>
+                    <BadButton onPress={() => onPressEvaluation(id, RecommendType.UNRECOMMEND)} activeOpacity={1}>
+                      <GoodBadText white={false}>비추</GoodBadText>
+                    </BadButton>
+                  </GoodOrBadButtonContainer>
+                  <NotYet onPress={() => onPressEvaluation(id, RecommendType.NOTYET)} activeOpacity={1}>
+                    <GoodBadText white={true}>안 해 봤어요</GoodBadText>
+                  </NotYet>
+                </SelectionContainer>
+              )}
+          </Container>
+        </>
+      )}
+
       <MarginMedium />
       <LineGrayMiddle />
     </>

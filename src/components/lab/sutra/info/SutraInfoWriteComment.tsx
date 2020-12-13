@@ -10,10 +10,13 @@ import { getTokenItem } from "~/utils/asyncStorage";
 import { fetchAPI } from "~/api";
 import { consoleError, llog } from "~/utils/functions";
 import { SutraReview } from "~/api/interface";
+import { toast } from "~/utils/toast";
+import { alertUtil } from "~/utils/alert";
 
 interface Props {
   newSutraId: number;
-  _setSutraReviews: any;
+  refetch: () => void;
+  navigateToJoinStack: () => void;
 }
 
 const Container = styled.View`
@@ -71,35 +74,20 @@ const SubContainer = styled.View`
 
 const SutraInfoWriteComment = ({
   newSutraId: sutra_id,
-  _setSutraReviews,
+  refetch,
+  navigateToJoinStack,
 }: Props) => {
   const [content, setContent] = useState<string>("");
   const { loading, data: userInfo, error } = useSelector(
     (state: RootState) => state.join.userInfo.userInfo
   );
-
-  const _getSutraReviews = async () => {
-    try {
-      const { response, status } = await fetchAPI(
-        `labs/sutras/${sutra_id}/comments/`
-      );
-      const json = await response.json();
-      const results: SutraReview[] = json.results;
-      llog("Sutra Reviews Info - success!", results);
-      if (status === 200) {
-        _setSutraReviews(results);
-        console.log("Review Refetch - Success");
-      }
-    } catch (error) {
-      consoleError("Review Refetch - error", error);
-    }
-  };
+  const isLoggedin = useSelector((state: RootState) => state.join.auth.isLoggedin);
 
   const submitContent = async () => {
     try {
       const token = await getTokenItem();
       if (!token) {
-        Alert.alert("❄️", "로그인 후 이용해주세요!");
+        alertUtil.needLogin(navigateToJoinStack, '로그인');
         return;
       }
       console.log("등록?");
@@ -118,11 +106,11 @@ const SutraInfoWriteComment = ({
       console.log(status, response);
       if (status === 201) {
         setContent("");
-        Alert.alert("☃️", "리뷰 등록 완료");
-        llog("Sutra Review 등록 성공", response);
-        _getSutraReviews();
+        toast("☃️ 리뷰 등록 완료");
+        refetch();
       }
     } catch (err) {
+      toast('리뷰 등록 중 오류가 발생했어요')
       consoleError("🍊sutra review 등록 에러", err);
     }
   };
@@ -135,7 +123,7 @@ const SutraInfoWriteComment = ({
             style={{ resizeMode: "contain" }}
             source={Img.sample.purpleCharacHead}
           />
-          <UserName>{!loading && !error && userInfo.username}</UserName>
+          <UserName>{!loading && !error && userInfo?.username}</UserName>
         </SubContainer>
         <SubContainer>
           <CommentInput
@@ -143,7 +131,8 @@ const SutraInfoWriteComment = ({
             multiline={true}
             blurOnSubmit={true}
             placeholderTextColor={c.lightGray}
-            placeholder={"리뷰를 입력해주세요."}
+            editable={isLoggedin}
+            placeholder={isLoggedin ? "리뷰를 입력해주세요." : '로그인 후 이용해주세요 :)'}
             style={{ padding: d.px * 3 }}
             value={content}
             onChangeText={(text) => setContent(text)}

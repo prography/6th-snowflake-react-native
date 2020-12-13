@@ -202,8 +202,7 @@ interface Props {
   navigateSutraInfo: () => void;
   onPressEvaluation: (sutraId: number, rcType: RecommendType) => void;
   onPressDeleteEvaluation: (sutraId: number) => void;
-  onPressLike: (sutraId: number) => void;
-  onPressDeleteLike: (likeId: number) => void;
+  onPressLikeOrDeleteLike: (action: 'like' | 'deleteLike', sutraId: number) => void;
 }
 
 const OneSutraCard = ({
@@ -211,8 +210,7 @@ const OneSutraCard = ({
   navigateSutraInfo,
   onPressEvaluation,
   onPressDeleteEvaluation,
-  onPressLike,
-  onPressDeleteLike,
+  onPressLikeOrDeleteLike,
 }: Props) => {
   const blindState = useSelector(
     (state: RootState) => state.product.blind.blindState,
@@ -236,19 +234,12 @@ const OneSutraCard = ({
             <LikeContainer
               hitSlop={HIT_SLOP}
               activeOpacity={1.0}
-              onPress={() => is_user_like ? onPressDeleteLike(id) : onPressLike(id)}>
+              onPress={() => onPressLikeOrDeleteLike(is_user_like ? 'deleteLike' : 'like', id)}>
               {/* 찜했으면 보라색으로, 찜 안 한 건 하얀색으로 */}
-              {is_user_like ? (
-                <LikeImage
-                  resizeMode="contain"
-                  source={Img.icon.bookmarkSelected}
-                />
-              ) : (
-                  <LikeImage
-                    resizeMode="contain"
-                    source={Img.icon.bookmarkUnselected}
-                  />
-                )}
+              <LikeImage
+                resizeMode="contain"
+                source={is_user_like ? Img.icon.bookmarkSelected : Img.icon.bookmarkUnselected}
+              />
             </LikeContainer>
           </AgainLikeWrapper>
         </TopArea>
