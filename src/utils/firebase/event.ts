@@ -55,9 +55,9 @@ export const eventUtil = {
   blinder_to_show: "blinder_to_show",
 
   // ProductInfo Bar
-  press_delete_like: "press_delete_like", // { productId }
-  press_like: "press_like", // { productId }
-  press_review_upload: "press_review_upload", // { productId }
+  press_delete_like: "press_delete_like", // (deprecated) { productId }
+  press_like: "press_like", // (deprecated) { productId }
+  press_review_upload: "press_review_upload", // (deprecated) { productId }
 
   // Ranking Bar
   press_product: "press_product", // { productId }
