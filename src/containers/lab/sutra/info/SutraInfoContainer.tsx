@@ -13,6 +13,7 @@ import { getTokenItem } from "~/utils/asyncStorage";
 import { RootState } from '~/store/modules';
 import { toast } from "~/utils/toast";
 import { alertUtil } from "~/utils/alert";
+import QuestionModal from "../QuestionModal";
 
 interface Props {
   newSutraId: number;
@@ -22,7 +23,7 @@ interface Props {
 const SutraInfoContainer = ({ newSutraId, navigateToJoinStack }: Props) => {
   // redux
   const isLoggedin = useSelector((state: RootState) => state.join.auth.isLoggedin);
-  const userInfo = useSelector((state: RootState) => state.join.userInfo.userInfo);
+  const { data: userInfo } = useSelector((state: RootState) => state.join.userInfo.userInfo);
   // state
   const [_sutra, _setSutra] = useState<Sutra>(null);
   const [_sutraReviews, _setSutraReviews] = useState<SutraReview[]>(null);
@@ -168,6 +169,11 @@ const SutraInfoContainer = ({ newSutraId, navigateToJoinStack }: Props) => {
         newSutraId={newSutraId}
         _sutraReviews={_sutraReviews}
         refetch={() => _getSutraReviews()}
+        navigateToJoinStack={navigateToJoinStack}
+      />
+      <QuestionModal
+        isVisible={showQuestionModal}
+        onCancel={() => setShowQuestionModal(false)}
         navigateToJoinStack={navigateToJoinStack}
       />
     </>

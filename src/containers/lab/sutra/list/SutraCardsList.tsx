@@ -1,6 +1,7 @@
 import * as React from "react";
 import styled from 'styled-components/native';
 import { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
 
 import OneSutraCard from "~/components/lab/sutra/list/OneSutraCard";
 import { getTokenItem } from "~/utils/asyncStorage";
@@ -13,6 +14,7 @@ import { alertUtil } from "~/utils/alert";
 import LineGrayMiddle from "~/components/universal/line/LineGrayMiddle";
 
 import { toast } from "~/utils/toast";
+import { RootState } from "~/store/modules";
 
 
 interface Props {
@@ -154,11 +156,12 @@ const SutraCardsList = ({ navigateToJoinStack, openQuestionModal, position, navi
   const [showFilter, setShowFilter] = useState<boolean>(false);
   const [showOrderFilter, setShowOrderFilter] = useState<boolean>(false)
 
+  // redux
+  const isLoggedin = useSelector((state: RootState) => state.join.auth.isLoggedin);
 
   const _getSutraList = async () => {
     try {
       const token = await getTokenItem();
-      if (!token) { return; }
 
       let url = `labs/sutras?`;
       if (selectedFilter !== FilterEnum.none) {
@@ -174,7 +177,7 @@ const SutraCardsList = ({ navigateToJoinStack, openQuestionModal, position, navi
       }
       llog('🍎 url', url);
 
-      const { status, response } = await fetchAPI(`${url}/`, { token }); // TODO token 없앴음 (서버 고쳐져야함.)
+      const { status, response } = await fetchAPI(`${url}/`, { token });
       const json: ResultsRes<Sutra> = await response.json();
       llog("SutraList", status, json);
 
@@ -272,7 +275,7 @@ const SutraCardsList = ({ navigateToJoinStack, openQuestionModal, position, navi
   useEffect(() => {
     _getSutraList();
     // TODO _getSutraList n초 단위로 새로고침
-  }, [selectedFilter, selectedOrder]);
+  }, [selectedFilter, selectedOrder, isLoggedin]);
 
 
   return (
