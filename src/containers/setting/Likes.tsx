@@ -69,6 +69,7 @@ const Likes = ({ navigateToProductInfo }: Props) => {
   const [_likeList, _setLikeList] = useState<CondomLiked[]>(null);
   const [showLikes, setShowLikes] = useState<boolean>(false);
 
+  // TODO: 서버 새로 만들어줘야함. 요청해놨음.
   const _getLikes = async () => {
     try {
       const token = await getTokenItem();

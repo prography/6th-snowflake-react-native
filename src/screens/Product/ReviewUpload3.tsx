@@ -20,6 +20,7 @@ import { ProductStackParamList } from '~/navigation/tabs/ProductStack';
 import { fetchAPI } from '~/api';
 import { llog } from '~/utils/functions';
 import { eventUtil } from '~/utils/firebase/event';
+import { alertUtil } from '~/utils/alert';
 
 interface Props {
   navigation: StackNavigationProp<ProductStackParamList, 'ReviewUpload3'>;
@@ -57,6 +58,8 @@ const ReviewUpload3 = ({ navigation, route }: Props) => {
 
   const { getItem: getTokenItem } = useAsyncStorage(AsyncAccessToken);
 
+  const navigateToJoinStack = () => navigation.navigate('JoinStack');
+
   const _reviewUpload = async () => {
     llog('🎃1_reviewUpload 호출');
     const product = productId;
@@ -71,7 +74,10 @@ const ReviewUpload3 = ({ navigation, route }: Props) => {
     try {
       const token = await getTokenItem();
       llog('🎃2_reviews 업로드 api 호출 with token:', token);
-      if (!token) { Alert.alert('❄️', '로그인 후 이용해주세요!'); return; }
+      if (!token) {
+        alertUtil.needLogin(navigateToJoinStack, '로그인');
+        return;
+      }
 
       const { status } = await fetchAPI('reviews/', {
         method: 'POST',

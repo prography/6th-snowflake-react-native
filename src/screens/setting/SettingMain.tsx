@@ -34,7 +34,6 @@ const LoginContainer = styled.View`
 
 const SettingMain = ({ navigation }: Props) => {
   const _isLoggedin = useSelector((state: RootState) => state.join.auth.isLoggedin);
-  llog('로그인됨?', _isLoggedin);
 
   useEffect(() => {
     eventUtil.logScreenView(eventUtil.ProductInfo);

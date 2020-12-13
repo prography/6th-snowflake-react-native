@@ -23,6 +23,7 @@ function* manageLoginLogout(value: boolean, loginRes?: LoginRes) {
     yield AsyncStorage.setItem(asyncUtil.refreshToken, loginRes.refresh);
   }
   if (value === false) {
+    // TODO userInfo null로
     yield AsyncStorage.removeItem(AsyncAccessToken);
   }
 }

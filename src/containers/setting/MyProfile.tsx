@@ -10,6 +10,7 @@ import { manageLoginLogout } from "~/store/modules/join/auth";
 import MarginNarrow from "~/components/universal/margin/MarginNarrow";
 import { RootState } from "~/store/modules";
 import { getUserInfoAC } from "~/store/modules/join/userInfo";
+import { toast } from "~/utils/toast";
 
 const ProfileContainer = styled.View``;
 const Container = styled.View`
@@ -19,13 +20,12 @@ const Container = styled.View`
 const MyProfile = () => {
   // redux
   const dispatch = useDispatch();
-
   const _isLoggedin = useSelector((state: RootState) => state.join.auth.isLoggedin);
   const { loading, data: userInfo, error } = useSelector((state: RootState) => state.join.userInfo.userInfo);
 
   useEffect(() => {
-    dispatch(getUserInfoAC.request());
-  }, []);
+    dispatch(getUserInfoAC.request()); // 로그인하고 다시 오면 다시 렌더링 돼서 또 호출됨. => 로그인하고 오면 userInfo 
+  }, [_isLoggedin]);
 
   return (
     <Container>

@@ -15,7 +15,7 @@ import { llog } from "~/utils/functions";
 import { fetchAPI } from "~/api";
 
 interface Props {
-    navigation: StackNavigationProp<RootTabParamList>;
+  navigation: StackNavigationProp<RootTabParamList>;
 }
 
 const Container = styled.View`
@@ -27,7 +27,7 @@ const KeyboardAwareView = styled.KeyboardAvoidingView`
   margin: 0 ${l.mR}px;
 `;
 
-const EditInfo = ({navigation}: Props) => {
+const EditInfo = ({ navigation }: Props) => {
 
   const { loading, data: userInfo, error } = useSelector((state: RootState) => state.join.userInfo.userInfo);
 
@@ -36,11 +36,10 @@ const EditInfo = ({navigation}: Props) => {
   const [password, setPassword] = useState<string>("");
 
   const infoArr = [
-      {title: "변경할\n이메일", defaultValue:email, setValue:setEmail},
-      {title: "변경할\n이름", defaultValue:username, setValue: setUsername},
-      {title: "비밀번호\n인증", defaultVaue:password, setValue: setPassword}
+    { title: "변경할\n이메일", defaultValue: email, setValue: setEmail },
+    { title: "변경할\n이름", defaultValue: username, setValue: setUsername },
+    { title: "비밀번호\n인증", defaultVaue: password, setValue: setPassword }
   ]
-
 
   const editInfo = async () => {
     //PATCH account
@@ -55,8 +54,8 @@ const EditInfo = ({navigation}: Props) => {
         },
       });
 
-      if (status === 201){
-        navigation.navigate("JoinStack", {screen: "SettingMain"})
+      if (status === 201) {
+        navigation.navigate("JoinStack", { screen: "SettingMain" })
         alert('정보수정 완료');
         console.log(response)
       }
@@ -65,27 +64,27 @@ const EditInfo = ({navigation}: Props) => {
     }
   };
 
-  
+
   return (
     <>
       {loading ? (
         <TextTitlePurpleRight title={"Loading..."} />
       ) : (
           <BottomBtnCollectData
-          btnText={"수정 완료"}
-          isFilled={true}
-          onPressFunction={editInfo}
+            btnText={"수정 완료"}
+            isFilled={true}
+            onPressFunction={editInfo}
           >
-        <Container>
-          <KeyboardAwareView>
-            <TopBarBackArrowTitleRightIcon title="회원정보 수정" />
-            {infoArr.map((info, index) => (
-                <EditProfileForm key={index} title={info.title} defaultValue={info.defaultValue} setValue={info.setValue}/>
-            ))}
-          </KeyboardAwareView>
-        </Container>
-        </BottomBtnCollectData>
-      )}
+            <Container>
+              <KeyboardAwareView>
+                <TopBarBackArrowTitleRightIcon title="회원정보 수정" />
+                {infoArr.map((info, index) => (
+                  <EditProfileForm key={index} title={info.title} defaultValue={info.defaultValue} setValue={info.setValue} />
+                ))}
+              </KeyboardAwareView>
+            </Container>
+          </BottomBtnCollectData>
+        )}
     </>
   );
 };

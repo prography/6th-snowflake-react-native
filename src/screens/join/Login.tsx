@@ -58,7 +58,7 @@ const Login = ({ navigation }: Props) => {
   llog('_loggedin', _isLoggedin);
 
   useEffect(() => {
-    _isLoggedin ? navigation.dispatch(StackActions.popToTop()) : null;
+    _isLoggedin ? navigation.dispatch(StackActions.popToTop()) : null; // 이동하게 되는 screen이 다시 렌더링 됨. didMount 재 실행됨.
   }, [_isLoggedin]);
   useEffect(() => {
     userEmail && userPassword ? setIsFilled(true) : setIsFilled(false);
