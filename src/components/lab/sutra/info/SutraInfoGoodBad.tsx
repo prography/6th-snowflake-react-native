@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { useState } from 'react';
 import { Button } from 'react-native';
 import styled from 'styled-components/native';
 
@@ -8,11 +7,9 @@ import { Img } from '~/img';
 import MarginMedium from '~/components/universal/margin/MarginMedium';
 import MarginNarrow from '~/components/universal/margin/MarginNarrow';
 import LineGrayMiddle from '~/components/universal/line/LineGrayMiddle';
-import { FirebaseAnalyticsTypes } from '@react-native-firebase/analytics';
 import { useSelector } from 'react-redux';
 import { RootState } from '~/store/modules';
-import { Card, RecommendType, Sutra } from '~/api/interface';
-import { consoleError, llog } from '~/utils/functions';
+import { RecommendType, Sutra } from '~/api/interface';
 import TextTitlePurpleRight from '~/components/universal/text/TextTitlePurpleRight';
 
 interface Props {
@@ -177,9 +174,6 @@ const SutraInfoGoodBad = ({
   onPressDeleteEvaluation,
   onPressLikeOrDeleteLike,
 }: Props) => {
-  const [bookmarked, setBookmarked] = useState(false);
-  const [selected, setSelected] = useState(FirebaseAnalyticsTypes);
-
   // redux
   const { data: userInfo } = useSelector((state: RootState) => state.join.userInfo.userInfo);
   const blindState = useSelector(
@@ -187,7 +181,7 @@ const SutraInfoGoodBad = ({
   );
 
   // sutra
-  const { id, name_kor, thumbnail, comment, recommend_data, is_user_like } = _sutra || {};
+  const { id, name_kor, name_eng, description, thumbnail, comment, recommend_data, is_user_like } = _sutra || {};
   const { percentage, purple_count, sky_count } = recommend_data || {};
 
   return (
@@ -218,12 +212,12 @@ const SutraInfoGoodBad = ({
             <MarginMedium />
             <InfoContainer>
               <NameContainer>
-                <KoreanNameText>{_sutra.name_kor}</KoreanNameText>
-                <EnglishNameText>{_sutra.name_eng}</EnglishNameText>
+                <KoreanNameText>{name_kor}</KoreanNameText>
+                <EnglishNameText>{name_eng}</EnglishNameText>
               </NameContainer>
               <MarginNarrow />
               <DetailContainer>
-                <DetailText>{_sutra.description}</DetailText>
+                <DetailText>{description}</DetailText>
               </DetailContainer>
             </InfoContainer>
           </Container>

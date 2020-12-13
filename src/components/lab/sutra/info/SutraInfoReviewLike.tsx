@@ -35,7 +35,7 @@ const CountText = styled.Text`
 
 const SutraInfoReviewLike = ({ likes_count, isLiked, pressLikeOrDeleteLike }: Props) => {
   return (
-    <Container onPress={pressLikeOrDeleteLike(isLiked ? 'deleteLike' : 'like')} activeOpacity={1}>
+    <Container onPress={() => pressLikeOrDeleteLike(isLiked ? 'deleteLike' : 'like')} activeOpacity={1}>
       <LikeView>
         <AntDesign name={isLiked ? 'like1' : 'like2'} color={c.purple} size={15} />
       </LikeView>
