@@ -1,19 +1,13 @@
 import * as React from "react";
-import { Alert } from "react-native";
 import styled from "styled-components/native";
-import { fetchAPI } from "~/api";
-import { SutraReview } from "~/api/interface";
-import { Img } from "~/img";
-import { getTokenItem } from "~/utils/asyncStorage";
+
 import { c, d, dateCutter, l } from "~/utils/constant";
-import { consoleError, llog } from "~/utils/functions";
 import AntDesign from "react-native-vector-icons/AntDesign";
 
 interface Props {
   likes_count: number;
   isLiked: boolean;
-  pressLike: () => void;
-  pressDeleteLike: () => void;
+  pressLikeOrDeleteLike: (action: 'like' | 'deleteLike') => void;
 }
 
 const Container = styled.TouchableOpacity`
@@ -39,9 +33,9 @@ const CountText = styled.Text`
   color: ${c.black};
 `;
 
-const SutraInfoReviewLike = ({ likes_count, isLiked, pressLike, pressDeleteLike }: Props) => {
+const SutraInfoReviewLike = ({ likes_count, isLiked, pressLikeOrDeleteLike }: Props) => {
   return (
-    <Container onPress={isLiked ? pressDeleteLike : pressLike} activeOpacity={1}>
+    <Container onPress={pressLikeOrDeleteLike(isLiked ? 'deleteLike' : 'like')} activeOpacity={1}>
       <LikeView>
         <AntDesign name={isLiked ? 'like1' : 'like2'} color={c.purple} size={15} />
       </LikeView>

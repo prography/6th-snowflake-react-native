@@ -15,6 +15,7 @@ import { alertUtil } from "~/utils/alert";
 import { getTokenItem } from "~/utils/asyncStorage";
 import { consoleError, llog } from "~/utils/functions";
 import { fetchAPI } from "~/api";
+import { toast } from "~/utils/toast";
 interface Props {
   review: SutraReview;
   sutra_id: number;
@@ -110,7 +111,7 @@ const SutraInfoReviewContainer = ({
     (state: RootState) => state.join.userInfo.userInfo
   );
 
-  const pressLike = async () => {
+  const pressLikeOrDeleteLike = async (action: 'like' | 'deleteLike') => {
     try {
       const token = await getTokenItem();
       if (!token) {
@@ -119,47 +120,32 @@ const SutraInfoReviewContainer = ({
       }
 
       const { status, response } = await fetchAPI(`likes/`, {
-        method: "POST",
+        method: action === 'like' ? 'POST' : 'DELETE',
         token,
         params: {
           model: "sutracomment",
           object_id: review.id,
         },
       });
-      const json = await response.json();
-      console.log('🍊 수트라 리뷰 좋아요 누름', status, json);
-      if (status === 201) {
+
+      llog('🍊 수트라 리뷰 좋아요 or 좋아요 취소', status);
+
+      if (action === 'like' && status === 201) {
         llog("수트라 리뷰 좋아요", response);
         refetch();
-      }
-    } catch (err) {
-      consoleError("🍊sutra review like 생성 에러", err);
-    }
-  };
-
-  const pressDeleteLike = async () => {
-    try {
-      const token = await getTokenItem();
-      if (!token) {
-        alertUtil.needLogin(navigateToJoinStack, '로그인');
         return;
       }
 
-      const { status, response } = await fetchAPI(`likes/`, {
-        method: "DELETE",
-        token,
-        params: {
-          model: "sutracomment",
-          object_id: review.id,
-        },
-      });
-      console.log('🍊 수트라 리뷰 좋아요 취소 누름', status);
-      if (status === 204) {
+      if (action === 'deleteLike' && status === 204) {
         llog("수트라 리뷰 좋아요 취소", response);
         refetch();
+        return;
       }
+
+      // 그 외 오류
+      toast(`오류가 발생했어요 ${status}`)
     } catch (err) {
-      consoleError("🍊sutra review like 생성 에러", err);
+      consoleError('🍊sutra review like or delete like 에러', err);
     }
   };
 
@@ -234,8 +220,7 @@ const SutraInfoReviewContainer = ({
           <SutraInfoReviewLike
             likes_count={review.likes_count}
             isLiked={review.is_user_like}
-            pressLike={pressLike}
-            pressDeleteLike={pressDeleteLike}
+            pressLikeOrDeleteLike={pressLikeOrDeleteLike}
           />
           <SutraInfoReviewReport
             isMyReport={userInfo?.id === review.user.id}
